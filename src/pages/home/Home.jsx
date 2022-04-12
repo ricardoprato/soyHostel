@@ -1,34 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import Filters from "../../components/Filters/Filters";
 import RoomCard from "../../components/RoomCard/RoomCard";
-const availableBeds = [];
+import GlobalContext from "../../GlobalContext/GlobalContext";
+
 export default function Home() {
+
+  const { availableBeds } = useContext(GlobalContext) // ver como destructuro del globalContext
+
   return (
     <div className="HomeContainer">
-      <div>
-        <Filters />{" "}
-      </div>
+      <div><Filters/> </div>
       <div className="RoomCardsContainer">
-        {availableBeds.length > 0 ? (
-          availableBeds.map(
-            (
-              r // availableBeds deberia ser un array de objetos que tengan la data unificada del back y front???
-            ) => (
-              <div>
-                <RoomCard
-                  key={r.id}
-                  name={r.name}
-                  img={r.img}
-                  price={r.price}
-                  availability={r.availability}
-                  description={r.description}
-                />
-              </div>
-            )
-          )
-        ) : (
-          <div>No abailable rooms for the selected dates</div>
-        )}
+        {
+        availableBeds.length > 0 ? (
+        availableBeds.map((r) => (   // availableBeds debe ser un array de objetos
+          <div> 
+            <RoomCard 
+              key={r.roomId}  
+              roomId={r.roomId}  
+              roomName={r.roomName}  
+              bedPrice={r.bedPrice} 
+              bedsAvailable={r.bedsAvailable} 
+              description={r.description} 
+              bathroom={r.bathroom}
+              private={r.private}
+            />
+          </div>
+        ))):
+        <div>No abailable rooms/beds for the selected dates</div>
+      }
       </div>
     </div>
   );
