@@ -66,7 +66,7 @@ export default function RoomCard(props) {
           <div>
             <div>This is a SHARED room</div>
             {props.bathroom ? (<div>With private bathroom</div>):(null)}
-            <h3>Bed price: $ {props.bedPrice}</h3>
+            <div>Bed price: $ {props.bedPrice}</div>
             <button onClick={() => oncliCkHandler("+")}> + </button>
             <button onClick={() => oncliCkHandler("-")}> - </button>
             <div>
