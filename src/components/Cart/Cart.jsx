@@ -8,9 +8,6 @@ export default function Cart() {
   const { availableBeds } = useContext(GlobalContext)
 
   let total = 0;
-  let checkIn = fecha;//como traigo la fecha por la que filtraron? habria que hacer un state?
-  let checkOut = fecha;//como traigo la fecha por la que filtraron? habria que hacer un state?
-
 
   return (
     

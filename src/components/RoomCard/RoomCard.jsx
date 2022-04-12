@@ -16,7 +16,7 @@ export default function RoomCard(props) {
     numberOfBeds: 0,
   });
 
-  const onclickHandler = function (arg) {
+  const oncliCkHandler = function (arg) {
     if (arg === "+" && count > 0) {
       setCount(count--);
       setToCart({
@@ -36,7 +36,7 @@ export default function RoomCard(props) {
           numberOfBeds: 1,
         });
       }
-      setCart([...cart, toCart]);
+      if(toCart.numberOfBeds > 0)  setCart([...cart, toCart]);
     }
   };
   return (
@@ -56,19 +56,23 @@ export default function RoomCard(props) {
       <div>
         {props.private ? (
           <div>
+            <div>This is a PRIVATE room</div>
+            {props.bathroom ? (<div>With private bathroom</div>):(null)}
             <div>Room price: $ {props.bedPrice}</div>
             <div>Room for {count} people</div>
-            <button onClick={() => onclickHandler("add")}> ADD to Cart </button>
+            <button onClick={() => oncliCkHandler("add")}> ADD to Cart </button>
           </div>
         ) : (
           <div>
+            <div>This is a SHARED room</div>
+            {props.bathroom ? (<div>With private bathroom</div>):(null)}
             <div>Bed price: $ {props.bedPrice}</div>
-            <button onClick={() => onclickHandler("+")}> + </button>
-            <button onClick={() => onclickHandler("-")}> - </button>
+            <button onClick={() => oncliCkHandler("+")}> + </button>
+            <button onClick={() => oncliCkHandler("-")}> - </button>
             <div>
               {toCart.numberOfBeds} beds selected, {count} Beds left
             </div>
-            <button onClick={() => onclickHandler("add")}> ADD to Cart </button>
+            <button onClick={() => oncliCkHandler("add")}> ADD to Cart </button>
           </div>
         )}
       </div>
