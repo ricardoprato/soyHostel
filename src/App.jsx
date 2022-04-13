@@ -1,21 +1,19 @@
-import {useState} from "react";
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
-import NavBar from "./components/NavBar/NavBar";
+import './App.css';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Home from './pages/Home/Home';
+import Reserva from './pages/Reserva/Reserva';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="App">
-      <NavBar />
+    <BrowserRouter>
       <Routes>
-        {/* <Route exact path="/" element={<Home />} /> */}
-        {/* <Route exact path="/home" element={<Reserva />} /> */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/reserva" element={<Reserva />} />
+        </Route>
       </Routes>
-      <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 
