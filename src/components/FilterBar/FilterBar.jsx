@@ -1,8 +1,8 @@
 import React from 'react';
-import { GlobalContext } from '../GlobalContext/GlobalContext.jsx';
 import { useContext } from 'react';
 import styles from './FilterBar.module.css';
 import moment from 'moment';
+import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
   const { filterDates, setFilterdates } = useContext(GlobalContext);
@@ -30,6 +30,7 @@ const FilterBar = () => {
         <input
           type="date"
           name="checkIn"
+          onChange={() => {}}
           value={
             Object.keys(filterDates.checkIn).length === 0
               ? {}
@@ -37,12 +38,12 @@ const FilterBar = () => {
           }
         />
       </label>
-
       <label className={styles.input}>
         To:
         <input
           type="date"
           name="checkOut"
+          onChange={() => {}}
           value={
             Object.keys(filterDates.checkOut).length === 0
               ? {}
@@ -50,33 +51,30 @@ const FilterBar = () => {
           }
         />
       </label>
+      //poner el boton siempre y ver deshabilitación
       {moment(filterDates.checkIn) <= moment(filterDates.checkOut) ? (
         <button onClick={handleFilters}> Search </button>
       ) : (
         <span>Please select valid dates</span>
       )}
-
       <div>
         <label className={styles.switch}>
           <input type="checkbox" />
           <span className="slider round">Bath</span>
         </label>
       </div>
-
       <div>
         <label className={styles.switch}>
           <input type="checkbox" />
           <span className="slider round">Bath</span>
         </label>
       </div>
-
       <div>
         <label className={styles.switch}>
           <input type="checkbox" />
           <span className="slider round">Bath</span>
         </label>
       </div>
-
       <div>
         <button className={styles.button} onClick={handleReset}>
           Reset
