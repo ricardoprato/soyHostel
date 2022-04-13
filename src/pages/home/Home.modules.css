@@ -1,0 +1,12 @@
+.HomeContainer{
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.RoomCardsContainer{
+    display: flex;
+    flex-direction: column;
+    
+}
