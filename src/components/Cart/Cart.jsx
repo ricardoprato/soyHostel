@@ -1,6 +1,7 @@
 import React from 'react'
 import GlobalContext from '../../GlobalContext/GlobalContext'
 import { useContext } from 'react'
+import styles from './Cart.module.css'
 
 export default function Cart() {
 
@@ -20,7 +21,7 @@ export default function Cart() {
     // numberOfBeds: 0,
     // }
 
-    <div>
+    <div className={styles.cartContainer}>
       <h1>Your Booking:</h1>
       {
         cart.length > 0 ? (
@@ -37,12 +38,7 @@ export default function Cart() {
         ):( null )
       }
       <h2>Total to pay: {totalToPay}</h2>
-      
-
-      {
-        // aca tengo que mapear las camas reservadas del estado cart sacando su precio del estado availableBeds por roomId
-      }
-      <h3>Total: $ {total}</h3>
+      <button>Pay/Register</button> {/* aqui el boton deberia enviar a registration si el usuario no esta registrado y sino a pago */}
     </div>
   )
 }
