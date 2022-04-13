@@ -9,7 +9,7 @@ export default function Cart() {
   // const { availableBeds } = useContext(GlobalContext)
 
   let totalToPay = 0;
-
+ 
   return (
     
     // la data desde las cards llega en un objeto asi:{
