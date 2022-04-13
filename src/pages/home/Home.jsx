@@ -4,12 +4,13 @@ import RoomCard from "../../components/RoomCard/RoomCard";
 import GlobalContext from "../../GlobalContext/GlobalContext";
 
 export default function Home() {
-
-  const { availableBeds } = useContext(GlobalContext) // ver como destructuro del globalContext
+  const { availableBeds } = useContext(GlobalContext); // ver como destructuro del globalContext
 
   return (
     <div className="HomeContainer">
-      <div><Filters/> </div>
+      <div>
+        <Filters />{" "}
+      </div>
       <div className="RoomCardsContainer">
         {
         availableBeds.length > 0 ? (
