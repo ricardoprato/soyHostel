@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function ReceptionFilters() {
-  return (
-    <div>ReceptionFilters</div>
-  )
+  return <div>ReceptionFilters</div>;
 }

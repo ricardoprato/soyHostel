@@ -1,8 +1,10 @@
-import {useState} from "react";
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
-import NavBar from "./components/NavBar/NavBar";
+import { useState } from 'react';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
+import NavBar from './components/NavBar/NavBar';
+import Home from './pages/Home/Home';
+import Reserva from './pages/Reserva/Reserva';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,8 +13,8 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        {/* <Route exact path="/" element={<Home />} /> */}
-        {/* <Route exact path="/home" element={<Reserva />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Reserva />} />
       </Routes>
       <Footer />
     </div>

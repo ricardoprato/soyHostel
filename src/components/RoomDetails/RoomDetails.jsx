@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./RoomDetails.modules.css";
+import React from 'react';
+import styles from './RoomDetails.modules.css';
 
 export default function RoomDetails({ roomId }) {
   let details = {};
