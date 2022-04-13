@@ -3,6 +3,7 @@ import React, { useState, createContext } from "react";
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
+  const [cart, setCart] = useState([]);
   const [filterDates, setFilterdates] = useState({
     checkIn: {},
     checkOut: {},
@@ -84,6 +85,8 @@ export const ContextProvider = (props) => {
         filterDates,
         setFilterdates,
         availableBeds,
+        cart,
+        setCart,
       }}
     >
       {props.children}
