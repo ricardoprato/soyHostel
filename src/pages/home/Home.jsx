@@ -27,7 +27,7 @@ export default function Home() {
             />
           </div>
         ))):
-        <div>No abailable rooms/beds for the selected dates</div>
+        <div>No available rooms/beds for the selected dates</div>
       }
       </div>
     </div>
