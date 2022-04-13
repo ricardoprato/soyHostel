@@ -11,6 +11,7 @@ export default function RoomCard(props) {
   let [toCart, setToCart] = useState({
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
+    roomName: props.roomName,
     roomId: props.roomId,
     bedPrice: props.bedPrice,
     numberOfBeds: 0,
