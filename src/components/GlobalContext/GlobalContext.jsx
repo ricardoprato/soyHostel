@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext } from "react";
 
 export const GlobalContext = createContext();
 
@@ -34,9 +34,9 @@ export const ContextProvider = (props) => {
       roomId: 1,
       bedPrice: 500,
       bedsAvailable: 10,
-      roomName: 'Habitación 1',
+      roomName: "Habitación 1",
       description:
-        'la habitación es grande, linda, tiene aire acondicionado, tiene 10 camas totales, esta pintada de verde, etc',
+        "la habitación es grande, linda, tiene aire acondicionado, tiene 10 camas totales, esta pintada de verde, etc",
       bathroom: true,
       private: true,
     },
@@ -44,8 +44,8 @@ export const ContextProvider = (props) => {
       roomId: 2,
       bedPrice: 400,
       bedsAvailable: 10,
-      roomName: 'Habitación 1',
-      description: 'bal balb la bla bla',
+      roomName: "Habitación 1",
+      description: "bal balb la bla bla",
       bathroom: true,
       private: true,
     },
@@ -53,8 +53,8 @@ export const ContextProvider = (props) => {
       roomId: 3,
       bedPrice: 650,
       bedsAvailable: 10,
-      roomName: 'Habitación 1',
-      description: 'bal balb la bla bla',
+      roomName: "Habitación 1",
+      description: "bal balb la bla bla",
       bathroom: true,
       private: true,
     },
@@ -62,8 +62,8 @@ export const ContextProvider = (props) => {
       roomId: 4,
       bedPrice: 750,
       bedsAvailable: 10,
-      roomName: 'Habitación 1',
-      description: 'bal balb la bla bla',
+      roomName: "Habitación 1",
+      description: "bal balb la bla bla",
       bathroom: true,
       private: true,
     },
@@ -71,8 +71,8 @@ export const ContextProvider = (props) => {
       roomId: 5,
       bedPrice: 300,
       bedsAvailable: 10,
-      roomName: 'Habitación 1',
-      description: 'bal balb la bla bla',
+      roomName: "Habitación 1",
+      description: "bal balb la bla bla",
       bathroom: true,
       private: true,
     },

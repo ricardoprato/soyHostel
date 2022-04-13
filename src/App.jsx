@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import NavBar from "./components/NavBar/NavBar";
 
@@ -10,6 +10,10 @@ function App() {
   return (
     <div className="App">
       <NavBar />
+      <Routes>
+        {/* <Route exact path="/" element={<Home />} /> */}
+        {/* <Route exact path="/home" element={<Reserva />} /> */}
+      </Routes>
       <Footer />
     </div>
   );
