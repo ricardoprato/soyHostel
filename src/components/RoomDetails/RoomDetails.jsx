@@ -10,7 +10,7 @@ export default function RoomDetails({ roomId }) {
   //     .then(data => {
   //       details = data;
   //     } )
-  // }
+  // } 
 
   return (
     <div className={styles.roomDetailsContainer}>
