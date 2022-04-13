@@ -1,0 +1,15 @@
+.RoomDetailsImg{
+    border: 2px;
+    width: 250px;
+    height: auto;
+}
+.imgsContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+.roomDetailsContainer{
+    display: flex;
+    flex-direction: row;
+    
+}

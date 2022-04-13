@@ -1,12 +1,12 @@
 import React from 'react'
 import GlobalContext from '../../GlobalContext/GlobalContext'
 import { useContext } from 'react'
-import styles from './Cart.module.css'
+import styles from './Cart.modules.css'
 
 export default function Cart() {
 
   const { cart, setCart } = useContext(GlobalContext)
-  const { availableBeds } = useContext(GlobalContext)
+  // const { availableBeds } = useContext(GlobalContext)
 
   let totalToPay = 0;
 
