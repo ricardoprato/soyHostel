@@ -12,7 +12,7 @@ export const ContextProvider = (props) => {
       description:
         'la habitación es grande, linda, tiene aire acondicionado, tiene 10 camas totales, esta pintada de verde, etc',
       bathroom: true,
-      private: true,
+      private: false,
     },
     {
       roomId: 2,
