@@ -30,7 +30,6 @@ const FilterBar = () => {
         <input
           type="date"
           name="checkIn"
-          onChange={handleFilters}
           value={
             Object.keys(filterDates.checkIn).length === 0
               ? {}
@@ -44,7 +43,6 @@ const FilterBar = () => {
         <input
           type="date"
           name="checkOut"
-          onChange={handleFilters}
           value={
             Object.keys(filterDates.checkOut).length === 0
               ? {}
@@ -52,6 +50,11 @@ const FilterBar = () => {
           }
         />
       </label>
+      {moment(filterDates.checkIn) <= moment(filterDates.checkOut) ? (
+        <button onClick={handleFilters}> Search </button>
+      ) : (
+        <span>Please select valid dates</span>
+      )}
 
       <div>
         <label className={styles.switch}>
