@@ -1,38 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import styles from './FilterBar.module.css';
 
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
+  const {
+    filterDates,
+    setFilterdates,
+    availableBeds,
+    setAvailablebeds,
+    filteredAvailableBeds,
+    setFilteredAvailableBeds,
+    getFilteredBeds,
+  } = useContext(GlobalContext);
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const [localDate, setLocaldate] = useState({
-    checkIn: '',
-    checkOut: '',
+    checkIn: today,
+    checkOut: tomorrow,
   });
-  const { filterDates, setFilterdates } = useContext(GlobalContext);
+
+  useEffect(() => {
+    getFilteredBeds(today, tomorrow);
+  }, []);
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
     setLocaldate({ ...localDate, [name]: value });
-    let date1 = new Date(localDate.checkIn);
-    let date2 = new Date(localDate.checkOut);
-    console.log(localDate.checkIn);
-    if (date1.getTime() <= date2.getTime()) {
-      setFilterdates(localDate);
-    } else {
-      alert('La fecha de salida debe ser mayor a la de entrada');
-    }
   };
 
-  const handleReset = (event) => {
-    setFilterdates({
-      checkIn: '',
-      checkOut: '',
-    });
+  const handleClick = () => {
+    getFilteredBeds(localDate.checkIn, localDate.checkOut);
+    setFilterdates(localDate);
   };
-
-  const date = new Date();
-  const defaultValue = date.toLocaleDateString('en-CA');
 
   return (
     <div className={styles.lateral}>
@@ -42,7 +46,7 @@ const FilterBar = () => {
           type="date"
           name="checkIn"
           onChange={handleFilters}
-          defaultValue={defaultValue}
+          defaultValue={today.toLocaleDateString('en-CA')}
         />
       </label>
       <label className={styles.input}>
@@ -51,10 +55,20 @@ const FilterBar = () => {
           type="date"
           name="checkOut"
           onChange={handleFilters}
-          defaultValue={defaultValue}
+          defaultValue={tomorrow.toLocaleDateString('en-CA')}
         />
       </label>
-      ///ver para que no puedan setear reservas en el pasado
+
+      <button
+        className={`boton my-1 ${styles.submitBtn}`}
+        onClick={handleClick}
+        disabled={
+          Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
+        }
+      >
+        Submit
+      </button>
+
       <div>
         <label className={styles.switch}>
           <input type="checkbox" />
@@ -72,11 +86,6 @@ const FilterBar = () => {
           <input type="checkbox" />
           <span className="slider round">Bath</span>
         </label>
-      </div>
-      <div>
-        <button className={styles.button} onClick={handleReset}>
-          Reset
-        </button>
       </div>
     </div>
   );
