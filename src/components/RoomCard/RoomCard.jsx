@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './RoomCard.modules.css';
 
+
 export default function RoomCard(props) {
   const { cart, setCart } = useContext(GlobalContext);
   const { filterDates } = useContext(GlobalContext);
