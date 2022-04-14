@@ -23,6 +23,7 @@ export default function Reserva() {
                 bedsAvailable={r.bedsAvailable}
                 description={r.description}
                 bathroom={r.bathroom}
+                image={r.image}
                 private={r.private}
               />
             </div>
