@@ -1,0 +1,41 @@
+.navcont {
+  background-color: white;
+  display: flex;
+  position: fixed;
+  height: 80px;
+  font-size: 15px;
+  font-weight: bold;
+  width: 100%;
+  z-index: 1;
+}
+
+.logo {
+  height: 120px;
+  width: 220px;
+}
+
+a:visited {
+  color: black;
+}
+
+.buttonsleft {
+  color: black;
+  display: flex;
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.aboutUs {
+  margin-right: 50px;
+}
+
+.buttonsright {
+  color: black;
+  display: flex;
+  margin-top: 45px;
+  margin-left: 680px;
+}
+
+.register {
+  margin-left: 50px;
+}
