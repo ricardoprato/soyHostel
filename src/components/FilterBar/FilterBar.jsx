@@ -1,27 +1,38 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styles from './FilterBar.module.css';
-import moment from 'moment';
+
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
+  const [localDate, setLocaldate] = useState({
+    checkIn: '',
+    checkOut: '',
+  });
   const { filterDates, setFilterdates } = useContext(GlobalContext);
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
-    if (name === 'checkIn' || name === 'checkOut') {
-      value = moment(value);
+    setLocaldate({ ...localDate, [name]: value });
+    let date1 = new Date(localDate.checkIn);
+    let date2 = new Date(localDate.checkOut);
+    console.log(localDate.checkIn);
+    if (date1.getTime() <= date2.getTime()) {
+      setFilterdates(localDate);
+    } else {
+      alert('La fecha de salida debe ser mayor a la de entrada');
     }
-    const newData = { ...filterDates, [name]: value };
-    setFilterdates(newData);
   };
 
   const handleReset = (event) => {
     setFilterdates({
-      checkIn: {},
-      checkOut: {},
+      checkIn: '',
+      checkOut: '',
     });
   };
+
+  const date = new Date();
+  const defaultValue = date.toLocaleDateString('en-CA');
 
   return (
     <div className={styles.lateral}>
@@ -30,12 +41,8 @@ const FilterBar = () => {
         <input
           type="date"
           name="checkIn"
-          onChange={() => {}}
-          value={
-            Object.keys(filterDates.checkIn).length === 0
-              ? {}
-              : moment(filterDates.checkIn).format('YYYY[-]MM[-]DD')
-          }
+          onChange={handleFilters}
+          defaultValue={defaultValue}
         />
       </label>
       <label className={styles.input}>
@@ -43,20 +50,11 @@ const FilterBar = () => {
         <input
           type="date"
           name="checkOut"
-          onChange={() => {}}
-          value={
-            Object.keys(filterDates.checkOut).length === 0
-              ? {}
-              : moment(filterDates.checkOut).format('YYYY[-]MM[-]DD')
-          }
+          onChange={handleFilters}
+          defaultValue={defaultValue}
         />
       </label>
-      //poner el boton siempre y ver deshabilitación
-      {moment(filterDates.checkIn) <= moment(filterDates.checkOut) ? (
-        <button onClick={handleFilters}> Search </button>
-      ) : (
-        <span>Please select valid dates</span>
-      )}
+      ///ver para que no puedan setear reservas en el pasado
       <div>
         <label className={styles.switch}>
           <input type="checkbox" />

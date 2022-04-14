@@ -44,7 +44,7 @@ export default function RoomCard(props) {
       }
     }
   };
-  console.log(filterDates);
+
   return (
     <div className={styles.RoomCardContainer}>
       {/* <Link to={`/details/${props.roomId}`} >
