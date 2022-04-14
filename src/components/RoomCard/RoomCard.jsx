@@ -49,7 +49,7 @@ export default function RoomCard(props) {
       }
     }
   };
-  // console.log(cart);
+
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
