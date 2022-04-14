@@ -1,26 +1,30 @@
 .RoomCardContainer{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     border: 2px solid black;
     border-radius: 15px;
     padding: 10px;
     background-color: rgba(255, 253, 253, 0.5);
     margin-top: 15px;
+    width: fit-content;
 }
 
-.RoomCardImages{
+/* .RoomCardImages{
     display: flex;
     flex-direction: column;
-}
+} */
 
 .RoomCardText{
     display: flex;
     flex-direction: column;
+    width: 350px;
+    margin-right: 20px;
 }
 
 .RoomCardImg{
     width: 150px;
     height: 120px;
     border-radius: 10px;
-
+    margin-right: 25px;
 }
