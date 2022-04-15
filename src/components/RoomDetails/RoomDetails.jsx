@@ -39,7 +39,7 @@ export default function RoomDetails({ roomId }) {
           console.log(response.data);
           console.log(response.status);
           console.log(response.headers);
-        }
+        } 
       });
   };
 

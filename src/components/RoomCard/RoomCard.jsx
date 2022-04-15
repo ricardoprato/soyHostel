@@ -8,6 +8,7 @@ export default function RoomCard(props) {
   const { cart, setCart } = useContext(GlobalContext);
   const { filterDates } = useContext(GlobalContext);
 
+  
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
@@ -19,6 +20,7 @@ export default function RoomCard(props) {
   let countInitialState = props.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
   let [toCart, setToCart] = useState(initialstate);
+  let [bedsOnCart, setBedsOnCart] = useState(0);
 
   const onClickHandler = function (arg) {
     if (arg === '+' && count > 0) {
@@ -45,27 +47,28 @@ export default function RoomCard(props) {
       }
       if (toCart.numberOfBeds > 0) {
         setCart([...cart, toCart]);
+        setBedsOnCart(toCart.numberOfBeds)
         setToCart(initialstate);
       }
     }
   };
-
+  console.log(cart)
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
         <Link to={`/details/${props.roomId}`}>
           <img
             className={styles.RoomCardImg}
-            src={`https://handyhostel.com/wp-content/uploads/2020/10/nomads-brisbane-hostel-dorm1574757593.jpg`}
+            src={props.image[0]}
             alt="room-img"
           />
         </Link>
       </div>
       <div className={styles.RoomCardText}>
         <div>Room: {props.roomName}</div>
-        <div>
+        {/* <div>
           Availability for {filterDates.checkIn} to {filterDates.checkOut}
-        </div>
+        </div> */}
         <div>
           {props.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
             <div>
@@ -84,14 +87,15 @@ export default function RoomCard(props) {
               <div>This is a SHARED room</div>
               {props.bathroom ? <div>With private bathroom</div> : null}
               <div>Bed price: $ {props.bedPrice}</div>
-              <Button msg="+" funct={() => onClickHandler('+')}/>
-              <Button msg="-" funct={() => onClickHandler('-')}/>
+              
               {/* <button onClick={() => onClickHandler('+')}> + </button>
               <button onClick={() => onClickHandler('-')}> - </button> */}
               <div>
-                {toCart.numberOfBeds} beds selected, {count} Beds left
+                <Button msg="+" funct={() => onClickHandler('+')}/>
+                <Button msg="-" funct={() => onClickHandler('-')}/>
+                {toCart.numberOfBeds} beds selected, {count} left
               </div>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')}/>
+              <div><Button msg="ADD to Cart" funct={() => onClickHandler('add')}/> {bedsOnCart} on Cart</div>
               {/* <button onClick={() => onClickHandler('add')}>
                 {' '}
                 ADD to Cart{' '}
@@ -100,9 +104,9 @@ export default function RoomCard(props) {
           )}
         </div>
       </div>
-      <div>
+      <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
-        </div>
+      </div>
     </div>
   );
 }
