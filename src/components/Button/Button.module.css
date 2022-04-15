@@ -1,0 +1,21 @@
+.button {
+  border: none;
+  outline: none;
+  background: var(--white-color);
+  color: var(--dark-color);
+  font-size: 1em;
+  font-weight: bold;
+  padding: 8px 25px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  width: fit-content;
+}
+.button i {
+  font-size: 1em;
+  transition: 0.3s ease;
+}
+.button:hover i {
+  transform: translateX(5px);
+}
