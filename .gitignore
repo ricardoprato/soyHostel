@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 pruebas
+./src/pages/Prueba/Prueba.jsx
+
 
 # Editor directories and files
 .vscode/*
