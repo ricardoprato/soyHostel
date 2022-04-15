@@ -6,7 +6,7 @@ import styles from './NavBar.module.css';
 const NavBar = () => {
   return (
     <nav className={styles.navcont}>
-      <a className={styles.logo} href="/home">
+      <a className={styles.logo} href="/">
         <img className={styles.logo} src={Logo} alt="Img.png" />
       </a>
       <div className={styles.buttonsleft}>
