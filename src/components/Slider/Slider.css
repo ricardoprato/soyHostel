@@ -59,7 +59,6 @@
 
 /* ============== Background Slider ============== */
 .bg-slider {
-  z-index: 777;
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -156,7 +155,6 @@
   transition-property: transform, opacity;
 }
 .bg-slider-thumbs {
-  z-index: 777;
   position: absolute;
   bottom: 7em;
   left: 50%;

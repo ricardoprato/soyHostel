@@ -10,12 +10,28 @@ import 'swiper/css/autoplay';
 import './Slider.css';
 // import required modules
 import { Autoplay, FreeMode, Thumbs } from 'swiper';
+// import form
+import { Formulario } from '../../components/Formulario/Formulario';
+// import GlobalContext
+import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
+import { useContext } from 'react';
+// import modal
+import { Modal } from '../../components/Modal/Modal';
 
 export default function Slider() {
+  const onClickButton = () => {
+    setOpenModal((prevState) => !prevState);
+  };
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const { openModal, setOpenModal } = useContext(GlobalContext);
   return (
     <>
+      {!!openModal && (
+        <Modal>
+          <Formulario />
+        </Modal>
+      )}
+
       <Swiper
         loop={true}
         spaceBetween={0}
@@ -36,7 +52,7 @@ export default function Slider() {
               dolores quaerat debitis quae itaque, at fugit. Placeat,
               consectetur vel?
             </p>
-            <button className="button">
+            <button className="button" onClick={onClickButton}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
             </button>
           </div>
@@ -54,7 +70,7 @@ export default function Slider() {
               Delectus voluptas rerum blanditiis maiores incidunt natus dolorem,
               autem, earum dolores voluptatibus veniam.
             </p>
-            <button className="button">
+            <button className="button" onClick={onClickButton}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
             </button>
           </div>
@@ -72,7 +88,7 @@ export default function Slider() {
               dicta omnis, adipisci voluptate sed error! Iusto consequatur
               accusamus reprehenderit quidem officiis deleniti debitis?
             </p>
-            <button className="button">
+            <button className="button" onClick={onClickButton}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
             </button>
           </div>
@@ -89,7 +105,7 @@ export default function Slider() {
               quibusdam ex non quas, maiores atque accusantium cum nesciunt
               optio quidem rerum? Similique, eius.
             </p>
-            <button className="button">
+            <button className="button" onClick={onClickButton}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
             </button>
           </div>
