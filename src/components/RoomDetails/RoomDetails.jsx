@@ -16,7 +16,7 @@ export default function RoomDetails() {
           console.log(response.data);
           console.log(response.status);
           console.log(response.headers);
-        }
+        } 
       });
   };
 
