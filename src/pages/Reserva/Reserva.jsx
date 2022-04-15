@@ -2,30 +2,33 @@ import React, { useContext } from 'react';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import RoomCard from '../../components/RoomCard/RoomCard';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import styles from './Reserva.modules.css'
 
 export default function Reserva() {
   const { filteredAvailableBeds } = useContext(GlobalContext); // ver como destructuro del globalContext
 
   return (
-    <div className="ReserveContainer">
-      {console.log(filteredAvailableBeds)}
+    <div className={styles.ReserveContainer}>
+      {/* {console.log(filteredAvailableBeds)} */}
       <div>
         <FilterBar />{' '}
       </div>
-      <div className="RoomCardsContainer">
+      <div className={styles.RoomCardsContainer}>
         {filteredAvailableBeds.length > 0 ? (
           filteredAvailableBeds.map((r) => (
-            <div key={r.roomId}>
+            <div key={r.id}>
               <RoomCard
-                roomId={r.roomId}
-                roomName={r.roomName}
-                bedPrice={r.bedPrice}
-                bedsAvailable={r.bedsAvailable}
-                description={r.description}
-                bathroom={r.bathroom}
-                private={r.private}
+                roomId={r.id}
+                roomName={r.nombre}
+                comodities={r.comodidades}
+                bedPrice={r.preciosCamas}
+                bedsAvailable={r.cantCamas}
+                description={r.descripcion}
+                bathroom={r.banoPrivado}
+                image={r.imagenes}
+                private={r.privada}
               />
-            </div>
+            </div>   
           ))
         ) : (
           <div>No available rooms/beds for the selected dates</div>

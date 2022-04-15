@@ -1,12 +1,17 @@
-.HomeContainer{
+/* .HomeContainer{
     display: flex;
     flex-direction: row;
 
+} */
+
+.ReserveContainer{
+    display: flex;
+    flex-direction: row;
+    background-color: black;
 }
 
-
-.RoomCardsContainer{
+/* .RoomCardsContainer{
     display: flex;
     flex-direction: column;
     
-}
+} */
