@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import styles from './Button.module.css';
 
 // how to use example
 //<Button msg="text" link="where" />
@@ -11,7 +12,10 @@ const Button = ({ msg, link, funct }) => {
       {link ? (
         <NavLink to={link}>{msg}</NavLink>
       ) : (
-        <button onClick={funct}>{msg}</button>
+        <button className={styles.button} onClick={funct}>
+          {msg}
+          <i className="bi bi-arrow-right-short"></i>
+        </button>
       )}
     </>
   );
