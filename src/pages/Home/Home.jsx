@@ -1,10 +1,11 @@
-import Button from '../../components/Button/Button';
 import React from 'react';
+import Slider from '../../components/Slider/Slider';
+import styles from './Home.module.css';
 export default function Home() {
   return (
     <>
-      <main>
-        <Button msg="View Avalaible" link="/reserva" />
+      <main className={styles.home}>
+        <Slider />
       </main>
     </>
   );
