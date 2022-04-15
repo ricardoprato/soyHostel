@@ -60,7 +60,7 @@ const FilterBar = () => {
       </label>
 
       <button
-        className={`boton my-1 ${styles.submitBtn}`}
+        className={styles.submitBtn}
         onClick={handleClick}
         disabled={
           Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
@@ -69,22 +69,19 @@ const FilterBar = () => {
         Submit
       </button>
 
-      <div>
-        <label className={styles.switch}>
+      <div className={styles.title}>
+        <lablel>Private Room</lablel>
+
+        <label className={styles.container}>
           <input type="checkbox" />
-          <span className="slider round">Bath</span>
+          <div className={styles.checkmark}></div>
         </label>
       </div>
-      <div>
-        <label className={styles.switch}>
+      <div className={styles.title}>
+        <lablel>Private Bathroom</lablel>
+        <label className={styles.container}>
           <input type="checkbox" />
-          <span className="slider round">Bath</span>
-        </label>
-      </div>
-      <div>
-        <label className={styles.switch}>
-          <input type="checkbox" />
-          <span className="slider round">Bath</span>
+          <div className={styles.checkmark}></div>
         </label>
       </div>
     </div>

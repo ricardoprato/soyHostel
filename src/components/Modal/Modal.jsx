@@ -5,10 +5,7 @@ import styles from './Modal.module.css';
 function Modal({ children }) {
   return ReactDOM.createPortal(
     <div>
-      <div className={styles.ModalBackground}>
-        {children}
-        <button>close</button>
-      </div>
+      <div className={styles.ModalBackground}>{children}</div>
     </div>,
     document.getElementById('modal')
   );
