@@ -15,18 +15,19 @@ export default function Reserva() {
       <div className="RoomCardsContainer">
         {filteredAvailableBeds.length > 0 ? (
           filteredAvailableBeds.map((r) => (
-            <div key={r.roomId}>
+            <div key={r.id}>
               <RoomCard
-                roomId={r.roomId}
-                roomName={r.roomName}
-                bedPrice={r.bedPrice}
-                bedsAvailable={r.bedsAvailable}
-                description={r.description}
-                bathroom={r.bathroom}
-                image={r.image}
-                private={r.private}
+                roomId={r.id}
+                roomName={r.nombre}
+                comodities={r.comodidades}
+                bedPrice={r.preciosCamas}
+                bedsAvailable={r.cantCamas}
+                description={r.descripcion}
+                bathroom={r.banoPrivado}
+                image={r.imagenes}
+                private={r.privada}
               />
-            </div>
+            </div>   
           ))
         ) : (
           <div>No available rooms/beds for the selected dates</div>

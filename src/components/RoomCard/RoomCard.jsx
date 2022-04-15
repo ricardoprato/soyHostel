@@ -59,7 +59,7 @@ export default function RoomCard(props) {
         <Link to={`/details/${props.roomId}`}>
           <img
             className={styles.RoomCardImg}
-            src={props.image}
+            src={props.image[0]}
             alt="room-img"
           />
         </Link>
