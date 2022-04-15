@@ -20,8 +20,8 @@ const FilterBar = () => {
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const [localDate, setLocaldate] = useState({
-    checkIn: today,
-    checkOut: tomorrow,
+    checkIn: today.toLocaleDateString('en-CA'),
+    checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
 
   useEffect(() => {
@@ -36,7 +36,83 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
+    console.log(localDate);
+    console.log(setAvailablebeds);
   };
+
+  const handleChecks = () => {
+    const checkBathroomBox = document.getElementById('privateBathrooms');
+    const checkPrivateBox = document.getElementById('privateRooms');
+
+    if (checkPrivateBox.checked == true && checkBathroomBox.checked == true) {
+      setFilteredAvailableBeds(
+        availableBeds.filter(
+          (room) => room.privada === true && room.banoPrivado === true
+        )
+      );
+    } else if (
+      checkPrivateBox.checked == true &&
+      checkBathroomBox.checked == false
+    ) {
+      setFilteredAvailableBeds(
+        availableBeds.filter((room) => room.privada === true)
+      );
+    } else if (
+      checkBathroomBox.checked == true &&
+      checkPrivateBox.checked == false
+    ) {
+      setFilteredAvailableBeds(
+        availableBeds.filter((room) => room.banoPrivado === true)
+      );
+    } else {
+      setFilteredAvailableBeds(availableBeds);
+    }
+  };
+
+  // const handleBathroomChecked = () => {
+  //   if (checkBathroomBox.checked == true) {
+  //     setFilteredAvailableBeds(
+  //       (prev) =>
+  //         (prev = availableBeds.filter((room) => room.banoPrivado === true))
+  //     );
+  //   } else {
+  //     setFilteredAvailableBeds(availableBeds);
+  //   }
+  // };
+
+  // const handleClick = () => {
+  //   getFilteredBeds(localDate.checkIn, localDate.checkOut);
+  //   setFilterdates(localDate);
+  //   console.log(localDate);
+  //   console.log(setAvailablebeds);
+  // };
+
+  // const handlePrivateChecked = () => {
+  //   let checkBox = document.getElementById('privateRooms');
+  //   if (checkBox.checked == true) {
+  //     setFilteredAvailableBeds(
+  //       availableBeds.filter((room) => room.privada === true)
+  //     );
+  //   } else {
+  //     setFilteredAvailableBeds(availableBeds);
+  //   }
+  // };
+
+  // const handleBathroomChecked = () => {
+  //   let checkBox = document.getElementById('privateBathrooms');
+  //   if (checkBox.checked == true) {
+  //     setFilteredAvailableBeds(
+  //       (prev) =>
+  //         (prev = availableBeds.filter((room) => room.banoPrivado === true))
+  //     );
+  //   } else {
+  //     setFilteredAvailableBeds(availableBeds);
+  //   }
+  // };
+
+  useEffect(() => {
+    console.log(filteredAvailableBeds);
+  }, [filteredAvailableBeds]);
 
   return (
     <div className={styles.lateral}>
@@ -70,17 +146,17 @@ const FilterBar = () => {
       </button>
 
       <div className={styles.title}>
-        <lablel>Private Room</lablel>
-
+        <label>Private Room</label>
         <label className={styles.container}>
-          <input type="checkbox" />
+          <input type="checkbox" onClick={handleChecks} id="privateRooms" />
           <div className={styles.checkmark}></div>
         </label>
       </div>
+
       <div className={styles.title}>
-        <lablel>Private Bathroom</lablel>
+        <label>Private Bathroom</label>
         <label className={styles.container}>
-          <input type="checkbox" />
+          <input type="checkbox" onClick={handleChecks} id="privateBathrooms" />
           <div className={styles.checkmark}></div>
         </label>
       </div>

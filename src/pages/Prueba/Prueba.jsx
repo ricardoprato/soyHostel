@@ -1,8 +1,14 @@
+import { useState, useEffect } from 'react';
 import React from 'react';
-import styles from './Prueba.module.css';
+import FilterBar from '../../components/FilterBar/FilterBar';
 
 function Prueba() {
-  return <div className={styles.prueba}>Prueba</div>;
+  return (
+    <div>
+      <FilterBar />
+      <p>Puto el que lee</p>
+    </div>
+  );
 }
 
 export default Prueba;
