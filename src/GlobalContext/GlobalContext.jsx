@@ -52,32 +52,34 @@ export const ContextProvider = (props) => {
     },
   ];
 
-  const [cart, setCart] = useState([]);
-  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
   const [filterDates, setFilterdates] = useState({
     checkIn: '',
     checkOut: '',
   });
+
+  const [cart, setCart] = useState([]);
+  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
   const [availableBeds, setAvailablebeds] = useState(mock);
+  const [openModal, setOpenModal] = useState(false);
 
-  // bedsAvailable: 'All beds',
-  // price: 'All Prices',
-  // roomTypes: 'All rooms',
-  //   Baths: 'All Baths',
-
-  //este fetch yo lo voy a ejecutar con el filtrado de fechas filter.checkIn filter.checkout (que se modifica en filterbar)
-
-  // const fetchBeds = () => {
-  //   fetch(https://localhost:3001/larutaque me den con el filtrado de fechas)
-  // .then(response => response.json())
-  //     .then(data => setAvailablebeds(data))
-  // }
-
-  // mandamos al back, el estado filter con las fechas de checkIn y checkOut;
-  // el back nos devuelve una lista de habitaciones disponibles, con sus datos.
-
-  //codigo pidiendo al back disponibilidad desde fecha "x" a fecha "y" // filter.checkin y filter.checkout
-  //nos trae un dataBeds es un array con objetos habitaciones
+  const getFilteredBeds = (checkIn, checkOut) => {
+    fetch(
+      'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAvailablebeds(data);
+        setFilteredAvailableBeds(data);
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { response } = err;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
 
   return (
     <GlobalContext.Provider
@@ -85,10 +87,14 @@ export const ContextProvider = (props) => {
         filterDates,
         setFilterdates,
         availableBeds,
+        setAvailablebeds,
         cart,
         setCart,
         filteredAvailableBeds,
         setFilteredAvailableBeds,
+        getFilteredBeds,
+        openModal,
+        setOpenModal,
       }}
     >
       {props.children}
