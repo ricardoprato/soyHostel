@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './RoomDetails.module.css';
 
 export default function RoomDetails() {
-  const roomId = 15;
+  const roomId = 10;
 
   const [details, setDetails] = useState({});
 
@@ -42,9 +42,9 @@ export default function RoomDetails() {
   return (
     <div className={styles.roomDetailsContainer}>
       <div className={styles.roomDetailsImages}>
-        {details.Imagenes && ( //ojo no usar prettier aca que borra los parentesis y no funciona mas
-          details.Imagenes.map((i) => {
-            return <img key={i.id} src={i.enlace} alt="room-img" />;
+        {details.Imagens && ( //ojo no usar prettier aca que borra los parentesis y no funciona mas
+          details.Imagens.map((i) => {
+            return <img key={i.id} src={i.imagen} alt="room-img" />;
           }))}
       </div>
       <div className={styles.roomDetailsText}>

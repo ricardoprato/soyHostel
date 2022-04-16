@@ -10,7 +10,7 @@ export const ContextProvider = (props) => {
       comodidades: "AirConditioner, smart Tv, Fridge",
       cantCamas: 10,
       privada: false,
-      banoPrivado: false,
+      banoPrivado: true,
       preciosCamas: [400],
       imagenes: ["https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg"],
       descripcion:
@@ -44,7 +44,7 @@ export const ContextProvider = (props) => {
       comodidades: "Fan",
       cantCamas: 6,
       privada: false,
-      banoPrivado: true,
+      banoPrivado: false,
       preciosCamas: [500],
       imagenes: ["https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.afersurf.com/wp-content/uploads/2019/03/6bed1.jpg"],
       descripcion: "Normal dorm with 6 beds, personal lockers, sealing fan, mosquito net and a private bathroom. Close to the bar."
