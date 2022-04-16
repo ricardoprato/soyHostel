@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import Button from '../Button/Button';
 import styles from './RoomDetails.module.css';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { Modal } from '../Modal/Modal'
+
 
 export default function RoomDetails() {
   const roomId = 10;
 
   const [details, setDetails] = useState({});
+  const { openModal, setOpenModal } = useContext(GlobalContext);
+
 
   const fetchDetails = (roomId) => {
     fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
@@ -39,6 +45,10 @@ export default function RoomDetails() {
 
   console.log(details);
 
+  const onClickClose = function() {
+    setOpenModal((prevState) => !prevState)
+  }
+
   return (
     <div className={styles.roomDetailsContainer}>
       <div className={styles.roomDetailsImages}>
@@ -49,7 +59,7 @@ export default function RoomDetails() {
       </div>
       <div className={styles.roomDetailsText}>
         <h1>Room: {details.nombre}</h1>
-        {details.privada ? (
+        {details.privada ? ( 
           <h3>
             This is a PRIVATE room with beds for {details.cantCamas} people.
           </h3>
@@ -64,6 +74,7 @@ export default function RoomDetails() {
         <div>Description: {details.descripcion}</div>
         <div>Comodities: {details.comodidades}</div>
       </div>
+      <Button msg="x" funct={onClickClose} />
     </div>
   );
 }
