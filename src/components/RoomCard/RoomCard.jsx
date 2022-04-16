@@ -47,12 +47,16 @@ export default function RoomCard(props) {
       }
       if (toCart.numberOfBeds > 0) {
         setCart([...cart, toCart]);
-        setBedsOnCart(toCart.numberOfBeds)
+
+        setBedsOnCart(toCart.numberOfBeds);
+
         setToCart(initialstate);
       }
     }
   };
-  console.log(cart)
+
+  console.log(cart);
+
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
@@ -76,37 +80,31 @@ export default function RoomCard(props) {
               {props.bathroom ? <div>With private bathroom</div> : null}
               <div>Room price: $ {props.bedPrice * props.bedsAvailable}</div>
               <div>Room for {props.bedsAvailable} people</div>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')}/>
-              {/* <button onClick={() => onClickHandler('add')}>
-                {' '}
-                ADD to Cart{' '}
-              </button> */}
+              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
             </div>
           ) : (
             <div>
               <div>This is a SHARED room</div>
               {props.bathroom ? <div>With private bathroom</div> : null}
               <div>Bed price: $ {props.bedPrice}</div>
-              
-              {/* <button onClick={() => onClickHandler('+')}> + </button>
-              <button onClick={() => onClickHandler('-')}> - </button> */}
               <div>
-                <Button msg="+" funct={() => onClickHandler('+')}/>
-                <Button msg="-" funct={() => onClickHandler('-')}/>
+                <Button msg="+" funct={() => onClickHandler('+')} />
+                <Button msg="-" funct={() => onClickHandler('-')} />
                 {toCart.numberOfBeds} beds selected, {count} left
               </div>
-              <div><Button msg="ADD to Cart" funct={() => onClickHandler('add')}/> {bedsOnCart} on Cart</div>
-              {/* <button onClick={() => onClickHandler('add')}>
-                {' '}
-                ADD to Cart{' '}
-              </button> */}
+              <div>
+                <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />{' '}
+                {bedsOnCart} on Cart
+              </div>
+
             </div>
           )}
         </div>
       </div>
-      <div className={styles.RoomCardDescription}>
+      {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
-      </div>
+      </div> */}
+
     </div>
   );
 }
