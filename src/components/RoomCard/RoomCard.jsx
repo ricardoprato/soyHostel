@@ -9,6 +9,7 @@ import RoomDetails from '../RoomDetails/RoomDetails';
 export default function RoomCard(props) {
   const { cart, setCart, filterDates, openModal, setOpenModal } = useContext(GlobalContext);
 
+  
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
@@ -47,17 +48,20 @@ export default function RoomCard(props) {
       }
       if (toCart.numberOfBeds > 0) {
         setCart([...cart, toCart]);
+
         setBedsOnCart(toCart.numberOfBeds);
+
         setToCart(initialstate);
       }
     }
   };
+
   console.log(cart);
+
 
   const onCLickImage = function() {
     setOpenModal((prevState) => !prevState)
   } 
-
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
@@ -98,6 +102,7 @@ export default function RoomCard(props) {
                 <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />{' '}
                 {bedsOnCart} on Cart
               </div>
+
             </div>
           )}
         </div>
@@ -105,6 +110,7 @@ export default function RoomCard(props) {
       {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
       </div> */}
+
     </div>
   );
 }

@@ -12,6 +12,7 @@
     width: fit-content;
 }
 
+
 .RoomCardText{
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@
     border-radius: 10px;
     border: 1px solid black;
     color: white;
+
 }
 
 .RoomCardImg{
