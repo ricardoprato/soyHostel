@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 pruebas
-Prueba.jsx
+
 
 # Editor directories and files
 .vscode/*
