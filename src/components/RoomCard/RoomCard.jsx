@@ -68,6 +68,7 @@ export default function RoomCard(props) {
             src={props.image[0]}
             alt="room-img"
           />
+       
       </div>
       <div className={styles.RoomCardText}>
         <div>Room: {props.roomName}</div>
