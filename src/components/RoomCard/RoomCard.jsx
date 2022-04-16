@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './RoomCard.module.css';
 import Button from '../Button/Button';
+import { Modal } from '../Modal/Modal'
+import RoomDetails from '../RoomDetails/RoomDetails';
 
 export default function RoomCard(props) {
-  const { cart, setCart } = useContext(GlobalContext);
-  const { filterDates } = useContext(GlobalContext);
+  const { cart, setCart, filterDates, openModal, setOpenModal } = useContext(GlobalContext);
 
   
   let initialstate = {
@@ -57,16 +58,21 @@ export default function RoomCard(props) {
 
   console.log(cart);
 
+
+  const onCLickImage = function() {
+    setOpenModal((prevState) => !prevState)
+  } 
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
-        <Link to={`/details/${props.roomId}`}>
+        { !!openModal && (<Modal><RoomDetails roomId = {props.roomId}/></Modal>) }
           <img
+            onClick={onCLickImage}
             className={styles.RoomCardImg}
             src={props.image[0]}
             alt="room-img"
           />
-        </Link>
+       
       </div>
       <div className={styles.RoomCardText}>
         <div>Room: {props.roomName}</div>
