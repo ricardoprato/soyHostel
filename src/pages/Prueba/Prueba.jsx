@@ -1,8 +1,12 @@
 import React from 'react';
-import styles from './Prueba.module.css';
+import Register from '../../components/Register/Register';
 
-function Prueba() {
-  return <div className={styles.prueba}>Prueba</div>;
-}
+const Prueba = () => {
+  return (
+    <>
+      <Register />
+    </>
+  );
+};
 
 export default Prueba;
