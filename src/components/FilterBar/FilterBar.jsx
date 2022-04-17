@@ -44,11 +44,11 @@ const FilterBar = () => {
 
     let data = [];
     if (price.checked == true) {
-      data = filteredAvailableBeds.sort(function (a, b) {
+      data = [...filteredAvailableBeds].sort(function (a, b) {
         return a.preciosCamas - b.preciosCamas;
       });
     } else {
-      data = filteredAvailableBeds.sort(function (a, b) {
+      data = [...filteredAvailableBeds].sort(function (a, b) {
         return b.preciosCamas - a.preciosCamas;
       });
     }
@@ -60,7 +60,6 @@ const FilterBar = () => {
     let checkBathroomBox = document.getElementById('privateBathrooms');
     let selected = document.getElementById('roomTypes');
     let price = document.getElementById('price');
-    // const checkPrivateBox = document.getElementById('privateRooms');
     if (selected.value === 'All') {
       if (checkBathroomBox.checked == true) {
         setFilteredAvailableBeds(
@@ -102,50 +101,10 @@ const FilterBar = () => {
     }
   };
 
-  // const handleBathroomChecked = () => {
-  //   if (checkBathroomBox.checked == true) {
-  //     setFilteredAvailableBeds(
-  //       (prev) =>
-  //         (prev = availableBeds.filter((room) => room.banoPrivado === true))
-  //     );
-  //   } else {
-  //     setFilteredAvailableBeds(availableBeds);
-  //   }
-  // };
+  useEffect(() => {
+    console.log(filteredAvailableBeds);
+  }, [filteredAvailableBeds]);
 
-  // const handleClick = () => {
-  //   getFilteredBeds(localDate.checkIn, localDate.checkOut);
-  //   setFilterdates(localDate);
-  //   console.log(localDate);
-  //   console.log(setAvailablebeds);
-  // };
-
-  // const handlePrivateChecked = () => {
-  //   let checkBox = document.getElementById('privateRooms');
-  //   if (checkBox.checked == true) {
-  //     setFilteredAvailableBeds(
-  //       availableBeds.filter((room) => room.privada === true)
-  //     );
-  //   } else {
-  //     setFilteredAvailableBeds(availableBeds);
-  //   }
-  // };
-
-  // const handleBathroomChecked = () => {
-  //   let checkBox = document.getElementById('privateBathrooms');
-  //   if (checkBox.checked == true) {
-  //     setFilteredAvailableBeds(
-  //       (prev) =>
-  //         (prev = availableBeds.filter((room) => room.banoPrivado === true))
-  //     );
-  //   } else {
-  //     setFilteredAvailableBeds(availableBeds);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   console.log(filteredAvailableBeds);
-  // }, [filteredAvailableBeds]);
 
   return (
     <div className={styles.form} id="form">
