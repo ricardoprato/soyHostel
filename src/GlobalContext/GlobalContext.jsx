@@ -8,7 +8,6 @@ export const ContextProvider = (props) => {
       id: 1,
       nombre: 'Godzilla',
       comodidades: 'AirConditioner, smart Tv, Fridge',
-      cantCamas: 10,
       privada: false,
       banoPrivado: true,
       preciosCamas: 400,
@@ -41,7 +40,7 @@ export const ContextProvider = (props) => {
       cantCamas: 3,
       privada: false,
       banoPrivado: true,
-      preciosCamas: 650,
+      preciosCamas: 750,
       imagenes: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhu6nVyjLiJZqi3MbtLvvdEZlbYRMYvDcCww&usqp=CAU',
       ],

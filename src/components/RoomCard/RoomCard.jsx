@@ -91,9 +91,7 @@ export default function RoomCard(props) {
               {props.bathroom ? <p>With private bathroom</p> : null}
               <p>Room for {props.bedsAvailable} people</p>
             </div>
-            <p className={styles.price}>
-              Room price: $ {props.bedPrice * props.bedsAvailable}
-            </p>
+            <p className={styles.price}>Room price: $ {props.bedPrice}</p>
             <div className={styles.addToCart}>
               <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
             </div>
