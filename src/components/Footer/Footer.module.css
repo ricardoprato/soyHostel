@@ -1,23 +1,15 @@
-.container {
+.footer {
+  z-index: 777;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
-  background-color: rgb(255, 255, 255);
+  align-items: center;
   font-size: 30px;
-  width: 100%;
+  margin-left: 45px;
 }
-
-.mapa {
-  height: 150px;
-  width: 400px;
-  border-radius: 5px;
-  border: 2px solid rgb(0, 0, 0);
-  margin: 10px;
-}
-
-.title {
-  font-size: 23px;
-  margin-left: 44px;
-  margin-bottom: 20px;
+.link {
+  color: var(--white-color);
 }
