@@ -128,6 +128,28 @@ const FilterBar = () => {
           defaultValue={tomorrow.toLocaleDateString('en-CA')}
         />
       </label>
+      <label className={styles.input}>
+        Private Bathroom
+        <input type="checkbox" onChange={handleRooms} id="privateBathrooms" />
+        <div className={styles.check}>
+          <div className={styles.checkText}></div>
+        </div>
+      </label>
+      <label className={styles.input}>
+        Order by Price
+        <input type="checkbox" onChange={handlePrice} id="price" />{' '}
+        <div className={styles.check}>
+          <div className={styles.checkText}></div>
+        </div>
+      </label>{' '}
+      <label className={styles.input}>
+        Private Room
+        <select onChange={handleRooms} id="roomTypes" className={styles.select}>
+          <option value="All">All</option>
+          <option value="Private">Private</option>
+          <option value="Shared">Shared</option>
+        </select>
+      </label>
       <button
         className={styles.button}
         onClick={handleClick}
@@ -137,31 +159,6 @@ const FilterBar = () => {
       >
         Submit
       </button>
-      <label className={styles.input}>
-        Private Room
-        <select onChange={handleRooms} id="roomTypes" className={styles.select}>
-          <option value="All">All</option>
-          <option value="Private">Private</option>
-          <option value="Shared">Shared</option>
-        </select>
-      </label>
-
-      <label className={styles.input}>
-        Private Bathroom
-        <input type="checkbox" onChange={handleRooms} id="privateBathrooms" />
-
-        <div className={styles.check}>
-          <div className={styles.checkText}></div>
-        </div>
-      </label>
-
-      </div>
-
-      <div className={styles.title}>
-        <label>Order by Price</label>
-        <input type="checkbox" onChange={handlePrice} id="price" />
-      </div>
-
     </div>
   );
 };
