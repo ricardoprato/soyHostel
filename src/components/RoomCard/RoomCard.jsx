@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './RoomCard.module.css';
 import Button from '../Button/Button';
+import { Modal } from '../Modal/Modal';
+import RoomDetails from '../RoomDetails/RoomDetails';
 
 export default function RoomCard(props) {
-  const { cart, setCart } = useContext(GlobalContext);
-  const { filterDates } = useContext(GlobalContext);
+  const { cart, setCart, filterDates, openModal, setOpenModal } =
+    useContext(GlobalContext);
 
-  
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
@@ -47,66 +48,85 @@ export default function RoomCard(props) {
       }
       if (toCart.numberOfBeds > 0) {
         setCart([...cart, toCart]);
-        setBedsOnCart(toCart.numberOfBeds)
+
+        setBedsOnCart(toCart.numberOfBeds);
+
         setToCart(initialstate);
       }
     }
   };
-  console.log(cart)
+
+  // console.log(cart);
+
+  const onCLickImage = function () {
+    setOpenModal((prevState) => !prevState);
+  };
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
-        <Link to={`/details/${props.roomId}`}>
-          <img
-            className={styles.RoomCardImg}
-            src={props.image[0]}
-            alt="room-img"
-          />
-        </Link>
+        {!!openModal && (
+          <Modal>
+            <RoomDetails roomId={props.roomId} />
+          </Modal>
+        )}
+        <img
+          onClick={onCLickImage}
+          className={styles.RoomCardImg}
+          src={props.image[0]}
+          alt="room-img"
+        />
       </div>
       <div className={styles.RoomCardText}>
-        <div>Room: {props.roomName}</div>
+        <h2 className={styles.title}>Room: {props.roomName}</h2>
         {/* <div>
           Availability for {filterDates.checkIn} to {filterDates.checkOut}
         </div> */}
-        <div>
-          {props.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
-            <div>
-              <div>This is a PRIVATE room</div>
-              {props.bathroom ? <div>With private bathroom</div> : null}
-              <div>Room price: $ {props.bedPrice * props.bedsAvailable}</div>
-              <div>Room for {props.bedsAvailable} people</div>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')}/>
-              {/* <button onClick={() => onClickHandler('add')}>
-                {' '}
-                ADD to Cart{' '}
-              </button> */}
+        {props.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
+          <>
+            <div className={styles.description}>
+              <h3>
+                This is a{' '}
+                <span className={styles.spanDescription}>PRIVATE</span> room
+              </h3>
+              {props.bathroom ? <p>With private bathroom</p> : null}
+              <p>Room for {props.bedsAvailable} people</p>
             </div>
-          ) : (
-            <div>
-              <div>This is a SHARED room</div>
-              {props.bathroom ? <div>With private bathroom</div> : null}
-              <div>Bed price: $ {props.bedPrice}</div>
-              
-              {/* <button onClick={() => onClickHandler('+')}> + </button>
-              <button onClick={() => onClickHandler('-')}> - </button> */}
-              <div>
-                <Button msg="+" funct={() => onClickHandler('+')}/>
-                <Button msg="-" funct={() => onClickHandler('-')}/>
-                {toCart.numberOfBeds} beds selected, {count} left
+            <p className={styles.price}>
+              Room price: $ {props.bedPrice * props.bedsAvailable}
+            </p>
+            <div className={styles.addToCart}>
+              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.description}>
+              <h3>
+                This is a <span className={styles.spanDescription}>SHARED</span>{' '}
+                room
+              </h3>
+              {props.bathroom ? <p>With private bathroom</p> : null}
+            </div>
+            <p className={styles.price}>Bed price: $ {props.bedPrice}</p>
+            <div className={styles.buttons}>
+              <div className={styles.flexButton}>
+                <Button msg="+" funct={() => onClickHandler('+')} />
+                <Button msg="-" funct={() => onClickHandler('-')} />
               </div>
-              <div><Button msg="ADD to Cart" funct={() => onClickHandler('add')}/> {bedsOnCart} on Cart</div>
-              {/* <button onClick={() => onClickHandler('add')}>
-                {' '}
-                ADD to Cart{' '}
-              </button> */}
             </div>
-          )}
-        </div>
+            <div className={styles.addToCart}>
+              <p>{bedsOnCart} on Cart</p>
+              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+            </div>
+            <p className={styles.amount}>
+              {toCart.numberOfBeds} beds selected, {count} left
+            </p>
+          </>
+        )}
       </div>
-      <div className={styles.RoomCardDescription}>
+      {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
-      </div>
+      </div> */}
     </div>
   );
 }

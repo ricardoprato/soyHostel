@@ -6,15 +6,14 @@ import styles from './Button.module.css';
 //<Button msg="text" funct={() => {}} />
 //<Button msg="text" funct={nameFunct}/>
 
-const Button = ({ msg, link, funct }) => {
+const Button = ({ msg, link, funct, disabled }) => {
   return (
     <>
       {link ? (
         <NavLink to={link}>{msg}</NavLink>
       ) : (
-        <button className={styles.button} onClick={funct}>
+        <button className={styles.button} onClick={funct} disabled={disabled}>
           {msg}
-          <i className="bi bi-arrow-right-short"></i>
         </button>
       )}
     </>

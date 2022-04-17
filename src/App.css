@@ -26,28 +26,3 @@ body {
 a {
   text-decoration: none;
 }
-
-.bi-whatsapp {
-  color: rgb(87, 187, 41);
-  margin: 40px;
-}
-
-.bi-instagram {
-  color: rgb(175, 41, 187);
-  margin: 40px;
-}
-
-.bi-facebook {
-  color: rgb(46, 38, 160);
-  margin: 40px;
-}
-
-.bi-geo-alt-fill {
-  color: rgb(228, 80, 21);
-  margin: 40px;
-}
-
-.bi-twitter {
-  color: rgb(20, 182, 236);
-  margin: 40px;
-}

@@ -52,9 +52,9 @@ export default function Slider() {
               dolores quaerat debitis quae itaque, at fugit. Placeat,
               consectetur vel?
             </p>
-            <button className="button" onClick={onClickButton}>
+            <a className="button" href="#form">
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </button>
+            </a>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -70,9 +70,9 @@ export default function Slider() {
               Delectus voluptas rerum blanditiis maiores incidunt natus dolorem,
               autem, earum dolores voluptatibus veniam.
             </p>
-            <button className="button" onClick={onClickButton}>
+            <a className="button" href="#form">
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </button>
+            </a>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -88,9 +88,9 @@ export default function Slider() {
               dicta omnis, adipisci voluptate sed error! Iusto consequatur
               accusamus reprehenderit quidem officiis deleniti debitis?
             </p>
-            <button className="button" onClick={onClickButton}>
+            <a className="button" href="#form">
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </button>
+            </a>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -105,9 +105,9 @@ export default function Slider() {
               quibusdam ex non quas, maiores atque accusantium cum nesciunt
               optio quidem rerum? Similique, eius.
             </p>
-            <button className="button" onClick={onClickButton}>
+            <a className="button" href="#form">
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </button>
+            </a>
           </div>
         </SwiperSlide>
       </Swiper>
