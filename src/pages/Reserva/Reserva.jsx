@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import FilterBar from '../../components/FilterBar/FilterBar';
 import RoomCard from '../../components/RoomCard/RoomCard';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import styles from './Reserva.modules.css'
+import styles from './Reserva.modules.css';
 
 export default function Reserva() {
   const { filteredAvailableBeds } = useContext(GlobalContext); // ver como destructuro del globalContext
@@ -10,9 +9,6 @@ export default function Reserva() {
   return (
     <div className={styles.ReserveContainer}>
       {/* {console.log(filteredAvailableBeds)} */}
-      <div>
-        <FilterBar />{' '}
-      </div>
       <div className={styles.RoomCardsContainer}>
         {filteredAvailableBeds.length > 0 ? (
           filteredAvailableBeds.map((r) => (
@@ -28,7 +24,7 @@ export default function Reserva() {
                 image={r.imagenes}
                 private={r.privada}
               />
-            </div>   
+            </div>
           ))
         ) : (
           <div>No available rooms/beds for the selected dates</div>

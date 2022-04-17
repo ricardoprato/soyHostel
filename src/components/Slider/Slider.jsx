@@ -88,9 +88,11 @@ export default function Slider() {
               dicta omnis, adipisci voluptate sed error! Iusto consequatur
               accusamus reprehenderit quidem officiis deleniti debitis?
             </p>
-            <button className="button" onClick={onClickButton}>
-              View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </button>
+            <a href="#form">
+              <button className="button" onClick={onClickButton}>
+                View Avalaible <i className="bi bi-arrow-right-short"></i>
+              </button>
+            </a>
           </div>
         </SwiperSlide>
         <SwiperSlide>

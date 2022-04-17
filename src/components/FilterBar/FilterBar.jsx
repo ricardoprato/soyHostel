@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import styles from './FilterBar.module.css';
-
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
@@ -39,13 +38,14 @@ const FilterBar = () => {
   };
 
   return (
-    <div className={styles.lateral}>
+    <div className={styles.form} id="form">
       <label className={styles.input}>
         From:
         <input
           type="date"
           name="checkIn"
           onChange={handleFilters}
+          className={styles.data}
           defaultValue={today.toLocaleDateString('en-CA')}
         />
       </label>
@@ -55,35 +55,24 @@ const FilterBar = () => {
           type="date"
           name="checkOut"
           onChange={handleFilters}
+          className={styles.data}
           defaultValue={tomorrow.toLocaleDateString('en-CA')}
         />
       </label>
-
-      <button
-        className={styles.submitBtn}
-        onClick={handleClick}
-        disabled={
-          Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
-        }
-      >
-        Submit
-      </button>
-
-      <div className={styles.title}>
-        <lablel>Private Room</lablel>
-
-        <label className={styles.container}>
-          <input type="checkbox" />
-          <div className={styles.checkmark}></div>
-        </label>
-      </div>
-      <div className={styles.title}>
-        <lablel>Private Bathroom</lablel>
-        <label className={styles.container}>
-          <input type="checkbox" />
-          <div className={styles.checkmark}></div>
-        </label>
-      </div>
+      <label className={styles.input}>
+        Private Room
+        <input type="checkbox" />
+        <div className={styles.check}>
+          <span className={styles.checkText}></span>
+        </div>
+      </label>
+      <label className={styles.input}>
+        Private Bathroom
+        <input type="checkbox" />
+        <div className={styles.check}>
+          <div className={styles.checkText}></div>
+        </div>
+      </label>
     </div>
   );
 };
