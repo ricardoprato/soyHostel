@@ -1,0 +1,15 @@
+.footer {
+  z-index: 777;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+.link {
+  color: var(--white-color);
+}

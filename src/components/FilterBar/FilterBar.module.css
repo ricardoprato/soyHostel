@@ -1,0 +1,175 @@
+input[type='checkbox'] {
+  display: none;
+  appearance: none;
+  visibility: hidden;
+}
+
+.form {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  row-gap: 2rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  justify-content: space-between;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.data {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
+}
+.check {
+  width: 100%;
+  height: 100%;
+  background-color: var(--white-color);
+  cursor: pointer;
+  position: relative;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+.check::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--dark-color);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+  transition: 0.3s ease;
+}
+.check::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -50%;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--white-color);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+  transition: 0.3s ease;
+}
+.checkText::before {
+  content: 'No';
+  position: absolute;
+  color: var(--dark-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+.checkText::after {
+  content: 'Yes';
+  position: absolute;
+  color: var(--dark-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+input[type='checkbox']:checked ~ .check .checkText::before {
+  top: -50%;
+}
+input[type='checkbox']:checked ~ .check .checkText::after {
+  color: var(--white-color);
+  transform: translate(-50%, -50%);
+}
+input[type='checkbox']:checked ~ .check {
+  background-color: var(--dark-color);
+}
+input[type='checkbox']:checked ~ .check::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--white-color);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+}
+input[type='checkbox']:checked ~ .check::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--white-color);
+  border-radius: 50%;
+  box-shadow: var(--box-shadow);
+}
+.select {
+  text-align: center;
+  font-weight: bold;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
+  color: var(--dark-color);
+}
+
+.button {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #fff;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.button:hover {
+  color: #e8e8e8;
+}
+
+.button:hover::before {
+  width: 100%;
+}
