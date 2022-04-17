@@ -40,17 +40,37 @@ const FilterBar = () => {
     console.log(setAvailablebeds);
   };
 
+  const handlePrice = () => {
+    let price = document.getElementById('price');
+
+    let data = [];
+    if (price.checked == true) {
+      data = filteredAvailableBeds.sort(function (a, b) {
+        return a.preciosCamas - b.preciosCamas;
+      });
+    } else {
+      data = filteredAvailableBeds.sort(function (a, b) {
+        return b.preciosCamas - a.preciosCamas;
+      });
+    }
+    setFilteredAvailableBeds(data);
+    console.log(filteredAvailableBeds);
+  };
+
   const handleRooms = () => {
     let checkBathroomBox = document.getElementById('privateBathrooms');
     let selected = document.getElementById('roomTypes');
+    let price = document.getElementById('price');
     // const checkPrivateBox = document.getElementById('privateRooms');
     if (selected.value === 'All') {
       if (checkBathroomBox.checked == true) {
         setFilteredAvailableBeds(
           availableBeds.filter((room) => room.banoPrivado === true)
         );
+        price.checked = false;
       } else {
         setFilteredAvailableBeds(availableBeds);
+        price.checked = false;
       }
     } else if (selected.value === 'Private') {
       if (checkBathroomBox.checked == true) {
@@ -59,10 +79,12 @@ const FilterBar = () => {
             (room) => room.privada === true && room.banoPrivado === true
           )
         );
+        price.checked = false;
       } else {
         setFilteredAvailableBeds(
           availableBeds.filter((room) => room.privada === true)
         );
+        price.checked = false;
       }
     } else if (selected.value === 'Shared') {
       if (checkBathroomBox.checked == true) {
@@ -71,10 +93,12 @@ const FilterBar = () => {
             (room) => room.privada === false && room.banoPrivado === true
           )
         );
+        price.checked = false;
       } else {
         setFilteredAvailableBeds(
           availableBeds.filter((room) => room.privada === false)
         );
+        price.checked = false;
       }
     }
   };
@@ -168,6 +192,11 @@ const FilterBar = () => {
       <div className={styles.title}>
         <label>Private Bathroom</label>
         <input type="checkbox" onChange={handleRooms} id="privateBathrooms" />
+      </div>
+
+      <div className={styles.title}>
+        <label>Order by Price</label>
+        <input type="checkbox" onChange={handlePrice} id="price" />
       </div>
     </div>
   );

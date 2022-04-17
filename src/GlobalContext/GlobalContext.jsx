@@ -11,7 +11,7 @@ export const ContextProvider = (props) => {
       cantCamas: 10,
       privada: false,
       banoPrivado: true,
-      preciosCamas: [400],
+      preciosCamas: 400,
       imagenes: [
         'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg',
       ],
@@ -25,7 +25,7 @@ export const ContextProvider = (props) => {
       cantCamas: 2,
       privada: true,
       banoPrivado: false,
-      preciosCamas: [650],
+      preciosCamas: 650,
       imagenes: [
         'https://media-cdn.tripadvisor.com/media/photo-s/06/3e/92/2c/hotel-california-bandung.jpg',
         'https://dbijapkm3o6fj.cloudfront.net/resources/1805,1004,1,6,4,0,600,450/-4608-/20210504010539/suite-room.jpeg',
@@ -41,7 +41,7 @@ export const ContextProvider = (props) => {
       cantCamas: 3,
       privada: false,
       banoPrivado: true,
-      preciosCamas: [650],
+      preciosCamas: 650,
       imagenes: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhu6nVyjLiJZqi3MbtLvvdEZlbYRMYvDcCww&usqp=CAU',
       ],
@@ -55,7 +55,7 @@ export const ContextProvider = (props) => {
       cantCamas: 6,
       privada: false,
       banoPrivado: false,
-      preciosCamas: [500],
+      preciosCamas: 500,
       imagenes: [
         'https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.afersurf.com/wp-content/uploads/2019/03/6bed1.jpg',
       ],
@@ -69,7 +69,7 @@ export const ContextProvider = (props) => {
       cantCamas: 4,
       privada: true,
       banoPrivado: true,
-      preciosCamas: [700],
+      preciosCamas: 700,
       imagenes: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvLgATHRBwenxFd8W8bmm_AM8_Z1IRdgXFaC24Ge4qvo_GmJUGRz4R7-T6lSLz9kSby3g&usqp=CAU',
       ],
