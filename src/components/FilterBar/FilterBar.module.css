@@ -5,11 +5,15 @@ input[type='checkbox'] {
 }
 
 .form {
+  margin-left: 5%;
+  margin-right: 5%;
   display: flex;
-  justify-content: space-evenly;
+  row-gap: 2rem;
   padding: 2rem;
   padding-top: 4rem;
+  justify-content: space-between;
 }
+
 .input {
   display: flex;
   flex-direction: column;

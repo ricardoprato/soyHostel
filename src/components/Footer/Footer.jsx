@@ -11,6 +11,7 @@ import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
+
     <footer className={styles.footer}>
       <a
         className={styles.link}
@@ -43,6 +44,7 @@ const Footer = () => {
       <a className={styles.link} target="_blank" href="https://twitter.com/">
         <i className="bi bi-twitter"></i>
       </a>
+
     </footer>
   );
 };
