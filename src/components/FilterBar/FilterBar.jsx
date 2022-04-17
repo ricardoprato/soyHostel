@@ -40,32 +40,42 @@ const FilterBar = () => {
     console.log(setAvailablebeds);
   };
 
-  const handleChecks = () => {
-    const checkBathroomBox = document.getElementById('privateBathrooms');
-    const checkPrivateBox = document.getElementById('privateRooms');
-
-    if (checkPrivateBox.checked == true && checkBathroomBox.checked == true) {
-      setFilteredAvailableBeds(
-        availableBeds.filter(
-          (room) => room.privada === true && room.banoPrivado === true
-        )
-      );
-    } else if (
-      checkPrivateBox.checked == true &&
-      checkBathroomBox.checked == false
-    ) {
-      setFilteredAvailableBeds(
-        availableBeds.filter((room) => room.privada === true)
-      );
-    } else if (
-      checkBathroomBox.checked == true &&
-      checkPrivateBox.checked == false
-    ) {
-      setFilteredAvailableBeds(
-        availableBeds.filter((room) => room.banoPrivado === true)
-      );
-    } else {
-      setFilteredAvailableBeds(availableBeds);
+  const handleRooms = () => {
+    let checkBathroomBox = document.getElementById('privateBathrooms');
+    let selected = document.getElementById('roomTypes');
+    // const checkPrivateBox = document.getElementById('privateRooms');
+    if (selected.value === 'All') {
+      if (checkBathroomBox.checked == true) {
+        setFilteredAvailableBeds(
+          availableBeds.filter((room) => room.banoPrivado === true)
+        );
+      } else {
+        setFilteredAvailableBeds(availableBeds);
+      }
+    } else if (selected.value === 'Private') {
+      if (checkBathroomBox.checked == true) {
+        setFilteredAvailableBeds(
+          availableBeds.filter(
+            (room) => room.privada === true && room.banoPrivado === true
+          )
+        );
+      } else {
+        setFilteredAvailableBeds(
+          availableBeds.filter((room) => room.privada === true)
+        );
+      }
+    } else if (selected.value === 'Shared') {
+      if (checkBathroomBox.checked == true) {
+        setFilteredAvailableBeds(
+          availableBeds.filter(
+            (room) => room.privada === false && room.banoPrivado === true
+          )
+        );
+      } else {
+        setFilteredAvailableBeds(
+          availableBeds.filter((room) => room.privada === false)
+        );
+      }
     }
   };
 
@@ -147,18 +157,17 @@ const FilterBar = () => {
 
       <div className={styles.title}>
         <label>Private Room</label>
-        <label className={styles.container}>
-          <input type="checkbox" onClick={handleChecks} id="privateRooms" />
-          <div className={styles.checkmark}></div>
-        </label>
+
+        <select onChange={handleRooms} id="roomTypes">
+          <option value="All">All</option>
+          <option value="Private">Private</option>
+          <option value="Shared">Shared</option>
+        </select>
       </div>
 
       <div className={styles.title}>
         <label>Private Bathroom</label>
-        <label className={styles.container}>
-          <input type="checkbox" onClick={handleChecks} id="privateBathrooms" />
-          <div className={styles.checkmark}></div>
-        </label>
+        <input type="checkbox" onChange={handleRooms} id="privateBathrooms" />
       </div>
     </div>
   );
