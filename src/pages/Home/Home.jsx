@@ -6,11 +6,14 @@ import styles from './Home.module.css';
 export default function Home() {
   return (
     <>
-      <main className={styles.home}>
+      <main className={styles.home} id="home">
         <Slider />
       </main>
-      <FilterBar />
-      <Reserva />
+      <div id="form" className={styles.section}></div>
+      <section className={styles.section}>
+        <FilterBar />
+        <Reserva />
+      </section>
     </>
   );
 }

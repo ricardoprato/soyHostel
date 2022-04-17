@@ -1,38 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import Button from '../Button/Button';
 import styles from './RoomDetails.module.css';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { Modal } from '../Modal/Modal'
 
 
-  /*     {
-    "id": 4,
-    "nombre": "habitacion 3",
-    "comodidades": "frigobar, vista al rio",
-    "cantCamas": 4,
-    "privada": true,
-    "banoPrivado": true,
-    "createdAt": "2022-04-13T04:03:21.104Z",
-    "Camas": []
-    }
-    {
-    "id": 7,
-    "nombre": "habitacion 4",
-    "comodidades": "frigobar, vista al rio",
-    "cantCamas": 8,
-    "descripcion": "blablablablablablablablablablablablablablablablablablablabla",
-    "imagenes": ["http://blablabla", "http://blablabla", "http://blablabla", "http://blablabla"]
-    "privada": false,
-    "banoPrivado": true,
-    "createdAt": "2022-04-13T04:05:01.311Z",
-    "Camas": []
-    } */
+export default function RoomDetails() {
+  const roomId = 10;
 
-export default function RoomDetails({ roomId }) {
-  
-  let details = {};
+  const [details, setDetails] = useState({});
+  const { openModal, setOpenModal } = useContext(GlobalContext);
+
 
   const fetchDetails = (roomId) => {
     fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
       .then((response) => response.json())
-      .then((details) => details)
+      .then((data) => setDetails((prev) => data))
       .catch((error) => {
         if (error.response) {
           const { response } = error;
@@ -43,23 +26,45 @@ export default function RoomDetails({ roomId }) {
       });
   };
 
-  details = fetchDetails(roomId);
+  useEffect(() => {
+    fetchDetails(roomId);
+  }, []);
+
+  // Camas: []
+  // Imagenes: []
+  // Reservas: []
+  // banoPrivado: true
+  // cantCamas: 1
+  // comodidades: "frigobar, vista al rio, A/A, sommier, cama king size"
+  // createdAt: "2022-04-14T22:32:37.874Z"
+  // descripcion: "la bonita y mas mejor habitacion del hotel"
+  // id: 1
+  // nombre: "suite imperial"
+  // precio: 5000
+  // privada: true
+
+  console.log(details);
+
+  const onClickClose = function() {
+    setOpenModal((prevState) => !prevState)
+  }
 
   return (
     <div className={styles.roomDetailsContainer}>
       <div className={styles.roomDetailsImages}>
-        {details.imagenes.length > 0
-          ? details.imagenes.map((i) => <img src={i} alt="room-img" />)
-          : null}
+        {details.Imagens && ( //ojo no usar prettier aca que borra los parentesis y no funciona mas
+          details.Imagens.map((i) => {
+            return <img key={i.id} src={i.imagen} alt="room-img" />;
+          }))}
       </div>
       <div className={styles.roomDetailsText}>
         <h1>Room: {details.nombre}</h1>
-        {details.privada ? (
+        {details.privada ? ( 
           <h3>
-            This is a PRIVATE room with spade for {details.cantCamas} people.
+            This is a PRIVATE room with beds for {details.cantCamas} people.
           </h3>
         ) : (
-          <h3>This is a SHARED room with {details.cantCamas} berd.</h3>
+          <h3>This is a SHARED room with {details.cantCamas} beds.</h3>
         )}
         {details.banoPrivado ? (
           <h3>With private bathroom</h3>
@@ -69,6 +74,7 @@ export default function RoomDetails({ roomId }) {
         <div>Description: {details.descripcion}</div>
         <div>Comodities: {details.comodidades}</div>
       </div>
+      <Button msg="x" funct={onClickClose} />
     </div>
   );
 }

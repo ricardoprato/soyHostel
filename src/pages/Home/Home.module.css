@@ -12,3 +12,9 @@
   left: 0;
   background: linear-gradient(transparent, var(--section-bg-color));
 }
+.section {
+  position: relative;
+  color: var(--white-color);
+  background: var(--section-bg-color);
+  transition: 0.3s ease;
+}
