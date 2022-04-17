@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import styles from './FilterBar.module.css';
-
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
@@ -36,8 +35,8 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
-    console.log(localDate);
-    console.log(setAvailablebeds);
+    // console.log(localDate);
+    // console.log(setAvailablebeds);
   };
 
   const handlePrice = () => {
@@ -144,18 +143,19 @@ const FilterBar = () => {
   //   }
   // };
 
-  useEffect(() => {
-    console.log(filteredAvailableBeds);
-  }, [filteredAvailableBeds]);
+  // useEffect(() => {
+  //   console.log(filteredAvailableBeds);
+  // }, [filteredAvailableBeds]);
 
   return (
-    <div className={styles.lateral}>
+    <div className={styles.form} id="form">
       <label className={styles.input}>
         From:
         <input
           type="date"
           name="checkIn"
           onChange={handleFilters}
+          className={styles.data}
           defaultValue={today.toLocaleDateString('en-CA')}
         />
       </label>
@@ -165,12 +165,12 @@ const FilterBar = () => {
           type="date"
           name="checkOut"
           onChange={handleFilters}
+          className={styles.data}
           defaultValue={tomorrow.toLocaleDateString('en-CA')}
         />
       </label>
-
       <button
-        className={styles.submitBtn}
+        className={styles.button}
         onClick={handleClick}
         disabled={
           Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
@@ -178,26 +178,31 @@ const FilterBar = () => {
       >
         Submit
       </button>
-
-      <div className={styles.title}>
-        <label>Private Room</label>
-
-        <select onChange={handleRooms} id="roomTypes">
+      <label className={styles.input}>
+        Private Room
+        <select onChange={handleRooms} id="roomTypes" className={styles.select}>
           <option value="All">All</option>
           <option value="Private">Private</option>
           <option value="Shared">Shared</option>
         </select>
-      </div>
+      </label>
 
-      <div className={styles.title}>
-        <label>Private Bathroom</label>
+      <label className={styles.input}>
+        Private Bathroom
         <input type="checkbox" onChange={handleRooms} id="privateBathrooms" />
+
+        <div className={styles.check}>
+          <div className={styles.checkText}></div>
+        </div>
+      </label>
+
       </div>
 
       <div className={styles.title}>
         <label>Order by Price</label>
         <input type="checkbox" onChange={handlePrice} id="price" />
       </div>
+
     </div>
   );
 };

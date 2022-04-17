@@ -1,43 +1,81 @@
-.RoomCardContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 10px;
-    /* background-color: rgba(255, 253, 253, 0.5); */
-    background-color: rgb(255, 113, 24);
-    /* margin-top: 15px; */
-    margin: 25px;
-    width: fit-content;
+.RoomCardContainer {
+  background-color: var(--dark-color);
+  padding: 2rem;
+  margin-left: 4rem;
+  margin-right: 4rem;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+  height: fit-content;
+  width: 100%;
+  border-radius: 4rem;
 }
 
-
-.RoomCardText{
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    margin-right: 15px;
-    background-color:rgb(0, 0, 0);
-    padding: 8px;
-    border-radius: 10px;
-    border: 1px solid black;
-    color: white;
-
+.RoomCardText {
+  padding: 3rem;
+  display: grid;
+  grid-template:
+    'name none .'
+    'price . .'
+    'description  . .';
+  min-width: 300px;
+  width: 100%;
+  max-width: 800px;
+  min-height: 250px;
+  border: 1px solid var(--white-color);
+  border-radius: 10px;
+  position: relative;
+}
+.title {
+  grid-area: name;
+}
+.price {
+  grid-area: price;
+}
+.description {
+  grid-area: description;
+}
+.RoomCardImages {
+  padding: 2rem;
+}
+.amount {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.buttons {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.8rem;
 }
 
-.RoomCardImg{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    width: 200px;
-    height: 150px;
-    border-radius: 10px;
-    border: 1px solid black;
-    margin-right: 25px;
+.flexButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
+.addToCart {
+  text-align: center;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.2rem;
+}
+.RoomCardImg {
+  height: fit-content;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  cursor: pointer;
 }
 
+.spanDescription {
+  font-size: 1.5rem;
+  color: var(--white-color);
+}
 /* .RoomCardDescription{
     width: 350px;
     display: flex;
@@ -49,4 +87,3 @@
     border-radius: 10px;
     border: 1px solid black;
 } */
-
