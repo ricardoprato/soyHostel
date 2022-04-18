@@ -11,16 +11,10 @@
   font-size: 30px;
 }
 .link {
-  position: relative;
-  background-color: var(--white-color);
-  background-clip: text;
-  color: transparent;
-  overflow: hidden;
+  color: var(--white-color);
   transition: 03ms ease;
 }
 .link:hover {
-  background-color: var(--dark-color);
-  color: transparent;
-  background-clip: text;
+  color: var(--dark-color);
   transition: 03ms ease;
 }
