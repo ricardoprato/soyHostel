@@ -1,16 +1,17 @@
 .RoomCardContainer {
-  background-color: var(--dark-color);
   padding: 2rem;
   margin-left: 4rem;
   margin-right: 4rem;
   display: flex;
   align-items: center;
   align-content: center;
-  justify-content: center;
-  box-shadow: var(--box-shadow);
+  justify-content: space-evenly;
+  box-shadow: 5px 5px 25px rgba(100, 100, 100, 0.2);
+  border-bottom: 2px solid var(--white-color);
+  border-right: 2px solid var(--white-color);
   height: fit-content;
-  width: 100%;
-  border-radius: 4rem;
+  width: 90%;
+  border-radius: 2rem;
 }
 
 .RoomCardText {
@@ -27,6 +28,7 @@
   border: 1px solid var(--white-color);
   border-radius: 10px;
   position: relative;
+  background-color: #988f86;
 }
 .title {
   grid-area: name;
@@ -76,6 +78,7 @@
   font-size: 1.5rem;
   color: var(--white-color);
 }
+
 /* .RoomCardDescription{
     width: 350px;
     display: flex;

@@ -12,6 +12,7 @@ input[type='checkbox'] {
   padding: 2rem;
   padding-top: 4rem;
   justify-content: space-between;
+  color: var(--dark-color);
 }
 
 .input {
