@@ -5,10 +5,9 @@ export const GlobalContext = createContext();
 export const ContextProvider = (props) => {
   let mock = [
     {
-      id: 1,
+      id: 6,
       nombre: 'Godzilla',
       comodidades: 'AirConditioner, smart Tv, Fridge',
-      cantCamas: 10,
       privada: false,
       banoPrivado: true,
       preciosCamas: 400,
@@ -19,7 +18,7 @@ export const ContextProvider = (props) => {
         'This is the hostels biggest room. It has 10 beds, each with its own locker and small light. It has a big window this an ocean view.',
     },
     {
-      id: 2,
+      id: 7,
       nombre: 'Suite',
       comodidades: 'AirConditioner, smart Tv, Fridge, balcone, kitchen',
       cantCamas: 2,
@@ -35,13 +34,13 @@ export const ContextProvider = (props) => {
         'Our One Bedroom Suite (72m2) was designed in a resort style, providing the comfort and feel of a resort with teak wood furniture and chic white marble bathroom.',
     },
     {
-      id: 3,
+      id: 8,
       nombre: 'Ratatouille',
       comodidades: 'AirConditioner, smart Tv, Fridge',
       cantCamas: 3,
       privada: false,
       banoPrivado: true,
-      preciosCamas: 650,
+      preciosCamas: 750,
       imagenes: [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhu6nVyjLiJZqi3MbtLvvdEZlbYRMYvDcCww&usqp=CAU',
       ],
@@ -49,7 +48,7 @@ export const ContextProvider = (props) => {
         'This is the smallest dorm on the hostel. Only for 3 people, ideal for small friends group or even a couple with a kid.',
     },
     {
-      id: 4,
+      id: 9,
       nombre: 'Average',
       comodidades: 'Fan',
       cantCamas: 6,
@@ -63,7 +62,7 @@ export const ContextProvider = (props) => {
         'Normal dorm with 6 beds, personal lockers, sealing fan, mosquito net and a private bathroom. Close to the bar.',
     },
     {
-      id: 5,
+      id: 10,
       nombre: 'Family',
       comodidades: 'Fan',
       cantCamas: 4,
@@ -86,7 +85,6 @@ export const ContextProvider = (props) => {
   const [cart, setCart] = useState([]);
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
   const [availableBeds, setAvailablebeds] = useState(mock);
-  const [openModal, setOpenModal] = useState(false);
 
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
@@ -119,8 +117,6 @@ export const ContextProvider = (props) => {
         filteredAvailableBeds,
         setFilteredAvailableBeds,
         getFilteredBeds,
-        openModal,
-        setOpenModal,
       }}
     >
       {props.children}
