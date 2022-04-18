@@ -7,9 +7,8 @@ import { Modal } from '../Modal/Modal';
 import RoomDetails from '../RoomDetails/RoomDetails';
 
 export default function RoomCard(props) {
-  const { cart, setCart, filterDates, openModal, setOpenModal } =
-    useContext(GlobalContext);
-
+  const { cart, setCart, filterDates } = useContext(GlobalContext);
+  const [localModal, setLocalModal] = useState(false);
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
@@ -59,13 +58,14 @@ export default function RoomCard(props) {
   // console.log(cart);
 
   const onCLickImage = function () {
-    setOpenModal((prevState) => !prevState);
+    setLocalModal((prevState) => !prevState);
   };
+
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImages}>
-        {!!openModal && (
-          <Modal>
+        {!!localModal && (
+          <Modal setLocalModal={setLocalModal}>
             <RoomDetails roomId={props.roomId} />
           </Modal>
         )}
@@ -74,6 +74,7 @@ export default function RoomCard(props) {
           className={styles.RoomCardImg}
           src={props.image[0]}
           alt="room-img"
+          id={props.roomId}
         />
       </div>
       <div className={styles.RoomCardText}>
@@ -91,9 +92,7 @@ export default function RoomCard(props) {
               {props.bathroom ? <p>With private bathroom</p> : null}
               <p>Room for {props.bedsAvailable} people</p>
             </div>
-            <p className={styles.price}>
-              Room price: $ {props.bedPrice * props.bedsAvailable}
-            </p>
+            <p className={styles.price}>Room price: $ {props.bedPrice}</p>
             <div className={styles.addToCart}>
               <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
             </div>

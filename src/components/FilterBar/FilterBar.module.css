@@ -64,6 +64,26 @@ input[type='checkbox'] {
   box-shadow: var(--box-shadow);
   transition: 0.3s ease;
 }
+.checkPrice::before {
+  content: '$$ > $';
+  position: absolute;
+  color: var(--dark-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+.checkPrice::after {
+  content: '$ < $$';
+  position: absolute;
+  color: var(--dark-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  font-weight: bold;
+  transition: 0.3s ease;
+}
 .checkText::before {
   content: 'No';
   position: absolute;
@@ -88,6 +108,13 @@ input[type='checkbox']:checked ~ .check .checkText::before {
   top: -50%;
 }
 input[type='checkbox']:checked ~ .check .checkText::after {
+  color: var(--white-color);
+  transform: translate(-50%, -50%);
+}
+input[type='checkbox']:checked ~ .check .checkPrice::before {
+  top: -50%;
+}
+input[type='checkbox']:checked ~ .check .checkPrice::after {
   color: var(--white-color);
   transform: translate(-50%, -50%);
 }
@@ -118,6 +145,7 @@ input[type='checkbox']:checked ~ .check::after {
   border-radius: 50%;
   box-shadow: var(--box-shadow);
 }
+
 .select {
   text-align: center;
   font-weight: bold;
