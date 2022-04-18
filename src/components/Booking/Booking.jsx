@@ -256,13 +256,14 @@ const countries = [
 
 const Booking = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const today = new Date();
   return (
     <>
       <Formik
         initialValues={{
           name: '',
           lastName: '',
-          docType: '',
+          docType: '', 
           docNumber: '',
           birthDate: '',
           nationality: '',
@@ -330,9 +331,9 @@ const Booking = () => {
 
           if (!valores.checkIn) {
             errores.checkIn = 'Please enter checkIn date';
-          }else if(valores.checkIn < [Date()]){
+          }else if(valores.checkIn < today.toLocaleDateString('en-CA')){
             console.log(valores.checkIn)
-            console.log(Date())
+            console.log(today.toLocaleDateString('en-CA'))
             errores.checkIn ='CheckIn cant be in the past'
           }
 
