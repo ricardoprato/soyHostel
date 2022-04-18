@@ -105,7 +105,6 @@ const FilterBar = () => {
     console.log(filteredAvailableBeds);
   }, [filteredAvailableBeds]);
 
-
   return (
     <div className={styles.form} id="form">
       <label className={styles.input}>
@@ -141,7 +140,7 @@ const FilterBar = () => {
         <div className={styles.check}>
           <div className={styles.checkText}></div>
         </div>
-      </label>{' '}
+      </label>
       <label className={styles.input}>
         Private Room
         <select onChange={handleRooms} id="roomTypes" className={styles.select}>
