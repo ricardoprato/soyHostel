@@ -11,7 +11,7 @@ import './Slider.css';
 // import required modules
 import { Autoplay, FreeMode, Thumbs } from 'swiper';
 // import form
-import { Formulario } from '../../components/Formulario/Formulario';
+
 // import GlobalContext
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 import { useContext } from 'react';
@@ -23,15 +23,9 @@ export default function Slider() {
     setOpenModal((prevState) => !prevState);
   };
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const { openModal, setOpenModal } = useContext(GlobalContext);
+
   return (
     <>
-      {!!openModal && (
-        <Modal>
-          <Formulario />
-        </Modal>
-      )}
-
       <Swiper
         loop={true}
         spaceBetween={0}
