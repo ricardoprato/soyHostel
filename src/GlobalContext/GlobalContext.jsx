@@ -34,7 +34,7 @@ export const ContextProvider = (props) => {
         'Our One Bedroom Suite (72m2) was designed in a resort style, providing the comfort and feel of a resort with teak wood furniture and chic white marble bathroom.',
     },
     {
-      id: 9,
+      id: 8,
       nombre: 'Ratatouille',
       comodidades: 'AirConditioner, smart Tv, Fridge',
       cantCamas: 3,
@@ -48,7 +48,7 @@ export const ContextProvider = (props) => {
         'This is the smallest dorm on the hostel. Only for 3 people, ideal for small friends group or even a couple with a kid.',
     },
     {
-      id: 10,
+      id: 9,
       nombre: 'Average',
       comodidades: 'Fan',
       cantCamas: 6,
@@ -62,7 +62,7 @@ export const ContextProvider = (props) => {
         'Normal dorm with 6 beds, personal lockers, sealing fan, mosquito net and a private bathroom. Close to the bar.',
     },
     {
-      id: 8,
+      id: 10,
       nombre: 'Family',
       comodidades: 'Fan',
       cantCamas: 4,
