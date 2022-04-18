@@ -257,6 +257,7 @@ const countries = [
 const Booking = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const today = new Date();
+
   return (
     <>
       <Formik
@@ -348,7 +349,11 @@ const Booking = () => {
           }
 
           if (!valores.bedId) {
-            errores.bedId = 'Please enter an available bed';
+            if(!valores.roomName){
+            errores.bedId = 'Please enter a room first';
+            }else {
+              errores.bedId = 'Please select a bed';
+            }
           }
 
           // Validacion genre
@@ -524,11 +529,40 @@ const Booking = () => {
               />
             </div>
             <div>
+            <Field name="bedId" as="select">  {/* Aqui deberia mapear la cantidad de camas de esa habitacion y si es privada anular la opcion cama */}
+                <option value="roomName" id="AF">
+                  Select bed
+                </option>
+                <option value="1" id="AF">
+                  1
+                </option>
+                <option value="2" id="AF">
+                  2
+                </option>
+                <option value="3" id="AF">
+                  3
+                </option>
+                <option value="4" id="AF">
+                  4
+                </option>
+                <option value="5" id="AF">
+                  5
+                </option>
+              </Field>
+              <label htmlFor="bedId">Bed </label>
+              <ErrorMessage
+                name="bedId"
+                component={() => (
+                  <div className={styles.error}>{errors.bedId}</div>
+                )}
+              />
+            </div>
+            <div>
               <label htmlFor="nationality">Nationality</label>
               <Field name="nationality" as="select">
                 {countries &&
                   countries.map((c) => (
-                    <option value="" id={c}>
+                    <option key={c} value={c} id={c}>
                       {c}
                     </option>
                   ))}
@@ -537,16 +571,6 @@ const Booking = () => {
                 name="nationality"
                 component={() => (
                   <div className={styles.error}>{errors.nationality}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="bedId">Bed </label>
-              <Field type="text" id="bedId" name="bedId" placeholder="bed..." />
-              <ErrorMessage
-                name="bedId"
-                component={() => (
-                  <div className={styles.error}>{errors.bedId}</div>
                 )}
               />
             </div>
