@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import Register from '../../components/Register/Register';
+import Reserva from '../Reserva/Reserva';
+import FilterBar from '../../components/FilterBar/FilterBar';
+('');
 
 const Prueba = () => {
   return (
     <>
-      <Register />
+      <FilterBar />
+      <Reserva />
     </>
   );
 };
-
-
-
 
 export default Prueba;
