@@ -34,7 +34,7 @@ export const ContextProvider = (props) => {
         'Our One Bedroom Suite (72m2) was designed in a resort style, providing the comfort and feel of a resort with teak wood furniture and chic white marble bathroom.',
     },
     {
-      id: 3,
+      id: 8,
       nombre: 'Ratatouille',
       comodidades: 'AirConditioner, smart Tv, Fridge',
       cantCamas: 3,
@@ -85,7 +85,6 @@ export const ContextProvider = (props) => {
   const [cart, setCart] = useState([]);
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
   const [availableBeds, setAvailablebeds] = useState(mock);
-  const [openModal, setOpenModal] = useState(false);
 
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
@@ -118,8 +117,6 @@ export const ContextProvider = (props) => {
         filteredAvailableBeds,
         setFilteredAvailableBeds,
         getFilteredBeds,
-        openModal,
-        setOpenModal,
       }}
     >
       {props.children}
