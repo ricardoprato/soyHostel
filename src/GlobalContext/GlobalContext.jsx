@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 export const ContextProvider = (props) => {
   let mock = [
     {
-      id: 1,
+      id: 6,
       nombre: 'Godzilla',
       comodidades: 'AirConditioner, smart Tv, Fridge',
       privada: false,
@@ -18,7 +18,7 @@ export const ContextProvider = (props) => {
         'This is the hostels biggest room. It has 10 beds, each with its own locker and small light. It has a big window this an ocean view.',
     },
     {
-      id: 2,
+      id: 7,
       nombre: 'Suite',
       comodidades: 'AirConditioner, smart Tv, Fridge, balcone, kitchen',
       cantCamas: 2,
@@ -34,7 +34,7 @@ export const ContextProvider = (props) => {
         'Our One Bedroom Suite (72m2) was designed in a resort style, providing the comfort and feel of a resort with teak wood furniture and chic white marble bathroom.',
     },
     {
-      id: 8,
+      id: 9,
       nombre: 'Ratatouille',
       comodidades: 'AirConditioner, smart Tv, Fridge',
       cantCamas: 3,
@@ -48,7 +48,7 @@ export const ContextProvider = (props) => {
         'This is the smallest dorm on the hostel. Only for 3 people, ideal for small friends group or even a couple with a kid.',
     },
     {
-      id: 4,
+      id: 10,
       nombre: 'Average',
       comodidades: 'Fan',
       cantCamas: 6,
@@ -62,7 +62,7 @@ export const ContextProvider = (props) => {
         'Normal dorm with 6 beds, personal lockers, sealing fan, mosquito net and a private bathroom. Close to the bar.',
     },
     {
-      id: 5,
+      id: 8,
       nombre: 'Family',
       comodidades: 'Fan',
       cantCamas: 4,

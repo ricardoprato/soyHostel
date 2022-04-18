@@ -138,9 +138,9 @@ const FilterBar = () => {
         Order by Price
         <input type="checkbox" onChange={sortPrice} id="price" />{' '}
         <div className={styles.check}>
-          <div className={styles.checkText}></div>
+          <div className={styles.checkPrice}></div>
         </div>
-      </label>{' '}
+      </label>
       <label className={styles.input}>
         Private Room
         <select onChange={handleRooms} id="roomTypes" className={styles.select}>
