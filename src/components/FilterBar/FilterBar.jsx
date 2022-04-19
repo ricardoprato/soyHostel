@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import styles from './FilterBar.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
@@ -12,6 +12,7 @@ const FilterBar = () => {
     filteredAvailableBeds,
     setFilteredAvailableBeds,
     getFilteredBeds,
+    setFileteredRooms,
   } = useContext(GlobalContext);
 
   const today = new Date();
@@ -35,14 +36,16 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
+    setFileteredRooms(availableBeds);
   };
 
+  const price = useRef();
   const sortPrice = () => {
-    let price = document.getElementById('price');
+    // let price = document.getElementById('price');
 
     let data = [];
     let data1 = [];
-    if (price.checked == true) {
+    if (price.current.checked == true) {
       data = [...filteredAvailableBeds].sort(function (a, b) {
         return a.preciosCamas - b.preciosCamas;
       });
@@ -64,7 +67,7 @@ const FilterBar = () => {
   const handleRooms = () => {
     let checkBathroomBox = document.getElementById('privateBathrooms');
     let selected = document.getElementById('roomTypes');
-    let price = document.getElementById('price');
+    // let price = document.getElementById('price');
 
     if (selected.value === 'All') {
       if (checkBathroomBox.checked == true) {
@@ -101,9 +104,9 @@ const FilterBar = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(filteredAvailableBeds);
-  }, [filteredAvailableBeds]);
+  // useEffect(() => {
+  //   console.log(filteredAvailableBeds);
+  // }, [filteredAvailableBeds]);
 
   return (
     <div className={styles.form} id="form">
@@ -136,7 +139,7 @@ const FilterBar = () => {
       </label>
       <label className={styles.input}>
         Order by Price
-        <input type="checkbox" onChange={sortPrice} id="price" />{' '}
+        <input type="checkbox" onChange={sortPrice} ref={price} />{' '}
         <div className={styles.check}>
           <div className={styles.checkPrice}></div>
         </div>

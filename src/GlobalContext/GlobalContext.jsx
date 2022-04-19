@@ -77,15 +77,19 @@ export const ContextProvider = (props) => {
     },
   ];
 
+  //estados globales
   const [filterDates, setFilterdates] = useState({
     checkIn: '',
     checkOut: '',
   });
-
   const [cart, setCart] = useState([]);
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
   const [availableBeds, setAvailablebeds] = useState(mock);
+  const [allrooms, setAllRooms] = useState([]);
+  const [filteredRooms, setFileteredRooms] = useState([]);
+  const [details, setDetails] = useState({});
 
+  ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
       'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
@@ -104,10 +108,48 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  const getIdRoom = (roomId) => {
+    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+      .then((response) => response.json())
+      .then((data) => setDetails((prev) => data))
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+  const getAllRooms = () => {
+    fetch('https://back-end-1407.herokuapp.com/habitaciones')
+      .then((response) => response.json())
+      .then((data) => {
+        setFileteredRooms((prev) => data);
+        setAllRooms((prev) => data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
 
   return (
     <GlobalContext.Provider
       value={{
+        allrooms,
+        setAllRooms,
+        filteredRooms,
+        setFileteredRooms,
+        details,
+        setDetails,
+        getAllRooms,
+        getIdRoom,
+        getFilteredBeds,
         filterDates,
         setFilterdates,
         availableBeds,
@@ -116,7 +158,6 @@ export const ContextProvider = (props) => {
         setCart,
         filteredAvailableBeds,
         setFilteredAvailableBeds,
-        getFilteredBeds,
       }}
     >
       {props.children}
