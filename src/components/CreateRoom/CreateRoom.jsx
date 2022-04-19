@@ -84,6 +84,8 @@ const CreateRoom = () => {
           //IMAGENES
           if (input.imagenes.length === 0) {  //buscar validacion de imagenes url que acepte todas
             errores.imagenes = 'Please paste at least one image URL';
+          }else if(!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(input.imagenes)){
+            errores.imagenes = 'URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)';
           }
 
           console.log(input)
