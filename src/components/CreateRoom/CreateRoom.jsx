@@ -1,44 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useField, connect } from 'formik';
 import styles from './CreateRoom.module.css';
+import { useFieldValue } from './use-field-value';
 
 
-// let [input, setInput] = useState({
-//   nombre: '',
-//   comodidades: '',
-//   cantCamas: null,
-//   privada: false,
-//   banoPrivado: false,
-//   preciosCamas: [],
-//   imagenes: [],
-//   descripcion: '',
-// });
 
-  // const MyCheckBox = () => {
-  //   const [field] = useField({ name: "privada", type: "checkbox" });
-  //   return (
-  //     <label>
-  //       <input {...field} type="checkbox" />
-  //       <span>PrivateEE</span>
-  //     </label>
-  //   );
-  // };
-
-
-const CreateRoom = () => {
+export const CreateRoom = connect(({ formik }) => {
+  const privada = useFieldValue(formik, 'privada');
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+
+
 
   return (
     <>
       <Formik
         initialValues={{
           nombre: '',
-          privada: "select",
-          banoPrivado: "select",
+          privada: false,
+          banoPrivado: false,
           comodidades: '',
           cantCamas: 0,
           descripcion: '',
           preciosCamas: [],
+          precioHabitacion: 0,
           imagenes: [],
         }}
         validate={(input) => {
@@ -76,10 +60,16 @@ const CreateRoom = () => {
             errores.descripcion = 'The description can only contain letters, numbers, puntuation and spaces';
           }
           //PRECIOSCAMAS
-          if (input.preciosCamas.length === 0) {  //buscar validacion de imagenes url que acepte todas
+          if (input.preciosCamas.length === 0 && input.privada === false) {  //buscar validacion de imagenes url que acepte todas
             errores.preciosCamas = 'Please type the price for one night';
-          }else if(!/^[0-9,.]*$/.test(input.preciosCamas)){
+          }else if(!/^[0-9,.]*$/.test(input.preciosCamas)  && input.privada === false){
             errores.preciosCamas = 'The price can onoly contain numbers'
+          }
+          //PRECIOHABITACION
+          if (input.precioHabitacion === 0 && input.privada === true) {  //buscar validacion de imagenes url que acepte todas
+            errores.precioHabitacion = 'Please type the price for one night';
+          }else if(input.privada === true && !/^[0-9,.]*$/.test(input.precioHabitacion)){
+            errores.precioHabitacion = 'The price can onoly contain numbers'
           }
           //IMAGENES
           if (input.imagenes.length === 0) {  //buscar validacion de imagenes url que acepte todas
@@ -92,7 +82,18 @@ const CreateRoom = () => {
           return errores;
         }}
         onSubmit={(input, { resetForm }) => {
-          // Lucho, para que recibe input esta funcion si no los usa?
+          
+          console.log(input)
+          async () => {
+            const rawResponse = await fetch('https://back-end-1407.herokuapp.com/habitaciones', {
+              method: 'POST',
+              headers: {},
+              body: input
+            });
+            const content = await rawResponse.json();
+            console.log(content);
+          }
+
           resetForm();
           console.log('form has been sent');
           cambiarFormularioEnviado(true);
@@ -103,7 +104,7 @@ const CreateRoom = () => {
           );
         }}
       >
-        {({ errors }) => (
+        {({ errors, input }) => (
           <Form className={styles.formulario}>
             <div> {/* nombre */}
               <label htmlFor="nombre">Room name: </label>
@@ -123,7 +124,7 @@ const CreateRoom = () => {
             <div> {/* privada */}
             <label htmlFor="privada">Room type: </label>
             <Field name="privada" as="select">
-              <option value="select" id="AF">
+              <option value="select..." id="AF">
                 Select...
               </option>
               <option value={true} id="AF">
@@ -139,6 +140,7 @@ const CreateRoom = () => {
                   <div className={styles.error}>{errors.privada}</div>
                 )}
               />
+
             </div>
             <div> {/* banoPrivado */}
               <label htmlFor="banoPrivado">Private Bathroom: </label>
@@ -178,7 +180,7 @@ const CreateRoom = () => {
             <div> {/* cantCamas */}
               <label htmlFor="cantCamas">Number of beds: </label>
               <Field
-                type="text"
+                type="number"
                 id="cantCamas"
                 name="cantCamas"
                 placeholder="how many beds..."
@@ -205,21 +207,40 @@ const CreateRoom = () => {
                 )}
               />
             </div>
-            <div> {/* preciosCamas */}
-              <label htmlFor="preciosCamas">Price for one night: </label>
-              <Field
-                type="text"
-                id="preciosCamas"
-                name="preciosCamas[0]"
-                placeholder="price for one night(bed/room)..."
-              />
-              <ErrorMessage
-                name="preciosCamas"
-                component={() => (
-                  <div className={styles.error}>{errors.preciosCamas}</div>
-                )}
-              />
-            </div>
+            { privada === "true" && (
+              <div> {/* precioHabitacion */}
+                <label htmlFor="precioHabitacion">Room price: </label>
+                <Field
+                  type="number"
+                  id="precioHabitacion"
+                  name="precioHabitacion"
+                  placeholder="0"
+                />
+                <ErrorMessage
+                  name="precioHabitacion"
+                  component={() => (
+                    <div className={styles.error}>{errors.precioHabitacion}</div>
+                  )}
+                />
+              </div>
+            )}
+            { privada === "false" && (
+              <div> {/* preciosCamas */}
+                <label htmlFor="preciosCamas">Bed price: </label>
+                <Field
+                  type="number"
+                  id="preciosCamas"
+                  name="preciosCamas[0]"
+                  placeholder="0"
+                />
+                <ErrorMessage
+                  name="preciosCamas"
+                  component={() => (
+                    <div className={styles.error}>{errors.preciosCamas}</div>
+                  )}
+                />
+              </div>
+            )}
             <div> {/* imagenes */}
               <label htmlFor="imagenes">Add 3 images: </label>
               <Field
@@ -257,8 +278,6 @@ const CreateRoom = () => {
       </Formik>
     </>
   );
-};
+},
 
 export default CreateRoom;
-
-
