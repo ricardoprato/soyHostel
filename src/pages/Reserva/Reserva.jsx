@@ -30,11 +30,11 @@ export default function Reserva() {
               description={r?.descripcion}
               bedsAvailable={r?.cantCamas}
               private={r?.privada}
-              bedPrice={r?.precio}
+              bedPrice={r?.precio / r?.cantCamas}
               bathroom={r?.banoPrivado}
               image={r?.Imagens}
             />
-          ))
+          )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
         ) : filteredAvailableBeds.length > 0 ? (
           filteredAvailableBeds.map((r) => (
             <RoomCard
@@ -42,7 +42,7 @@ export default function Reserva() {
               roomId={r?.id}
               roomName={r?.nombre}
               comodities={r?.comodidades}
-              bedPrice={r?.preciosCamas}
+              bedPrice={r?.preciosCamas / r?.cantCamas}
               bedsAvailable={r?.cantCamas}
               description={r?.descripcion}
               bathroom={r?.banoPrivado}
