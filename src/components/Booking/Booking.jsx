@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './Booking.module.css';
 
@@ -256,7 +256,42 @@ const countries = [
 
 const Booking = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const [rooms, setRooms] = useState([]);
+  const [room, setRoom] = useState({
+    private: true,
+    camas: 0, //cantidad
+    idCamas: []
+  });
   const today = new Date();
+
+
+  const fetchDetails = () => {
+    fetch(`https://back-end-1407.herokuapp.com/habitaciones`)
+      .then((response) => response.json())
+      .then((data) => setRooms((prev) => data))
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+ 
+  useEffect(() => {
+    fetchDetails();
+  }, []);
+
+  const handleRoomSelect = () => { //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
+    let aux = rooms.filter((r)=> r.nombre === valores.roomName)
+    let aux2 = aux.Camas.map((c)=> c.id)
+    setRoom({
+      private: aux.privada,
+      camas: aux.cantCamas, //cantidad
+      idCamas: aux2
+    })
+  }
 
   return (
     <>
@@ -310,17 +345,7 @@ const Booking = () => {
               'Email can only contain letters, numbers, points, script and underscores';
           }
 
-          // Validacion password
-          // if (!valores.password) {
-          //   errores.password = 'Please enter a password';
-          // } else if (
-          //   !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(valores.password)
-          // ) {
-          //   errores.password =
-          //     'Minimum eight characters, at least one letter and one number:';
-          // }
-
-          // Validacion type of dni
+          // Validacion documento tipo
           if (!valores.docType) {
             errores.docType = 'Please select a document type';
           }
@@ -355,11 +380,6 @@ const Booking = () => {
               errores.bedId = 'Please select a bed';
             }
           }
-
-          // Validacion genre
-          // if (!valores.genre) {
-          //   errores.genre = 'Please enter a genre';
-          // }
 
           // Validacion birthdate
           var actual = new Date();
@@ -501,25 +521,16 @@ const Booking = () => {
             </div>
             <div>
               <label htmlFor="roomName">Room Name</label>
-              <Field name="roomName" as="select">
+              <Field name="roomName" as="select" onSubmit={handleRoomSelect} >
                 <option value="roomName" id="AF">
                   Elegir opción
                 </option>
-                <option value="Godzilla" id="AF">
-                  Godzilla
+                { rooms && rooms?.map((r)=>(
+                  <option key={r.id} value={r.nombre} id="AF">
+                  {r.nombre}
                 </option>
-                <option value="Average" id="AF">
-                  Average
-                </option>
-                <option value="Ratatouille" id="AF">
-                  Ratatouille
-                </option>
-                <option value="Suite" id="AF">
-                  Suite
-                </option>
-                <option value="Family" id="AF">
-                  Family
-                </option>
+                ))}
+                
               </Field>
               <ErrorMessage
                 name="roomName"
@@ -528,25 +539,11 @@ const Booking = () => {
                 )}
               />
             </div>
+             {/* si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta */}
             <div>
             <Field name="bedId" as="select">  {/* Aqui deberia mapear la cantidad de camas de esa habitacion y si es privada anular la opcion cama */}
                 <option value="roomName" id="AF">
                   Select bed
-                </option>
-                <option value="1" id="AF">
-                  1
-                </option>
-                <option value="2" id="AF">
-                  2
-                </option>
-                <option value="3" id="AF">
-                  3
-                </option>
-                <option value="4" id="AF">
-                  4
-                </option>
-                <option value="5" id="AF">
-                  5
                 </option>
               </Field>
               <label htmlFor="bedId">Bed </label>
