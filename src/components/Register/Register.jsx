@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../Register/Register.module.css';
+import Logo from '../../Images/fondo.png';
 
 const Register = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   return (
-    <>
+    <div className={styles.register}>
       <Formik
         initialValues={{
           nombre: '',
@@ -111,7 +112,7 @@ const Register = () => {
         }}
         onSubmit={(valores, { resetForm }) => {
           resetForm();
-          console.log('Sended formulary');
+          console.log('Sent formulary');
           cambiarFormularioEnviado(true);
           setTimeout(
             () => cambiarFormularioEnviado(false),
@@ -123,6 +124,7 @@ const Register = () => {
         {({ errors }) => (
           <Form className={styles.formulario}>
             <div>
+              <img className={styles.img} src={Logo} alt="" />
               <label htmlFor="nombre">First Name</label>
               <Field
                 type="text"
@@ -164,8 +166,8 @@ const Register = () => {
                 <option value="Passport" id="AF">
                   Passport
                 </option>
-                <option value="Libreta civica" id="AF">
-                  Libreta Civica
+                <option value="Driver License" id="AF">
+                  Driver License
                 </option>
                 <option value="CLI" id="AF">
                   CLI
@@ -986,12 +988,12 @@ const Register = () => {
 
             <button type="submit">Send</button>
             {formularioEnviado && (
-              <p className="exito">Formulario enviado con exito!</p>
+              <p className={styles.exito}>Formulario enviado con exito!</p>
             )}
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };
 
