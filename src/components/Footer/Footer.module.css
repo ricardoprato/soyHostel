@@ -12,4 +12,9 @@
 }
 .link {
   color: var(--white-color);
+  transition: 03ms ease;
+}
+.link:hover {
+  color: var(--dark-color);
+  transition: 03ms ease;
 }
