@@ -260,7 +260,7 @@ const Booking = () => {
   const [room, setRoom] = useState({
     private: true,
     camas: 0, //cantidad
-    idCamas: []
+    id: [] //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
   });
   const today = new Date();
 
@@ -284,13 +284,21 @@ const Booking = () => {
   }, []);
 
   const handleRoomSelect = () => { //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    let aux = rooms.filter((r)=> r.nombre === valores.roomName)
-    let aux2 = aux.Camas.map((c)=> c.id)
-    setRoom({
-      private: aux.privada,
-      camas: aux.cantCamas, //cantidad
-      idCamas: aux2
-    })
+    let aux = rooms?.filter((r)=> r.nombre === valores.roomName)
+    if(aux.privada){
+      setRoom({
+        private: true,
+        id: aux.id
+      })
+    }else {
+      let aux2 = aux.Camas.map((c)=> c.id)
+      setRoom({
+        private: false,
+        camas: aux.cantCamas, //cantidad
+        id: aux2
+      })
+    }
+    
   }
 
   return (
@@ -521,7 +529,7 @@ const Booking = () => {
             </div>
             <div>
               <label htmlFor="roomName">Room Name</label>
-              <Field name="roomName" as="select" onSubmit={handleRoomSelect} >
+              <Field name="roomName" as="select" onSubmit={handleRoomSelect} > {/* terminar este handler */}
                 <option value="roomName" id="AF">
                   Elegir opción
                 </option>
@@ -539,21 +547,22 @@ const Booking = () => {
                 )}
               />
             </div>
-             {/* si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta */}
-            <div>
-            <Field name="bedId" as="select">  {/* Aqui deberia mapear la cantidad de camas de esa habitacion y si es privada anular la opcion cama */}
-                <option value="roomName" id="AF">
-                  Select bed
-                </option>
-              </Field>
-              <label htmlFor="bedId">Bed </label>
-              <ErrorMessage
-                name="bedId"
-                component={() => (
-                  <div className={styles.error}>{errors.bedId}</div>
-                )}
-              />
-            </div>
+              {  room?.privada ? null : (// si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta 
+                <div>
+                  <Field name="bedId" as="select">  
+                    <option value="roomName" id="AF">
+                      Select bed
+                    </option>
+                  </Field>
+                  <label htmlFor="bedId">Bed </label>
+                  <ErrorMessage
+                    name="bedId"
+                    component={() => (
+                      <div className={styles.error}>{errors.bedId}</div>
+                    )}
+                  />
+                </div>
+              )}
             <div>
               <label htmlFor="nationality">Nationality</label>
               <Field name="nationality" as="select">

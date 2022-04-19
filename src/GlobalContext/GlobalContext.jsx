@@ -8,11 +8,12 @@ export const ContextProvider = (props) => {
       id: 6,
       nombre: 'Godzilla',
       comodidades: 'AirConditioner, smart Tv, Fridge',
+      cantCamas: 10,
       privada: false,
       banoPrivado: true,
       preciosCamas: 400,
       imagenes: [
-        'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg',
+        "https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg", "https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/06/Hostel-room-types-Freehand-Los-Angeles.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHi2C3bJz-klMrPpGJRR4ljrw4YU2tHbONINASvoo_t5cfVQf35r194GhRqwA9pOa5ras&usqp=CAU"
       ],
       descripcion:
         'This is the hostels biggest room. It has 10 beds, each with its own locker and small light. It has a big window this an ocean view.',
