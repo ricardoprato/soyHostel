@@ -83,10 +83,12 @@ export const ContextProvider = (props) => {
     checkOut: '',
   });
   const [cart, setCart] = useState([]);
-  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
+  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
   const [availableBeds, setAvailablebeds] = useState(mock);
-  const [allrooms, setAllRooms] = useState([]);
+
+  const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]);
+
   const [details, setDetails] = useState({});
 
   ///funciones de fetch
@@ -141,7 +143,7 @@ export const ContextProvider = (props) => {
   return (
     <GlobalContext.Provider
       value={{
-        allrooms,
+        allRooms,
         setAllRooms,
         filteredRooms,
         setFileteredRooms,
