@@ -1,49 +1,19 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import styles from '../Google/Google.module.css';
+import styles from '../FuncionAux/FuncionAux.module.css';
 
 const clientId = 'Your-Client-Id';
 
-function Google() {
+function FuncionAux() {
   const [showloginButton, setShowloginButton] = useState(true);
   const [showlogoutButton, setShowlogoutButton] = useState(false);
+  const [dataProfile, SetdataProfile] = useState([]);
 
-  const onLoginSuccess = async (googleData) => {
-    let token = googleData.tokenId;
-    let googleId = googleData.googleId;
-
-    const res = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/auth/auth/google',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          token,
-          googleId,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    // const res = await fetch(
-    //   'https://prueba-google-auth.herokuapp.com' + '/auth/login',
-    //   {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       token,
-    //       googleId,
-    //     }),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
-    const res2 = await res.json();
-    console.log('res2', res2);
+  const onLoginSuccess = (googleData) => {
+    SetdataProfile({ ...googleData.profileObj, ...googleData.tokenId });
+    console.log('asd2', dataProfile);
 
     console.log('Login Success:', googleData);
-    console.log('asd', googleData);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };
@@ -82,4 +52,4 @@ function Google() {
     </div>
   );
 }
-export default Google;
+export default FuncionAux;

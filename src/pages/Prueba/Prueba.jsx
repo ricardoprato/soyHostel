@@ -10,6 +10,7 @@ const Prueba = () => {
     <>
       <Login />
       <Google />
+      <Register />
     </>
   );
 };
