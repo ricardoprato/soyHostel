@@ -1,18 +1,19 @@
-.roomDetailsContainer{
-    display: flex;
-    flex-direction: row;
+.roomDetailsContainer {
+  display: flex;
+  flex-direction: row;
 }
 
-.roomDetailsText{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-between;
+.roomDetailsText {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
 }
-.roomDetailsImages{
-    display: flex;
-    flex-direction: column;
-    border: 2px;
-    width: 250px;
-    height: auto;
+.roomDetailsImages {
+  display: flex;
+  flex-direction: column;
+  border: 2px;
+  width: 250px;
+  height: auto;
 }
+
