@@ -1,264 +1,291 @@
 import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import styles from './CreateRoom.module.css';
 
 
-// let [input, setInput] = useState({
-//   nombre: '',
-//   comodidades: '',
-//   cantCamas: null,
-//   privada: false,
-//   banoPrivado: false,
-//   preciosCamas: [],
-//   imagenes: [],
-//   descripcion: '',
-// });
-
-  // const MyCheckBox = () => {
-  //   const [field] = useField({ name: "privada", type: "checkbox" });
-  //   return (
-  //     <label>
-  //       <input {...field} type="checkbox" />
-  //       <span>PrivateEE</span>
-  //     </label>
-  //   );
-  // };
 
 
-const CreateRoom = () => {
-  const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+export function validate(input, image) {
+  let errores = {};
+  
+  if (!input.nombre) {// NOMBRE
+    errores.nombre = 'Please enter a room name';
+  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.nombre)) {
+    errores.nombre = 'The name can only contain letters and spaces';
+  }
+  
+  if (input.privada === 'select') {// PRIVADA?
+    errores.privada = 'Please select room type';
+  }
+  
+  if (input.banoPrivado === 'select') {//Baño privado?
+    errores.banoPrivado = 'Please select with or without private bathroom';
+  }
+ 
+  if (!input.comodidades) { // COMODIDADES
+    errores.comodidades = 'Please enter room amenities';
+  } else if (!/^[a-zA-Z0-9,.!? ]*$/.test(input.comodidades)) {
+    errores.comodidades = 'Only letters and spaces';
+  }
+  
+  if (!input.cantCamas) {//CANTCAMAS
+    errores.cantCamas = 'Please enter amount of beds';
+  } else if (!/^[0-9]*$/.test(input.cantCamas)) {
+    errores.cantCamas = 'must be a number';
+  }
+  
+  if (!input.descripcion) {//DESCRIPCION
+    errores.descripcion = 'Please enter a room description';
+  } else if (!/^[a-zA-Z0-9,.'!? ]*$/.test(input.descripcion)) {
+    errores.descripcion =
+      'The description can only contain letters, numbers, puntuation and spaces';
+  }
+  
+  if (input.preciosCamas.length === 0 && input.privada === false) {//PRECIOSCAMAS
+    //buscar validacion de imagenes url que acepte todas
+    errores.preciosCamas = 'Please type the price for one night';
+  } else if (
+    !/^[0-9,.]*$/.test(input.preciosCamas) &&
+    input.privada === false
+  ) {
+    errores.preciosCamas = 'The price can onoly contain numbers';
+  }
+  
+  if (input.precioHabitacion === 0 && input.privada === true) {//PRECIOHABITACION
+    errores.precioHabitacion = 'Please type the price for one night';
+  } else if (
+    input.privada === true &&
+    !/^[0-9,.]*$/.test(input.precioHabitacion)
+  ) {
+    errores.precioHabitacion = 'The price can onoly contain numbers';
+  }
+  
+  if (!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(image)){ //IMAGENES
+    errores.image = 'URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)';
+  }
+
+  if(input.imagenes.length === 0){
+    errores.imagenes = 'You need to give at least one valir image URL'
+  }
+
+  return errores;
+}
+
+export default function CreateRoom() {
+  let [error, setError] = useState({});
+  let [image, setImage] = useState('');
+  let [imageError, setImageError] = useState('');
+  let [input, setInput] = useState({
+    nombre: '',
+    privada: false,
+    banoPrivado: false,
+    comodidades: '',
+    cantCamas: 0,
+    descripcion: '',
+    preciosCamas: [],
+    precioHabitacion: 0,
+    imagenes: [],
+  });
+
+  useEffect(() => {
+    setInput({
+      nombre: '',
+      privada: false,
+      banoPrivado: false,
+      comodidades: '',
+      cantCamas: 0,
+      descripcion: '',
+      preciosCamas: [],
+      precioHabitacion: 0,
+      imagenes: [],
+    });
+  }, []);
+  
+  function validateImage(image) {
+    if(!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(
+      image
+    )){
+      setImageError("URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)")
+    }else{
+      setImageError("ok")
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(input);
+    //AGREGAR ACA EL FETCH(POST) AL BACK CON TODA LA DATA VALIDADA
+    setInput({
+      nombre: '',
+      privada: false,
+      banoPrivado: false,
+      comodidades: '',
+      cantCamas: 0,
+      descripcion: '',
+      preciosCamas: [],
+      precioHabitacion: 0,
+      imagenes: [],
+    });
+    e.target.reset();
+  }
+
+  let handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    let objError = validate({ ...input, [e.target.name]: e.target.value });
+    setError(objError);
+    setTimeout(() => console.log(input), 1000);
+  };
+
+  let handleImageLoad = (e) => {
+    console.log("e")
+    console.log(e)
+    e.preventDefault()
+    // console.log("image to load: " + image)
+    setInput({ ...input, imagenes: [...input.imagenes, image] });
+    setTimeout(() => console.log(input), 1000);
+    setImage("");
+
+  };
+
+  let oneImage = (value) => {
+    setImage(value)
+    let objError = validate({ ...input}, image);
+    setError(objError);
+    setTimeout(() => console.log(image), 1000);
+  };
 
   return (
-    <>
-      <Formik
-        initialValues={{
-          nombre: '',
-          privada: "select",
-          banoPrivado: "select",
-          comodidades: '',
-          cantCamas: 0,
-          descripcion: '',
-          preciosCamas: [],
-          imagenes: [],
-        }}
-        validate={(input) => {
-          let errores = {};
-          // NOMBRE
-          if (!input.nombre) {
-            errores.nombre = 'Please enter a room name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.nombre)) {
-            errores.nombre = 'The name can only contain letters and spaces';
-          }
-          // PRIVADA?
-          if (input.privada === "select") {
-            errores.privada = 'Please select room type';
-          }
-          //Baño privado?
-          if (input.banoPrivado === "select") {
-            errores.banoPrivado = 'Please select with or without private bathroom';
-          }
-          // COMODIDADES
-          if (!input.comodidades) {
-            errores.comodidades = 'Please enter room amenities';
-          } else if (!/^[a-zA-Z0-9,.!? ]*$/.test(input.comodidades)) {
-            errores.comodidades = 'Only letters and spaces';
-          }
-          //CANTCAMAS
-          if (!input.cantCamas) {
-            errores.cantCamas = 'Please enter amount of beds';
-          } else if (!/^[0-9]*$/.test(input.cantCamas)) {
-            errores.cantCamas = 'must be a number';
-          }
-          //DESCRIPCION
-          if (!input.descripcion) {
-            errores.descripcion = 'Please enter a room description';
-          } else if (!/^[a-zA-Z0-9,.'!? ]*$/.test(input.descripcion)) {
-            errores.descripcion = 'The description can only contain letters, numbers, puntuation and spaces';
-          }
-          //PRECIOSCAMAS
-          if (input.preciosCamas.length === 0) {  //buscar validacion de imagenes url que acepte todas
-            errores.preciosCamas = 'Please type the price for one night';
-          }else if(!/^[0-9,.]*$/.test(input.preciosCamas)){
-            errores.preciosCamas = 'The price can onoly contain numbers'
-          }
-          //IMAGENES
-          if (input.imagenes.length === 0) {  //buscar validacion de imagenes url que acepte todas
-            errores.imagenes = 'Please paste at least one image URL';
-          }else if(!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(input.imagenes)){
-            errores.imagenes = 'URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)';
-          }
-
-          console.log(input)
-          return errores;
-        }}
-        onSubmit={(input, { resetForm }) => {
-          // Lucho, para que recibe input esta funcion si no los usa?
-          resetForm();
-          console.log('form has been sent');
-          cambiarFormularioEnviado(true);
-          setTimeout(
-            () => cambiarFormularioEnviado(false),
-
-            5000
-          );
-        }}
-      >
-        {({ errors }) => (
-          <Form className={styles.formulario}>
-            <div> {/* nombre */}
-              <label htmlFor="nombre">Room name: </label>
-              <Field
-                type="text"
-                id="nombre"
-                name="nombre"
-                placeholder="first name..."
-              />
-              <ErrorMessage
-                name="nombre"
-                component={() => (
-                  <div className={styles.error}>{errors.nombre}</div>
-                )}
-              />
-            </div>
-            <div> {/* privada */}
-            <label htmlFor="privada">Room type: </label>
-            <Field name="privada" as="select">
-              <option value="select" id="AF">
-                Select...
-              </option>
-              <option value={true} id="AF">
-                Private
-              </option>
-              <option value={false} id="AF">
-                Shared
-              </option>
-            </Field>  
-              <ErrorMessage
-                name="privada"
-                component={() => (
-                  <div className={styles.error}>{errors.privada}</div>
-                )}
-              />
-            </div>
-            <div> {/* banoPrivado */}
-              <label htmlFor="banoPrivado">Private Bathroom: </label>
-              <Field name="banoPrivado" as="select">
-                <option value="select" id="AF">
-                  Select...
-                </option>
-                <option value={true} id="AF">
-                  Private
-                </option>
-                <option value={false} id="AF">
-                  Shared
-                </option>
-              </Field>
-              <ErrorMessage
-                name="banoPrivado"
-                component={() => (
-                  <div className={styles.error}>{errors.banoPrivado}</div>
-                )}
-              />
-            </div>
-            <div> {/* comodidades */}
-              <label htmlFor="comodidades">Room Amenities: </label>
-              <Field
-                type="text"
-                id="comodidades"
-                name="comodidades"
-                placeholder="first name..."
-              />
-              <ErrorMessage
-                name="comodidades"
-                component={() => (
-                  <div className={styles.error}>{errors.comodidades}</div>
-                )}
-              />
-            </div>
-            <div> {/* cantCamas */}
-              <label htmlFor="cantCamas">Number of beds: </label>
-              <Field
-                type="text"
-                id="cantCamas"
-                name="cantCamas"
-                placeholder="how many beds..."
-              />
-              <ErrorMessage
-                name="cantCamas"
-                component={() => (
-                  <div className={styles.error}>{errors.cantCamas}</div>
-                )}
-              />
-            </div>      
-            <div> {/* descripcion */}
-              <label htmlFor="descripcion">Description: </label>
-              <Field
-                type="text"
-                id="descripcion"
-                name="descripcion"
-                placeholder="Room description..."
-              />
-              <ErrorMessage
-                name="descripcion"
-                component={() => (
-                  <div className={styles.error}>{errors.descripcion}</div>
-                )}
-              />
-            </div>
-            <div> {/* preciosCamas */}
-              <label htmlFor="preciosCamas">Price for one night: </label>
-              <Field
-                type="text"
-                id="preciosCamas"
-                name="preciosCamas[0]"
-                placeholder="price for one night(bed/room)..."
-              />
-              <ErrorMessage
-                name="preciosCamas"
-                component={() => (
-                  <div className={styles.error}>{errors.preciosCamas}</div>
-                )}
-              />
-            </div>
-            <div> {/* imagenes */}
-              <label htmlFor="imagenes">Add 3 images: </label>
-              <Field
-                type="text"
-                id="imagenes"
-                name="imagenes[0]"
-                placeholder="paste image url..."
-              />
-              <Field
-                type="text"
-                id="imagenes"
-                name="imagenes[1]"
-                placeholder="paste image url..."
-              />
-              <Field
-                type="text"
-                id="imagenes"
-                name="imagenes[2]"
-                placeholder="paste image url..."
-              />
-              <ErrorMessage
-                name="imagenes"
-                component={() => (
-                  <div className={styles.error}>{errors.imagenes}</div>
-                )}
-              />
-            </div>
-
-            <button type="submit">Send</button>
-            {formularioEnviado && (
-              <p className="exito">Formulario enviado con exito!</p>
+    <div className={styles.formulario}>
+      <h1>Create New rOOM</h1>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div>{/* nombre */}
+          
+          <label>Room name: </label>
+          <input
+            type={'text'}
+            name={'nombre'}
+            onChange={(e) => handleChange(e)}
+            placeholder="first name..."
+          />
+          {error.nombre && <p className={styles.error}>{error.nombre}</p>}
+        </div>
+        <div> {/* privada */}
+         
+          <label>Room type: </label>
+          <select name={'privada'} onChange={(e) => handleChange(e)}>
+            <option value="select...">Select...</option>
+            <option value={true}>Private</option>
+            <option value={false}>Shared</option>
+          </select>
+          {error.privada && <p className={styles.error}>{error.privada}</p>}
+        </div>
+        <div>{/* banoPrivado */}
+          
+          <label>Private bathroom: </label>
+          <select name="banoPrivado" onChange={(e) => handleChange(e)}>
+            <option value="select">Select...</option>
+            <option value={true}>Private</option>
+            <option value={false}>Shared</option>
+          </select>
+          {error.banoPrivado && (
+            <p className={styles.error}>{error.banoPrivado}</p>
+          )}
+        </div>
+        <div>{' '}{/* comodidades */}
+          <label>Amenities: </label>
+          <input
+            type={'text'}
+            name={'comodidades'}
+            onChange={(e) => handleChange(e)}
+            placeholder="amenities..."
+          />
+          {error.comodidades && (
+            <p className={styles.error}>{error.comodidades}</p>
+          )}
+        </div>
+        <div>{' '}{/* cantCamas */} 
+          <label>Number of beds: </label>
+          <input
+            type={'number'}
+            name={'cantCamas'}
+            onChange={(e) => handleChange(e)}
+            placeholder="number of beds..."
+          />
+          {error.cantCamas && <p className={styles.error}>{error.cantCamas}</p>}
+        </div>
+        <div> {' '}{/* descripcion */}
+          <label>Room description: </label>
+          <input
+            type={'text'}
+            name={'descripcion'}
+            onChange={(e) => handleChange(e)}
+            placeholder="Type a description..."
+          />
+          {error.descripcion && (
+            <p className={styles.error}>{error.descripcion}</p>
+          )}
+        </div>
+        {input.privada === 'true' && (
+          <div>{' '} {/* precioHabitacion */}
+            <label>Room price: </label>
+            <input
+              type={'number'}
+              name={'precioHabitacion'}
+              onChange={(e) => handleChange(e)}
+              placeholder="Room price..."
+            />
+            {error.precioHabitacion && (
+              <p className={styles.error}>{error.precioHabitacion}</p>
             )}
-          </Form>
+          </div>
         )}
-      </Formik>
-    </>
+        {input.privada === 'false' && (
+          <div>{' '}{/* preciosCamas */}
+            <label>Bed price: </label>
+            <input
+              type={'number'}
+              name={'preciosCamas'}
+              onChange={(e) => handleChange(e)}
+              placeholder="Bed price..."
+            />
+            {error.preciosCamas && (
+              <p className={styles.error}>{error.preciosCamas}</p>
+            )}
+          </div>
+        )}
+        <div>
+          {' '}
+          {/* imagenes */}
+          <label>Add 3 images: </label>
+          <input
+            type="text"
+            id="imagenes"
+            name="imagenes"
+            onChange={(e) => oneImage(e.target.value)}
+            placeholder="paste image url..."
+          />
+          {!error.image && <button onClick={handleImageLoad}>load</button>}
+          {error.image && (
+              <p className={styles.error}>{error.image}</p>
+            )}
+          {error.imagenes && (
+              <p className={styles.error}>{error.imagenes}</p>
+            )}
+        </div>
+        <div>
+          {error.name ||
+          error.privada ||
+          error.banoPrivado ||
+          error.comodidades ||
+          error.cantCamas ||
+          error.descripcion ||
+          error.precioHabitacion ||
+          error.preciosCamas ||
+          imageError !== "ok" ? null : (
+            <button>Create</button>
+          )}
+        </div>
+      </form>
+    </div>
   );
-};
-
-export default CreateRoom;
-
+}
 
