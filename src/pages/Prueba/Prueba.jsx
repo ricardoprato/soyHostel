@@ -8,13 +8,14 @@ import Reserva from '../Reserva/Reserva';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
+import Calendar from '../../components/Calendar/Calendar';
 
 const Prueba = () => {
   return (
     <>
-      <Login />
-      <Google />
-      <Register />
+      <div style={{ marginTop: '150px', marginRight: '50px' }}>
+        <Calendar />
+      </div>
     </>
   );
 };

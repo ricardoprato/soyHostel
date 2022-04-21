@@ -13,7 +13,9 @@ export const ContextProvider = (props) => {
       banoPrivado: true,
       preciosCamas: 400,
       imagenes: [
-        "https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg", "https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/06/Hostel-room-types-Freehand-Los-Angeles.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHi2C3bJz-klMrPpGJRR4ljrw4YU2tHbONINASvoo_t5cfVQf35r194GhRqwA9pOa5ras&usqp=CAU"
+        'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg',
+        'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/06/Hostel-room-types-Freehand-Los-Angeles.jpg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHi2C3bJz-klMrPpGJRR4ljrw4YU2tHbONINASvoo_t5cfVQf35r194GhRqwA9pOa5ras&usqp=CAU',
       ],
       descripcion:
         'This is the hostels biggest room. It has 10 beds, each with its own locker and small light. It has a big window this an ocean view.',
@@ -77,6 +79,134 @@ export const ContextProvider = (props) => {
         'Perfect private room for a couple with 1 or 2 kids. It has a queen size bed and 2 small ones in anothes room. Big onswit bathroom.',
     },
   ];
+  let mockReservations = [
+    [
+      {
+        id: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+        fecha_ingreso: '2022-11-01',
+        fecha_egreso: '2022-11-11',
+        saldo: 600,
+        UsuarioDni: '34592295',
+        Usuario: {
+          dni: '34592295',
+          nombre: 'toni',
+          apellido: 'tralice',
+        },
+        Habitacions: [
+          {
+            id: 1,
+            nombre: 'presidencial',
+            comodidades: 'cocina',
+            descripcion: 'habitacion gigante',
+            cantCamas: 3,
+            privada: true,
+            precio: null,
+            banoPrivado: true,
+            createdAt: '2022-04-19T20:20:32.935Z',
+            Reserva_Habitacion: {
+              createdAt: '2022-04-19T21:08:44.227Z',
+              updatedAt: '2022-04-19T21:08:44.227Z',
+              ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+              HabitacionId: 1,
+            },
+          },
+        ],
+        Camas: [
+          {
+            id: '921b0051-79ce-4ae4-ba24-eea39e614323',
+            precio: 500,
+            estado: 'libre',
+            HabitacionId: 2,
+            HuespedId: null,
+            Reserva_Cama: {
+              createdAt: '2022-04-19T21:08:44.225Z',
+              updatedAt: '2022-04-19T21:08:44.225Z',
+              ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+              CamaId: '921b0051-79ce-4ae4-ba24-eea39e614323',
+            },
+          },
+        ],
+      },
+
+      {
+        id: '36c13d90-8ccf-4d43-8420-251d8c549bef',
+        fecha_ingreso: '2022-10-01',
+        fecha_egreso: '2022-11-11',
+        saldo: 2600,
+        UsuarioDni: '34557830',
+        Usuario: {
+          dni: '34557830',
+          nombre: 'Ariel',
+          apellido: 'Arzamendia',
+        },
+        Habitacions: [
+          {
+            id: 1,
+            nombre: 'presidencial',
+            comodidades: 'cocina',
+            descripcion: 'habitacion gigante',
+            cantCamas: 3,
+            privada: true,
+            precio: null,
+            banoPrivado: true,
+            createdAt: '2022-04-19T20:20:32.935Z',
+            Reserva_Habitacion: {
+              createdAt: '2022-04-20T16:06:28.195Z',
+              updatedAt: '2022-04-20T16:06:28.195Z',
+              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
+              HabitacionId: 1,
+            },
+          },
+          {
+            id: 5,
+            nombre: 'messi',
+            comodidades: 'cocina',
+            descripcion:
+              'habitacion giganteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+            cantCamas: 5,
+            privada: true,
+            precio: null,
+            banoPrivado: true,
+            createdAt: '2022-04-20T15:59:33.230Z',
+            Reserva_Habitacion: {
+              createdAt: '2022-04-20T16:06:28.197Z',
+              updatedAt: '2022-04-20T16:06:28.197Z',
+              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
+              HabitacionId: 5,
+            },
+          },
+        ],
+        Camas: [
+          {
+            id: 'e0b0ecef-40f6-48b9-92f9-9d19faa23ce5',
+            precio: 200,
+            estado: 'libre',
+            HabitacionId: 6,
+            HuespedId: null,
+            Reserva_Cama: {
+              createdAt: '2022-04-20T16:06:28.194Z',
+              updatedAt: '2022-04-20T16:06:28.194Z',
+              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
+              CamaId: 'e0b0ecef-40f6-48b9-92f9-9d19faa23ce5',
+            },
+          },
+          {
+            id: '921b0051-79ce-4ae4-ba24-eea39e614323',
+            precio: 500,
+            estado: 'libre',
+            HabitacionId: 2,
+            HuespedId: null,
+            Reserva_Cama: {
+              createdAt: '2022-04-20T16:06:28.191Z',
+              updatedAt: '2022-04-20T16:06:28.191Z',
+              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
+              CamaId: '921b0051-79ce-4ae4-ba24-eea39e614323',
+            },
+          },
+        ],
+      },
+    ],
+  ];
 
   //estados globales
   const [filterDates, setFilterdates] = useState({
@@ -90,6 +220,7 @@ export const ContextProvider = (props) => {
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]);
 
+  const [reservations, setReservations] = useState(mockReservations);
   const [details, setDetails] = useState({});
 
   ///funciones de fetch
@@ -140,10 +271,30 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  const getReservations = (date1, date2) => {
+    fetch(
+      `https://back-end-1407.herokuapp.com/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setReservations((prev) => data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
 
   return (
     <GlobalContext.Provider
       value={{
+        getReservations,
+        reservations,
+        setReservations,
         allRooms,
         setAllRooms,
         filteredRooms,
