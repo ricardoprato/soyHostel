@@ -8,13 +8,13 @@ import Reserva from '../Reserva/Reserva';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
+import PopupChangePw from '../../components/PopupChangePw/PopupChangePw';
 
 const Prueba = () => {
   return (
     <>
-      <Login />
+      <PopupChangePw />
       <Google />
-      <Register />
     </>
   );
 };
