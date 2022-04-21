@@ -78,3 +78,8 @@
 .formulario input[type='radio'] {
   width: auto;
 }
+
+.oneLine{
+  display: flex;
+  flex-direction: row;
+}
