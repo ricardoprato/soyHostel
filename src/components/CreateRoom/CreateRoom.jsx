@@ -9,7 +9,7 @@ export function validate(input, image) {
   
   if (!input.nombre || !input.nombre.trim()) {// NOMBRE
     errores.nombre = 'Please enter a room name';
-  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.nombre)) {
+  } else if (!/^[a-zA-Z0-9,.!? ]*$/.test(input.nombre)) {
     errores.nombre = 'The name can only contain letters and spaces';
   };
   
@@ -51,7 +51,7 @@ export function validate(input, image) {
     !/^[0-9,.]*$/.test(input.precioHabitacion)
   );
   //                  IMAGENES
-  if (!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(image)){ //IMAGEN
+  if (!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(image) && image?.length > 0){ //IMAGEN
     errores.image = 'URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)';
   };
 
@@ -111,13 +111,10 @@ export default function CreateRoom() {
     console.log(input)
   };
 
-  let oneImage = (value) => {
-    setImage((prev)=> value)
-    setTimeout(() => {
-      let objError = validate({ ...input}, image);
-      setError(objError);
-    }, 1000);
-    
+  let oneImage = (e) => {
+    setImage(e.target.value)
+    let objError = validate({ ...input}, e.target.value);
+    setError(objError);
   };
 
   let handleImageLoad = (e) => {
@@ -267,16 +264,19 @@ export default function CreateRoom() {
           </div>
         )}
         <div>{/* imagenes */}
-          <label>Add 3 or more images: </label>
+          <label>Add 3 images: </label>
           <input
             type="text"
             id="imagenes"
             name="imagenes"
-            onChange={(e) => oneImage(e.target.value)}
+            onChange={(e) => oneImage(e)}
             placeholder="paste image url..."
+            value={image}
           />
-          <div className={styles.oneLine}><button onClick={handleImageLoad}>load</button> <div> {input?.imagenes?.length} images added</div></div>
-          {error.image && (
+          { input?.imagenes?.length < 3 && (
+          <div className={styles.oneLine}><button onClick={handleImageLoad}>load</button> <div> {input?.imagenes?.length} images added</div></div>)
+          }
+          {error.image && input?.imagenes?.length < 3 && (
               <p className={styles.error}>{error.image}</p>
             )}
           {error.imagenes && (
