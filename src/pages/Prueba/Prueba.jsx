@@ -13,8 +13,7 @@ import PopupChangePw from '../../components/PopupChangePw/PopupChangePw';
 const Prueba = () => {
   return (
     <>
-      <PopupChangePw />
-      <Google />
+      <CreateRoom/>
     </>
   );
 };
