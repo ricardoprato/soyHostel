@@ -1,10 +1,61 @@
+[...state]
+
+reservations?.forEach((reserva) => { 
+  if (reserva?.Habitacions.length > 0) {
+    reserva.Habitacions.forEach((habitacion) => {
+      state.forEach(producto => {
+        if (producto.id == habitacion.id) {
+         let element = {
+            id: reserva.id,
+            title: `${reserva.Usuario.nombre
+          } ${reserva.Usuario.apellido
+          }`,
+            start: new Date(`${reserva.fecha_ingreso}`),
+            end:new Date(`${reserva.fecha_egreso}`),
+          }
+          producto.tasks.push(element)
+          
+        }
+      })
+
+  })
+  }
+  else if (reserva?.Camas.length > 0) {
+        reserva.Camas.forEach((cama) => {
+      state.forEach(producto => {
+        if (producto.id == cama.id) {
+         let element = {
+            id: reserva.id,
+            title: `${reserva.Usuario.nombre
+          } ${reserva.Usuario.apellido
+          }`,
+            start: new Date(`${reserva.fecha_ingreso}`),
+            end:new Date(`${reserva.fecha_egreso}`),
+          }
+          producto.tasks.push(element)
+          
+        }
+      })
+
+  })
+
+
+  }
+
+}) 
+
 [
   {
     id: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
     fecha_ingreso: '2022-11-01',
     fecha_egreso: '2022-11-11',
     saldo: 600,
-    UsuarioDni: '21838624',
+  UsuarioDni: '34592295',
+    Usuario: {
+          dni: '34592295',
+          nombre: 'toni',
+          apellido: 'tralice',
+        },
     Habitacions: [
       {
         id: 1,

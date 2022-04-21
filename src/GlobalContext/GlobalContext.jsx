@@ -80,132 +80,34 @@ export const ContextProvider = (props) => {
     },
   ];
   let mockReservations = [
-    [
-      {
-        id: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
-        fecha_ingreso: '2022-11-01',
-        fecha_egreso: '2022-11-11',
-        saldo: 600,
-        UsuarioDni: '34592295',
-        Usuario: {
-          dni: '34592295',
-          nombre: 'toni',
-          apellido: 'tralice',
-        },
-        Habitacions: [
-          {
-            id: 1,
-            nombre: 'presidencial',
-            comodidades: 'cocina',
-            descripcion: 'habitacion gigante',
-            cantCamas: 3,
-            privada: true,
-            precio: null,
-            banoPrivado: true,
-            createdAt: '2022-04-19T20:20:32.935Z',
-            Reserva_Habitacion: {
-              createdAt: '2022-04-19T21:08:44.227Z',
-              updatedAt: '2022-04-19T21:08:44.227Z',
-              ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
-              HabitacionId: 1,
-            },
-          },
-        ],
-        Camas: [
-          {
-            id: '921b0051-79ce-4ae4-ba24-eea39e614323',
-            precio: 500,
-            estado: 'libre',
-            HabitacionId: 2,
-            HuespedId: null,
-            Reserva_Cama: {
-              createdAt: '2022-04-19T21:08:44.225Z',
-              updatedAt: '2022-04-19T21:08:44.225Z',
-              ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
-              CamaId: '921b0051-79ce-4ae4-ba24-eea39e614323',
-            },
-          },
-        ],
+    {
+      id: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+      fecha_ingreso: '2022-11-01',
+      fecha_egreso: '2022-11-11',
+      saldo: 600,
+      UsuarioDni: '34592295',
+      Usuario: {
+        dni: '34592295',
+        nombre: 'toni',
+        apellido: 'tralice',
       },
-
-      {
-        id: '36c13d90-8ccf-4d43-8420-251d8c549bef',
-        fecha_ingreso: '2022-10-01',
-        fecha_egreso: '2022-11-11',
-        saldo: 2600,
-        UsuarioDni: '34557830',
-        Usuario: {
-          dni: '34557830',
-          nombre: 'Ariel',
-          apellido: 'Arzamendia',
+      Habitacions: [],
+      Camas: [
+        {
+          id: '1caef1d5-e9e8-4c36-a5d9-4eba63b7e5aa',
+          precio: 500,
+          estado: 'libre',
+          HabitacionId: 34,
+          HuespedId: null,
+          Reserva_Cama: {
+            createdAt: '2022-04-19T21:08:44.225Z',
+            updatedAt: '2022-04-19T21:08:44.225Z',
+            ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+            CamaId: '1caef1d5-e9e8-4c36-a5d9-4eba63b7e5aa',
+          },
         },
-        Habitacions: [
-          {
-            id: 1,
-            nombre: 'presidencial',
-            comodidades: 'cocina',
-            descripcion: 'habitacion gigante',
-            cantCamas: 3,
-            privada: true,
-            precio: null,
-            banoPrivado: true,
-            createdAt: '2022-04-19T20:20:32.935Z',
-            Reserva_Habitacion: {
-              createdAt: '2022-04-20T16:06:28.195Z',
-              updatedAt: '2022-04-20T16:06:28.195Z',
-              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
-              HabitacionId: 1,
-            },
-          },
-          {
-            id: 5,
-            nombre: 'messi',
-            comodidades: 'cocina',
-            descripcion:
-              'habitacion giganteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-            cantCamas: 5,
-            privada: true,
-            precio: null,
-            banoPrivado: true,
-            createdAt: '2022-04-20T15:59:33.230Z',
-            Reserva_Habitacion: {
-              createdAt: '2022-04-20T16:06:28.197Z',
-              updatedAt: '2022-04-20T16:06:28.197Z',
-              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
-              HabitacionId: 5,
-            },
-          },
-        ],
-        Camas: [
-          {
-            id: 'e0b0ecef-40f6-48b9-92f9-9d19faa23ce5',
-            precio: 200,
-            estado: 'libre',
-            HabitacionId: 6,
-            HuespedId: null,
-            Reserva_Cama: {
-              createdAt: '2022-04-20T16:06:28.194Z',
-              updatedAt: '2022-04-20T16:06:28.194Z',
-              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
-              CamaId: 'e0b0ecef-40f6-48b9-92f9-9d19faa23ce5',
-            },
-          },
-          {
-            id: '921b0051-79ce-4ae4-ba24-eea39e614323',
-            precio: 500,
-            estado: 'libre',
-            HabitacionId: 2,
-            HuespedId: null,
-            Reserva_Cama: {
-              createdAt: '2022-04-20T16:06:28.191Z',
-              updatedAt: '2022-04-20T16:06:28.191Z',
-              ReservaId: '36c13d90-8ccf-4d43-8420-251d8c549bef',
-              CamaId: '921b0051-79ce-4ae4-ba24-eea39e614323',
-            },
-          },
-        ],
-      },
-    ],
+      ],
+    },
   ];
 
   //estados globales
