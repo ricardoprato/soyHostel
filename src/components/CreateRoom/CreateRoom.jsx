@@ -7,7 +7,7 @@ import styles from './CreateRoom.module.css';
 export function validate(input, image) {
   let errores = {};
   
-  if (!input.nombre) {// NOMBRE
+  if (!input.nombre || !input.nombre.trim()) {// NOMBRE
     errores.nombre = 'Please enter a room name';
   } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.nombre)) {
     errores.nombre = 'The name can only contain letters and spaces';
@@ -112,11 +112,11 @@ export default function CreateRoom() {
   };
 
   let oneImage = (value) => {
-    setImage(value)
+    setImage((prev)=> value)
     setTimeout(() => {
       let objError = validate({ ...input}, image);
       setError(objError);
-    }, 500);
+    }, 1000);
     
   };
 
