@@ -18,7 +18,6 @@ const NavBar = () => {
     };
   }, []);
   return (
-
     <header className={`${styles.header} ${active && styles.sticky}`}>
       <nav className={styles.nav}>
         <NavLink to="/">
@@ -37,7 +36,6 @@ const NavBar = () => {
               </g>
             </g>
           </svg>
-
         </NavLink>
         <div className={styles.nav_flex}>
           <NavLink className={styles.nav_link} to="#">
@@ -54,10 +52,10 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className={styles.nav_flex}>
-          <NavLink className={styles.nav_link} to="#">
+          <NavLink className={styles.nav_link} to="/login">
             Login
           </NavLink>
-          <NavLink className={styles.nav_link} to="#">
+          <NavLink className={styles.nav_link} to="/signup">
             Register
           </NavLink>
         </div>

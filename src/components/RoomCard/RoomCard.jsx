@@ -12,12 +12,12 @@ export default function RoomCard(props) {
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
-    roomName: props.roomName,
-    roomId: props.roomId,
-    bedPrice: props.bedPrice,
+    roomName: props?.roomName,
+    roomId: props?.roomId,
+    bedPrice: props?.bedPrice,
     numberOfBeds: 0,
   };
-  let countInitialState = props.bedsAvailable;
+  let countInitialState = props?.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
   let [toCart, setToCart] = useState(initialstate);
   let [bedsOnCart, setBedsOnCart] = useState(0);
@@ -28,9 +28,9 @@ export default function RoomCard(props) {
       setCount(aux);
       setToCart({
         ...toCart,
-        numberOfBeds: toCart.numberOfBeds + 1,
+        numberOfBeds: toCart?.numberOfBeds + 1,
       });
-    } else if (arg === '-' && count < props.bedsAvailable) {
+    } else if (arg === '-' && count < props?.bedsAvailable) {
       let aux = count + 1;
       setCount(aux);
       setToCart({
@@ -38,10 +38,10 @@ export default function RoomCard(props) {
         numberOfBeds: toCart.numberOfBeds - 1,
       });
     } else if (arg === 'add') {
-      if (props.private && count) {
+      if (props?.private && count) {
         setToCart({
           ...toCart,
-          numberOfBeds: props.bedsAvailable,
+          numberOfBeds: props?.bedsAvailable,
         });
         setCount(0);
       }
@@ -66,36 +66,39 @@ export default function RoomCard(props) {
       <div className={styles.RoomCardImages}>
         {!!localModal && (
           <Modal setLocalModal={setLocalModal}>
-            <RoomDetails roomId={props.roomId} />
+            <RoomDetails roomId={props?.roomId} />
           </Modal>
         )}
         <img
           onClick={onCLickImage}
           className={styles.RoomCardImg}
-          src={props.image[0]}
+          src={props?.image[0]?.imagen}
           alt="room-img"
-          id={props.roomId}
+          id={props?.roomId}
         />
       </div>
       <div className={styles.RoomCardText}>
-        <h2 className={styles.title}>Room: {props.roomName}</h2>
+        <h2 className={styles.title}>Room: {props?.roomName}</h2>
         {/* <div>
           Availability for {filterDates.checkIn} to {filterDates.checkOut}
         </div> */}
-        {props.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
+        {props?.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
           <>
             <div className={styles.description}>
               <h3>
                 This is a{' '}
                 <span className={styles.spanDescription}>PRIVATE</span> room
               </h3>
-              {props.bathroom ? <p>With private bathroom</p> : null}
-              <p>Room for {props.bedsAvailable} people</p>
+              {props?.bathroom ? <p>With private bathroom</p> : null}
+              <p>Room for {props?.bedsAvailable} people</p>
             </div>
-            <p className={styles.price}>Room price: $ {props.bedPrice}</p>
-            <div className={styles.addToCart}>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
-            </div>
+            <p className={styles.price}>Room price: $ {props?.bedPrice}</p>
+
+            {props?.filtradas ? (
+              <div className={styles.addToCart}>
+                <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+              </div>
+            ) : null}
           </>
         ) : (
           <>
@@ -104,22 +107,32 @@ export default function RoomCard(props) {
                 This is a <span className={styles.spanDescription}>SHARED</span>{' '}
                 room
               </h3>
-              {props.bathroom ? <p>With private bathroom</p> : null}
+              {props?.bathroom ? <p>With private bathroom</p> : null}
             </div>
-            <p className={styles.price}>Bed price: $ {props.bedPrice}</p>
-            <div className={styles.buttons}>
-              <div className={styles.flexButton}>
-                <Button msg="+" funct={() => onClickHandler('+')} />
-                <Button msg="-" funct={() => onClickHandler('-')} />
-              </div>
-            </div>
-            <div className={styles.addToCart}>
-              <p>{bedsOnCart} on Cart</p>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
-            </div>
-            <p className={styles.amount}>
-              {toCart.numberOfBeds} beds selected, {count} left
-            </p>
+            <p className={styles.price}>Bed price: $ {props?.bedPrice}</p>
+
+            {props?.filtradas ? (
+              <>
+                <div className={styles.buttons}>
+                  <div className={styles.flexButton}>
+                    <Button msg="+" funct={() => onClickHandler('+')} />
+                    <Button msg="-" funct={() => onClickHandler('-')} />
+                  </div>
+                </div>
+
+                <div className={styles.addToCart}>
+                  <p>{bedsOnCart} on Cart</p>
+                  <Button
+                    msg="ADD to Cart"
+                    funct={() => onClickHandler('add')}
+                  />
+                </div>
+
+                <p className={styles.amount}>
+                  {toCart.numberOfBeds} beds selected, {count} left
+                </p>
+              </>
+            ) : null}
           </>
         )}
       </div>
