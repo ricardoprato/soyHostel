@@ -7,155 +7,169 @@ import styles from './CreateRoom.module.css';
 export function validate(input, image) {
   let errores = {};
   
-  if (!input.nombre) {// NOMBRE
+  if (!input.nombre || !input.nombre.trim()) {// NOMBRE
     errores.nombre = 'Please enter a room name';
-  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.nombre)) {
+  } else if (!/^[a-zA-Z0-9,.!? ]*$/.test(input.nombre)) {
     errores.nombre = 'The name can only contain letters and spaces';
-  }
+  };
   
-  if (input.privada === 'select') {// PRIVADA?
+  if (input.privada === null) {// PRIVADA?
     errores.privada = 'Please select room type';
-  }
+  };
   
-  if (input.banoPrivado === 'select') {//Baño privado?
+  if (input.banoPrivado === null) {//Baño privado?
     errores.banoPrivado = 'Please select with or without private bathroom';
-  }
+  };
  
   if (!input.comodidades) { // COMODIDADES
     errores.comodidades = 'Please enter room amenities';
   } else if (!/^[a-zA-Z0-9,.!? ]*$/.test(input.comodidades)) {
     errores.comodidades = 'Only letters and spaces';
-  }
+  };
   
   if (!input.cantCamas) {//CANTCAMAS
     errores.cantCamas = 'Please enter amount of beds';
   } else if (!/^[0-9]*$/.test(input.cantCamas)) {
     errores.cantCamas = 'must be a number';
-  }
+  };
   
   if (!input.descripcion) {//DESCRIPCION
     errores.descripcion = 'Please enter a room description';
   } else if (!/^[a-zA-Z0-9,.'!? ]*$/.test(input.descripcion)) {
     errores.descripcion =
       'The description can only contain letters, numbers, puntuation and spaces';
-  }
-  
-  if (input.preciosCamas.length === 0 && input.privada === false) {//PRECIOSCAMAS
-    //buscar validacion de imagenes url que acepte todas
-    errores.preciosCamas = 'Please type the price for one night';
-  } else if (
-    !/^[0-9,.]*$/.test(input.preciosCamas) &&
-    input.privada === false
-  ) {
-    errores.preciosCamas = 'The price can onoly contain numbers';
-  }
+  };
+  //                  PRECIOSCAMAS
+  if (input.preciosCamas.length === 0 && input.privada === false) {
+    errores.preciosCamas = 'Please set the price for one night';
+  };
   
   if (input.precioHabitacion === 0 && input.privada === true) {//PRECIOHABITACION
     errores.precioHabitacion = 'Please type the price for one night';
   } else if (
     input.privada === true &&
     !/^[0-9,.]*$/.test(input.precioHabitacion)
-  ) {
-    errores.precioHabitacion = 'The price can onoly contain numbers';
-  }
-  
-  if (!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(image)){ //IMAGENES
+  );
+  //                  IMAGENES
+  if (!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(image) && image?.length > 0){ //IMAGEN
     errores.image = 'URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)';
-  }
+  };
 
-  if(input.imagenes.length === 0){
-    errores.imagenes = 'You need to give at least one valir image URL'
-  }
+  if(input.imagenes.length < 3){ // cambiar 0 por 3
+    errores.imagenes = "You need to give at least three valid image URL's"
+  };
 
   return errores;
-}
+};
+
+/////////////       SOLO FALTA CORREGIR BUG INPUT IMAGENES
 
 export default function CreateRoom() {
   let [error, setError] = useState({});
   let [image, setImage] = useState('');
-  let [imageError, setImageError] = useState('');
-  let [input, setInput] = useState({
+  let [bedPrice, setBedPrice] = useState(0);
+  const initialState ={
     nombre: '',
-    privada: false,
-    banoPrivado: false,
+    privada: null,
+    banoPrivado: null,
     comodidades: '',
     cantCamas: 0,
     descripcion: '',
     preciosCamas: [],
     precioHabitacion: 0,
     imagenes: [],
-  });
+  }
+  let [input, setInput] = useState(initialState);
 
   useEffect(() => {
-    setInput({
-      nombre: '',
-      privada: false,
-      banoPrivado: false,
-      comodidades: '',
-      cantCamas: 0,
-      descripcion: '',
-      preciosCamas: [],
-      precioHabitacion: 0,
-      imagenes: [],
-    });
+    setInput(initialState);
   }, []);
-  
-  function validateImage(image) {
-    if(!/(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-])*((\.jpg)|(\.png)|(\.jpeg)|(\.svg))\/?(\.webp)?/.test(
-      image
-    )){
-      setImageError("URL should start with https and end with (.jpg, .png, .jpeg, .svg or .webp)")
-    }else{
-      setImageError("ok")
-    }
-  }
 
-  function handleSubmit(e) {
+  let handleSubmit =  (e) => {
     e.preventDefault();
-    console.log(input);
-    //AGREGAR ACA EL FETCH(POST) AL BACK CON TODA LA DATA VALIDADA
-    setInput({
-      nombre: '',
-      privada: false,
-      banoPrivado: false,
-      comodidades: '',
-      cantCamas: 0,
-      descripcion: '',
-      preciosCamas: [],
-      precioHabitacion: 0,
-      imagenes: [],
-    });
+    fetch(
+      'https://back-end-1407.herokuapp.com/habitaciones',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input),
+      }
+      )
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((error)=> console.log(error))
+    setInput(initialState);
     e.target.reset();
-  }
+  };
 
   let handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     let objError = validate({ ...input, [e.target.name]: e.target.value });
     setError(objError);
-    setTimeout(() => console.log(input), 1000);
+    console.log(input)
+  };
+
+  let oneImage = (e) => {
+    setImage(e.target.value)
+    let objError = validate({ ...input}, e.target.value);
+    setError(objError);
   };
 
   let handleImageLoad = (e) => {
-    console.log("e")
-    console.log(e)
     e.preventDefault()
-    // console.log("image to load: " + image)
-    setInput({ ...input, imagenes: [...input.imagenes, image] });
-    setTimeout(() => console.log(input), 1000);
-    setImage("");
-
+    if(!error.image && image?.length > 0){
+      setInput({ ...input, imagenes: [...input.imagenes, image] });
+      let objError = validate({ ...input, imagenes: [...input.imagenes, image] });
+      setError(objError);
+      setImage("");
+    }
+  };
+  
+  let handlePrivateRoom = (e) => {
+    if(e.target.value === "true" ){
+      setInput({...input, privada: true})
+      let objError = validate({...input, privada: true});
+      setError(objError);
+    }else if(e.target.value === "false"){
+      setInput({...input, privada: false})
+      let objError = validate({...input, privada: false});
+      setError(objError);
+    }else {
+      setInput({...input, privada: null})
+      let objError = validate({...input, privada: null});
+      setError(objError);
+    }
   };
 
-  let oneImage = (value) => {
-    setImage(value)
-    let objError = validate({ ...input}, image);
+  let handlePrivateBathroom = (e) => {
+    if(e.target.value === "true" ){
+      setInput({...input, banoPrivado: true})
+      let objError = validate({...input, banoPrivado: true});
+      setError(objError);
+    }else if(e.target.value === "false" ){
+      setInput({...input, banoPrivado: false})
+      let objError = validate({...input, banoPrivado: false});
+      setError(objError);
+    }else {
+      setInput({...input, banoPrivado: null})
+      let objError = validate({...input, banoPrivado: null});
+      setError(objError);
+    }
+  }
+
+  let handleBedPriceLoad = (e) => {
+    e.preventDefault()
+    setInput({ ...input, preciosCamas: [bedPrice] });
+    let objError = validate({ ...input, preciosCamas: [bedPrice] });
     setError(objError);
-    setTimeout(() => console.log(image), 1000);
+    setBedPrice([]);
   };
 
   return (
     <div className={styles.formulario}>
-      <h1>Create New rOOM</h1>
+      <h1>Create New Room</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>{/* nombre */}
           
@@ -169,28 +183,26 @@ export default function CreateRoom() {
           {error.nombre && <p className={styles.error}>{error.nombre}</p>}
         </div>
         <div> {/* privada */}
-         
           <label>Room type: </label>
-          <select name={'privada'} onChange={(e) => handleChange(e)}>
-            <option value="select...">Select...</option>
-            <option value={true}>Private</option>
-            <option value={false}>Shared</option>
+          <select name="privada" onChange={(e) => handlePrivateRoom(e)}>
+            <option value='null'>Select...</option>
+            <option value="false">Shared</option>
+            <option value="true">Private</option>
           </select>
           {error.privada && <p className={styles.error}>{error.privada}</p>}
         </div>
         <div>{/* banoPrivado */}
-          
           <label>Private bathroom: </label>
-          <select name="banoPrivado" onChange={(e) => handleChange(e)}>
-            <option value="select">Select...</option>
-            <option value={true}>Private</option>
-            <option value={false}>Shared</option>
+          <select name="banoPrivado" onChange={(e) => handlePrivateBathroom(e)}>
+          <option value='null'>Select...</option>
+            <option value="false">Shared</option>
+            <option value="true">Private</option>
           </select>
           {error.banoPrivado && (
             <p className={styles.error}>{error.banoPrivado}</p>
           )}
         </div>
-        <div>{' '}{/* comodidades */}
+        <div>{/* comodidades */}
           <label>Amenities: </label>
           <input
             type={'text'}
@@ -202,17 +214,17 @@ export default function CreateRoom() {
             <p className={styles.error}>{error.comodidades}</p>
           )}
         </div>
-        <div>{' '}{/* cantCamas */} 
+        <div>{/* cantCamas */} 
           <label>Number of beds: </label>
           <input
-            type={'number'}
-            name={'cantCamas'}
+            type='number'
+            name='cantCamas'
             onChange={(e) => handleChange(e)}
             placeholder="number of beds..."
           />
           {error.cantCamas && <p className={styles.error}>{error.cantCamas}</p>}
         </div>
-        <div> {' '}{/* descripcion */}
+        <div> {/* descripcion */}
           <label>Room description: </label>
           <input
             type={'text'}
@@ -224,8 +236,8 @@ export default function CreateRoom() {
             <p className={styles.error}>{error.descripcion}</p>
           )}
         </div>
-        {input.privada === 'true' && (
-          <div>{' '} {/* precioHabitacion */}
+        {input.privada === true && (
+          <div>{/* precioHabitacion */}
             <label>Room price: </label>
             <input
               type={'number'}
@@ -238,40 +250,40 @@ export default function CreateRoom() {
             )}
           </div>
         )}
-        {input.privada === 'false' && (
+        {input.privada === false && (
           <div>{' '}{/* preciosCamas */}
             <label>Bed price: </label>
             <input
               type={'number'}
               name={'preciosCamas'}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => setBedPrice(e.target.value)}
               placeholder="Bed price..."
             />
-            {error.preciosCamas && (
-              <p className={styles.error}>{error.preciosCamas}</p>
-            )}
+            {bedPrice > 0 && (<div className={styles.oneLine}><button onClick={handleBedPriceLoad}>set</button> <div> Price seted to: {input?.preciosCamas[0]} </div></div>)}
+            {error.preciosCamas && (<p className={styles.error}>{error.preciosCamas}</p>)}
           </div>
         )}
-        <div>
-          {' '}
-          {/* imagenes */}
+        <div>{/* imagenes */}
           <label>Add 3 images: </label>
           <input
             type="text"
             id="imagenes"
             name="imagenes"
-            onChange={(e) => oneImage(e.target.value)}
+            onChange={(e) => oneImage(e)}
             placeholder="paste image url..."
+            value={image}
           />
-          {!error.image && <button onClick={handleImageLoad}>load</button>}
-          {error.image && (
+          { input?.imagenes?.length < 3 && (
+          <div className={styles.oneLine}><button onClick={handleImageLoad}>load</button> <div> {input?.imagenes?.length} images added</div></div>)
+          }
+          {error.image && input?.imagenes?.length < 3 && (
               <p className={styles.error}>{error.image}</p>
             )}
           {error.imagenes && (
               <p className={styles.error}>{error.imagenes}</p>
             )}
         </div>
-        <div>
+        <div> {/* errores */}
           {error.name ||
           error.privada ||
           error.banoPrivado ||
@@ -280,7 +292,7 @@ export default function CreateRoom() {
           error.descripcion ||
           error.precioHabitacion ||
           error.preciosCamas ||
-          imageError !== "ok" ? null : (
+          error.imagenes ? null : (
             <button>Create</button>
           )}
         </div>

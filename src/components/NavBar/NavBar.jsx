@@ -52,7 +52,7 @@ const NavBar = () => {
           </NavLink>
         </div>
         <div className={styles.nav_flex}>
-          <NavLink className={styles.nav_link} to="#">
+          <NavLink className={styles.nav_link} to="/login">
             Login
           </NavLink>
           <NavLink className={styles.nav_link} to="/signup">
