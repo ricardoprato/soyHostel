@@ -13,37 +13,18 @@ function Google() {
     let googleId = googleData.googleId;
 
     const res = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/auth/auth/google',
+      'https://prueba-google-auth.herokuapp.com' + '/auth/signup',
       {
         method: 'POST',
-        body: JSON.stringify({
-          token,
-          googleId,
-        }),
-        headers: {
+        headers: new Headers({
+          Authorization: 'Bearer ' + token,
           'Content-Type': 'application/json',
-        },
+        }),
+        body: JSON.stringify({ googleId }),
       }
     );
-
-    // const res = await fetch(
-    //   'https://prueba-google-auth.herokuapp.com' + '/auth/login',
-    //   {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       token,
-    //       googleId,
-    //     }),
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
     const res2 = await res.json();
-    console.log('res2', res2);
 
-    console.log('Login Success:', googleData);
-    console.log('asd', googleData);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };
