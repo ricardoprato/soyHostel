@@ -12,9 +12,9 @@ export default function RoomCard(props) {
   let initialstate = {
     checkIn: filterDates.checkIn,
     checkOut: filterDates.checkOut,
-    roomName: props?.roomName,
-    roomId: props?.roomId,
-    bedPrice: props?.bedPrice,
+    rooms: [],
+    beds:[],
+    cost: 0,
     numberOfBeds: 0,
   };
   let countInitialState = props?.bedsAvailable;
