@@ -22,6 +22,7 @@ import RoomDetails from '../RoomDetails/RoomDetails';
  */
 export default function RoomCard(props) {
   const { cart, setCart, filterDates } = useContext(GlobalContext);
+  console.log(filterDates)
   const [localModal, setLocalModal] = useState(false);
   let initialstate = { //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
     // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART
@@ -48,17 +49,32 @@ export default function RoomCard(props) {
       });
     } else if (arg === 'add') {
       if (props?.private && count !== 0) {       //CONTROLAR SI EL CART YA TIENE LAS FECHAS Y SETEAR EL ID DE LA HABITACION Y EL SALDO
-        setCart({               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
-          ...cart,
-          rooms: [...cart.rooms, props.roomId]
-        });
+        setCart([               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
+          ...cart, 
+          {
+            private: "private",
+            roomId: props.roomId,
+            checkIn: filterDates.checkIn,
+            checkOut: filterDates.checkOut,
+            price: props.bedPrice,
+            roomName: props.roomName
+          }
+        ]);
         setCount(0);
       }else if(toCart.numberOfBeds > 0) { //CHEQUEAR QUE EL CART TENGA LAS FECHAS
         let aux = props.bedIds.slice(0,toCart.numberOfBeds);
-        setCart({
-          ...cart,
-          beds: [...cart.beds, ...aux ]
-        });
+        setCart([               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
+        ...cart, 
+        {
+          private: "shared",
+          roomId: props.roomId,
+          checkIn: filterDates.checkIn,
+          checkOut: filterDates.checkOut,
+          beds: [...aux ],
+          price: props.bedPrice,
+          roomName: props.roomName
+        }
+      ]);
         setBedsOnCart(toCart.numberOfBeds);
         setToCart(initialstate);
       }
