@@ -5,6 +5,7 @@ import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 
 const Register = () => {
+  let error;
   let sendData = async (valores) => {
     let res = await fetch(
       'https://prueba-google-auth.herokuapp.com' + '/auth/signup',
@@ -16,9 +17,11 @@ const Register = () => {
         body: JSON.stringify(valores),
       }
     );
+    let res2 = await res.json();
+    error = res2.msg;
+    alert(error);
   };
-  // let res2 = await res.json();
-  // console.log(res2)
+
   let [showPaises, setShowPaises] = useState([]);
   let todoslospaises;
   let paises;
@@ -40,6 +43,18 @@ const Register = () => {
     setModal(false);
   };
 
+  const revealPassword = (e) => {
+    if (typePw === 'password') {
+      setTypePw('text');
+    } else {
+      setTypePw('password');
+    }
+  };
+
+  // let typePw = 'password';
+
+  const [typePw, setTypePw] = useState('password');
+
   return (
     <div className={styles.register}>
       {modal ? (
@@ -48,6 +63,8 @@ const Register = () => {
             name: dataProfile.givenName,
             lastname: dataProfile.familyName,
             email: dataProfile.email,
+            avatar: dataProfile.imageUrl,
+            googleId: dataProfile.googleId,
             dni: '',
             typeofdocument: '',
             password: '',
@@ -59,14 +76,14 @@ const Register = () => {
             let errores = {};
             console.log('pararicky', valores);
             // Validacion nombre
-            if (!valores.name) {
+            if (!valores.name || !valores.name.trim()) {
               errores.name = 'Please enter a name';
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.name)) {
               errores.name = 'The name can only contain letters and spaces';
             }
 
             // Validacion lastname
-            if (!valores.lastname) {
+            if (!valores.lastname || !valores.lastname.trim()) {
               errores.lastname = 'Please enter a lastname';
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastname)) {
               errores.lastname =
@@ -148,7 +165,7 @@ const Register = () => {
           }}
           onSubmit={(valores, { resetForm }) => {
             sendData(valores);
-            alert('Created Succesfully');
+
             resetForm();
             console.log('INFO', valores);
             cambiarFormularioEnviado(true);
@@ -263,14 +280,22 @@ const Register = () => {
                   )}
                 />
               </div>
-              <div>
+              <div className={styles.eye}>
                 <label htmlFor="password">Password</label>
                 <Field
-                  type="text"
+                  type={typePw}
                   id="password"
                   name="password"
                   placeholder="mipassword123"
                 />
+
+                <button
+                  type="button"
+                  className={styles.buttoneye}
+                  onClick={revealPassword}
+                >
+                  <i className="bi bi-eye-fill"></i>
+                </button>
                 <ErrorMessage
                   name="password"
                   component={() => (
@@ -283,7 +308,7 @@ const Register = () => {
                 <Field name="nationality" as="select">
                   <option>Elegir pais</option>
                   {showPaises.map((p) => {
-                    return <option>{p.nombre}</option>;
+                    return <option key={p.id}>{p.nombre}</option>;
                   })}
                 </Field>
                 <ErrorMessage

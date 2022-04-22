@@ -11,6 +11,7 @@ function Google() {
   const onLoginSuccess = async (googleData) => {
     let token = googleData.tokenId;
     let googleId = googleData.googleId;
+    let imageGoogle = googleData.imageUrl;
 
     const res = await fetch(
       'https://prueba-google-auth.herokuapp.com' + '/auth/signup',
@@ -24,7 +25,7 @@ function Google() {
       }
     );
     const res2 = await res.json();
-
+    console.log('GOOGLE???>>', imageGoogle);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };

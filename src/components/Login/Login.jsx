@@ -18,8 +18,9 @@ const Login = () => {
     );
     let res2 = await res.json();
     let token = res2.token;
-    console.log('token?', token);
-    localStorage.setItem('tokenProp', token);
+    console.log('generalresponse', res2);
+    window.localStorage.setItem('tokenProp', token);
+    console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
   };
 
   const handleClick = (e) => {
