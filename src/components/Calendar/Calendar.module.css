@@ -1,3 +1,77 @@
-.lala {
-  padding-top: 300px;
+.form {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  row-gap: 2rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  justify-content: space-between;
+  color: var(--dark-color);
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.data {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow);
+}
+
+.button {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: #fff;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.button:hover {
+  color: #e8e8e8;
+}
+
+.button:hover::before {
+  width: 100%;
+}
+
+.form {
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  row-gap: 2rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  justify-content: space-between;
+  color: var(--dark-color);
 }

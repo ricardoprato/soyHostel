@@ -13,17 +13,12 @@ import Calendar from '../../components/Calendar/Calendar';
 
 import PopupChangePw from '../../components/PopupChangePw/PopupChangePw';
 
-
 const Prueba = () => {
   return (
     <>
-
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />
       </div>
-
-      <CreateRoom/>
-
     </>
   );
 };
