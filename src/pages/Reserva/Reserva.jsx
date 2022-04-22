@@ -34,7 +34,7 @@ export default function Reserva() {
           bathroom: roomFromAll.banoPrivado,
           image: roomFromAll.imagenes[0],
           private: roomFromAll.privada,
-          totalBeds: roomFromAll.cantCamas
+          totalBeds: roomFromAll.cantCamas,
           filtradas: true,
           bedIds: roomFiltered?.camas //json de los sueños???
         }

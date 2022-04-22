@@ -25,13 +25,12 @@ export default function RoomCard(props) {
   const [localModal, setLocalModal] = useState(false);
   let initialstate = { //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
     // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART
-    beds:[],
-    cost: 0,
-    // numberOfBeds: 0,
+    numberOfBeds: 0,
   };
+  let [toCart, setToCart] = useState(initialstate); //solo para habitaciones compartidas, las privadas va directo al cart
+  
   let countInitialState = props?.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
-  let [toCart, setToCart] = useState(initialstate); //solo para habitaciones compartidas, las privadas va directo al cart
   let [bedsOnCart, setBedsOnCart] = useState(0);
 
   const onClickHandler = function (arg) {
@@ -39,30 +38,28 @@ export default function RoomCard(props) {
       let aux = count - 1;
       setCount(aux);     //SE ACTUALIZAN LAS CAMAS QUE QUEDAN EN ESA HABITACION
       setToCart({
-        ...toCart,
-        // numberOfBeds: toCart?.numberOfBeds + 1,
-        beds: [...toCart.beds, ]// ACA HAY UN TEMA, HAY QUE PASARLE LAS ID DE LAS CAMAS   
+        numberOfBeds: toCart?.numberOfBeds + 1,
       });
     } else if (arg === '-' && count < props?.bedsAvailable) {
       let aux = count + 1;
       setCount(aux);
       setToCart({
-        ...toCart,
         numberOfBeds: toCart.numberOfBeds - 1,
       });
     } else if (arg === 'add') {
-      if (props?.private) {       //CONTROLAR SI EL CART YA TIENE LAS FECHAS Y SETEAR EL ID DE LA HABITACION Y EL SALDO
-        setToCart({               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
-          ...toCart,
-          // numberOfBeds: props?.bedsAvailable,
+      if (props?.private && count !== 0) {       //CONTROLAR SI EL CART YA TIENE LAS FECHAS Y SETEAR EL ID DE LA HABITACION Y EL SALDO
+        setCart({               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
+          ...cart,
+          rooms: [...cart.rooms, props.roomId]
         });
         setCount(0);
-      }
-      if (toCart.numberOfBeds > 0) { //CHEQUEAR QUE EL CART TENGA LAS FECHAS
-        setCart([...cart, toCart]);
-
+      }else if(toCart.numberOfBeds > 0) { //CHEQUEAR QUE EL CART TENGA LAS FECHAS
+        let aux = props.bedIds.slice(0,toCart.numberOfBeds);
+        setCart({
+          ...cart,
+          beds: [...cart.beds, ...aux ]
+        });
         setBedsOnCart(toCart.numberOfBeds);
-
         setToCart(initialstate);
       }
     }
@@ -73,6 +70,7 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
+// console.log(props)
 
   return (
     <div className={styles.RoomCardContainer}>
@@ -105,7 +103,7 @@ export default function RoomCard(props) {
               {props?.bathroom ? <p>With private bathroom</p> : null}
               <p>Room for {props?.bedsAvailable} people</p>
             </div>
-            <p className={styles.price}>Room price: $ {props?.bedPrice}</p>
+            <p className={styles.price}>Room price: $ {(props?.bedPrice * props?.bedsAvailable)}</p>
 
             {props?.filtradas ? (
               <div className={styles.addToCart}>
