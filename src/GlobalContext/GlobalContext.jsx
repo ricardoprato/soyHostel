@@ -115,7 +115,13 @@ export const ContextProvider = (props) => {
     checkIn: '',
     checkOut: '',
   });
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({
+    checkIn: '',
+    checkOut: '',
+    rooms: [],
+    beds: [],
+    cost: 0,
+  });
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
   const [availableBeds, setAvailablebeds] = useState(mock);
 

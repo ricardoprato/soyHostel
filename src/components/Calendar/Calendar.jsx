@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Gantt from 'react-gantt-antd-rocket-pt';
 import 'react-gantt-antd-rocket-pt/lib/css/style.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
+import { Modal } from '../Modal/Modal';
+import { Formulario } from '../Formulario/Formulario';
 
 export default function Calendar() {
+  const [localModal, setLocalModal] = useState(false);
   const {
     allRooms,
     getAllRooms,
@@ -124,9 +127,17 @@ export default function Calendar() {
       ],
     },
   ];
-
+  const handleClick = () => {
+    setLocalModal((prevState) => !prevState);
+  };
   return (
     <>
+      {!!localModal && (
+        <Modal setLocalModal={setLocalModal}>
+          <Formulario />
+        </Modal>
+      )}
+
       {state.length > 0 && (
         <Gantt
           start={new Date('2022-11-01')} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
@@ -136,6 +147,8 @@ export default function Calendar() {
           projects={state}
           enableSticky
           scrollToNow
+          sideWidth={1000}
+          clickTask={handleClick}
         />
       )}
     </>
