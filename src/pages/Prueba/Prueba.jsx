@@ -13,7 +13,7 @@ import PopupChangePw from '../../components/PopupChangePw/PopupChangePw';
 const Prueba = () => {
   return (
     <>
-      <CreateRoom/>
+      <Reserva/>
     </>
   );
 };
