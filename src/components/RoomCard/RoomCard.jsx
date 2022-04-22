@@ -6,29 +6,42 @@ import Button from '../Button/Button';
 import { Modal } from '../Modal/Modal';
 import RoomDetails from '../RoomDetails/RoomDetails';
 
+/*  VIENE POR PROPS:
+        roomId
+        roomName
+        comodities
+        bedPrice
+        bedsAvailable
+        totalBeds
+        description
+        bathroom
+        image
+        private
+        filtradas
+        bedIds
+ */
 export default function RoomCard(props) {
   const { cart, setCart, filterDates } = useContext(GlobalContext);
   const [localModal, setLocalModal] = useState(false);
-  let initialstate = {
-    checkIn: filterDates.checkIn,
-    checkOut: filterDates.checkOut,
-    rooms: [],
+  let initialstate = { //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
+    // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART
     beds:[],
     cost: 0,
-    numberOfBeds: 0,
+    // numberOfBeds: 0,
   };
   let countInitialState = props?.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
-  let [toCart, setToCart] = useState(initialstate);
+  let [toCart, setToCart] = useState(initialstate); //solo para habitaciones compartidas, las privadas va directo al cart
   let [bedsOnCart, setBedsOnCart] = useState(0);
 
   const onClickHandler = function (arg) {
     if (arg === '+' && count > 0) {
       let aux = count - 1;
-      setCount(aux);
+      setCount(aux);     //SE ACTUALIZAN LAS CAMAS QUE QUEDAN EN ESA HABITACION
       setToCart({
         ...toCart,
-        numberOfBeds: toCart?.numberOfBeds + 1,
+        // numberOfBeds: toCart?.numberOfBeds + 1,
+        beds: [...toCart.beds, ]// ACA HAY UN TEMA, HAY QUE PASARLE LAS ID DE LAS CAMAS   
       });
     } else if (arg === '-' && count < props?.bedsAvailable) {
       let aux = count + 1;
@@ -38,14 +51,14 @@ export default function RoomCard(props) {
         numberOfBeds: toCart.numberOfBeds - 1,
       });
     } else if (arg === 'add') {
-      if (props?.private && count) {
-        setToCart({
+      if (props?.private) {       //CONTROLAR SI EL CART YA TIENE LAS FECHAS Y SETEAR EL ID DE LA HABITACION Y EL SALDO
+        setToCart({               // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
           ...toCart,
-          numberOfBeds: props?.bedsAvailable,
+          // numberOfBeds: props?.bedsAvailable,
         });
         setCount(0);
       }
-      if (toCart.numberOfBeds > 0) {
+      if (toCart.numberOfBeds > 0) { //CHEQUEAR QUE EL CART TENGA LAS FECHAS
         setCart([...cart, toCart]);
 
         setBedsOnCart(toCart.numberOfBeds);
