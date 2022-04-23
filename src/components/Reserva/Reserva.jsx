@@ -14,11 +14,13 @@ export default function Reserva() {
   
   const [dataForCards, setDataForCards] = useState([]) //este va a ser el estado del cual se le va a pasar las props a las cards
   
+
   useEffect(() => { 
-    allRooms?.length === 0 && getAllRooms();
-  }, [getAllRooms]);
-// allRooms?.length && console.log("allRooms")
-// allRooms?.length && console.log(allRooms)
+    allRooms.length === 0 && getAllRooms();
+  }, [allRooms]);
+
+allRooms.length && console.log("allRooms")
+allRooms.length && console.log(allRooms)
 filteredRooms?.length && console.log("filteredRooms")
 filteredRooms?.length && console.log(filteredRooms)
 // filteredAvailableBeds?.length && console.log("filteredAvailableBeds")
