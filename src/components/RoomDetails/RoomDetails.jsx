@@ -5,9 +5,21 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { Modal } from '../Modal/Modal';
 
 export default function RoomDetails({ roomId }) {
-  console.log(roomId);
-
   const { getIdRoom, details, setDetails } = useContext(GlobalContext);
+
+  const fetchDetails = (roomId) => {
+    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+      .then((response) => response.json())
+      .then((data) => setDetails(data))
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
 
   useEffect(() => {
     getIdRoom(roomId);
