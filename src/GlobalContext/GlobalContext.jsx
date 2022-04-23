@@ -158,11 +158,11 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    fetch('https://back-end-1407.herokuapp.com/habitaciones')
+    fetch(`${import.meta.env.VITE_API_URL}/habitaciones`)
       .then((response) => response.json())
       .then((data) => {
-        setFileteredRooms((prev) => data);
-        setAllRooms((prev) => data);
+        setFileteredRooms(data);
+        setAllRooms(data);
       })
       .catch((error) => {
         if (error.response) {

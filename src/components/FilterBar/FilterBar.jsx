@@ -224,7 +224,7 @@ const FilterBar = () => {
           Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
         }
       >
-        View Available
+        View available
       </button>
     </div>
   );
