@@ -70,9 +70,10 @@
 
 .formulario .exito {
   text-align: center;
-  font-size: 14px;
+  font-size: 20px;
+  font-weight: bold;
   padding-top: 20px;
-  color: #02a802;
+  color: #ff0000;
 }
 
 .img {
