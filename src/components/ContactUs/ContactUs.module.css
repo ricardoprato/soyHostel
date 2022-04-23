@@ -93,14 +93,3 @@
   background-color: transparent;
   cursor: pointer;
 }
-
-.eye {
-  position: relative;
-}
-
-.buttoneye {
-  font-size: 20px;
-  position: absolute;
-  right: 10px;
-  top: 35px;
-}
