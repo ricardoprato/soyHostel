@@ -2,13 +2,13 @@
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  margin-top: 100px;
 }
 
 .formulario {
   min-width: 600px;
   margin-top: 50px;
-  background: rgb(255, 255, 255);
+  background: lightblue;
   border-radius: 5px;
   padding: 20px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -75,32 +75,22 @@
   color: #02a802;
 }
 
-.formulario input[type='radio'] {
-  width: auto;
-}
-
 .img {
   width: 150px;
   margin-left: 195px;
 }
 
+.icon {
+  display: block;
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
 .buttonicon {
   display: block;
-  margin-bottom: 10px;
-  font-size: 40px;
+  margin-bottom: 5px;
   appearance: none;
   border: none;
   background-color: transparent;
   cursor: pointer;
-}
-
-.eye {
-  position: relative;
-}
-
-.buttoneye {
-  font-size: 20px;
-  position: absolute;
-  right: 10px;
-  top: 35px;
 }

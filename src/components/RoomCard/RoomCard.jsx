@@ -6,50 +6,81 @@ import Button from '../Button/Button';
 import { Modal } from '../Modal/Modal';
 import RoomDetails from '../RoomDetails/RoomDetails';
 
+/*  VIENE POR PROPS:
+        roomId
+        roomName
+        comodities
+        bedPrice
+        bedsAvailable
+        totalBeds
+        description
+        bathroom
+        image
+        private
+        filtradas
+        bedIds
+ */
 export default function RoomCard(props) {
   const { cart, setCart, filterDates } = useContext(GlobalContext);
+  console.log(filterDates);
   const [localModal, setLocalModal] = useState(false);
   let initialstate = {
-    checkIn: filterDates.checkIn,
-    checkOut: filterDates.checkOut,
-    roomName: props.roomName,
-    roomId: props.roomId,
-    bedPrice: props.bedPrice,
+    //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
+    // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART
     numberOfBeds: 0,
   };
-  let countInitialState = props.bedsAvailable;
+  let [toCart, setToCart] = useState(initialstate); //solo para habitaciones compartidas, las privadas va directo al cart
+
+  let countInitialState = props?.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
-  let [toCart, setToCart] = useState(initialstate);
   let [bedsOnCart, setBedsOnCart] = useState(0);
 
   const onClickHandler = function (arg) {
     if (arg === '+' && count > 0) {
       let aux = count - 1;
-      setCount(aux);
+      setCount(aux); //SE ACTUALIZAN LAS CAMAS QUE QUEDAN EN ESA HABITACION
       setToCart({
-        ...toCart,
-        numberOfBeds: toCart.numberOfBeds + 1,
+        numberOfBeds: toCart?.numberOfBeds + 1,
       });
-    } else if (arg === '-' && count < props.bedsAvailable) {
+    } else if (arg === '-' && count < props?.bedsAvailable) {
       let aux = count + 1;
       setCount(aux);
       setToCart({
-        ...toCart,
         numberOfBeds: toCart.numberOfBeds - 1,
       });
     } else if (arg === 'add') {
-      if (props.private && count) {
-        setToCart({
-          ...toCart,
-          numberOfBeds: props.bedsAvailable,
-        });
+      if (props?.private && count !== 0) {
+        //CONTROLAR SI EL CART YA TIENE LAS FECHAS Y SETEAR EL ID DE LA HABITACION Y EL SALDO
+        setCart([
+          // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
+          ...cart,
+          {
+            private: 'private',
+            roomId: props.roomId,
+            checkIn: filterDates.checkIn,
+            checkOut: filterDates.checkOut,
+            price: props.bedPrice,
+            roomName: props.roomName,
+          },
+        ]);
         setCount(0);
-      }
-      if (toCart.numberOfBeds > 0) {
-        setCart([...cart, toCart]);
-
+      } else if (toCart.numberOfBeds > 0) {
+        //CHEQUEAR QUE EL CART TENGA LAS FECHAS
+        let aux = props.bedIds.slice(0, toCart.numberOfBeds);
+        setCart([
+          // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
+          ...cart,
+          {
+            private: 'shared',
+            roomId: props.roomId,
+            checkIn: filterDates.checkIn,
+            checkOut: filterDates.checkOut,
+            beds: [...aux],
+            price: props.bedPrice,
+            roomName: props.roomName,
+          },
+        ]);
         setBedsOnCart(toCart.numberOfBeds);
-
         setToCart(initialstate);
       }
     }
@@ -60,18 +91,19 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
+  // console.log(props)
 
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImg} onClick={onCLickImage}>
         {!!localModal && (
           <Modal setLocalModal={setLocalModal}>
-            <RoomDetails roomId={props.roomId} />
+            <RoomDetails roomId={props?.roomId} />
           </Modal>
         )}
         <img
           className={styles.RoomCardImg}
-          src={props.image[0]}
+          src={props?.image[0]?.imagen}
           alt="room-img"
           id={props?.roomId}
         />
@@ -137,17 +169,19 @@ export default function RoomCard(props) {
       {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
       </div> */}
-      <div className={styles.flexButton}>
-        <div className={styles.addToCart}>
-          {props?.private ? null : (
-            <Button msg="-" funct={() => onClickHandler('-')} />
-          )}
-          <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
-          {props?.private ? null : (
-            <Button msg="+" funct={() => onClickHandler('+')} />
-          )}
+      {props?.filtradas ? (
+        <div className={styles.flexButton}>
+          <div className={styles.addToCart}>
+            {props?.private ? null : (
+              <Button msg="-" funct={() => onClickHandler('-')} />
+            )}
+            <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+            {props?.private ? null : (
+              <Button msg="+" funct={() => onClickHandler('+')} />
+            )}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

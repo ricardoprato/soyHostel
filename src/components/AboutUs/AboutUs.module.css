@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.img {
+  width: 700px;
+  margin-top: 80px;
+  margin-right: 90px;
+}
+
+.parrafo {
+  margin-right: 40px;
+  width: 500px;
+  display: block;
+  margin-top: 200px;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  position: fixed;
+}
