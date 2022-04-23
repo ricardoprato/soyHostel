@@ -7,10 +7,11 @@ import PopupChangePw from '../PopupChangePw/PopupChangePw';
 const Login = () => {
   let sendData = async (valores) => {
     let res = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/auth/login',
+      'https://backpfhenryv2.herokuapp.com' + '/auth/login',
       {
         method: 'POST',
         headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(valores),
@@ -18,6 +19,7 @@ const Login = () => {
     );
     let res2 = await res.json();
     let token = res2.token;
+    console.log('CATCHERROR', res2);
     console.log('generalresponse', res2);
     window.localStorage.setItem('tokenProp', token);
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));

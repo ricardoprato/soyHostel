@@ -8,7 +8,7 @@ const PopupChangePw = ({ handleClick }) => {
 
   let sendData = async (valores) => {
     let res = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/auth/recuperacion',
+      'https://back-end-1407.herokuapp.com' + '/auth/recuperacion',
       {
         method: 'POST',
         headers: {

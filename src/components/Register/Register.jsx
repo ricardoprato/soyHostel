@@ -8,10 +8,11 @@ const Register = () => {
   let error;
   let sendData = async (valores) => {
     let res = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/auth/signup',
+      'https://backpfhenryv2.herokuapp.com' + '/auth/signup',
       {
         method: 'POST',
         headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(valores),
@@ -20,19 +21,20 @@ const Register = () => {
     let res2 = await res.json();
     error = res2.msg;
     alert(error);
+    console.log('RESPUESTABACK', res2);
   };
 
-  let [showPaises, setShowPaises] = useState([]);
-  let todoslospaises;
-  let paises;
-  useEffect(async () => {
-    paises = await fetch(
-      'https://prueba-google-auth.herokuapp.com' + '/nacionalidades'
-    );
-    todoslospaises = await paises.json();
-    console.log('paises>>', todoslospaises);
-    setShowPaises(todoslospaises);
-  }, []);
+  // let [showPaises, setShowPaises] = useState([]);
+  // let todoslospaises;
+  // let paises;
+  // useEffect(async () => {
+  //   paises = await fetch(
+  //     'https://back-end-1407.herokuapp.com' + '/nacionalidades'
+  //   );
+  //   todoslospaises = await paises.json();
+  //   console.log('paises>>', todoslospaises);
+  //   setShowPaises(todoslospaises);
+  // }, []);
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [dataProfile, setDataProfile] = useState({});
@@ -43,6 +45,9 @@ const Register = () => {
     setModal(false);
   };
 
+  let array = [];
+  const [typePw, setTypePw] = useState('password');
+
   const revealPassword = (e) => {
     if (typePw === 'password') {
       setTypePw('text');
@@ -50,10 +55,6 @@ const Register = () => {
       setTypePw('password');
     }
   };
-
-  // let typePw = 'password';
-
-  const [typePw, setTypePw] = useState('password');
 
   return (
     <div className={styles.register}>
@@ -307,7 +308,8 @@ const Register = () => {
                 <label htmlFor="nationality">Nationality</label>
                 <Field name="nationality" as="select">
                   <option>Elegir pais</option>
-                  {showPaises.map((p) => {
+                  <option value="asd">asd</option>
+                  {array.map((p) => {
                     return <option key={p.id}>{p.nombre}</option>;
                   })}
                 </Field>
