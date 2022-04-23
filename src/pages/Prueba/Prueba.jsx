@@ -8,11 +8,15 @@ import Reserva from '../Reserva/Reserva';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
+
+import Calendar from '../../components/Calendar/Calendar';
+
 import PopupChangePw from '../../components/PopupChangePw/PopupChangePw';
 import ContactUs from '../../components/ContactUs/ContactUs';
 import AboutUs from '../../components/AboutUs/AboutUS';
 import Explore from '../../components/Explore/Explore';
 import Avatar from '../../components/Avatar/Avatar';
+
 
 const Prueba = () => {
   return (
@@ -22,6 +26,7 @@ const Prueba = () => {
       {/* <AboutUs /> */}
       {/* <ContactUs /> */}
       {/* <Explore /> */}
+      <Reserva/>
     </>
   );
 };
