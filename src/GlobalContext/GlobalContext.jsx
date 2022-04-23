@@ -150,6 +150,8 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
+    console.log(import.meta.env.VITE_API_URL)
+    console.log(import.meta.env.VITE_API)
     fetch(`${import.meta.env.VITE_API_URL}/habitaciones/${roomId}`,
     {
       method: 'GET',
@@ -169,16 +171,19 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/habitaciones`,
+    // console.log(import.meta.env.VITE_API_URL)
+    // console.log(import.meta.env.VITE_API)
+    fetch(`https://backpfhenryv2.herokuapp.com/habitaciones`,
       {
         method: 'GET',
         headers: {
-          api: `${import.meta.env.VITE_API}`
+          api: `b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6`
         } 
       }
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         setFileteredRooms(data);
         setAllRooms(data);
       })
