@@ -65,7 +65,7 @@ const NewPassword = (props) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores.password2);
-          alert('Created Succesfully');
+          alert('Changed succesfully');
           resetForm();
           console.log('INFO', valores);
           cambiarFormularioEnviado(true);

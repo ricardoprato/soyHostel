@@ -6,7 +6,11 @@ import Avatar from '../Avatar/Avatar';
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
-  const token = window.localStorage.getItem('tokenProp');
+  let token = window.localStorage.getItem('tokenProp');
+
+  if (!token) {
+    token = null;
+  }
   console.log('TOKENENNAVBAR', token);
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -30,7 +34,7 @@ const NavBar = () => {
 
   return (
     <header className={`${styles.header} ${active && styles.sticky}`}>
-      {!token ? (
+      {typeof token !== 'string' ? (
         <nav className={styles.nav}>
           <NavLink to="/">
             <svg

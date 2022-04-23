@@ -19,10 +19,13 @@ const Login = () => {
     );
     let res2 = await res.json();
     let token = res2.token;
-    console.log('CATCHERROR', res2);
+
     console.log('generalresponse', res2);
-    window.localStorage.setItem('tokenProp', token);
+    token ? window.localStorage.setItem('tokenProp', token) : null;
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
+    {
+      token ? setMensaje('Sesion iniciada') : setMensaje('Datos invalidos');
+    }
   };
 
   const handleClick = (e) => {
@@ -32,9 +35,9 @@ const Login = () => {
 
   const [show, setShow] = useState(false);
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  const [mensaje, setMensaje] = useState('');
   return (
     <div className={styles.register}>
-      {' '}
       {!show ? (
         <Formik
           initialValues={{
@@ -70,8 +73,7 @@ const Login = () => {
           }}
           onSubmit={(valores, { resetForm }) => {
             sendData(valores);
-            resetForm();
-            console.log('Sent formulary');
+            setMensaje('');
             cambiarFormularioEnviado(true);
             setTimeout(
               () => cambiarFormularioEnviado(false),
@@ -116,9 +118,7 @@ const Login = () => {
 
               <button type="submit">Send</button>
               <button onClick={handleClick}>Forgot your password?</button>
-              {formularioEnviado && (
-                <p className={styles.exito}>Formulario enviado con exito!</p>
-              )}
+              {<p className={styles.exito}>{mensaje}</p>}
             </Form>
           )}
         </Formik>

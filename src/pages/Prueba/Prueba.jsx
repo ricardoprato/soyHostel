@@ -17,9 +17,11 @@ import Avatar from '../../components/Avatar/Avatar';
 const Prueba = () => {
   return (
     <>
-      <Google />
-      <Avatar />
+      {/* <Google />
+      <Avatar /> */}
+      {/* <AboutUs /> */}
       {/* <ContactUs /> */}
+      {/* <Explore /> */}
     </>
   );
 };
