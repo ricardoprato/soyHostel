@@ -128,7 +128,13 @@ export const ContextProvider = (props) => {
   ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
+      `https://backpfhenryv2.herokuapp.com/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      {
+        method: 'GET',
+        headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
+        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -145,7 +151,14 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+    fetch(`https://backpfhenryv2.herokuapp.com/habitaciones/${roomId}`,
+    {
+      method: 'GET',
+      headers: {
+        api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
+      } 
+    }
+    )
       .then((response) => response.json())
       .then((data) => setDetails((prev) => data))
       .catch((error) => {
@@ -158,7 +171,14 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    fetch('https://back-end-1407.herokuapp.com/habitaciones')
+    fetch('https://backpfhenryv2.herokuapp.com/habitaciones',
+      {
+        method: 'GET',
+        headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
+        } 
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setFileteredRooms((prev) => data);
@@ -173,9 +193,15 @@ export const ContextProvider = (props) => {
         }
       });
   };
-  const getReservations = (date1, date2) => {
+  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
     fetch(
-      `https://back-end-1407.herokuapp.com/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`
+      `https://backpfhenryv2.herokuapp.com/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      {
+        method: 'GET',
+        headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
+        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
