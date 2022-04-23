@@ -128,7 +128,12 @@ export const ContextProvider = (props) => {
   ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
+      `${import.meta.env.VITE_API_URL}/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      {
+        method: 'GET',
+        headers: {
+        api: `${import.meta.env.VITE_API}`        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -145,7 +150,13 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/habitaciones/${roomId}`,
+    {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`      } 
+    }
+    )
       .then((response) => response.json())
       .then((data) => setDetails((prev) => data))
       .catch((error) => {
@@ -158,7 +169,14 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/habitaciones`)
+    fetch(`${import.meta.env.VITE_API_URL}/habitaciones`,
+      {
+        method: 'GET',
+        headers: {
+          api: `${import.meta.env.VITE_API}`
+        } 
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setFileteredRooms(data);
@@ -173,9 +191,14 @@ export const ContextProvider = (props) => {
         }
       });
   };
-  const getReservations = (date1, date2) => {
+  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
     fetch(
-      `https://back-end-1407.herokuapp.com/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`
+      `${import.meta.env.VITE_API_URL}/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      {
+        method: 'GET',
+        headers: {
+          api: `${import.meta.env.VITE_API}`        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {

@@ -27,9 +27,9 @@ const FilterBar = () => {
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
 
-  useEffect(() => {
-    getFilteredBeds(today, tomorrow);
-  }, []);
+  // useEffect(() => {
+  // getFilteredBeds(today, tomorrow);
+  // }, []);
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
