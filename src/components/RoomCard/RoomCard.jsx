@@ -63,69 +63,91 @@ export default function RoomCard(props) {
 
   return (
     <div className={styles.RoomCardContainer}>
-      <div className={styles.RoomCardImages}>
+      <div className={styles.RoomCardImg} onClick={onCLickImage}>
         {!!localModal && (
           <Modal setLocalModal={setLocalModal}>
             <RoomDetails roomId={props.roomId} />
           </Modal>
         )}
         <img
-          onClick={onCLickImage}
           className={styles.RoomCardImg}
           src={props.image[0]}
           alt="room-img"
-          id={props.roomId}
+          id={props?.roomId}
         />
       </div>
       <div className={styles.RoomCardText}>
-        <h2 className={styles.title}>Room: {props.roomName}</h2>
+        <h2 className={styles.title}>{props.roomName}</h2>
         {/* <div>
           Availability for {filterDates.checkIn} to {filterDates.checkOut}
         </div> */}
-        {props.private ? ( // si la habitacion es privada no se agregan + o - camas sino que se reserva la habitacion entera
-          <>
-            <div className={styles.description}>
-              <h3>
-                This is a{' '}
-                <span className={styles.spanDescription}>PRIVATE</span> room
-              </h3>
-              {props.bathroom ? <p>With private bathroom</p> : null}
-              <p>Room for {props.bedsAvailable} people</p>
-            </div>
-            <p className={styles.price}>Room price: $ {props.bedPrice}</p>
-            <div className={styles.addToCart}>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={styles.description}>
-              <h3>
-                This is a <span className={styles.spanDescription}>SHARED</span>{' '}
-                room
-              </h3>
-              {props.bathroom ? <p>With private bathroom</p> : null}
-            </div>
-            <p className={styles.price}>Bed price: $ {props.bedPrice}</p>
-            <div className={styles.buttons}>
-              <div className={styles.flexButton}>
-                <Button msg="+" funct={() => onClickHandler('+')} />
-                <Button msg="-" funct={() => onClickHandler('-')} />
-              </div>
-            </div>
-            <div className={styles.addToCart}>
-              <p>{bedsOnCart} on Cart</p>
-              <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
-            </div>
-            <p className={styles.amount}>
-              {toCart.numberOfBeds} beds selected, {count} left
+        <div className={styles.details}>
+          <p>
+            {props?.private ? (
+              <>
+                <i className="bi bi-lock-fill"></i>
+                private
+              </>
+            ) : (
+              <>
+                <i className="bi bi-unlock-fill"></i>
+                shared
+              </>
+            )}
+          </p>
+          {props?.bathroom ? (
+            <p>
+              <i className="bi bi-lock-fill"></i>
+              bathroom
             </p>
-          </>
-        )}
+          ) : null}
+          <p>
+            {props.bedsAvailable} <i className="bi bi-people-fill"></i>
+          </p>
+        </div>
+        <p>
+          {props?.private ? (
+            <>
+              Room: <span className={styles.price}>${props.bedPrice} </span>
+            </>
+          ) : (
+            <>
+              Bed:<span className={styles.price}> ${props.bedPrice} </span>
+            </>
+          )}
+          <span>/ night</span>
+        </p>
+        <div className={styles.absolute}>
+          <p className={styles.text}>
+            {bedsOnCart} <i className="bi bi-cart"></i>
+          </p>
+          {props?.private ? null : (
+            <>
+              <p className={styles.textPlus}>
+                {toCart.numberOfBeds}
+                <i className="bi bi-person-plus-fill"></i>
+              </p>
+              <p className={styles.textDash}>
+                {count} <i className="bi bi-person-dash-fill"></i>
+              </p>
+            </>
+          )}
+        </div>
       </div>
       {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
       </div> */}
+      <div className={styles.flexButton}>
+        <div className={styles.addToCart}>
+          {props?.private ? null : (
+            <Button msg="-" funct={() => onClickHandler('-')} />
+          )}
+          <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+          {props?.private ? null : (
+            <Button msg="+" funct={() => onClickHandler('+')} />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

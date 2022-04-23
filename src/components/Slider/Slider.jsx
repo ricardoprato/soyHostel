@@ -10,27 +10,18 @@ import 'swiper/css/autoplay';
 import './Slider.css';
 // import required modules
 import { Autoplay, FreeMode, Thumbs } from 'swiper';
-// import form
-
-// import GlobalContext
-import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
-import { useContext } from 'react';
-// import modal
-import { Modal } from '../../components/Modal/Modal';
 
 export default function Slider() {
-  const onClickButton = () => {
-    setOpenModal((prevState) => !prevState);
-  };
+  const form = document.querySelector('#form');
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const handleClick = () => form.scrollIntoView({ behavior: 'smooth' });
   return (
     <>
       <Swiper
         loop={true}
         spaceBetween={0}
         thumbs={{ swiper: thumbsSwiper }}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 5000 }}
         modules={[FreeMode, Thumbs, Autoplay]}
         className="bg-slider"
       >
@@ -46,9 +37,9 @@ export default function Slider() {
               dolores quaerat debitis quae itaque, at fugit. Placeat,
               consectetur vel?
             </p>
-            <a className="button" href="#form">
+            <button className="button" onClick={handleClick}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </a>
+            </button>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -64,9 +55,9 @@ export default function Slider() {
               Delectus voluptas rerum blanditiis maiores incidunt natus dolorem,
               autem, earum dolores voluptatibus veniam.
             </p>
-            <a className="button" href="#form">
+            <button className="button" onClick={handleClick}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </a>
+            </button>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -82,9 +73,9 @@ export default function Slider() {
               dicta omnis, adipisci voluptate sed error! Iusto consequatur
               accusamus reprehenderit quidem officiis deleniti debitis?
             </p>
-            <a className="button" href="#form">
+            <button className="button" onClick={handleClick}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </a>
+            </button>
           </div>
         </SwiperSlide>
         <SwiperSlide>
@@ -99,9 +90,9 @@ export default function Slider() {
               quibusdam ex non quas, maiores atque accusantium cum nesciunt
               optio quidem rerum? Similique, eius.
             </p>
-            <a className="button" href="#form">
+            <button className="button" onClick={handleClick}>
               View Avalaible <i className="bi bi-arrow-right-short"></i>
-            </a>
+            </button>
           </div>
         </SwiperSlide>
       </Swiper>

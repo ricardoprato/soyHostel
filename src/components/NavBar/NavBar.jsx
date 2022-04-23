@@ -1,15 +1,22 @@
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
+  const header = useRef();
+  const lastScrollTop = useRef(0);
   const handleScroll = () => {
-    if (window.scrollY > 0) {
+    const scrollTop = window.scrollY;
+    if (scrollTop === 0) {
+      setActive(false);
+    } else if (scrollTop > lastScrollTop.current) {
+      header.current.style.top = '-200px';
       setActive(true);
     } else {
-      setActive(false);
+      header.current.style.top = '0';
     }
+    lastScrollTop.current = scrollTop;
   };
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -18,8 +25,10 @@ const NavBar = () => {
     };
   }, []);
   return (
-
-    <header className={`${styles.header} ${active && styles.sticky}`}>
+    <header
+      className={`${styles.header} ${active && styles.sticky}`}
+      ref={header}
+    >
       <nav className={styles.nav}>
         <NavLink to="/">
           <svg
@@ -37,7 +46,6 @@ const NavBar = () => {
               </g>
             </g>
           </svg>
-
         </NavLink>
         <div className={styles.nav_flex}>
           <NavLink className={styles.nav_link} to="#">

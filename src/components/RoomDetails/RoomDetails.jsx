@@ -11,7 +11,7 @@ export default function RoomDetails({ roomId }) {
   const fetchDetails = (roomId) => {
     fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
       .then((response) => response.json())
-      .then((data) => setDetails((prev) => data))
+      .then((data) => setDetails(data))
       .catch((error) => {
         if (error.response) {
           const { response } = error;
