@@ -22,7 +22,7 @@ import RoomDetails from '../RoomDetails/RoomDetails';
  */
 export default function RoomCard(props) {
   const { cart, setCart, filterDates } = useContext(GlobalContext);
-  console.log(filterDates)
+  // console.log(filterDates)
   const [localModal, setLocalModal] = useState(false);
   let initialstate = { //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
     // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART

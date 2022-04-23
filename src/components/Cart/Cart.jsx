@@ -10,7 +10,7 @@ export default function Cart() {
   let totalToPay = 0;
   ////////// EL BACK NECESITA ESTO /////////////////////////
 	// {
-  //   "fecha_ingreso":"2022-01-10",
+  //   "fecha_ingreso":"2022-01-10", 
   //   "fecha_egreso":"2022-01-15",
   //   "camas":["5b920a51-0651-42f4-b72d-e18bb3f63ad4"],
   //   "habitaciones": [],
@@ -46,6 +46,23 @@ export default function Cart() {
       e.roomId !== roomId
     })
     setCart(aux)
+  }
+
+  const handleConfirm = () =>{
+    fetch(
+      'https://backpfhenryv2.herokuapp.com/reservas',
+      {
+        method: 'POST',
+        headers: {
+          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(toBack),
+      }
+      )
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((error)=> console.log(error))
   }
   
   let toBack = {};
@@ -91,7 +108,7 @@ export default function Cart() {
           })
         : <h2> There is nothing on your cart</h2>}
       <h2>Total to pay: {totalToPay}</h2>
-      <button>Pay/Register</button><button onClick={setCart([])}>Empty cart</button> 
+      <button onClick={handleConfirm()}>Confirm booking</button><button onClick={setCart([])}>Empty cart</button> 
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>
   );
