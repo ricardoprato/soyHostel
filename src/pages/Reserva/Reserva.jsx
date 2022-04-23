@@ -15,16 +15,16 @@ export default function Reserva() {
   const [dataForCards, setDataForCards] = useState([]) //este va a ser el estado del cual se le va a pasar las props a las cards
   
   useEffect(() => { 
-    // allRooms?.length === 0 && getAllRooms();
-  }, []);
-allRooms?.length && console.log("allRooms")
-allRooms?.length && console.log(allRooms)
+    allRooms?.length === 0 && getAllRooms();
+  }, [getAllRooms]);
+// allRooms?.length && console.log("allRooms")
+// allRooms?.length && console.log(allRooms)
 filteredRooms?.length && console.log("filteredRooms")
 filteredRooms?.length && console.log(filteredRooms)
-filteredAvailableBeds?.length && console.log("filteredAvailableBeds")
-filteredAvailableBeds?.length && console.log(filteredAvailableBeds)
-dataForCards?.length > 0 && console.log("dataForCards")
-dataForCards?.length > 0 && console.log(dataForCards)
+// filteredAvailableBeds?.length && console.log("filteredAvailableBeds")
+// filteredAvailableBeds?.length && console.log(filteredAvailableBeds)
+// dataForCards?.length > 0 && console.log("dataForCards")
+// dataForCards?.length > 0 && console.log(dataForCards)
 
   let filteredCopy = [] //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms 
   filteredAvailableBeds?.length > 0 && filteredAvailableBeds.forEach((roomFiltered)=>{ //mapeo por cada habitacion que tiene algo disponible
@@ -52,7 +52,7 @@ dataForCards?.length > 0 && console.log(dataForCards)
 
   filteredCopy?.length > 0 && setDataForCards(filteredCopy) //seteo el estado que renderiza las cartas
   // dataForCards?.length > 0 && console.log(dataForCards)
-  
+  console.log(filteredCopy)
 
   return (
     <>
@@ -74,7 +74,7 @@ dataForCards?.length > 0 && console.log(dataForCards)
               private={r?.privada}
               bedPrice={r?.precio / r?.cantCamas}
               bathroom={r?.banoPrivado}
-              image={r?.Imagens[0]}
+              image={r?.Imagens}
             />
           )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
         // ) : filteredAvailableBeds.length > 0 ? (
