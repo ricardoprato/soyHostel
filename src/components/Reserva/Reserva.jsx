@@ -23,10 +23,10 @@ allRooms.length && console.log("allRooms")
 allRooms.length && console.log(allRooms)
 filteredRooms?.length && console.log("filteredRooms")
 filteredRooms?.length && console.log(filteredRooms)
-// filteredAvailableBeds?.length && console.log("filteredAvailableBeds")
-// filteredAvailableBeds?.length && console.log(filteredAvailableBeds)
-// dataForCards?.length > 0 && console.log("dataForCards")
-// dataForCards?.length > 0 && console.log(dataForCards)
+filteredAvailableBeds?.length && console.log("filteredAvailableBeds")
+filteredAvailableBeds?.length && console.log(filteredAvailableBeds)
+dataForCards?.length > 0 && console.log("dataForCards")
+dataForCards?.length > 0 && console.log(dataForCards)
 
   let filteredCopy = [] //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms 
   filteredAvailableBeds?.length > 0 && filteredAvailableBeds.forEach((roomFiltered)=>{ //mapeo por cada habitacion que tiene algo disponible
@@ -54,7 +54,7 @@ filteredRooms?.length && console.log(filteredRooms)
 
   filteredCopy?.length > 0 && setDataForCards(filteredCopy) //seteo el estado que renderiza las cartas
   // dataForCards?.length > 0 && console.log(dataForCards)
-  console.log(filteredCopy)
+
 
   return (
     <>
