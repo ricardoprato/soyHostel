@@ -6,6 +6,7 @@ import Prueba from './pages/Prueba/Prueba';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import NewPassword from './components/NewPassword/NewPassword';
+import CreateRoom from './components/CreateRoom/CreateRoom';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/changepassword" element={<NewPassword />} />
+          <Route path="/createroom" element={<CreateRoom />} />
         </Route>
       </Routes>
     </BrowserRouter>

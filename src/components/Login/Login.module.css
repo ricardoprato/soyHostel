@@ -80,3 +80,23 @@
   width: 150px;
   margin-left: 195px;
 }
+.buttonicon {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 40px;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.eye {
+  position: relative;
+}
+
+.buttoneye {
+  font-size: 20px;
+  position: absolute;
+  right: 30%;
+  bottom: 50%;
+}
