@@ -116,14 +116,16 @@ export const ContextProvider = (props) => {
     checkOut: '',
   });
   const [cart, setCart] = useState([]);
+
+  const [reservations, setReservations] = useState([]);
+  
+  const [details, setDetails] = useState({});
+
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
-  const [availableBeds, setAvailablebeds] = useState(mock);
+  const [availableBeds, setAvailablebeds] = useState([]); //copia
 
   const [allRooms, setAllRooms] = useState([]);
-  const [filteredRooms, setFileteredRooms] = useState([]);
-
-  const [reservations, setReservations] = useState(mockReservations);
-  const [details, setDetails] = useState({});
+  const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
   ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
@@ -139,7 +141,7 @@ export const ContextProvider = (props) => {
       .then((data) => {
         setAvailablebeds(data);
         setFilteredAvailableBeds(data);
-      })
+      }) 
       .catch((err) => {
         if (err.response) {
           const { response } = err;

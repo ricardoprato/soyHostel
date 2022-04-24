@@ -15,7 +15,7 @@ import RoomDetails from '../RoomDetails/RoomDetails';
         totalBeds
         description
         bathroom
-        image
+        image 
         private
         filtradas
         bedIds
@@ -91,7 +91,7 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
-  // console.log(props)
+  console.log(props)
 
   return (
     <div className={styles.RoomCardContainer}>
@@ -140,7 +140,7 @@ export default function RoomCard(props) {
         <p>
           {props?.private ? (
             <>
-              Room: <span className={styles.price}> {props.bedPrice} </span>
+              Room: <span className={styles.price}> {((props.bedPrice) * (props.totalBeds))} </span>
             </>
           ) : (
             <>
