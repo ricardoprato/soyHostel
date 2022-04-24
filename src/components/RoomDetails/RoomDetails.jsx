@@ -3,27 +3,27 @@ import Button from '../Button/Button';
 import styles from './RoomDetails.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { Modal } from '../Modal/Modal';
-
+import Carousel from '../Carousel/Carousel';
 export default function RoomDetails({ roomId }) {
   const { getIdRoom, details, setDetails } = useContext(GlobalContext);
 
-  const fetchDetails = (roomId) => {
-    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
-      .then((response) => response.json())
-      .then((data) => setDetails(data))
-      .catch((error) => {
-        if (error.response) {
-          const { response } = error;
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.headers);
-        }
-      });
-  };
+  // const fetchDetails = (roomId) => {
+  //   fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => setDetails(data))
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         const { response } = error;
+  //         console.log(response.data);
+  //         console.log(response.status);
+  //         console.log(response.headers);
+  //       }
+  //     });
+  // };
 
   useEffect(() => {
     getIdRoom(roomId);
-  }, []);
+  }, [roomId]);
 
   // Camas: []
   // Imagenes: []
@@ -44,13 +44,7 @@ export default function RoomDetails({ roomId }) {
         <p> Cargando.......................</p>
       ) : (
         <div className={styles.roomDetailsContainer}>
-          <div className={styles.roomDetailsImages}>
-            {details?.Imagens && //ojo no usar prettier aca que borra los parentesis y no funciona mas
-              details?.Imagens.map((i) => {
-                return <img key={i?.id} src={i?.imagen} alt="room-img" />;
-              })}
-          </div>
-
+          <Carousel images={details?.images} />
           <div className={styles.roomDetailsText}>
             <h1>Room: {details?.nombre}</h1>
             {details?.privada ? (
