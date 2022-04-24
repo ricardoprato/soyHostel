@@ -42,7 +42,7 @@ export default function Cart() {
   // 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  let cartMock = [
+/*   let cartMock = [
     {
       private: "private",
       roomId: 8,
@@ -61,35 +61,35 @@ export default function Cart() {
       price: 300,
       roomName: "Godzilla"
     }
-  ] 
+  ]   */
 
   const handleCartRemove = (roomId) => { //  funcion para eliminar items del carrito
     let aux = cart.filter((e) => {
       return e.roomId !== roomId
     })
-    console.log(aux)
+    // console.log(aux)
     setCart(aux)
-    console.log("handleCartRemove")
+    // console.log("handleCartRemove")
   }
 
-  // const handleConfirm = () =>{ 
-  //   console.log('toBack')
-  //   console.log(toBack)
-  //   fetch(
-  //     `${import.meta.env.VITE_API_URL}/reservas`,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         api: `${import.meta.env.VITE_API}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(toBack),
-  //     }
-  //     )
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  //     .catch((error)=> console.log(error))
-  // }
+  const handleConfirm = () =>{ 
+    // console.log('toBack')
+    // console.log(toBack)
+    fetch(
+      `${import.meta.env.VITE_API_URL}/reservas`,
+      {
+        method: 'POST',
+        headers: {
+          api: `${import.meta.env.VITE_API}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(toBack),
+      }
+      )
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((error)=> console.log(error))
+  }
 
   let totalToPay = 0;
   let auxToBack = {};
@@ -105,17 +105,20 @@ export default function Cart() {
 
   
   const fillToBack = () => {
-    console.log("se ejecuto fillToBack")
-    console.log("cart")
-    console.log(cart)
+    // console.log("se ejecuto fillToBack")
+    // console.log("cart")
+    // console.log(cart)
     cart.forEach((r) => {
     if(r.private === "private"){
       auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
       totalToPay = totalToPay + r.price;
     }
     if(r.private === "shared"){
-      console.log("ENTRO ACA!!!!!!!!")
-      auxToBack.camas = [...auxToBack.camas, ...r.beds]
+      let aux = r.beds.map((b)=> {
+        return b.camaId
+      })
+      // console.log(aux)
+      auxToBack.camas = [...auxToBack.camas, ...aux]   //mapear porque beds ahora es un array de objetos
       totalToPay = totalToPay + (r.price * r.beds.length)
     }
   }); 
@@ -124,9 +127,9 @@ export default function Cart() {
   console.log("se ejecuto setToBack(auxToBack)")
   }
   
-  useEffect(()=>{
-    cart?.length === 0 && setCart(cartMock)
-  },[])
+  // useEffect(()=>{
+  //   cart?.length === 0 && setCart([])
+  // },[])
 
   useEffect(()=>{
     cart?.length && fillToBack();
@@ -137,8 +140,8 @@ export default function Cart() {
   console.log("auxToBack")
   auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
-  toBack?.saldo > 0 && console.log("toBack")
-  toBack?.saldo > 0 && console.log(toBack)
+  // toBack?.saldo > 0 && console.log("toBack")
+  // toBack?.saldo > 0 && console.log(toBack)
 
   return (
     <div className={styles.cartContainer}>
