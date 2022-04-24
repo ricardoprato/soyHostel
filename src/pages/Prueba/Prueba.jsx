@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import Reserva from '../../components/Reserva/Reserva';
+
+import Calendar from '../../components/Calendar/Calendar';
 
 const Prueba = () => {
-  return <><Reserva/></>;
+  return (
+    <>
+      <div style={{ marginTop: '150px', marginRight: '50px' }}>
+        <Calendar />
+      </div>
+    </>
+  );
 };
 
 export default Prueba;

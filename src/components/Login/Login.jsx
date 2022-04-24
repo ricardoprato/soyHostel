@@ -5,11 +5,16 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 
 const Login = () => {
+  let url = import.meta.env.VITE_APP_URL;
+  let api = import.meta.env.VITE_API;
+
   let sendData = async (valores) => {
-    let res = await fetch(`${import.meta.env.VITE_APP_URL}/auth/login`, {
+
+    let res = await fetch(`${url}` + '/auth/login', {
       method: 'POST',
       headers: {
-        api: import.meta.env.VITE_API,
+        api: `${api}`,
+
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(valores),
@@ -28,6 +33,16 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setShow((prev) => !prev);
+  };
+
+  const [typePw, setTypePw] = useState('password');
+
+  const revealPassword = (e) => {
+    if (typePw === 'password') {
+      setTypePw('text');
+    } else {
+      setTypePw('password');
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -100,11 +115,18 @@ const Login = () => {
               <div>
                 <label htmlFor="password">Password</label>
                 <Field
-                  type="text"
+                  type={typePw}
                   id="password"
                   name="password"
                   placeholder="mipassword123"
                 />
+                <button
+                  type="button"
+                  className={styles.buttoneye}
+                  onClick={revealPassword}
+                >
+                  <i className="bi bi-eye-fill"></i>
+                </button>
                 <ErrorMessage
                   name="password"
                   component={() => (

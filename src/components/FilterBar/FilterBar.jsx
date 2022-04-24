@@ -5,17 +5,19 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const FilterBar = () => {
   const {
-    filterDates,
+    // filterDates,
     setFilterdates,
-    availableBeds,
-    setAvailablebeds,
-    filteredAvailableBeds,
-    setFilteredAvailableBeds,
+    // filteredAvailableBeds,
+    // setFilteredAvailableBeds,
     getFilteredBeds,
     allRooms,
     setAllRooms,
     filteredRooms,
     setFileteredRooms,
+    dataForCards,
+    setDataForCards,
+    dataForCardsCopy,
+    setDataForCardsCopy,
   } = useContext(GlobalContext);
 
   const today = new Date();
@@ -27,10 +29,6 @@ const FilterBar = () => {
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
 
-  // useEffect(() => {
-  // getFilteredBeds(today, tomorrow);
-  // }, []);
-
   const handleFilters = (event) => {
     let { name, value } = event.target;
     setLocaldate({ ...localDate, [name]: value });
@@ -39,32 +37,32 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
-    setFileteredRooms(availableBeds);
+    // setFileteredRooms(availableBeds);
   };
 
   const sortPrice = () => {
-    if (filteredAvailableBeds.length > 0) {
+    if (dataForCards.length > 0) {
       let price = document.getElementById('price');
 
       let data = [];
       let data1 = [];
       if (price.checked == true) {
-        data = [...filteredAvailableBeds].sort(function (a, b) {
-          return a.preciosCamas - b.preciosCamas;
+        data = [...dataForCards].sort(function (a, b) {
+          return a.bedPrice - b.bedPrice;
         });
-        data1 = [...availableBeds].sort(function (a, b) {
-          return a.preciosCamas - b.preciosCamas;
+        data1 = [...dataForCardsCopy].sort(function (a, b) {
+          return a.bedPrice - b.bedPrice;
         });
       } else {
-        data = [...filteredAvailableBeds].sort(function (a, b) {
-          return b.preciosCamas - a.preciosCamas;
+        data = [...dataForCards].sort(function (a, b) {
+          return b.bedPrice - a.bedPrice;
         });
-        data1 = [...availableBeds].sort(function (a, b) {
-          return b.preciosCamas - a.preciosCamas;
+        data1 = [...dataForCardsCopy].sort(function (a, b) {
+          return b.bedPrice - a.bedPrice;
         });
       }
-      setFilteredAvailableBeds(data);
-      setAvailablebeds(data1);
+      setDataForCards(data);
+      setDataForCardsCopy(data1);
     } else {
       let price = document.getElementById('price');
 
@@ -72,17 +70,49 @@ const FilterBar = () => {
       let data1 = [];
       if (price.checked == true) {
         data = [...filteredRooms].sort(function (a, b) {
-          return a.precio - b.precio;
+          if (a.privada && !b.privada) {
+            return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
+          } else if (!a.privada && b.privada) {
+            return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
+          } else if (a.privada && b.privada) {
+            return a.precio - b.precio; // precios de habitaciones privadas
+          } else {
+            return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
+          }
         });
         data1 = [...allRooms].sort(function (a, b) {
-          return a.precio - b.precio;
+          if (a.privada && !b.privada) {
+            return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
+          } else if (!a.privada && b.privada) {
+            return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
+          } else if (a.privada && b.privada) {
+            return a.precio - b.precio; // precios de habitaciones privadas
+          } else {
+            return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
+          }
         });
       } else {
         data = [...filteredRooms].sort(function (a, b) {
-          return b.precio - a.precio;
+          if (b.privada && !a.privada) {
+            return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
+          } else if (!b.privada && a.privada) {
+            return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
+          } else if (b.privada && a.privada) {
+            return b.precio - a.precio; // precios de habitaciones privadas
+          } else {
+            return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
+          }
         });
         data1 = [...allRooms].sort(function (a, b) {
-          return b.precio - a.precio;
+          if (b.privada && !a.privada) {
+            return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
+          } else if (!b.privada && a.privada) {
+            return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
+          } else if (b.privada && a.privada) {
+            return b.precio - a.precio; // precios de habitaciones privadas
+          } else {
+            return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
+          }
         });
       }
       setFileteredRooms(data);
@@ -91,41 +121,41 @@ const FilterBar = () => {
   };
 
   const handleRooms = () => {
-    if (filteredAvailableBeds.length > 0) {
+    if (dataForCards.length > 0) {
       let checkBathroomBox = document.getElementById('privateBathrooms');
       let selected = document.getElementById('roomTypes');
       // let price = document.getElementById('price');
 
       if (selected.value === 'All') {
         if (checkBathroomBox.checked == true) {
-          setFilteredAvailableBeds(
-            availableBeds.filter((room) => room.banoPrivado === true)
+          setDataForCards(
+            dataForCardsCopy.filter((room) => room.bathroom === true)
           );
         } else {
-          setFilteredAvailableBeds(availableBeds);
+          setDataForCards(dataForCardsCopy);
         }
       } else if (selected.value === 'Private') {
         if (checkBathroomBox.checked == true) {
-          setFilteredAvailableBeds(
-            availableBeds.filter(
-              (room) => room.privada === true && room.banoPrivado === true
+          setDataForCards(
+            dataForCardsCopy.filter(
+              (room) => room.private === true && room.bathroom === true
             )
           );
         } else {
-          setFilteredAvailableBeds(
-            availableBeds.filter((room) => room.privada === true)
+          setDataForCards(
+            dataForCardsCopy.filter((room) => room.private === true)
           );
         }
       } else if (selected.value === 'Shared') {
         if (checkBathroomBox.checked == true) {
-          setFilteredAvailableBeds(
-            availableBeds.filter(
-              (room) => room.privada === false && room.banoPrivado === true
+          setDataForCards(
+            dataForCardsCopy.filter(
+              (room) => room.private === false && room.bathroom === true
             )
           );
         } else {
-          setFilteredAvailableBeds(
-            availableBeds.filter((room) => room.privada === false)
+          setDataForCards(
+            dataForCardsCopy.filter((room) => room.private === false)
           );
         }
       }
@@ -164,11 +194,8 @@ const FilterBar = () => {
         }
       }
     }
+    console.log(dataForCardsCopy);
   };
-
-  // useEffect(() => {
-  //   console.log(filteredAvailableBeds);
-  // }, [filteredAvailableBeds]);
 
   return (
     <div className={styles.form} id="form">

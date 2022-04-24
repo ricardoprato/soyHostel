@@ -15,7 +15,7 @@ import RoomDetails from '../RoomDetails/RoomDetails';
         totalBeds
         description
         bathroom
-        image
+        image 
         private
         filtradas
         bedIds
@@ -91,7 +91,7 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
-  // console.log(props)
+
 
   return (
     <div className={styles.RoomCardContainer}>

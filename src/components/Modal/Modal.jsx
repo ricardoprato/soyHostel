@@ -11,7 +11,9 @@ function Modal({ children, setLocalModal }) {
     setLocalModal((prev) => !prev);
   };
   useEffect(() => {
+
     return () => setDetails({});
+
   }, []);
 
   return ReactDOM.createPortal(

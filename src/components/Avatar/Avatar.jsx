@@ -27,9 +27,9 @@ function Avatar() {
       />
       {toggle ? (
         <div className={styles.buttons}>
-          <button className={styles.button}>Account details</button>
+          {/* <button className={styles.button}>Account details</button>
           <button className={styles.button}>Account settings</button>
-          <button className={styles.button}>History</button>
+          <button className={styles.button}>History</button> */}
           <button onClick={handleClick} className={styles.button}>
             Logout
           </button>
