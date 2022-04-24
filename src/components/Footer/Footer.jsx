@@ -11,7 +11,6 @@ import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-
     <footer className={styles.footer}>
       <a
         className={styles.link}
@@ -23,14 +22,14 @@ const Footer = () => {
       <a
         className={styles.link}
         target="_blank"
-        href="https://www.instagram.com"
+        href="https://www.instagram.com/soyhostel/"
       >
         <i type="button" className="bi bi-instagram"></i>
       </a>
       <a
         className={styles.link}
         target="_blank"
-        href="https://www.facebook.com/"
+        href="https://www.facebook.com/SoyHostel-112398641450674/"
       >
         <i type="button" className="bi bi-facebook"></i>
       </a>
@@ -41,10 +40,13 @@ const Footer = () => {
       >
         <i type="button" className="bi bi-whatsapp"></i>
       </a>
-      <a className={styles.link} target="_blank" href="https://twitter.com/">
+      <a
+        className={styles.link}
+        target="_blank"
+        href="https://twitter.com/Soyhostel/"
+      >
         <i className="bi bi-twitter"></i>
       </a>
-
     </footer>
   );
 };

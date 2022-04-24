@@ -12,7 +12,7 @@ function Modal({ children, setLocalModal }) {
     setLocalModal(false);
   };
   useEffect(() => {
-    setDetails({});
+    return setDetails({});
   }, []);
 
   return ReactDOM.createPortal(
