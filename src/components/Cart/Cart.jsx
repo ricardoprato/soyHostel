@@ -65,8 +65,9 @@ export default function Cart() {
 
   const handleCartRemove = (roomId) => { //  funcion para eliminar items del carrito
     let aux = cart.filter((e) => {
-      e.roomId !== roomId
+      return e.roomId !== roomId
     })
+    console.log(aux)
     setCart(aux)
     console.log("handleCartRemove")
   }
