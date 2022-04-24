@@ -158,8 +158,10 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
+
     // console.log(import.meta.env.VITE_API_URL)
     // console.log(import.meta.env.VITE_API)
+
     fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${roomId}`, {
       method: 'GET',
       headers: {
@@ -188,7 +190,9 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data)
+
+        console.log(data);
+
         setFileteredRooms(data);
         setAllRooms(data);
       })

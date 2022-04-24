@@ -1,13 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import styles from './NavBar.module.css';
-import avatar from '../../Images/avatar.jpg';
+import { Modal } from '../Modal/Modal';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
+  const [modalLogin, setModalLogin] = useState(false);
+  const [modalRegister, setModalRegister] = useState(false);
   const header = useRef();
   const lastScrollTop = useRef(0);
+  const handleClick = (e) => {
+    const target = document.getElementById(e.target.name);
+    target.scrollIntoView({ behavior: 'smooth' });
+  };
   let token = useRef(localStorage.getItem('token'));
 
   if (!token.current) {
@@ -61,29 +69,60 @@ const NavBar = () => {
           </svg>
         </NavLink>
         <div className={styles.nav_flex}>
-          <NavLink className={styles.nav_link} to="#">
+          <button
+            className={styles.nav_link}
+            onClick={handleClick}
+            name="explore"
+          >
             <i className="bi bi-compass"></i>
             Explore
-          </NavLink>
-          <NavLink className={styles.nav_link} to="#">
+          </button>
+          <button
+            className={styles.nav_link}
+            onClick={handleClick}
+            name="aboutUs"
+          >
             <i className="bi bi-info-circle"></i>
             About Us
-          </NavLink>
-          <NavLink className={styles.nav_link} to="#">
+          </button>
+          <button
+            className={styles.nav_link}
+            onClick={handleClick}
+            name="contactUs"
+          >
             <i className="bi bi-envelope"></i>
             Contact US
-          </NavLink>
+          </button>
         </div>
         {token.current ? (
+          <Avatar />
+        ) : (
           <div className={styles.nav_flex}>
-            <NavLink className={styles.nav_link} to="/login">
+            {modalLogin ? (
+              <Modal setLocalModal={setModalLogin}>
+                <Login />
+              </Modal>
+            ) : null}
+            <button
+              className={styles.nav_link}
+              onClick={() => setModalLogin(true)}
+            >
+              <i className="bi bi-user"></i>
               Login
-            </NavLink>
-            <NavLink className={styles.nav_link} to="/signup">
+            </button>
+            {modalRegister ? (
+              <Modal setLocalModal={setModalRegister}>
+                <Register />
+              </Modal>
+            ) : null}
+            <button
+              className={styles.nav_link}
+              onClick={() => setModalRegister(true)}
+            >
               Register
-            </NavLink>
+            </button>
           </div>
-        ) : null}
+        )}
         <i className={`${styles.icons} bi bi-three-dots-vertical`}></i>
         <i className={`${styles.icons} bi bi-x`}></i>
       </nav>

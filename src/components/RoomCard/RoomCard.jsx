@@ -92,6 +92,7 @@ export default function RoomCard(props) {
     setLocalModal((prevState) => !prevState);
   };
 
+
   return (
     <div className={styles.RoomCardContainer}>
       <div className={styles.RoomCardImg} onClick={onCLickImage}>
@@ -108,7 +109,28 @@ export default function RoomCard(props) {
         />
       </div>
       <div className={styles.RoomCardText}>
-        <h2 className={styles.title}>{props.roomName}</h2>
+        <div className={styles.RoomCardProp}>
+          <h2 className={styles.title}>{props.roomName}</h2>{' '}
+          {props?.filtradas ? (
+            <div className={styles.RoomCardFlex}>
+              <p className={styles.text}>
+                {bedsOnCart} <i className="bi bi-cart"></i>
+              </p>
+              {props?.private ? null : (
+                <>
+                  <p className={styles.textDash}>
+                    {toCart.numberOfBeds}
+                    <i className="bi bi-person-dash-fill"></i>
+                  </p>
+                  <p className={styles.textPlus}>
+                    <i className="bi bi-person-plus-fill"></i>
+                    {count}
+                  </p>
+                </>
+              )}
+            </div>
+          ) : null}
+        </div>
         {/* <div>
           Availability for {filterDates.checkIn} to {filterDates.checkOut}
         </div> */}
@@ -139,31 +161,16 @@ export default function RoomCard(props) {
         <p>
           {props?.private ? (
             <>
-              Room: <span className={styles.price}> {props.bedPrice} </span>
+              Room:
+              <span className={styles.price}> {`$${props.bedPrice}`} </span>
             </>
           ) : (
             <>
-              Bed:<span className={styles.price}> {props.bedPrice} </span>
+              Bed:<span className={styles.price}> {`$${props.bedPrice}`}</span>
             </>
           )}
           <span>/ night</span>
         </p>
-        <div className={styles.absolute}>
-          <p className={styles.text}>
-            {bedsOnCart} <i className="bi bi-cart"></i>
-          </p>
-          {props?.private ? null : (
-            <>
-              <p className={styles.textPlus}>
-                {toCart.numberOfBeds}
-                <i className="bi bi-person-plus-fill"></i>
-              </p>
-              <p className={styles.textDash}>
-                {count} <i className="bi bi-person-dash-fill"></i>
-              </p>
-            </>
-          )}
-        </div>
       </div>
       {/* <div className={styles.RoomCardDescription}>
           <span>Room description: {props.description}</span>
@@ -180,7 +187,9 @@ export default function RoomCard(props) {
             )}
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
