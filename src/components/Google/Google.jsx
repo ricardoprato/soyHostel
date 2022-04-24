@@ -8,23 +8,23 @@ function Google() {
   const [showloginButton, setShowloginButton] = useState(true);
   const [showlogoutButton, setShowlogoutButton] = useState(false);
 
+  let url = import.meta.env.VITE_APP_URL;
+  let api = import.meta.env.VITE_API;
+
   const onLoginSuccess = async (googleData) => {
     let token = googleData.tokenId;
     let googleId = googleData.googleId;
     let imageGoogle = googleData.imageUrl;
 
-    const res = await fetch(
-      'https://backpfhenryv2.herokuapp.com' + '/auth/signup',
-      {
-        method: 'POST',
-        headers: new Headers({
-          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify({ googleId }),
-      }
-    );
+    const res = await fetch(`${url}` + '/auth/signup', {
+      method: 'POST',
+      headers: new Headers({
+        api: `${api}`,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({ googleId }),
+    });
     const res2 = await res.json();
     console.log('GOOGLE???>>', imageGoogle);
     setShowloginButton(false);

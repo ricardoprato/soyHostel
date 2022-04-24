@@ -1,9 +1,9 @@
-/* body {
+.allcss {
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-} */
+}
 
 .formulario {
   min-width: 600px;
@@ -79,7 +79,7 @@
   width: auto;
 }
 
-.oneLine{
+.oneLine {
   display: flex;
   flex-direction: row;
 }
