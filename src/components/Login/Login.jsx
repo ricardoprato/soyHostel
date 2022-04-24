@@ -5,18 +5,18 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 
 const Login = () => {
+  let url = import.meta.env.VITE_APP_URL;
+  let api = import.meta.env.VITE_API;
+
   let sendData = async (valores) => {
-    let res = await fetch(
-      'https://backpfhenryv2.herokuapp.com' + '/auth/login',
-      {
-        method: 'POST',
-        headers: {
-          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(valores),
-      }
-    );
+    let res = await fetch(`${url}` + '/auth/login', {
+      method: 'POST',
+      headers: {
+        api: `${api}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(valores),
+    });
     let res2 = await res.json();
     let token = res2.token;
 
@@ -31,6 +31,16 @@ const Login = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setShow((prev) => !prev);
+  };
+
+  const [typePw, setTypePw] = useState('password');
+
+  const revealPassword = (e) => {
+    if (typePw === 'password') {
+      setTypePw('text');
+    } else {
+      setTypePw('password');
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -103,11 +113,18 @@ const Login = () => {
               <div>
                 <label htmlFor="password">Password</label>
                 <Field
-                  type="text"
+                  type={typePw}
                   id="password"
                   name="password"
                   placeholder="mipassword123"
                 />
+                <button
+                  type="button"
+                  className={styles.buttoneye}
+                  onClick={revealPassword}
+                >
+                  <i className="bi bi-eye-fill"></i>
+                </button>
                 <ErrorMessage
                   name="password"
                   component={() => (
