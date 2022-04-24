@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import Reserva from '../Reserva/Reserva';
-import FilterBar from '../../components/FilterBar/FilterBar';
-('');
+import Reserva from '../../components/Reserva/Reserva';
+import Cart from '../../components/Cart/Cart';
+import ListDeleteRoom from '../../components/ListDeleteRoom/ListDeleteRoom';
 
 const Prueba = () => {
-  return (
-    <>
-      <FilterBar />
-      <Reserva />
-    </>
-  );
+  return <><ListDeleteRoom/></>;
 };
 
 export default Prueba;

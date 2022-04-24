@@ -8,11 +8,14 @@ export const ContextProvider = (props) => {
       id: 6,
       nombre: 'Godzilla',
       comodidades: 'AirConditioner, smart Tv, Fridge',
+      cantCamas: 10,
       privada: false,
       banoPrivado: true,
       preciosCamas: 400,
       imagenes: [
         'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/03/freehand.jpg',
+        'https://marylineg1.sg-host.com/blog/wp-content/uploads/2018/06/Hostel-room-types-Freehand-Los-Angeles.jpg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHi2C3bJz-klMrPpGJRR4ljrw4YU2tHbONINASvoo_t5cfVQf35r194GhRqwA9pOa5ras&usqp=CAU',
       ],
       descripcion:
         'This is the hostels biggest room. It has 10 beds, each with its own locker and small light. It has a big window this an ocean view.',
@@ -76,19 +79,61 @@ export const ContextProvider = (props) => {
         'Perfect private room for a couple with 1 or 2 kids. It has a queen size bed and 2 small ones in anothes room. Big onswit bathroom.',
     },
   ];
+  let mockReservations = [
+    {
+      id: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+      fecha_ingreso: '2022-11-01',
+      fecha_egreso: '2022-11-11',
+      saldo: 600,
+      UsuarioDni: '34592295',
+      Usuario: {
+        dni: '34592295',
+        nombre: 'toni',
+        apellido: 'tralice',
+      },
+      Habitacions: [],
+      Camas: [
+        {
+          id: '1caef1d5-e9e8-4c36-a5d9-4eba63b7e5aa',
+          precio: 500,
+          estado: 'libre',
+          HabitacionId: 34,
+          HuespedId: null,
+          Reserva_Cama: {
+            createdAt: '2022-04-19T21:08:44.225Z',
+            updatedAt: '2022-04-19T21:08:44.225Z',
+            ReservaId: '6a5b5fd1-e9dc-4849-af35-79378b938ea4',
+            CamaId: '1caef1d5-e9e8-4c36-a5d9-4eba63b7e5aa',
+          },
+        },
+      ],
+    },
+  ];
 
+  //estados globales
   const [filterDates, setFilterdates] = useState({
     checkIn: '',
     checkOut: '',
   });
-
   const [cart, setCart] = useState([]);
-  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState(mock);
+  const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
   const [availableBeds, setAvailablebeds] = useState(mock);
 
+  const [allRooms, setAllRooms] = useState([]);
+  const [filteredRooms, setFileteredRooms] = useState([]);
+
+  const [reservations, setReservations] = useState(mockReservations);
+  const [details, setDetails] = useState({});
+
+  ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
+      `${import.meta.env.VITE_API_URL}/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      {
+        method: 'GET',
+        headers: {
+        api: `${import.meta.env.VITE_API}`        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
@@ -104,10 +149,91 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  const getIdRoom = (roomId) => {
+    console.log(import.meta.env.VITE_API_URL)
+    console.log(import.meta.env.VITE_API)
+    fetch(`${import.meta.env.VITE_API_URL}/habitaciones/${roomId}`,
+    {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`      } 
+    }
+    )
+      .then((response) => response.json())
+      .then((data) => setDetails((prev) => data))
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+  const getAllRooms = () => {
+    // console.log(import.meta.env.VITE_API_URL)
+    // console.log(import.meta.env.VITE_API)
+    fetch(`https://backpfhenryv2.herokuapp.com/habitaciones`,
+      {
+        method: 'GET',
+        headers: {
+          api: `b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6`
+        } 
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data)
+        setFileteredRooms(data);
+        setAllRooms(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
+    fetch(
+      `${import.meta.env.VITE_API_URL}/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      {
+        method: 'GET',
+        headers: {
+          api: `${import.meta.env.VITE_API}`        } 
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setReservations((prev) => data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
 
   return (
     <GlobalContext.Provider
       value={{
+        getReservations,
+        reservations,
+        setReservations,
+        allRooms,
+        setAllRooms,
+        filteredRooms,
+        setFileteredRooms,
+        details,
+        setDetails,
+        getAllRooms,
+        getIdRoom,
+        getFilteredBeds,
         filterDates,
         setFilterdates,
         availableBeds,
@@ -116,7 +242,6 @@ export const ContextProvider = (props) => {
         setCart,
         filteredAvailableBeds,
         setFilteredAvailableBeds,
-        getFilteredBeds,
       }}
     >
       {props.children}
