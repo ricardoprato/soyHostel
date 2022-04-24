@@ -9,7 +9,6 @@ const Login = () => {
   let api = import.meta.env.VITE_API;
 
   let sendData = async (valores) => {
-
     let res = await fetch(`${url}` + '/auth/login', {
       method: 'POST',
       headers: {
@@ -103,7 +102,7 @@ const Login = () => {
                   type="text"
                   id="email"
                   name="email"
-                  placeholder="email@email.com"
+                  placeholder="email@hotmail.com"
                 />
                 <ErrorMessage
                   name="email"
