@@ -63,14 +63,12 @@ export default function Cart() {
     }
   ] 
 
-
-
-
   const handleCartRemove = (roomId) => { //  funcion para eliminar items del carrito
     let aux = cart.filter((e) => {
       e.roomId !== roomId
     })
     setCart(aux)
+    console.log("handleCartRemove")
   }
 
   // const handleConfirm = () =>{
@@ -91,39 +89,52 @@ export default function Cart() {
   //     .then(data => console.log(data))
   //     .catch((error)=> console.log(error))
   // }
-  
-  let auxToBack
+
+  let totalToPay = 0;
+  let auxToBack = {};
   if(cart.length > 0){
     auxToBack = {                   //   ESTO ES LO QUE MANDAMOS AL BACK
       fecha_ingreso: cart[0]?.checkIn,
       fecha_egreso: cart[0]?.checkOut,
       camas: [],
       habitaciones: [],
-      saldo: totalToPay
+      saldo: 0
     }}
   
 
-  let totalToPay = 0;
+  
   const fillToBack = () => {
+    console.log("se ejecuto fillToBack")
+    console.log("cart")
+    console.log(cart)
     cart.forEach((r) => {
     if(r.private === "private"){
-      auxToBack.habitaciones.push(r.roomId)
+      auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
       totalToPay = totalToPay + r.price;
-    }else if(r.privada === "shared"){
-      auxToBack.camas = auxToBack.camas.concat(r.beds)
+    }
+    if(r.private === "shared"){
+      console.log("ENTRO ACA!!!!!!!!")
+      auxToBack.camas = [...auxToBack.camas, ...r.beds]
       totalToPay = totalToPay + (r.price * r.beds.length)
     }
-  }); setToBack(auxToBack)
+  }); 
+  auxToBack.saldo = totalToPay;
+  setToBack(auxToBack)
+  console.log("se ejecuto setToBack(auxToBack)")
   }
   
   useEffect(()=>{
-    fillToBack();
-    setCart(cartMock)
+    cart?.length === 0 && setCart(cartMock)
   },[])
 
+  useEffect(()=>{
+    cart?.length && fillToBack();
+  },[cart])
+
   
-  console.log("cart")
-  console.log(cart)
+
+  console.log("auxToBack")
+  auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
   toBack?.saldo > 0 && console.log("toBack")
   toBack?.saldo > 0 && console.log(toBack)
@@ -131,8 +142,8 @@ export default function Cart() {
   return (
     <div className={styles.cartContainer}>
       <h1>You are about to book:</h1>
-      {cart?.length > 0
-        ? cart?.map((r) => {
+      {cart?.length &&
+        ( cart?.map((r) => (
             <div>
               <h2>{r.roomName} - {r.private} room:</h2>
               <h3>Check-In: {r.checkIn}</h3>
@@ -141,19 +152,18 @@ export default function Cart() {
                   <h3>Bed price per day: {r.price}</h3>
                   <h3>{r.beds.length} beds booked</h3>
                   <h3>subtotal: {(r.beds.length * r.price)}</h3>
-                  {(totalToPay = totalToPay + (r.beds.length * r.price))}
+                  {r.beds.length * r.price}
               </>):(<>
                   <h3>Room price per day: {r.price}</h3>
                   {/* <h3>{r.beds?.length} beds booked</h3> */}
-                  {(totalToPay = totalToPay + r.price)}
               </>)
               }
-              <button onClick={handleCartRemove(r.roomId)}>Cancel</button>
+              <button onClick={()=> handleCartRemove(r.roomId)}>Cancel</button>
             </div>
-          })
-        : <h2> There is nothing on your cart</h2>}
-      <h2>Total to pay: {totalToPay}</h2>
-      <button /* onClick={handleConfirm()} */>Confirm booking</button><button onClick={setCart([])}>Empty cart</button> 
+  )))
+      }
+      <h2>Total to pay: {toBack.saldo}</h2>
+      <button /* onClick={handleConfirm()} */>Confirm booking</button><button onClick={()=>setCart([])}>Empty cart</button> 
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>
   );
