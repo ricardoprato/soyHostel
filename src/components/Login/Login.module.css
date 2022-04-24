@@ -1,13 +1,12 @@
 .register {
-  min-height: 100vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  margin-top: 50px;
 }
 
 .formulario {
   min-width: 600px;
-  margin-top: 50px;
   background: #fff;
   border-radius: 5px;
   padding: 20px;
@@ -78,5 +77,16 @@
 
 .img {
   width: 150px;
-  margin-left: 195px;
+  display: block;
+  margin: 0 auto;
+}
+.button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6c757d;
+}
+.button:hover {
+  color: #3f4549;
 }

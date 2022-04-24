@@ -6,17 +6,14 @@ import PopupChangePw from '../PopupChangePw/PopupChangePw';
 
 const Login = () => {
   let sendData = async (valores) => {
-    let res = await fetch(
-      'https://backpfhenryv2.herokuapp.com' + '/auth/login',
-      {
-        method: 'POST',
-        headers: {
-          api: 'b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(valores),
-      }
-    );
+    let res = await fetch(`${import.meta.env.VITE_APP_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        api: import.meta.env.VITE_API,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(valores),
+    });
     let res2 = await res.json();
     let token = res2.token;
 
@@ -117,7 +114,9 @@ const Login = () => {
               </div>
 
               <button type="submit">Send</button>
-              <button onClick={handleClick}>Forgot your password?</button>
+              <button className={styles.button} onClick={handleClick}>
+                Forgot your password?
+              </button>
               {<p className={styles.exito}>{mensaje}</p>}
             </Form>
           )}

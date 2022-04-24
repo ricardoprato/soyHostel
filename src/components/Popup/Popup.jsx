@@ -20,37 +20,27 @@ const Popup = ({ setModal, setDataProfile }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form}>
-        <img className={styles.img} src={Logo} alt="Logo de H" />
-        <div className={styles.google}>
-          <label>
-            Continuar con Google
-            <GoogleLogin
-              className={styles.logoGoogle}
-              clientId="540051645175-sbuak0uu5auodj9ipes8lklhgeg39kfo.apps.googleusercontent.com"
-              buttonText="Register"
-              onSuccess={onLoginSuccess}
-              onFailure={onLoginFailure}
-              cookiePolicy={'single_host_origin'}
-              isSignedIn={true}
-            />
-          </label>
-        </div>
-        <div className={styles.manualmente}>
-          <label>
-            Continuar manualmente
-            <button
-              className={styles.register}
-              name="manual"
-              onClick={handleClick}
-            >
-              Register
-            </button>
-          </label>
-        </div>
-      </form>
-    </div>
+    <form className={styles.form}>
+      <img className={styles.img} src={Logo} alt="Logo de H" />
+      <label className={styles.input}>
+        Continuar con Google
+        <GoogleLogin
+          clientId={import.meta.env.VITE_CLIENT_ID}
+          buttonText="Register"
+          onSuccess={onLoginSuccess}
+          onFailure={onLoginFailure}
+          cookiePolicy={'single_host_origin'}
+          isSignedIn={true}
+        />
+      </label>
+      <label className={styles.input}>
+        Continuar manualmente
+        <button className={styles.button} name="manual" onClick={handleClick}>
+          <i className={`${styles.icon} bi bi-box-arrow-in-right`}></i>
+          Register
+        </button>
+      </label>
+    </form>
   );
 };
 export default Popup;

@@ -128,11 +128,14 @@ export const ContextProvider = (props) => {
   ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      `${import.meta.env.VITE_API_URL}/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      `${
+        import.meta.env.VITE_APP_URL
+      }/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
       {
         method: 'GET',
         headers: {
-        api: `${import.meta.env.VITE_API}`        } 
+          api: `${import.meta.env.VITE_API}`,
+        },
       }
     )
       .then((response) => response.json())
@@ -150,15 +153,12 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-    console.log(import.meta.env.VITE_API_URL)
-    console.log(import.meta.env.VITE_API)
-    fetch(`${import.meta.env.VITE_API_URL}/habitaciones/${roomId}`,
-    {
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${roomId}`, {
       method: 'GET',
       headers: {
-        api: `${import.meta.env.VITE_API}`      } 
-    }
-    )
+        api: `${import.meta.env.VITE_API}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setDetails((prev) => data))
       .catch((error) => {
@@ -171,19 +171,17 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    // console.log(import.meta.env.VITE_API_URL)
+    // console.log(
     // console.log(import.meta.env.VITE_API)
-    fetch(`https://backpfhenryv2.herokuapp.com/habitaciones`,
-      {
-        method: 'GET',
-        headers: {
-          api: `b1eb0ff9c64d38b4e55d56d45047188a9baa1b3c572f349d815a517e976e0c78e48e61224f04ee990f25f75fe4dc66a7f9a6196a950faa997a65749b012853f6`
-        } 
-      }
-    )
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`, {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })
@@ -196,13 +194,17 @@ export const ContextProvider = (props) => {
         }
       });
   };
-  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
+  const getReservations = (date1, date2) => {
+    //ESTA RUTA NO ESTA EN EL README
     fetch(
-      `${import.meta.env.VITE_API_URL}/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      `${
+        import.meta.env.VITE_APP_URL
+      }/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
       {
         method: 'GET',
         headers: {
-          api: `${import.meta.env.VITE_API}`        } 
+          api: `${import.meta.env.VITE_API}`,
+        },
       }
     )
       .then((response) => response.json())
