@@ -15,6 +15,26 @@ export default function Reserva() {
     getAllRooms();
   }, []);
 
+  // hay que armar un array auxiliar, que contenga objetos;
+  //ese array lo vamos a conformar por filteredAvilableBeds(json de los sueños) y allRooms(/habitaciones)
+  let auxiliar = [];
+  allRooms.forEach((room) => {
+    let auxObject = {
+      roomId: room.id,
+      roomName: room.nombre,
+      comodities: room.comodidades,
+      description: room.descripcion,
+      // bedsAvailable, //json de los sueños
+      private: room.privada,
+      bedPrice: room.precio / room.cantCamas,
+      bathroom: room.banoPrivado,
+      image: room.Imagens,
+      totalBeds: room.cantCamas,
+      // bedId, //json de los sueños???}
+    };
+    auxiliar.push(auxObject);
+  });
+
   return (
     <>
       <div className={styles.RoomCardsContainer}>
@@ -24,15 +44,16 @@ export default function Reserva() {
           filteredRooms?.map((r) => (
             <RoomCard
               key={r?.id}
-              roomId={r?.id}
+              roomId={r?.id} //json de los sueños
               roomName={r?.nombre}
               comodities={r?.comodidades}
               description={r?.descripcion}
-              bedsAvailable={r?.cantCamas}
+              bedsAvailable={r?.cantCamas} //json de los sueños
               private={r?.privada}
               bedPrice={r?.precio / r?.cantCamas}
               bathroom={r?.banoPrivado}
               image={r?.Imagens}
+              bedId={r?.camas} //json de los sueños???
             />
           )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
         ) : filteredAvailableBeds.length > 0 ? (

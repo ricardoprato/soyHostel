@@ -27,19 +27,20 @@ export default function Calendar() {
     end: end.toLocaleDateString('en-CA'),
   });
 
-  const [state, setState] = useState([]);
+  const [calendarState, setCalendarState] = useState([]);
+
   const getInitialState = () => {
     allRooms.forEach((room) => {
-      if (room.privada == false) {
-        room.Camas.forEach((cama) => {
+      if (room?.privada == false) {
+        room?.Camas.forEach((cama) => {
           let producto = {
             id: '',
             title: '',
             tasks: [],
           };
-          producto.title = `${room.nombre} - ${cama.id}`; //cama.nombre
-          producto.id = cama.id;
-          setState((prev) => [...prev, producto]);
+          producto.title = `${room?.nombre} - ${cama?.id}`; //cama.nombre
+          producto.id = cama?.id;
+          setCalendarState((prev) => [...prev, producto]);
           // state.push(producto);
         });
       } else {
@@ -49,32 +50,23 @@ export default function Calendar() {
           tasks: [],
         };
         producto.title = room.nombre;
-        producto.id = room.id;
-        setState((prev) => [...prev, producto]);
+        producto.id = room?.id;
+        setCalendarState((prev) => [...prev, producto]);
         // state.push(producto);
       }
     });
   };
-  useEffect(() => {
-    getAllRooms();
-  }, []);
-  allRooms?.length > 0 && getInitialState();
-
-  useEffect(() => {
-    getReservations(localDate.start, localDate.end);
-  }, []);
-
   const loadCalendar = () => {
     reservations?.forEach((reserva) => {
       if (reserva?.Habitacions?.length > 0) {
-        reserva.Habitacions.forEach((habitacion) => {
+        reserva?.Habitacions?.forEach((habitacion) => {
           let element = {
-            id: reserva.id,
+            id: reserva?.id,
             title: `${reserva.Usuario.nombre} ${reserva.Usuario.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
           };
-          let stateCopy = state.map((producto) => {
+          let stateCopy = calendarState.map((producto) => {
             if (producto.id == habitacion.id) {
               producto.tasks.push(element);
               // let element = {
@@ -86,7 +78,7 @@ export default function Calendar() {
               // producto.tasks.push(element);
             }
           });
-          setState((prev) => [...stateCopy]);
+          setCalendarState((prev) => [...stateCopy]);
         });
       } else if (reserva?.Camas?.length > 0) {
         reserva.Camas.forEach((cama) => {
@@ -96,58 +88,32 @@ export default function Calendar() {
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
           };
-          let stateCopy = state.map((producto) => {
+          let stateCopy = calendarState.map((producto) => {
             if (producto.id == cama.id) {
               producto.tasks.push(element);
             }
           });
-          setState((prev) => [...stateCopy]);
+          setCalendarState((prev) => [...stateCopy]);
         });
       }
     });
-    console.log(state);
   };
 
-  state?.length > 0 && reservations?.length > 0 && loadCalendar();
+  useEffect(() => {
+    getAllRooms();
+  }, []);
 
-  // let projects = [
-  //   {
-  //     id: 'proyecto 1',
-  //     title: 'Cama 2', //HabitacionID + CamaID
-  //     tasks: [
-  //       {
-  //         id: 'title1', //id de reserva
-  //         title: 'Nombre de Quien Reserva', //nombre del quien reserva
-  //         start: new Date('2022-05-10'), //checkin
-  //         end: new Date('2022-05-16'), //check out por noche ojo aca, que tenes que poner un día mas para que lo incluya,
-  //       },
-  //       {
-  //         id: 'title1', //id de reserva
-  //         title: 'Nombre de Quien Reserva', //nombre del quien reserva
-  //         start: new Date('2022-05-18'), //checkin
-  //         end: new Date('2022-05-23'), //check out por noche ojo aca, que tenes que poner un día mas para que lo incluya,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: '1',
-  //     title: 'Godzila',
-  //     tasks: [
-  //       {
-  //         id: 'title1', //id de reserva
-  //         title: 'Nombre de Quien Reserva', //nombre del quien reserva
-  //         start: new Date('2022-05-10'), //checkin
-  //         end: new Date('2022-05-16'), //check out por noche ojo aca, que tenes que poner un día mas para que lo incluya,
-  //       },
-  //       {
-  //         id: 'title1', //id de reserva
-  //         title: 'Nombre de Quien Reserva', //nombre del quien reserva
-  //         start: new Date('2022-05-18'), //checkin
-  //         end: new Date('2022-05-23'), //check out por noche ojo aca, que tenes que poner un día mas para que lo incluya,
-  //       },
-  //     ],
-  //   },
-  // ];
+  useEffect(() => {
+    allRooms?.length > 0 && getInitialState();
+  }, [allRooms]);
+
+  // useEffect(() => {
+  //   getReservations(localDate.start, localDate.end);
+  // }, []);
+  calendarState?.length > 0 && reservations?.length > 0 && loadCalendar();
+
+  console.log(calendarState);
+
   const taskClick = () => {
     setLocalModal((prevState) => !prevState);
     (dataSet) => console.log(dataSet);
@@ -198,13 +164,13 @@ export default function Calendar() {
           View
         </button>
       </div>
-      {state.length > 0 && (
+      {calendarState.length > 0 && (
         <Gantt
           start={new Date(`${localDate.start}`)} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
           end={new Date(`${localDate.end}`)}
           now={new Date()}
           zoom={1}
-          projects={state}
+          projects={calendarState}
           enableSticky
           scrollToNow
           clickTask={taskClick}
