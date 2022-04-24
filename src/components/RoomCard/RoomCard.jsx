@@ -91,7 +91,7 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
-  console.log(props)
+  // console.log(props)
 
   return (
     <div className={styles.RoomCardContainer}>
