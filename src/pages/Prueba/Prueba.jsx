@@ -5,7 +5,7 @@ import Cart from '../../components/Cart/Cart';
 import ListDeleteRoom from '../../components/ListDeleteRoom/ListDeleteRoom';
 
 const Prueba = () => {
-  return <><ListDeleteRoom/></>;
+  return <><Reserva/></>;
 };
 
 export default Prueba;

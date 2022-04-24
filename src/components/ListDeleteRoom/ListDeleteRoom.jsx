@@ -17,7 +17,7 @@ export default function ListDeleteRoom() {
   }
 
 
-  console.log(allRooms)
+  allRooms?.length && console.log(allRooms)
   return (
     <div>
       <h3>List of Room:</h3>
