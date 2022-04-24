@@ -118,30 +118,36 @@ export const ContextProvider = (props) => {
   const [cart, setCart] = useState([]);
 
   const [reservations, setReservations] = useState([]);
-  
+
   const [details, setDetails] = useState({});
 
+  const [dataForCards, setDataForCards] = useState([]);
+  const [dataForCardsCopy, setDataForCardsCopy] = useState([]);
+
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
-  const [availableBeds, setAvailablebeds] = useState([]); //copia
+  // const [availableBeds, setAvailablebeds] = useState([]); //copia
 
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
-  ///funciones de fetch
+  ///funciones que modifican estados
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      `${import.meta.env.VITE_APP_URL}/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      `${
+        import.meta.env.VITE_APP_URL
+      }/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
       {
         method: 'GET',
         headers: {
-        api: `${import.meta.env.VITE_API}`        } 
+          api: `${import.meta.env.VITE_API}`,
+        },
       }
     )
       .then((response) => response.json())
       .then((data) => {
-        setAvailablebeds(data);
+        // setAvailablebeds(data);
         setFilteredAvailableBeds(data);
-      }) 
+      })
       .catch((err) => {
         if (err.response) {
           const { response } = err;
@@ -154,13 +160,12 @@ export const ContextProvider = (props) => {
   const getIdRoom = (roomId) => {
     // console.log(import.meta.env.VITE_API_URL)
     // console.log(import.meta.env.VITE_API)
-    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${roomId}`,
-    {
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${roomId}`, {
       method: 'GET',
       headers: {
-        api: `${import.meta.env.VITE_API}`      } 
-    }
-    )
+        api: `${import.meta.env.VITE_API}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setDetails((prev) => data))
       .catch((error) => {
@@ -175,14 +180,12 @@ export const ContextProvider = (props) => {
   const getAllRooms = () => {
     // console.log(import.meta.env.VITE_APP_URL)
     // console.log(import.meta.env.VITE_API)
-    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`,
-      {
-        method: 'GET',
-        headers: {
-          api: `${import.meta.env.VITE_API}`
-        } 
-      }
-    )
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`, {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
@@ -198,13 +201,17 @@ export const ContextProvider = (props) => {
         }
       });
   };
-  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
+  const getReservations = (date1, date2) => {
+    //ESTA RUTA NO ESTA EN EL README
     fetch(
-      `${import.meta.env.VITE_APP_URL}/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      `${
+        import.meta.env.VITE_APP_URL
+      }/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
       {
         method: 'GET',
         headers: {
-          api: `${import.meta.env.VITE_API}`        } 
+          api: `${import.meta.env.VITE_API}`,
+        },
       }
     )
       .then((response) => response.json())
@@ -220,10 +227,56 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  // generamos función que resuelve el tipo de objeto que necesito para mis Cards
+  const genDataForCards = () => {
+    let filteredCopy = []; //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms
+    // filteredAvailableBeds?.length && console.log('filteredAvailableBeds');
+    // filteredAvailableBeds?.length && console.log(filteredAvailableBeds);
+    // allRooms.length && console.log('allRooms');
+    // allRooms.length && console.log(allRooms);
+
+    filteredAvailableBeds?.length > 0 &&
+      filteredAvailableBeds.forEach((roomFiltered) => {
+        //mapeo por cada habitacion que tiene algo disponible
+        let aux = {};
+        allRooms?.length &&
+          allRooms.forEach((roomFromAll) => {
+            //por cada habitacion disponible busco los datos de esa habitacion en allRooms
+            if (roomFiltered.idHabitacion === roomFromAll.id) {
+              //si coinciden los id de los 2 objetos armo un objeto con la info unificada
+              aux = {
+                roomId: roomFiltered.idHabitacion, //json de los sueños???
+                bedsAvailable: roomFiltered.camasDisponible, //json de los sueños???
+                bedIds: roomFiltered?.camasDisponiblesIds, //json de los sueños???
+                roomName: roomFromAll.nombre,
+                comodities: roomFromAll.comodidades,
+                ...(!roomFromAll.privada
+                  ? { bedPrice: roomFromAll.precio / roomFromAll.cantCamas }
+                  : { bedPrice: roomFromAll.precio }),
+                description: roomFromAll.descripcion,
+                bathroom: roomFromAll.banoPrivado,
+                image: roomFromAll.Imagens,
+                private: roomFromAll.privada,
+                totalBeds: roomFromAll.cantCamas,
+                filtradas: true,
+              };
+            }
+          });
+        filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
+      });
+    if (filteredCopy?.length) {
+      setDataForCards(filteredCopy);
+      setDataForCardsCopy(filteredCopy);
+    } //seteo el estado que renderiza las cartas
+  };
 
   return (
     <GlobalContext.Provider
       value={{
+        dataForCards,
+        setDataForCards,
+        dataForCardsCopy,
+        setDataForCardsCopy,
         getReservations,
         reservations,
         setReservations,
@@ -236,10 +289,11 @@ export const ContextProvider = (props) => {
         getAllRooms,
         getIdRoom,
         getFilteredBeds,
+        genDataForCards,
         filterDates,
         setFilterdates,
-        availableBeds,
-        setAvailablebeds,
+        // availableBeds,
+        // setAvailablebeds,
         cart,
         setCart,
         filteredAvailableBeds,
