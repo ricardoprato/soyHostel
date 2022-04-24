@@ -91,7 +91,6 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
-  console.log(props)
 
   return (
     <div className={styles.RoomCardContainer}>
@@ -140,7 +139,7 @@ export default function RoomCard(props) {
         <p>
           {props?.private ? (
             <>
-              Room: <span className={styles.price}> {((props.bedPrice) * (props.totalBeds))} </span>
+              Room: <span className={styles.price}> {props.bedPrice} </span>
             </>
           ) : (
             <>
