@@ -17,6 +17,9 @@
     backdrop-filter: blur(10px);
   }
 }
+.title {
+  font-size: 1.2rem;
+}
 .price {
   color: #0847a3;
   font-weight: bold;
@@ -30,7 +33,9 @@
 }
 .RoomCardText {
   padding: 0.5rem 2rem;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
 }
 
 .details {
@@ -50,8 +55,11 @@
   display: flex;
   column-gap: 1rem;
 }
-.absolute {
-  position: absolute;
+.RoomCardProp {
+  display: flex;
+  justify-content: space-between;
+}
+.RoomCardFlex {
   display: flex;
   column-gap: 1rem;
   top: 5%;

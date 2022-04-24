@@ -9,10 +9,12 @@ const Login = () => {
   let api = import.meta.env.VITE_API;
 
   let sendData = async (valores) => {
+
     let res = await fetch(`${url}` + '/auth/login', {
       method: 'POST',
       headers: {
         api: `${api}`,
+
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(valores),
@@ -134,7 +136,9 @@ const Login = () => {
               </div>
 
               <button type="submit">Send</button>
-              <button onClick={handleClick}>Forgot your password?</button>
+              <button className={styles.button} onClick={handleClick}>
+                Forgot your password?
+              </button>
               {<p className={styles.exito}>{mensaje}</p>}
             </Form>
           )}
