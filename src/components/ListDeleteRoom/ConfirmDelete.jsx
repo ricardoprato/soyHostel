@@ -4,7 +4,7 @@ export default function ConfirmDelete(id) {
 
 
   function doSomething(){
-    document.getElementById('id_confrmdiv').style.display="block"; //this is the replace of this line
+    document.getElementById('id_confrmdiv'); //this is the replace of this line
 
     document.getElementById('id_truebtn').onClick = function(){
       fetch(`https://backpfhenryv2.herokuapp.com/habitaciones/${id}`,
