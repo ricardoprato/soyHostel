@@ -135,7 +135,7 @@ export const ContextProvider = (props) => {
     fetch(
       `${
         import.meta.env.VITE_APP_URL
-      }/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      }/reservas/disponibilidad/?ingreso=${checkIn}&egreso=${checkOut}`,
       {
         method: 'GET',
         headers: {
