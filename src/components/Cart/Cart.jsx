@@ -72,7 +72,7 @@ export default function Cart() {
     console.log("handleCartRemove")
   }
 
-  // const handleConfirm = () =>{
+  // const handleConfirm = () =>{ 
   //   console.log('toBack')
   //   console.log(toBack)
   //   fetch(
