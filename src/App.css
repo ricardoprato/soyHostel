@@ -13,13 +13,14 @@
   --navigation-item-hover-color: #3b5378;
 
   --text-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
-  --box-shadow: 0 5px 25px rgb(0 0 0 / 20%);
+  --box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 
   --scroll-bar-color: #fff;
   --scroll-thumb-color: #282f4e;
   --scroll-thumb-hover-color: #454f6b;
 }
 body {
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
   background-color: #eee7e7;
 }

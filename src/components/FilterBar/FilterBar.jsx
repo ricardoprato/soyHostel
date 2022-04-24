@@ -26,11 +26,7 @@ const FilterBar = () => {
     checkIn: today.toLocaleDateString('en-CA'),
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
-
-  useEffect(() => {
-    getFilteredBeds(today, tomorrow);
-  }, []);
-
+  
   const handleFilters = (event) => {
     let { name, value } = event.target;
     setLocaldate({ ...localDate, [name]: value });
@@ -39,7 +35,7 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
-    setFileteredRooms(availableBeds);
+    // setFileteredRooms(availableBeds);
   };
 
   const sortPrice = () => {
@@ -224,7 +220,7 @@ const FilterBar = () => {
           Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
         }
       >
-        View Available
+        View available
       </button>
     </div>
   );

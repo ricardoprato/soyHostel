@@ -116,25 +116,32 @@ export const ContextProvider = (props) => {
     checkOut: '',
   });
   const [cart, setCart] = useState([]);
+
+  const [reservations, setReservations] = useState([]);
+  
+  const [details, setDetails] = useState({});
+
   const [filteredAvailableBeds, setFilteredAvailableBeds] = useState([]);
-  const [availableBeds, setAvailablebeds] = useState(mock);
+  const [availableBeds, setAvailablebeds] = useState([]); //copia
 
   const [allRooms, setAllRooms] = useState([]);
-  const [filteredRooms, setFileteredRooms] = useState([]);
-
-  const [reservations, setReservations] = useState(mockReservations);
-  const [details, setDetails] = useState({});
+  const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
   ///funciones de fetch
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
-      'algun endpoint donde le ensarte la globalDate`${checkIn} ${checkOut}`'
+      `${import.meta.env.VITE_APP_URL}/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      {
+        method: 'GET',
+        headers: {
+        api: `${import.meta.env.VITE_API}`        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
         setAvailablebeds(data);
         setFilteredAvailableBeds(data);
-      })
+      }) 
       .catch((err) => {
         if (err.response) {
           const { response } = err;
@@ -145,7 +152,15 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-    fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
+    // console.log(import.meta.env.VITE_API_URL)
+    // console.log(import.meta.env.VITE_API)
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${roomId}`,
+    {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`      } 
+    }
+    )
       .then((response) => response.json())
       .then((data) => setDetails((prev) => data))
       .catch((error) => {
@@ -158,11 +173,21 @@ export const ContextProvider = (props) => {
       });
   };
   const getAllRooms = () => {
-    fetch('https://back-end-1407.herokuapp.com/habitaciones')
+    // console.log(import.meta.env.VITE_APP_URL)
+    // console.log(import.meta.env.VITE_API)
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`,
+      {
+        method: 'GET',
+        headers: {
+          api: `${import.meta.env.VITE_API}`
+        } 
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
-        setFileteredRooms((prev) => data);
-        setAllRooms((prev) => data);
+        // console.log(data)
+        setFileteredRooms(data);
+        setAllRooms(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -173,9 +198,14 @@ export const ContextProvider = (props) => {
         }
       });
   };
-  const getReservations = (date1, date2) => {
+  const getReservations = (date1, date2) => { //ESTA RUTA NO ESTA EN EL README
     fetch(
-      `https://back-end-1407.herokuapp.com/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`
+      `${import.meta.env.VITE_APP_URL}/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      {
+        method: 'GET',
+        headers: {
+          api: `${import.meta.env.VITE_API}`        } 
+      }
     )
       .then((response) => response.json())
       .then((data) => {
