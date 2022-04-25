@@ -134,7 +134,7 @@ const NavBar = () => {
           <div className={styles.nav_flex}>
             {modalLogin ? (
               <Modal setLocalModal={setModalLogin}>
-                <Login setModalLogin={setModalLogin} />
+                <Login />
               </Modal>
             ) : null}
 
