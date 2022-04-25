@@ -5,7 +5,11 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-const Login = ({ setModalLogin }) => {
+
+
+const Login = () => {
+
+
   const { setToken } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -26,7 +30,6 @@ const Login = ({ setModalLogin }) => {
     console.log('generalresponse', res2);
     if (token || localStorage.getItem('tokenProp')) {
       setToken(true);
-      setModalLogin(false);
     }
     token ? window.localStorage.setItem('tokenProp', token) : null;
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
@@ -118,20 +121,22 @@ const Login = ({ setModalLogin }) => {
                 />
               </div>
               <div>
-                <label htmlFor="password">Password</label>
-                <Field
-                  type={typePw}
-                  id="password"
-                  name="password"
-                  placeholder="mipassword123"
-                />
-                <button
-                  type="button"
-                  className={styles.buttoneye}
-                  onClick={revealPassword}
-                >
-                  <i className="bi bi-eye-fill"></i>
-                </button>
+                <div className={styles.containerInput}>
+                  <label htmlFor="password">Password</label>
+                  <Field
+                    type={typePw}
+                    id="password"
+                    name="password"
+                    placeholder="mipassword123"
+                  />
+                  <button
+                    type="button"
+                    className={styles.buttoneye}
+                    onClick={revealPassword}
+                  >
+                    <i className="bi bi-eye-fill"></i>
+                  </button>
+                </div>
                 <ErrorMessage
                   name="password"
                   component={() => (

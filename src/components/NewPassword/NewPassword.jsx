@@ -106,20 +106,22 @@ const NewPassword = (props) => {
               />
             </div>
             <div>
-              <label htmlFor="password2">Password</label>
-              <Field
-                type={typePw}
-                id="password2"
-                name="password2"
-                placeholder="Please enter your new password again"
-              />
-              <button
-                type="button"
-                className={styles.buttoneye}
-                onClick={revealPassword}
-              >
-                <i className="bi bi-eye-fill"></i>
-              </button>
+              <div className={styles.containerInput}>
+                <label htmlFor="password2">Password</label>
+                <Field
+                  type={typePw}
+                  id="password2"
+                  name="password2"
+                  placeholder="Please enter your new password again"
+                />
+                <button
+                  type="button"
+                  className={styles.buttoneye}
+                  onClick={revealPassword}
+                >
+                  <i className="bi bi-eye-fill"></i>
+                </button>
+              </div>
               <ErrorMessage
                 name="password"
                 component={() => (
@@ -127,6 +129,7 @@ const NewPassword = (props) => {
                 )}
               />
             </div>
+
             {send ? '' : <button type="submit">Send</button>}
 
             {formularioEnviado && (

@@ -4,7 +4,7 @@ let nada = 0;
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
-/*   let mock = [
+  /*   let mock = [
     {
       id: 6,
       nombre: 'Godzilla',
@@ -220,6 +220,7 @@ export const ContextProvider = (props) => {
         method: 'GET',
         headers: {
           api: `${import.meta.env.VITE_API}`,
+          Authorization: `Bearer ${localStorage.getItem('tokenProp')}`,
         },
       }
     )

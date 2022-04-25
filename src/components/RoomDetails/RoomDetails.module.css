@@ -1,6 +1,10 @@
 .roomDetailsContainer {
-  display: flex;
-  flex-direction: column;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 2rem;
+  background-color: white;
+  width: 90%;
 }
 
 .roomDetailsText {

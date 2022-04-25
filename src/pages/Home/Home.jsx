@@ -16,7 +16,7 @@ export default function Home() {
         <FilterBar />
         <Reserva />
       </section>
-      <section id="explore">
+      <section className={styles.sectionExplore} id="explore">
         <Explore />
       </section>
       <section id="aboutUs">

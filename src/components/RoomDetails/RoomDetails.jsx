@@ -39,32 +39,32 @@ export default function RoomDetails({ roomId }) {
   // privada: true
 
   return (
-    <div className={styles.roomDetailsContainer}>
+    <>
       {!details?.id ? (
         <p> Cargando.......................</p>
       ) : (
         <div className={styles.roomDetailsContainer}>
-          <Carousel images={details?.images} />
+          <Carousel images={details?.Imagens} />
           <div className={styles.roomDetailsText}>
-            <h1>Room: {details?.nombre}</h1>
+            <h2>Room: {details?.nombre}</h2>
             {details?.privada ? (
-              <h3>
+              <p>
                 This is a PRIVATE room with beds for {details?.cantCamas}{' '}
                 people.
-              </h3>
+              </p>
             ) : (
-              <h3>This is a SHARED room with {details?.cantCamas} beds.</h3>
+              <p>This is a SHARED room with {details?.cantCamas} beds.</p>
             )}
             {details?.banoPrivado ? (
-              <h3>With private bathroom</h3>
+              <p>With private bathroom</p>
             ) : (
-              <h3>With shared bathroom</h3>
+              <p>With shared bathroom</p>
             )}
             <div>Description: {details?.descripcion}</div>
             <div>Comodities: {details?.comodidades}</div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

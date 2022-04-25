@@ -1,4 +1,5 @@
 import React from 'react';
+import Carousel from '../../components/Carousel/Carousel';
 import styles from '../Explore/Explore.module.css';
 import explore1 from '../../Images/explore1.jpg';
 import explore2 from '../../Images/explore2.jpg';
@@ -22,6 +23,7 @@ const Explore = () => {
       <img className={styles.img} src={explore5} alt="Imagen en un bote" />
       <p>Tourist attraction to enter the falls</p>
     </div>
+    // <Carousel images={[explore5, explore4, explore3, explore2, explore1]} />
   );
 };
 
