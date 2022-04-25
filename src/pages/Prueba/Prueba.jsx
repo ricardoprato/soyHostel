@@ -14,20 +14,20 @@ import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 
 import Calendar from '../../components/Calendar/Calendar';
+import Reservations from '../../components/Reservations/Reservations';
 
 const Prueba = () => {
   return (
     <>
 
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <Cart/>
+        <Reservations/>
       </div>
 
       {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />
       </div> */}
-      <Google />
-      <Avatar />
+    
 
     </>
   );

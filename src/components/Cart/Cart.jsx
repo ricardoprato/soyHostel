@@ -89,12 +89,9 @@ export default function Cart() {
       .then(response => response.json())
       .then(data =>{ 
         console.log(data)
-        if(data?.id){
-          getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
-          console.log(data?.id)
-          setCart([])
-        }  
-      })
+        return setTimeout(() => { console.log("reserva enviada a back: ");console.log(toBack);
+        getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
+      }, 2000)})
 
       // .then(data => genDataForCards())
       .catch((error) => {
@@ -105,7 +102,7 @@ export default function Cart() {
           console.log(response.headers);
         }
       });
-        
+      setCart([])  
   }
   let token = window.localStorage.getItem('tokenProp');
   
