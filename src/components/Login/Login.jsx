@@ -100,7 +100,7 @@ const Login = () => {
                 <label htmlFor="email">Email (Username)</label>
                 <Field
                   type="text"
-                  id="email"
+                  id="mail"
                   name="email"
                   placeholder="email@hotmail.com"
                 />

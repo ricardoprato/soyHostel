@@ -5,18 +5,21 @@ import { Modal } from '../Modal/Modal';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
+import Cart from '../Cart/Cart';
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalCart, setModalCart] = useState(false);
   const [modalRegister, setModalRegister] = useState(false);
   const header = useRef();
   const lastScrollTop = useRef(0);
+
   const handleClick = (e) => {
     const target = document.getElementById(e.target.name);
     target.scrollIntoView({ behavior: 'smooth' });
   };
-  let token = useRef(localStorage.getItem('token'));
+  let token = useRef(localStorage.getItem('tokenProp'));
 
   if (!token.current) {
     token.current = null;
@@ -93,7 +96,20 @@ const NavBar = () => {
             <i className="bi bi-envelope"></i>
             Contact US
           </button>
+          {modalCart ? (
+            <Modal setLocalModal={setModalCart}>
+              <Cart />
+            </Modal>
+          ) : null}
+          <div className={styles.iconCart}>
+            <i
+              onClick={() => setModalCart(true)}
+              name="cart"
+              className="bi bi-cart"
+            ></i>
+          </div>
         </div>
+
         {token.current ? (
           <Avatar />
         ) : (
@@ -103,6 +119,7 @@ const NavBar = () => {
                 <Login />
               </Modal>
             ) : null}
+
             <button
               className={styles.nav_link}
               onClick={() => setModalLogin(true)}
