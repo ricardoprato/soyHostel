@@ -7,7 +7,7 @@ import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
 import Cart from '../Cart/Cart';
 
-import Cart from '../Cart/Cart';
+
 
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 

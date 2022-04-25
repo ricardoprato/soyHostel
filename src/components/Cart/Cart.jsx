@@ -4,42 +4,42 @@ import { useContext } from 'react';
 import styles from './Cart.modules.css';
 
 export default function Cart() {
-  const { cart, setCart } = useContext(GlobalContext);
+  const { cart, setCart, genDataForCards, getFilteredBeds, setDataForCards } = useContext(GlobalContext);
   const [toBack, setToBack] = useState({})
   // const { availableBeds } = useContext(GlobalContext)
 
  
   ////////// EL BACK NECESITA ESTO /////////////////////////
-	// {
-  //   "fecha_ingreso":"2022-01-10", 
-  //   "fecha_egreso":"2022-01-15",
-  //   "camas":["5b920a51-0651-42f4-b72d-e18bb3f63ad4"],
-  //   "habitaciones": [],
-  //   "saldo": 100
-  // }
+/* 	{
+    "fecha_ingreso":"2022-01-10", 
+    "fecha_egreso":"2022-01-15",
+    "camas":["5b920a51-0651-42f4-b72d-e18bb3f63ad4"],
+    "habitaciones": [],
+    "saldo": 100
+  } */
   ////////////////////////////////////////////////////////////
 
   ////////////// ASI RECIBIMOS LA DATA DESDE LAS CARDS AL CART //////////////////////
-  // [
-  //  {
-  //     private: "private",
-  //     roomId: props.roomId,
-  //     checkIn: filterDates.checkIn,
-  //     checkOut: filterDates.checkOut,
-  //     price: props.bedPrice, 
-  //     roomName: props.roomName
-  //  }
-  //  {
-  //    private: "Shared",
-  //    roomId: props.roomId,
-  //    checkIn: filterDates.checkIn,
-  //    checkOut: filterDates.checkOut,
-  //    beds: [...aux ],
-  //    price: props.bedPrice,
-  //    roomName: props.roomName
-  //  }
-  // ] 
-  // 
+ /*  [
+   {
+      private: "private",
+      roomId: props.roomId,
+      checkIn: filterDates.checkIn,
+      checkOut: filterDates.checkOut,
+      price: props.bedPrice, 
+      roomName: props.roomName
+   }
+   {
+     private: "Shared",
+     roomId: props.roomId,
+     checkIn: filterDates.checkIn,
+     checkOut: filterDates.checkOut,
+     beds: [...aux ],
+     price: props.bedPrice,
+     roomName: props.roomName
+   }
+  ] 
+   */
   ///////////////////////////////////////////////////////////////////////////////////
 
 /*   let cartMock = [
@@ -87,7 +87,10 @@ export default function Cart() {
       }
       )
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => setTimeout(() => { console.log("reserva enviada a back: ");console.log(toBack);
+        getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
+      }, 2000))
+      // .then(data => genDataForCards())
       .catch((error) => {
         if (error.response) {
           const { response } = error;
@@ -96,7 +99,7 @@ export default function Cart() {
           console.log(response.headers);
         }
       });
-    setCart({})  
+      setCart([])  
   }
   let token = window.localStorage.getItem('tokenProp');
   
@@ -133,8 +136,8 @@ export default function Cart() {
   }); 
   auxToBack.saldo = totalToPay;
   setToBack(auxToBack)
-  toBack?.saldo > 0 && console.log("toBack")
-  toBack?.saldo > 0 && console.log(toBack)
+  // toBack?.saldo > 0 && console.log("toBack")
+  // toBack?.saldo > 0 && console.log(toBack)
 
   }
   

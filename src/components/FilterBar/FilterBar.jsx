@@ -14,6 +14,7 @@ const FilterBar = () => {
     setAllRooms,
     filteredRooms,
     setFileteredRooms,
+    filteredAvailableBeds,
     dataForCards,
     setDataForCards,
     dataForCardsCopy,
@@ -34,9 +35,18 @@ const FilterBar = () => {
     setLocaldate({ ...localDate, [name]: value });
   };
 
+  // const alert = async () => {
+  //   await getFilteredBeds(localDate.checkIn, localDate.checkOut)
+  // }
+
   const handleClick = () => {
-    getFilteredBeds(localDate.checkIn, localDate.checkOut);
+    getFilteredBeds(localDate.checkIn, localDate.checkOut)
     setFilterdates(localDate);
+    // setTimeout(() => {
+    //   filteredAvailableBeds?.length === 0 && alert("no available rooms")
+    // }, 3000);
+    // console.log("filteredAvailableBeds")
+    // console.log(filteredAvailableBeds)
     // setFileteredRooms(availableBeds);
   };
 
@@ -194,7 +204,7 @@ const FilterBar = () => {
         }
       }
     }
-    console.log(dataForCardsCopy);
+    // console.log(dataForCardsCopy);
   };
 
   return (
