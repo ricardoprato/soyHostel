@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import './Carousel.css';
 import autoSlider from './util';
 const Carousel = ({ images }) => {
-  console.log(images);
   useEffect(() => {
     autoSlider();
   }, []);
