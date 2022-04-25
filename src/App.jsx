@@ -14,12 +14,12 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/reserva" element={<Prueba />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/changepassword" element={<NewPassword />} />
           <Route path="/createroom" element={<CreateRoom />} />
         </Route>
+        <Route path="/reserva" element={<Prueba />} />
       </Routes>
     </BrowserRouter>
   );

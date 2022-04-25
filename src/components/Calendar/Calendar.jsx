@@ -38,7 +38,7 @@ export default function Calendar() {
             title: '',
             tasks: [],
           };
-          producto.title = `${room?.nombre} - ${cama?.id}`; //cama.nombre
+          producto.title = cama?.nombre.toUpperCase();
           producto.id = cama?.id;
           setCalendarState((prev) => [...prev, producto]);
           // state.push(producto);
