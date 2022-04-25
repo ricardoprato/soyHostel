@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../Login/Login.module.css';
 import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-const Login = () => {
+const Login = ({ setModalLogin }) => {
+  const { setToken } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
 
   let sendData = async (valores) => {
-
     let res = await fetch(`${url}` + '/auth/login', {
       method: 'POST',
       headers: {
@@ -23,6 +24,10 @@ const Login = () => {
     let token = res2.token;
 
     console.log('generalresponse', res2);
+    if (token || localStorage.getItem('tokenProp')) {
+      setToken(true);
+      setModalLogin(false);
+    }
     token ? window.localStorage.setItem('tokenProp', token) : null;
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
     {

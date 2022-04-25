@@ -131,7 +131,10 @@ export const ContextProvider = (props) => {
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
+  const [token, setToken] = useState(false);
+
   ///funciones que modifican estados
+
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
       `${
@@ -276,6 +279,8 @@ export const ContextProvider = (props) => {
   return (
     <GlobalContext.Provider
       value={{
+        token,
+        setToken,
         dataForCards,
         setDataForCards,
         dataForCardsCopy,
