@@ -10,15 +10,21 @@ import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 import Calendar from '../../components/Calendar/Calendar';
+
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+
 
 const Prueba = () => {
   return (
     <>
+
       <ReceptionNavBar />
+
       {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Cart />
       </div> */}
+
+ 
 
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />
