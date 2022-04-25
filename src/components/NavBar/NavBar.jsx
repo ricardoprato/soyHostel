@@ -5,20 +5,28 @@ import { Modal } from '../Modal/Modal';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
+
+import Cart from '../Cart/Cart';
+
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalCart, setModalCart] = useState(false);
   const [modalRegister, setModalRegister] = useState(false);
   const { token } = useContext(GlobalContext);
   const header = useRef();
   const lastScrollTop = useRef(0);
+
   const handleClick = (e) => {
     const target = document.getElementById(e.target.name);
     target.scrollIntoView({ behavior: 'smooth' });
   };
+
   const [tokencito, setTokencito] = useState('');
+
 
   useEffect(() => {
     if (localStorage.getItem('tokenProp')) {
@@ -104,8 +112,22 @@ const NavBar = () => {
             <i className="bi bi-envelope"></i>
             Contact US
           </button>
+          {modalCart ? (
+            <Modal setLocalModal={setModalCart}>
+              <Cart />
+            </Modal>
+          ) : null}
+          <div className={styles.iconCart}>
+            <i
+              onClick={() => setModalCart(true)}
+              name="cart"
+              className="bi bi-cart"
+            ></i>
+          </div>
         </div>
+
         {token || tokencito ? (
+
           <Avatar />
         ) : (
           <div className={styles.nav_flex}>
@@ -114,6 +136,7 @@ const NavBar = () => {
                 <Login setModalLogin={setModalLogin} />
               </Modal>
             ) : null}
+
             <button
               className={styles.nav_link}
               onClick={() => setModalLogin(true)}

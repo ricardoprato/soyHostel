@@ -106,9 +106,9 @@ const Login = ({ setModalLogin }) => {
                 <label htmlFor="email">Email (Username)</label>
                 <Field
                   type="text"
-                  id="email"
+                  id="mail"
                   name="email"
-                  placeholder="email@email.com"
+                  placeholder="email@hotmail.com"
                 />
                 <ErrorMessage
                   name="email"

@@ -28,6 +28,7 @@ function Avatar() {
         src={avatar}
         alt="Avatar"
       />
+
       {toggle ? (
         <div className={styles.buttons}>
           {/* <button className={styles.button}>Account details</button>
