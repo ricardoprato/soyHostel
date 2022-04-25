@@ -7,7 +7,7 @@ function Avatar() {
   const { setToken, token } = useContext(GlobalContext);
   const [toggle, setToggle] = useState(false);
 
-  const token2 = window.localStorage.getItem('tokenProp');
+  // const token2 = window.localStorage.getItem('tokenProp');
   console.log('TOKENENAVATART', token);
 
   const handleClick = (e) => {
