@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './RoomCard.module.css';
@@ -21,20 +21,29 @@ import RoomDetails from '../RoomDetails/RoomDetails';
         bedIds
  */
 export default function RoomCard(props) {
-  const { cart, setCart, filterDates } = useContext(GlobalContext);
-  // console.log(filterDates)
+
+  const { cart, setCart, filterDates, dataForCards } = useContext(GlobalContext);
+
   const [localModal, setLocalModal] = useState(false);
+
   let initialstate = {
-    //para el toCart, solo lo usaremos por camas, si la habitacion es privada va directo al cart global
-    // rooms: [], //LAS HABITACIONES PRIVADAS LAS AGREGAMOS DIRECTO A CART
     numberOfBeds: 0,
   };
   let [toCart, setToCart] = useState(initialstate); //solo para habitaciones compartidas, las privadas va directo al cart
 
+  // console.log(props?.bedsAvailable)
   let countInitialState = props?.bedsAvailable;
   let [count, setCount] = useState(countInitialState);
   let [bedsOnCart, setBedsOnCart] = useState(0);
 
+  useEffect(()=>{
+    dataForCards?.length && setCount(props?.bedsAvailable);
+    dataForCards?.length && setBedsOnCart(0);
+  },[dataForCards])
+
+
+  // cart?.length === 0 && setBedsOnCart(0);
+  
   const onClickHandler = function (arg) {
     if (arg === '+' && count > 0) {
       let aux = count - 1;
