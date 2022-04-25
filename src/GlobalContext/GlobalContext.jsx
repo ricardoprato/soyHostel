@@ -217,6 +217,7 @@ export const ContextProvider = (props) => {
         method: 'GET',
         headers: {
           api: `${import.meta.env.VITE_API}`,
+          Authorization: `Bearer ${localStorage.getItem('tokenProp')}`,
         },
       }
     )
