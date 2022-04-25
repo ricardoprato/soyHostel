@@ -87,9 +87,11 @@ export default function Cart() {
       }
       )
       .then(response => response.json())
-      .then(data => setTimeout(() => { console.log("reserva enviada a back: ");console.log(toBack);
+      .then(data => setTimeout(() => { 
+        console.log("reserva enviada a back: ");
+        console.log(toBack);
         getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
-      }, 2000))
+      }, 1000))
       // .then(data => genDataForCards())
       .catch((error) => {
         if (error.response) {
@@ -117,9 +119,6 @@ export default function Cart() {
 
   
   const fillToBack = () => {
-    // console.log("se ejecuto fillToBack")
-    // console.log("cart")
-    // console.log(cart)
     cart.length && cart.forEach((r) => {
     if(r.private === "private"){
       auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
@@ -129,16 +128,12 @@ export default function Cart() {
       let aux = r.beds.map((b)=> {
         return b.camaId
       })
-      // console.log(aux)
       auxToBack.camas = [...auxToBack.camas, ...aux]   //mapear porque beds ahora es un array de objetos
       totalToPay = totalToPay + (r.price * r.beds.length)
     }
   }); 
   auxToBack.saldo = totalToPay;
   setToBack(auxToBack)
-  // toBack?.saldo > 0 && console.log("toBack")
-  // toBack?.saldo > 0 && console.log(toBack)
-
   }
   
   // useEffect(()=>{
@@ -148,14 +143,7 @@ export default function Cart() {
   useEffect(()=>{
     /* cart?.length && */ fillToBack();
   },[cart])
-
   
-
-  // console.log("auxToBack")
-  // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
-
-  
-
   return (
     <div className={styles.cartContainer}>
       <h1>You are about to book:</h1>
