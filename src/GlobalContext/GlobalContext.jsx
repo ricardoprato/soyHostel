@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 
+let nada = 0;
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
@@ -130,7 +131,10 @@ export const ContextProvider = (props) => {
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
+  const [token, setToken] = useState(false);
+
   ///funciones que modifican estados
+
   const getFilteredBeds = (checkIn, checkOut) => {
     fetch(
       `${
@@ -158,7 +162,6 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-
     // console.log(import.meta.env.VITE_API_URL)
     // console.log(import.meta.env.VITE_API)
 
@@ -190,7 +193,6 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-
         console.log(data);
 
         setFileteredRooms(data);
@@ -277,6 +279,8 @@ export const ContextProvider = (props) => {
   return (
     <GlobalContext.Provider
       value={{
+        token,
+        setToken,
         dataForCards,
         setDataForCards,
         dataForCardsCopy,

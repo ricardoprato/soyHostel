@@ -272,7 +272,7 @@ const Register = () => {
                   type="text"
                   id="email"
                   name="email"
-                  placeholder="email@email.com"
+                  placeholder="email@gmail.com"
                 />
                 <ErrorMessage
                   name="email"

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import avatar from '../../Images/avatar.jpg';
 import styles from '../Avatar/Avatar.module.css';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 function Avatar() {
+  const { setToken, token } = useContext(GlobalContext);
   const [toggle, setToggle] = useState(false);
 
-  const token = window.localStorage.getItem('tokenProp');
+  const token2 = window.localStorage.getItem('tokenProp');
   console.log('TOKENENAVATART', token);
 
   const handleClick = (e) => {
     window.localStorage.removeItem('tokenProp');
-    window.location.reload();
+    setToken(false);
+    console.log(token);
   };
 
   const handleAvatarClick = (e) => {
@@ -25,6 +28,7 @@ function Avatar() {
         src={avatar}
         alt="Avatar"
       />
+
       {toggle ? (
         <div className={styles.buttons}>
           {/* <button className={styles.button}>Account details</button>

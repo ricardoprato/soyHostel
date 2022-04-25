@@ -122,7 +122,7 @@ const ContactUs = () => {
                 type="text"
                 id="email"
                 name="email"
-                placeholder="email@email.com"
+                placeholder="email@outlook.com"
               />
               <ErrorMessage
                 name="email"

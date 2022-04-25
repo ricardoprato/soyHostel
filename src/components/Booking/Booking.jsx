@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './Booking.module.css';
-import countries from '../../data/countries.json'
-console.log(countries)
-
+import countries from '../../data/countries.json';
+console.log(countries);
 
 const Booking = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -11,10 +10,9 @@ const Booking = () => {
   const [room, setRoom] = useState({
     private: true,
     camas: 0, //cantidad
-    id: [] //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
+    id: [], //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
   });
   const today = new Date();
-
 
   const fetchDetails = () => {
     fetch(`https://back-end-1407.herokuapp.com/habitaciones`)
@@ -29,28 +27,28 @@ const Booking = () => {
         }
       });
   };
- 
+
   useEffect(() => {
     fetchDetails();
   }, []);
 
-  const handleRoomSelect = () => { //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    let aux = rooms?.filter((r)=> r.nombre === valores.roomName)
-    if(aux.privada){
+  const handleRoomSelect = () => {
+    //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
+    let aux = rooms?.filter((r) => r.nombre === valores.roomName);
+    if (aux.privada) {
       setRoom({
         private: true,
-        id: aux.id
-      })
-    }else {
-      let aux2 = aux.Camas.map((c)=> c.id)
+        id: aux.id,
+      });
+    } else {
+      let aux2 = aux.Camas.map((c) => c.id);
       setRoom({
         private: false,
         camas: aux.cantCamas, //cantidad
-        id: aux2
-      })
+        id: aux2,
+      });
     }
-    
-  }
+  };
 
   return (
     <>
@@ -58,7 +56,7 @@ const Booking = () => {
         initialValues={{
           name: '',
           lastName: '',
-          docType: '', 
+          docType: '',
           docNumber: '',
           birthDate: '',
           nationality: '',
@@ -116,15 +114,15 @@ const Booking = () => {
 
           if (!valores.checkIn) {
             errores.checkIn = 'Please enter checkIn date';
-          }else if(valores.checkIn < today.toLocaleDateString('en-CA')){
-            console.log(valores.checkIn)
-            console.log(today.toLocaleDateString('en-CA'))
-            errores.checkIn ='CheckIn cant be in the past'
+          } else if (valores.checkIn < today.toLocaleDateString('en-CA')) {
+            console.log(valores.checkIn);
+            console.log(today.toLocaleDateString('en-CA'));
+            errores.checkIn = 'CheckIn cant be in the past';
           }
 
           if (!valores.checkOut) {
             errores.checkOut = 'Please enter checkOut date';
-          }else if (valores.checkOut <= valores.checkIn){
+          } else if (valores.checkOut <= valores.checkIn) {
             errores.checkOut = 'Checkout has to be after checkIn';
           }
 
@@ -133,9 +131,9 @@ const Booking = () => {
           }
 
           if (!valores.bedId) {
-            if(!valores.roomName){
-            errores.bedId = 'Please enter a room first';
-            }else {
+            if (!valores.roomName) {
+              errores.bedId = 'Please enter a room first';
+            } else {
               errores.bedId = 'Please select a bed';
             }
           }
@@ -269,7 +267,7 @@ const Booking = () => {
                 type="text"
                 id="email"
                 name="email"
-                placeholder="email@email.com..."
+                placeholder="email@mail.com..."
               />
               <ErrorMessage
                 name="email"
@@ -280,16 +278,18 @@ const Booking = () => {
             </div>
             <div>
               <label htmlFor="roomName">Room Name</label>
-              <Field name="roomName" as="select" onSubmit={handleRoomSelect} > {/* terminar este handler */}
+              <Field name="roomName" as="select" onSubmit={handleRoomSelect}>
+                {' '}
+                {/* terminar este handler */}
                 <option value="roomName" id="AF">
                   Elegir opción
                 </option>
-                { rooms && rooms?.map((r)=>(
-                  <option key={r.id} value={r.nombre} id="AF">
-                  {r.nombre}
-                </option>
-                ))}
-                
+                {rooms &&
+                  rooms?.map((r) => (
+                    <option key={r.id} value={r.nombre} id="AF">
+                      {r.nombre}
+                    </option>
+                  ))}
               </Field>
               <ErrorMessage
                 name="roomName"
@@ -298,22 +298,22 @@ const Booking = () => {
                 )}
               />
             </div>
-              {  room?.privada ? null : (// si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta 
-                <div>
-                  <Field name="bedId" as="select">  
-                    <option value="roomName" id="AF">
-                      Select bed
-                    </option>
-                  </Field>
-                  <label htmlFor="bedId">Bed </label>
-                  <ErrorMessage
-                    name="bedId"
-                    component={() => (
-                      <div className={styles.error}>{errors.bedId}</div>
-                    )}
-                  />
-                </div>
-              )}
+            {room?.privada ? null : ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
+              <div>
+                <Field name="bedId" as="select">
+                  <option value="roomName" id="AF">
+                    Select bed
+                  </option>
+                </Field>
+                <label htmlFor="bedId">Bed </label>
+                <ErrorMessage
+                  name="bedId"
+                  component={() => (
+                    <div className={styles.error}>{errors.bedId}</div>
+                  )}
+                />
+              </div>
+            )}
             <div>
               <label htmlFor="nationality">Nationality</label>
               <Field name="nationality" as="select">

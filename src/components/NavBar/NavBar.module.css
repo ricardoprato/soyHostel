@@ -49,6 +49,14 @@
 .icons {
   display: none;
 }
+
+.iconCart {
+  color: white;
+  font-size: 1.8em;
+  margin-bottom: 3%;
+  cursor: pointer;
+}
+
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
   .sticky {
     background: rgba(100, 100, 100, 0.8);
