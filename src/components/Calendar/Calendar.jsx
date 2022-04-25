@@ -112,7 +112,7 @@ export default function Calendar() {
   }, []);
   calendarState?.length > 0 && reservations?.length > 0 && loadCalendar();
 
-  console.log(calendarState);
+  console.log(reservations);
 
   const taskClick = () => {
     setLocalModal((prevState) => !prevState);
