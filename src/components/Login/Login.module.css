@@ -107,6 +107,10 @@
 .buttoneye {
   font-size: 20px;
   position: absolute;
-  right: 5%;
-  bottom: 31%;
+  right: 1%;
+  bottom: 20%;
+}
+
+.containerInput {
+  position: relative;
 }

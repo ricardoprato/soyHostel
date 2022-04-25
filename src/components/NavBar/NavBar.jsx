@@ -6,11 +6,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
 import Cart from '../Cart/Cart';
-
-import Cart from '../Cart/Cart';
-
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
@@ -27,7 +23,6 @@ const NavBar = () => {
   };
 
   const [tokencito, setTokencito] = useState('');
-
 
   useEffect(() => {
     if (localStorage.getItem('tokenProp')) {
@@ -128,13 +123,12 @@ const NavBar = () => {
         </div>
 
         {token || tokencito ? (
-
           <Avatar />
         ) : (
           <div className={styles.nav_flex}>
             {modalLogin ? (
               <Modal setLocalModal={setModalLogin}>
-                <Login setModalLogin={setModalLogin} />
+                <Login />
               </Modal>
             ) : null}
 
