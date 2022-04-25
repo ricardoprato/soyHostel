@@ -66,12 +66,8 @@ export default function RoomCard(props) {
         setBedsOnCart(props.totalBeds)
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
-        //CHEQUEAR QUE EL CART TENGA LAS FECHAS
-        console.log(props.bedIds)
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
-        console.log(props.bedIds)
         setCart([
-          // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
           ...cart,
           {
             private: 'shared',
@@ -89,7 +85,8 @@ export default function RoomCard(props) {
     } 
   };
 
-  console.log(cart);
+  // console.log("cart");
+  // console.log(cart);
 
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
@@ -158,7 +155,7 @@ export default function RoomCard(props) {
             </p>
           ) : null}
           <p>
-            {props.bedsAvailable} <i className="bi bi-people-fill"></i>
+            {props.totalBeds} <i className="bi bi-people-fill"></i>
           </p>
         </div>
         <p>
