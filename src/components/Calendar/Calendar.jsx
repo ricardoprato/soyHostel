@@ -78,7 +78,7 @@ export default function Calendar() {
               // producto.tasks.push(element);
             }
           });
-          setCalendarState((prev) => [...stateCopy]);
+          setCalendarState(stateCopy);
         });
       } else if (reserva?.Camas?.length > 0) {
         reserva.Camas.forEach((cama) => {
@@ -107,9 +107,9 @@ export default function Calendar() {
     allRooms?.length > 0 && getInitialState();
   }, [allRooms]);
 
-  // useEffect(() => {
-  //   getReservations(localDate.start, localDate.end);
-  // }, []);
+  useEffect(() => {
+    getReservations(localDate.start, localDate.end);
+  }, []);
   calendarState?.length > 0 && reservations?.length > 0 && loadCalendar();
 
   console.log(calendarState);
@@ -164,7 +164,7 @@ export default function Calendar() {
           View
         </button>
       </div>
-      {calendarState.length > 0 && (
+      {calendarState.length && !reservations.lenght ? (
         <Gantt
           start={new Date(`${localDate.start}`)} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
           end={new Date(`${localDate.end}`)}
@@ -175,7 +175,18 @@ export default function Calendar() {
           scrollToNow
           clickTask={taskClick}
         />
-      )}
+      ) : reservations.length ? (
+        <Gantt
+          start={new Date(`${localDate.start}`)} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
+          end={new Date(`${localDate.end}`)}
+          now={new Date()}
+          zoom={1}
+          projects={calendarState}
+          enableSticky
+          scrollToNow
+          clickTask={taskClick}
+        />
+      ) : null}
     </>
   );
 }

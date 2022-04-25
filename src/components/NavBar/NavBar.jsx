@@ -1,17 +1,22 @@
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import styles from './NavBar.module.css';
 import { Modal } from '../Modal/Modal';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
+
 import Cart from '../Cart/Cart';
+
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+
 
 const NavBar = () => {
   const [active, setActive] = useState(false);
   const [modalLogin, setModalLogin] = useState(false);
   const [modalCart, setModalCart] = useState(false);
   const [modalRegister, setModalRegister] = useState(false);
+  const { token } = useContext(GlobalContext);
   const header = useRef();
   const lastScrollTop = useRef(0);
 
@@ -19,11 +24,22 @@ const NavBar = () => {
     const target = document.getElementById(e.target.name);
     target.scrollIntoView({ behavior: 'smooth' });
   };
-  let token = useRef(localStorage.getItem('tokenProp'));
 
-  if (!token.current) {
-    token.current = null;
-  }
+  const [tokencito, setTokencito] = useState('');
+
+
+  useEffect(() => {
+    if (localStorage.getItem('tokenProp')) {
+      setTokencito(localStorage.getItem('tokenProp'));
+    } else {
+      setTokencito('');
+    }
+    console.log(localStorage.getItem('tokenProp'));
+  }, [token]);
+
+  // if (!tokencito.current) {
+  //   tokencito.current = null;
+  // }
   const handleScroll = () => {
     const scrollTop = window.scrollY;
     if (scrollTop === 0) {
@@ -110,13 +126,14 @@ const NavBar = () => {
           </div>
         </div>
 
-        {token.current ? (
+        {token || tokencito ? (
+
           <Avatar />
         ) : (
           <div className={styles.nav_flex}>
             {modalLogin ? (
               <Modal setLocalModal={setModalLogin}>
-                <Login />
+                <Login setModalLogin={setModalLogin} />
               </Modal>
             ) : null}
 
