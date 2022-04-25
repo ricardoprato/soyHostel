@@ -11,6 +11,9 @@
   align-items: center;
 }
 .modalBackground {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
   position: relative;
 }
 .cancel {
