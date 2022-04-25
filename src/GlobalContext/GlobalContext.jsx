@@ -4,7 +4,7 @@ let nada = 0;
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
-  let mock = [
+/*   let mock = [
     {
       id: 6,
       nombre: 'Godzilla',
@@ -110,7 +110,7 @@ export const ContextProvider = (props) => {
       ],
     },
   ];
-
+ */
   //estados globales
   const [filterDates, setFilterdates] = useState({
     checkIn: '',

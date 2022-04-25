@@ -42,7 +42,7 @@ export default function RoomCard(props) {
       setToCart({
         numberOfBeds: toCart?.numberOfBeds + 1,
       });
-    } else if (arg === '-' && count < props?.bedsAvailable) {
+    } else if (arg === '-' && count < props?.bedsAvailable && toCart.numberOfBeds > 0) {
       let aux = count + 1;
       setCount(aux);
       setToCart({
@@ -63,12 +63,11 @@ export default function RoomCard(props) {
             roomName: props.roomName,
           },
         ]);
+        setBedsOnCart(props.totalBeds)
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
-        //CHEQUEAR QUE EL CART TENGA LAS FECHAS
-        let aux = props.bedIds.slice(0, toCart.numberOfBeds);
+        let aux = props.bedIds.splice(0, toCart.numberOfBeds);
         setCart([
-          // SI EL CART NO TIENE LAS FECHAS, ENVIARLAS O TOMARLAS EN EL CART DESDE EL ESTADO GLOBAL DE FECHAS
           ...cart,
           {
             private: 'shared',
@@ -80,12 +79,13 @@ export default function RoomCard(props) {
             roomName: props.roomName,
           },
         ]);
-        setBedsOnCart(toCart.numberOfBeds);
+        setBedsOnCart(bedsOnCart + toCart.numberOfBeds);
         setToCart(initialstate);
       }
-    }
+    } 
   };
 
+  // console.log("cart");
   // console.log(cart);
 
   const onCLickImage = function () {
@@ -155,7 +155,7 @@ export default function RoomCard(props) {
             </p>
           ) : null}
           <p>
-            {props.bedsAvailable} <i className="bi bi-people-fill"></i>
+            {props.totalBeds} <i className="bi bi-people-fill"></i>
           </p>
         </div>
         <p>
@@ -172,9 +172,6 @@ export default function RoomCard(props) {
           <span>/ night</span>
         </p>
       </div>
-      {/* <div className={styles.RoomCardDescription}>
-          <span>Room description: {props.description}</span>
-      </div> */}
       {props?.filtradas ? (
         <div className={styles.flexButton}>
           <div className={styles.addToCart}>

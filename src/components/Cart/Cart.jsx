@@ -42,7 +42,7 @@ export default function Cart() {
   // 
   ///////////////////////////////////////////////////////////////////////////////////
 
-  let cartMock = [
+/*   let cartMock = [
     {
       private: "private",
       roomId: 8,
@@ -61,36 +61,45 @@ export default function Cart() {
       price: 300,
       roomName: "Godzilla"
     }
-  ] 
+  ]   */
 
   const handleCartRemove = (roomId) => { //  funcion para eliminar items del carrito
     let aux = cart.filter((e) => {
       return e.roomId !== roomId
     })
-    console.log(aux)
+    // console.log(aux)
     setCart(aux)
-    console.log("handleCartRemove")
+    // console.log("handleCartRemove")
   }
 
-  // const handleConfirm = () =>{
-  //   console.log('toBack')
-  //   console.log(toBack)
-  //   fetch(
-  //     `${import.meta.env.VITE_API_URL}/reservas`,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         api: `${import.meta.env.VITE_API}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(toBack),
-  //     }
-  //     )
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  //     .catch((error)=> console.log(error))
-  // }
-
+  const handleConfirm = () =>{ 
+    // console.log('toBack')
+    // console.log(toBack)
+    fetch(`${import.meta.env.VITE_APP_URL}/reservas`,
+      {
+        method: 'POST',
+        headers: {
+          api: `${import.meta.env.VITE_API}`,
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(toBack),
+      }
+      )
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+    setCart({})  
+  }
+  let token = window.localStorage.getItem('tokenProp');
+  
   let totalToPay = 0;
   let auxToBack = {};
   if(cart.length > 0){
@@ -105,47 +114,51 @@ export default function Cart() {
 
   
   const fillToBack = () => {
-    console.log("se ejecuto fillToBack")
-    console.log("cart")
-    console.log(cart)
-    cart.forEach((r) => {
+    // console.log("se ejecuto fillToBack")
+    // console.log("cart")
+    // console.log(cart)
+    cart.length && cart.forEach((r) => {
     if(r.private === "private"){
       auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
       totalToPay = totalToPay + r.price;
     }
     if(r.private === "shared"){
-      console.log("ENTRO ACA!!!!!!!!")
-      auxToBack.camas = [...auxToBack.camas, ...r.beds]
+      let aux = r.beds.map((b)=> {
+        return b.camaId
+      })
+      // console.log(aux)
+      auxToBack.camas = [...auxToBack.camas, ...aux]   //mapear porque beds ahora es un array de objetos
       totalToPay = totalToPay + (r.price * r.beds.length)
     }
   }); 
   auxToBack.saldo = totalToPay;
   setToBack(auxToBack)
-  console.log("se ejecuto setToBack(auxToBack)")
+  toBack?.saldo > 0 && console.log("toBack")
+  toBack?.saldo > 0 && console.log(toBack)
+
   }
   
-  useEffect(()=>{
-    cart?.length === 0 && setCart(cartMock)
-  },[])
+  // useEffect(()=>{
+  //   cart?.length === 0 && setCart([])
+  // },[])
 
   useEffect(()=>{
-    cart?.length && fillToBack();
+    /* cart?.length && */ fillToBack();
   },[cart])
 
   
 
-  console.log("auxToBack")
-  auxToBack?.totalToPay !== 0 && console.log(auxToBack)
+  // console.log("auxToBack")
+  // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
-  toBack?.saldo > 0 && console.log("toBack")
-  toBack?.saldo > 0 && console.log(toBack)
+  
 
   return (
     <div className={styles.cartContainer}>
       <h1>You are about to book:</h1>
       {cart?.length &&
         ( cart?.map((r) => (
-            <div>
+            <div key={r.roomId}>
               <h2>{r.roomName} - {r.private} room:</h2>
               <h3>Check-In: {r.checkIn}</h3>
               <h3>Check-Out: {r.checkOut}</h3>
@@ -153,7 +166,7 @@ export default function Cart() {
                   <h3>Bed price per day: {r.price}</h3>
                   <h3>{r.beds.length} beds booked</h3>
                   <h3>subtotal: {(r.beds.length * r.price)}</h3>
-                  {r.beds.length * r.price}
+                  {/* {r.beds.length * r.price} */}
               </>):(<>
                   <h3>Room price per day: {r.price}</h3>
                   {/* <h3>{r.beds?.length} beds booked</h3> */}
@@ -164,7 +177,7 @@ export default function Cart() {
   )))
       }
       <h2>Total to pay: {toBack.saldo}</h2>
-      <button /* onClick={handleConfirm()} */>Confirm booking</button><button onClick={()=>setCart([])}>Empty cart</button> 
+      <button onClick={() => handleConfirm()}>Confirm booking</button><button onClick={()=>setCart([])}>Empty cart</button> 
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>
   );
