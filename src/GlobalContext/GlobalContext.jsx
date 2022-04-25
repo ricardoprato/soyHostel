@@ -212,6 +212,7 @@ export const ContextProvider = (props) => {
   };
   const getReservations = (date1, date2) => {
     //ESTA RUTA NO ESTA EN EL README
+    let token = localStorage.getItem('tokenProp');
     fetch(
       `${
         import.meta.env.VITE_APP_URL
@@ -220,7 +221,8 @@ export const ContextProvider = (props) => {
         method: 'GET',
         headers: {
           api: `${import.meta.env.VITE_API}`,
-          Authorization: `Bearer ${localStorage.getItem('tokenProp')}`,
+
+          Authorization: 'Bearer ' + token,
         },
       }
     )
@@ -237,6 +239,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+
   // generamos función que resuelve el tipo de objeto que necesito para mis Cards
   const genDataForCards = () => {
     let filteredCopy = []; //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms
