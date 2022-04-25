@@ -4,7 +4,7 @@ let nada = 0;
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
-/*   let mock = [
+  /*   let mock = [
     {
       id: 6,
       nombre: 'Godzilla',
@@ -149,8 +149,11 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // setAvailablebeds(data);
+        
         setFilteredAvailableBeds(data);
+        console.log("disponibilidad desde back: ")
+        console.log(data)
+      
       })
       .catch((err) => {
         if (err.response) {
@@ -193,8 +196,8 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
+        // console.log("getAllRooms");
+        // console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })
@@ -217,6 +220,7 @@ export const ContextProvider = (props) => {
         method: 'GET',
         headers: {
           api: `${import.meta.env.VITE_API}`,
+          Authorization: `Bearer ${localStorage.getItem('tokenProp')}`,
         },
       }
     )
@@ -236,12 +240,7 @@ export const ContextProvider = (props) => {
   // generamos función que resuelve el tipo de objeto que necesito para mis Cards
   const genDataForCards = () => {
     let filteredCopy = []; //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms
-    // filteredAvailableBeds?.length && console.log('filteredAvailableBeds');
-    // filteredAvailableBeds?.length && console.log(filteredAvailableBeds);
-    // allRooms.length && console.log('allRooms');
-    // allRooms.length && console.log(allRooms);
 
-    filteredAvailableBeds?.length > 0 &&
       filteredAvailableBeds.forEach((roomFiltered) => {
         //mapeo por cada habitacion que tiene algo disponible
         let aux = {};
@@ -269,7 +268,7 @@ export const ContextProvider = (props) => {
             }
           });
         filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
-      });
+      }) 
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
       setDataForCardsCopy(filteredCopy);
