@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 
+let nada = 0;
 export const GlobalContext = createContext();
 
 export const ContextProvider = (props) => {
@@ -135,7 +136,7 @@ export const ContextProvider = (props) => {
     fetch(
       `${
         import.meta.env.VITE_APP_URL
-      }/reservas/disponibilidad/?fecha_ingreso=${checkIn}&fecha_egreso=${checkOut}`,
+      }/reservas/disponibilidad/?ingreso=${checkIn}&egreso=${checkOut}`,
       {
         method: 'GET',
         headers: {
@@ -158,7 +159,6 @@ export const ContextProvider = (props) => {
       });
   };
   const getIdRoom = (roomId) => {
-
     // console.log(import.meta.env.VITE_API_URL)
     // console.log(import.meta.env.VITE_API)
 
@@ -190,7 +190,6 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-
         console.log(data);
 
         setFileteredRooms(data);
