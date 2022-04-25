@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Avatar from '../Avatar/Avatar';
 import Cart from '../Cart/Cart';
+
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 const NavBar = () => {
