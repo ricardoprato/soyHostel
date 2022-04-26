@@ -98,7 +98,7 @@ const ReceptionNavBar = () => {
                 name="name"
               ></input>
               <button className={styles.iconSearch} type="submit">
-                <i class="bi bi-search"></i>
+                <i className="bi bi-search"></i>
               </button>
             </form>
           </div>
