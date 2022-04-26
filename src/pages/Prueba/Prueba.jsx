@@ -15,16 +15,16 @@ import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 const Prueba = () => {
   return (
     <>
-      <ReceptionNavBar />
+      {/* <ReceptionNavBar /> */}
       {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Cart />
       </div> */}
-
-      <div style={{ marginTop: '150px', marginRight: '50px' }}>
+      <Google />
+      {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />
-      </div>
+      </div> */}
     </>
   );
-};
+}; 
 
 export default Prueba;
