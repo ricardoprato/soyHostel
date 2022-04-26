@@ -40,11 +40,9 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        
         setFilteredAvailableBeds(data);
-        console.log("disponibilidad desde back: ")
-        console.log(data)
-      
+        console.log('disponibilidad desde back: ');
+        console.log(data);
       })
       .catch((err) => {
         if (err.response) {
@@ -102,12 +100,11 @@ export const ContextProvider = (props) => {
       });
   };
   const getReservations = (date1, date2) => {
-    //ESTA RUTA NO ESTA EN EL README
     let token = localStorage.getItem('tokenProp');
     fetch(
       `${
         import.meta.env.VITE_APP_URL
-      }/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      }/reservas/byFecha/?ingreso=${date1}&egreso=${date2}`,
       {
         method: 'GET',
         headers: {
@@ -145,13 +142,11 @@ export const ContextProvider = (props) => {
               //si coinciden los id de los 2 objetos armo un objeto con la info unificada
               aux = {
                 id: roomFiltered.idHabitacion, //json de los sueños???
-                cantCamas: roomFiltered.camasDisponible, //json de los sueños???
-                // bedIds: roomFiltered?.camasDisponiblesIds,
+                cantCamas: roomFiltered?.camasDisponible, //json de los sueños???
+                bedIds: roomFiltered?.camasDisponiblesIds,
                 nombre: roomFromAll.nombre,
                 comodidades: roomFromAll.comodidades,
-                ...(!roomFromAll.privada
-                  ? { precio: roomFromAll.precio }
-                  : { precio: roomFromAll.precio }),
+                precio: roomFromAll.precio,
                 descripcion: roomFromAll.descripcion,
                 banoPrivado: roomFromAll.banoPrivado,
                 Imagens: roomFromAll.Imagens,
@@ -162,7 +157,7 @@ export const ContextProvider = (props) => {
             }
           });
         filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
-      }) 
+      });
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
       setDataForCardsCopy(filteredCopy);
