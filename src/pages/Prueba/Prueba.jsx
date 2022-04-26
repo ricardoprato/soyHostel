@@ -9,35 +9,24 @@ import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
-import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar'
-import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters'
+import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
 import Calendar from '../../components/Calendar/Calendar';
-import Reservations from '../../components/Reservations/Reservations'
-import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import NavBar from '../../components/NavBar/NavBar';
 
+import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 
 const Prueba = () => {
   return (
     <>
-
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        {/* <RecepTionNavBar/>
-        <ReceptionFilters/>
-        <Calendar/> */}
-        <Reservations/>
+        <NavBar />
       </div>
-
-      {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <Cart />
-      </div> */}
-
- 
-
-      {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
+      <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />
-      </div> */}
+      </div>
     </>
   );
-}; 
+};
 
 export default Prueba;
