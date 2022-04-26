@@ -93,7 +93,6 @@ export default function Cart() {
           getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
         }, 2000)
       )
-      // .then(data => genDataForCards())
       .catch((error) => {
         if (error.response) {
           const { response } = error;
@@ -120,31 +119,41 @@ export default function Cart() {
   }
 
   const fillToBack = () => {
-    cart.length &&
-      cart.forEach((r) => {
-        if (r.private === 'private') {
-          auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId];
-          totalToPay = totalToPay + r.price;
-        }
-        if (r.private === 'shared') {
-          let aux = r.beds.map((b) => {
-            return b.camaId;
-          });
-          auxToBack.camas = [...auxToBack.camas, ...aux]; //mapear porque beds ahora es un array de objetos
-          totalToPay = totalToPay + r.price * r.beds.length;
-        }
-      });
-    auxToBack.saldo = totalToPay;
-    setToBack(auxToBack);
-  };
+    // console.log("se ejecuto fillToBack")
+    // console.log("cart")
+    // console.log(cart)
+    cart.length && cart.forEach((r) => {
+    if(r.private === "private"){
+      auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
+      totalToPay = totalToPay + r.price;
+    }
+    if(r.private === "shared"){
+      let aux = r.beds.map((b)=> {
+        return b.camaId
+      })
+      // console.log(aux)
+      auxToBack.camas = [...auxToBack.camas, ...aux]   //mapear porque beds ahora es un array de objetos
+      totalToPay = totalToPay + (r.price * r.beds.length)
+    }
+  }); 
+  auxToBack.saldo = totalToPay;
+  setToBack(auxToBack)
+  // toBack?.saldo > 0 && console.log("toBack")
+  // toBack?.saldo > 0 && console.log(toBack)
 
+  }
+  
   // useEffect(()=>{
   //   cart?.length === 0 && setCart([])
   // },[])
 
   useEffect(() => {
     /* cart?.length && */ fillToBack();
-  }, [cart]);
+
+  },[cart])
+
+  // console.log("auxToBack")
+  // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
   return (
     <div className={styles.cartContainer}>
