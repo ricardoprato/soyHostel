@@ -29,7 +29,8 @@ console.log("filteredRooms")
 console.log(filteredRooms)
   // console.log("dataForCards")
   // console.log(dataForCards)
-
+console.log("allRooms")
+console.log(allRooms)
   return (
     <>
       <div className={styles.RoomCardsContainer}>
