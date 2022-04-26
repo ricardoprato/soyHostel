@@ -142,13 +142,11 @@ export const ContextProvider = (props) => {
               //si coinciden los id de los 2 objetos armo un objeto con la info unificada
               aux = {
                 id: roomFiltered.idHabitacion, //json de los sueños???
-                cantCamas: roomFiltered.camasDisponible, //json de los sueños???
-                // bedIds: roomFiltered?.camasDisponiblesIds,
+                cantCamas: roomFiltered?.camasDisponible, //json de los sueños???
+                bedIds: roomFiltered?.camasDisponiblesIds,
                 nombre: roomFromAll.nombre,
                 comodidades: roomFromAll.comodidades,
-                ...(!roomFromAll.privada
-                  ? { precio: roomFromAll.precio }
-                  : { precio: roomFromAll.precio }),
+                precio: roomFromAll.precio,
                 descripcion: roomFromAll.descripcion,
                 banoPrivado: roomFromAll.banoPrivado,
                 Imagens: roomFromAll.Imagens,
