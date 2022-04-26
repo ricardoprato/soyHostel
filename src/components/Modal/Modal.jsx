@@ -12,8 +12,8 @@ function Modal({ children, setLocalModal }) {
   };
   useEffect(() => {
     return () => {
-      setDetails({});
       setLocalModal(false);
+      setDetails({});
     };
   }, []);
 

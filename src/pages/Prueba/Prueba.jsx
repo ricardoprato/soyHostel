@@ -38,6 +38,6 @@ const Prueba = () => {
       </div> */}
     </>
   );
-};
+}; 
 
 export default Prueba;

@@ -46,7 +46,7 @@ function Google() {
     <div className={styles.google}>
       {showloginButton ? (
         <GoogleLogin
-          clientId="540051645175-sbuak0uu5auodj9ipes8lklhgeg39kfo.apps.googleusercontent.com"
+          clientId={import.meta.env.VITE_CLIENT_ID}
           buttonText="Sign In"
           onSuccess={onLoginSuccess}
           onFailure={onLoginFailure}
@@ -57,7 +57,7 @@ function Google() {
 
       {showlogoutButton ? (
         <GoogleLogout
-          clientId="540051645175-sbuak0uu5auodj9ipes8lklhgeg39kfo.apps.googleusercontent.com"
+          clientId={import.meta.env.VITE_CLIENT_ID}
           buttonText="Sign Out"
           onLogoutSuccess={onSignoutSuccess}
         ></GoogleLogout>
