@@ -38,7 +38,8 @@ export default function Calendar() {
             title: '',
             tasks: [],
           };
-          producto.title = cama?.nombre.toUpperCase();
+
+          producto.title = cama?.nombre.toUpperCase(); //cama.nombre
           producto.id = cama?.id;
           setCalendarState((prev) => [...prev, producto]);
           // state.push(producto);
@@ -112,7 +113,7 @@ export default function Calendar() {
   }, []);
   calendarState?.length > 0 && reservations?.length > 0 && loadCalendar();
 
-  console.log(reservations);
+  console.log(allRooms);
 
   const taskClick = () => {
     setLocalModal((prevState) => !prevState);
