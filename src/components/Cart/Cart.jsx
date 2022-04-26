@@ -4,13 +4,13 @@ import { useContext } from 'react';
 import styles from './Cart.modules.css';
 
 export default function Cart() {
-  const { cart, setCart, genDataForCards, getFilteredBeds, setDataForCards } = useContext(GlobalContext);
-  const [toBack, setToBack] = useState({})
+  const { cart, setCart, genDataForCards, getFilteredBeds, setDataForCards } =
+    useContext(GlobalContext);
+  const [toBack, setToBack] = useState({});
   // const { availableBeds } = useContext(GlobalContext)
 
- 
   ////////// EL BACK NECESITA ESTO /////////////////////////
-/* 	{
+  /* 	{
     "fecha_ingreso":"2022-01-10", 
     "fecha_egreso":"2022-01-15",
     "camas":["5b920a51-0651-42f4-b72d-e18bb3f63ad4"],
@@ -20,7 +20,7 @@ export default function Cart() {
   ////////////////////////////////////////////////////////////
 
   ////////////// ASI RECIBIMOS LA DATA DESDE LAS CARDS AL CART //////////////////////
- /*  [
+  /*  [
    {
       private: "private",
       roomId: props.roomId,
@@ -42,7 +42,7 @@ export default function Cart() {
    */
   ///////////////////////////////////////////////////////////////////////////////////
 
-/*   let cartMock = [
+  /*   let cartMock = [
     {
       private: "private",
       roomId: 8,
@@ -63,29 +63,37 @@ export default function Cart() {
     }
   ]   */
 
-  const handleCartRemove = (roomId) => { //  funcion para eliminar items del carrito
+  const handleCartRemove = (roomId) => {
+    //  funcion para eliminar items del carrito
     let aux = cart.filter((e) => {
-      return e.roomId !== roomId
-    })
+      return e.roomId !== roomId;
+    });
     // console.log(aux)
-    setCart(aux)
+    setCart(aux);
     // console.log("handleCartRemove")
-  }
+  };
 
-  const handleConfirm = () =>{ 
+  const handleConfirm = () => {
     // console.log('toBack')
     // console.log(toBack)
-    fetch(`${import.meta.env.VITE_APP_URL}/reservas`,
-      {
-        method: 'POST',
-        headers: {
-          api: `${import.meta.env.VITE_API}`,
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(toBack),
-      }
+    fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
+      method: 'POST',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(toBack),
+    })
+      .then((response) => response.json())
+      .then((data) =>
+        setTimeout(() => {
+          console.log('reserva enviada a back: ');
+          console.log(toBack);
+          getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+        }, 2000)
       )
+
       .then(response => response.json())
       .then(data =>{ 
         console.log(data)
@@ -95,6 +103,7 @@ export default function Cart() {
         }})
 
       // .then(data => genDataForCards())
+
       .catch((error) => {
         if (error.response) {
           const { response } = error;
@@ -103,23 +112,23 @@ export default function Cart() {
           console.log(response.headers);
         }
       });
-      setCart([])  
-  }
+    setCart([]);
+  };
   let token = window.localStorage.getItem('tokenProp');
-  
+
   let totalToPay = 0;
   let auxToBack = {};
-  if(cart.length > 0){
-    auxToBack = {                   //   ESTO ES LO QUE MANDAMOS AL BACK
+  if (cart.length > 0) {
+    auxToBack = {
+      //   ESTO ES LO QUE MANDAMOS AL BACK
       fecha_ingreso: cart[0]?.checkIn,
       fecha_egreso: cart[0]?.checkOut,
       camas: [],
       habitaciones: [],
-      saldo: 0
-    }}
-  
+      saldo: 0,
+    };
+  }
 
-  
   const fillToBack = () => {
     // console.log("se ejecuto fillToBack")
     // console.log("cart")
@@ -149,42 +158,44 @@ export default function Cart() {
   //   cart?.length === 0 && setCart([])
   // },[])
 
-  useEffect(()=>{
+  useEffect(() => {
     /* cart?.length && */ fillToBack();
-  },[cart])
 
-  
+  },[cart])
 
   // console.log("auxToBack")
   // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
-
-  
 
   return (
     <div className={styles.cartContainer}>
       <h1>You are about to book:</h1>
       {cart?.length &&
-        ( cart?.map((r) => (
-            <div key={r.roomId}>
-              <h2>{r.roomName} - {r.private} room:</h2>
-              <h3>Check-In: {r.checkIn}</h3>
-              <h3>Check-Out: {r.checkOut}</h3>
-              { r.private === "shared" ? (<>
-                  <h3>Bed price per day: {r.price}</h3>
-                  <h3>{r.beds.length} beds booked</h3>
-                  <h3>subtotal: {(r.beds.length * r.price)}</h3>
-                  {/* {r.beds.length * r.price} */}
-              </>):(<>
-                  <h3>Room price per day: {r.price}</h3>
-                  {/* <h3>{r.beds?.length} beds booked</h3> */}
-              </>)
-              }
-              <button onClick={()=> handleCartRemove(r.roomId)}>Cancel</button>
-            </div>
-  )))
-      }
+        cart?.map((r) => (
+          <div key={r.roomId}>
+            <h2>
+              {r.roomName} - {r.private} room:
+            </h2>
+            <h3>Check-In: {r.checkIn}</h3>
+            <h3>Check-Out: {r.checkOut}</h3>
+            {r.private === 'shared' ? (
+              <>
+                <h3>Bed price per day: {r.price}</h3>
+                <h3>{r.beds.length} beds booked</h3>
+                <h3>subtotal: {r.beds.length * r.price}</h3>
+                {/* {r.beds.length * r.price} */}
+              </>
+            ) : (
+              <>
+                <h3>Room price per day: {r.price}</h3>
+                {/* <h3>{r.beds?.length} beds booked</h3> */}
+              </>
+            )}
+            <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
+          </div>
+        ))}
       <h2>Total to pay: {toBack.saldo}</h2>
-      <button onClick={() => handleConfirm()}>Confirm booking</button><button onClick={()=>setCart([])}>Empty cart</button> 
+      <button onClick={() => handleConfirm()}>Confirm booking</button>
+      <button onClick={() => setCart([])}>Empty cart</button>
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>
   );

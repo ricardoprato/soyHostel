@@ -7,12 +7,25 @@ const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
 
+  let api = import.meta.env.VITE_API;
+
   //FALTA IMPLEMENTAR EL FETCH A LA RUTA QUE ME DE ERIC (ASI LE ENVIAMOS LOS DATOS DE ESTE FORMULARIO)
+  let sendData = async (valores) => {
+    let res = await fetch('https://backpfhenryv2.herokuapp.com' + '/contacto', {
+      method: 'POST',
+      headers: {
+        api: `${api}`,
+
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(valores),
+    });
+    let res2 = await res.json();
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
-    // ricky tenes q implementar aca q se cierre el modal cuando se envie el formulario
   };
 
   return (
@@ -65,7 +78,8 @@ const ContactUs = () => {
           return errores;
         }}
         onSubmit={(valores, { resetForm }) => {
-          //   sendData(valores);
+          sendData(valores);
+          console.log('valores>>>', valores);
           alert('Created Succesfully');
           resetForm();
           console.log('INFO', valores);
