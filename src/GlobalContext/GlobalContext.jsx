@@ -40,11 +40,9 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        
         setFilteredAvailableBeds(data);
-        console.log("disponibilidad desde back: ")
-        console.log(data)
-      
+        console.log('disponibilidad desde back: ');
+        console.log(data);
       })
       .catch((err) => {
         if (err.response) {
@@ -102,12 +100,11 @@ export const ContextProvider = (props) => {
       });
   };
   const getReservations = (date1, date2) => {
-    //ESTA RUTA NO ESTA EN EL README
     let token = localStorage.getItem('tokenProp');
     fetch(
       `${
         import.meta.env.VITE_APP_URL
-      }/reservas/byFecha/?fecha_ingreso=${date1}&fecha_egreso=${date2}`,
+      }/reservas/byFecha/?ingreso=${date1}&egreso=${date2}`,
       {
         method: 'GET',
         headers: {
@@ -162,7 +159,7 @@ export const ContextProvider = (props) => {
             }
           });
         filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
-      }) 
+      });
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
       setDataForCardsCopy(filteredCopy);

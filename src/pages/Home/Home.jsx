@@ -6,6 +6,8 @@ import styles from './Home.module.css';
 import Explore from '../../components/Explore/Explore';
 import AboutUs from '../../components/AboutUs/AboutUs';
 import ContactUs from '../../components/ContactUs/ContactUs';
+import Calendar from '../../components/Calendar/Calendar';
+
 export default function Home() {
   return (
     <>
@@ -25,6 +27,8 @@ export default function Home() {
       <section id="contactUs">
         <ContactUs />
       </section>
+
+      <Calendar />
     </>
   );
 }
