@@ -27,10 +27,11 @@ const Prueba = () => {
  
 
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
+
         <Calendar />
-      </div>
+      </div> */}
     </>
   );
-};
+}; 
 
 export default Prueba;
