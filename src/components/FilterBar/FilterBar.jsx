@@ -37,7 +37,6 @@ const FilterBar = () => {
   const handleClick = () => {
     getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
-    // setFileteredRooms(availableBeds);
   };
 
   const sortPrice = () => {
@@ -48,21 +47,22 @@ const FilterBar = () => {
       let data1 = [];
       if (price.checked == true) {
         data = [...dataForCards].sort(function (a, b) {
-          return a.bedPrice - b.bedPrice;
+          return a.precio - b.precio;
         });
         data1 = [...dataForCardsCopy].sort(function (a, b) {
-          return a.bedPrice - b.bedPrice;
+          return a.precio - b.precio;
         });
       } else {
         data = [...dataForCards].sort(function (a, b) {
-          return b.bedPrice - a.bedPrice;
+          return b.precio - a.precio;
         });
         data1 = [...dataForCardsCopy].sort(function (a, b) {
-          return b.bedPrice - a.bedPrice;
+          return b.precio - a.precio;
         });
       }
       setDataForCards(data);
       setDataForCardsCopy(data1);
+      setFileteredRooms(data);
     } else {
       let price = document.getElementById('price');
 
@@ -128,34 +128,34 @@ const FilterBar = () => {
 
       if (selected.value === 'All') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.bathroom === true)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.banoPrivado === true)
           );
         } else {
-          setDataForCards(dataForCardsCopy);
+          setFileteredRooms(dataForCardsCopy);
         }
       } else if (selected.value === 'Private') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
+          setFileteredRooms(
             dataForCardsCopy.filter(
-              (room) => room.private === true && room.bathroom === true
+              (room) => room.privada === true && room.banoPrivado === true
             )
           );
         } else {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.private === true)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.privada === true)
           );
         }
       } else if (selected.value === 'Shared') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
+          setFileteredRooms(
             dataForCardsCopy.filter(
-              (room) => room.private === false && room.bathroom === true
+              (room) => room.privada === false && room.banoPrivado === true
             )
           );
         } else {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.private === false)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.privada === false)
           );
         }
       }
@@ -194,7 +194,7 @@ const FilterBar = () => {
         }
       }
     }
-    console.log(dataForCardsCopy);
+    console.log(filteredRooms);
   };
 
   return (
