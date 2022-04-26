@@ -9,6 +9,7 @@ const Register = () => {
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
+
   let sendData = async (valores) => {
     let res = await fetch(`${url}` + '/auth/signup', {
       method: 'POST',
@@ -169,7 +170,6 @@ const Register = () => {
           }}
           onSubmit={(valores, { resetForm }) => {
             sendData(valores);
-
             resetForm();
             console.log('INFO', valores);
             cambiarFormularioEnviado(true);
@@ -272,7 +272,7 @@ const Register = () => {
                   type="text"
                   id="email"
                   name="email"
-                  placeholder="email@email.com"
+                  placeholder="email@gmail.com"
                 />
                 <ErrorMessage
                   name="email"

@@ -38,6 +38,7 @@ export default function Calendar() {
             title: '',
             tasks: [],
           };
+
           producto.title = cama?.nombre.toUpperCase(); //cama.nombre
           producto.id = cama?.id;
           setCalendarState((prev) => [...prev, producto]);

@@ -15,14 +15,19 @@ export default function Reserva() {
   } = useContext(GlobalContext);
 
   //este va a ser el estado del cual se le va a pasar las props a las cards
-
+ 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms();
   }, [allRooms]);
 
   useEffect(() => {
-    genDataForCards();
+    filteredAvailableBeds?.length > 0 && genDataForCards();
+    // console.log("genDataForCards desde Reserva useeffect")
+    // console.log(dataForCards)
   }, [filteredAvailableBeds]);
+
+  // console.log("dataForCards")
+  // console.log(dataForCards)
 
   return (
     <>

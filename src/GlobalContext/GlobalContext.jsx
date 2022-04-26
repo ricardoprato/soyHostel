@@ -40,8 +40,11 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // setAvailablebeds(data);
+        
         setFilteredAvailableBeds(data);
+        console.log("disponibilidad desde back: ")
+        console.log(data)
+      
       })
       .catch((err) => {
         if (err.response) {
@@ -84,8 +87,8 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
+        // console.log("getAllRooms");
+        // console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })
@@ -101,7 +104,6 @@ export const ContextProvider = (props) => {
   const getReservations = (date1, date2) => {
     //ESTA RUTA NO ESTA EN EL README
     let token = localStorage.getItem('tokenProp');
-    console.log(token);
     fetch(
       `${
         import.meta.env.VITE_APP_URL
@@ -117,7 +119,7 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setReservations((prev) => data);
+        setReservations(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -128,6 +130,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+
   // generamos función que resuelve el tipo de objeto que necesito para mis Cards
   const genDataForCards = () => {
     let filteredCopy = []; //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms
@@ -159,7 +162,7 @@ export const ContextProvider = (props) => {
             }
           });
         filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
-      });
+      }) 
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
       setDataForCardsCopy(filteredCopy);

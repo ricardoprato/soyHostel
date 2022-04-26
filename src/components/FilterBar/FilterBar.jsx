@@ -14,6 +14,7 @@ const FilterBar = () => {
     setAllRooms,
     filteredRooms,
     setFileteredRooms,
+    filteredAvailableBeds,
     dataForCards,
     setDataForCards,
     dataForCardsCopy,
@@ -34,8 +35,12 @@ const FilterBar = () => {
     setLocaldate({ ...localDate, [name]: value });
   };
 
+  // const alert = async () => {
+  //   await getFilteredBeds(localDate.checkIn, localDate.checkOut)
+  // }
+
   const handleClick = () => {
-    getFilteredBeds(localDate.checkIn, localDate.checkOut);
+    getFilteredBeds(localDate.checkIn, localDate.checkOut)
     setFilterdates(localDate);
   };
 
@@ -194,7 +199,6 @@ const FilterBar = () => {
         }
       }
     }
-    console.log(filteredRooms);
   };
 
   return (

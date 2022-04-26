@@ -7,12 +7,13 @@ function Avatar() {
   const { setToken, token } = useContext(GlobalContext);
   const [toggle, setToggle] = useState(false);
 
-  const token2 = window.localStorage.getItem('tokenProp');
+  // const token2 = window.localStorage.getItem('tokenProp');
   console.log('TOKENENAVATART', token);
 
   const handleClick = (e) => {
     window.localStorage.removeItem('tokenProp');
     setToken(false);
+    window.location.reload();
     console.log(token);
   };
 
@@ -28,11 +29,12 @@ function Avatar() {
         src={avatar}
         alt="Avatar"
       />
+
       {toggle ? (
         <div className={styles.buttons}>
-          {/* <button className={styles.button}>Account details</button>
+          <button className={styles.button}>Account details</button>
           <button className={styles.button}>Account settings</button>
-          <button className={styles.button}>History</button> */}
+          <button className={styles.button}>History</button>
           <button onClick={handleClick} className={styles.button}>
             Logout
           </button>
