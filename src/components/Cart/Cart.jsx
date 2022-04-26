@@ -89,9 +89,10 @@ export default function Cart() {
       .then(response => response.json())
       .then(data =>{ 
         console.log(data)
-        return setTimeout(() => { console.log("reserva enviada a back: ");console.log(toBack);
-        getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
-      }, 2000)})
+        if (data?.id) {
+          console.log("reserva enviada a back: ");console.log(toBack);
+          getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
+        }})
 
       // .then(data => genDataForCards())
       .catch((error) => {

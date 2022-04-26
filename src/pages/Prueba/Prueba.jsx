@@ -12,7 +12,8 @@ import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
-
+import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar'
+import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters'
 import Calendar from '../../components/Calendar/Calendar';
 import Reservations from '../../components/Reservations/Reservations';
 
@@ -21,6 +22,9 @@ const Prueba = () => {
     <>
 
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
+        {/* <RecepTionNavBar/>
+        <ReceptionFilters/>
+        <Calendar/> */}
         <Reservations/>
       </div>
 

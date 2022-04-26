@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './Booking.module.css';
 import countries from '../../data/countries.json';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 console.log(countries);
 
+
 const Booking = () => {
+
+  const {
+    filteredAvailableBeds,
+    allRooms,
+    filteredRooms,
+    getAllRooms,
+    dataForCards,
+    genDataForCards,
+  } = useContext(GlobalContext);
+
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [room, setRoom] = useState({
@@ -277,6 +289,41 @@ const Booking = () => {
               />
             </div>
             <div>
+              <label htmlFor="nationality">Nationality</label>
+              <Field name="nationality" as="select">
+                {countries?.countries &&
+                  countries?.countries.map((c) => (
+                    <option key={c} value={c} id={c}>
+                      {c}
+                    </option>
+                  ))}
+              </Field>
+              <ErrorMessage
+                name="nationality"
+                component={() => (
+                  <div className={styles.error}>{errors.nationality}</div>
+                )}
+              />
+            </div>
+            <div>
+              <label htmlFor="checkIn">Check-In</label>
+              <Field type="date" id="checkIn" name="checkIn" />
+              <ErrorMessage
+                name="checkIn"
+                component={() => (
+                  <div className={styles.error}>{errors.checkIn}</div>
+                )}
+              />
+              <label htmlFor="checkOut">Check-Out</label>
+              <Field type="date" id="checkOut" name="checkOut" />
+              <ErrorMessage
+                name="checkOut"
+                component={() => (
+                  <div className={styles.error}>{errors.checkOut}</div>
+                )}
+              />
+            </div>
+            <div>
               <label htmlFor="roomName">Room Name</label>
               <Field name="roomName" as="select" onSubmit={handleRoomSelect}>
                 {' '}
@@ -314,43 +361,7 @@ const Booking = () => {
                 />
               </div>
             )}
-            <div>
-              <label htmlFor="nationality">Nationality</label>
-              <Field name="nationality" as="select">
-                {countries?.countries &&
-                  countries?.countries.map((c) => (
-                    <option key={c} value={c} id={c}>
-                      {c}
-                    </option>
-                  ))}
-              </Field>
-              <ErrorMessage
-                name="nationality"
-                component={() => (
-                  <div className={styles.error}>{errors.nationality}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="checkIn">Check-In</label>
-              <Field type="date" id="checkIn" name="checkIn" />
-              <ErrorMessage
-                name="checkIn"
-                component={() => (
-                  <div className={styles.error}>{errors.checkIn}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="checkOut">Check-Out</label>
-              <Field type="date" id="checkOut" name="checkOut" />
-              <ErrorMessage
-                name="checkOut"
-                component={() => (
-                  <div className={styles.error}>{errors.checkOut}</div>
-                )}
-              />
-            </div>
+            
 
             <button type="submit">Send</button>
             {formularioEnviado && (
