@@ -25,7 +25,8 @@ export default function Reserva() {
     // console.log("genDataForCards desde Reserva useeffect")
     // console.log(dataForCards)
   }, [filteredAvailableBeds]);
-
+console.log("filteredRooms")
+console.log(filteredRooms)
   // console.log("dataForCards")
   // console.log(dataForCards)
 
@@ -46,9 +47,10 @@ export default function Reserva() {
               bedsAvailable={r?.cantCamas} //json de los sueños
               totalBeds={r.totalBeds ? r?.totalBeds : r?.cantCamas}
               private={r?.privada}
-              bedPrice={r?.privada ? r?.precio : r?.precio / r?.cantCamas}
+              bedPrice={r?.privada ? r?.precio : r?.precio / r?.totalBeds}
               bathroom={r?.banoPrivado}
               image={r?.Imagens}
+              bedIds={r?.bedIds}
             />
           )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
         ) : (

@@ -146,7 +146,7 @@ export const ContextProvider = (props) => {
               aux = {
                 id: roomFiltered.idHabitacion, //json de los sueños???
                 cantCamas: roomFiltered.camasDisponible, //json de los sueños???
-                // bedIds: roomFiltered?.camasDisponiblesIds,
+                bedIds: roomFiltered?.camasDisponiblesIds,
                 nombre: roomFromAll.nombre,
                 comodidades: roomFromAll.comodidades,
                 ...(!roomFromAll.privada
@@ -162,6 +162,8 @@ export const ContextProvider = (props) => {
             }
           });
         filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
+      console.log("filteredCopy")
+      console.log(filteredCopy)
       }) 
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
