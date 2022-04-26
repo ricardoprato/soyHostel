@@ -143,9 +143,9 @@ export default function Calendar() {
     const to = document.getElementById('to').value;
     setLocaldate({ ...localDate, start: from, end: to });
     if (localDate.start !== null && localDate.end !== null) {
-      setTimeout(() => {
-        getReservations(from, to);
-      }, 500);
+      // setTimeout(() => {
+      getReservations(from, to);
+      // }, 700);
       console.log(reservations);
     }
   };
