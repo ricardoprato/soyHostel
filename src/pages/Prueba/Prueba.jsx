@@ -9,6 +9,11 @@ import FilterBar from '../../components/FilterBar/FilterBar';
 import Booking from '../../components/Booking/Booking';
 import CreateRoom from '../../components/CreateRoom/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
+<<<<<<< HEAD
+import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar'
+import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters'
+=======
+>>>>>>> fe2a872cc83ce25edc39793bb7624b7871ee6fb7
 import Calendar from '../../components/Calendar/Calendar';
 
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
@@ -18,7 +23,12 @@ const Prueba = () => {
   return (
     <>
 
-      <ReceptionNavBar />
+      <div style={{ marginTop: '150px', marginRight: '50px' }}>
+        {/* <RecepTionNavBar/>
+        <ReceptionFilters/>
+        <Calendar/> */}
+        <Reservations/>
+      </div>
 
       {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Cart />
