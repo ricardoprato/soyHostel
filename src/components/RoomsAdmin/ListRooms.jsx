@@ -4,10 +4,19 @@ import Room from './Room'
 
 export default function ListRooms() {
   
-  const { allRooms, getAllRooms } = useContext(GlobalContext);
+  const { allRooms, getAllRooms, reservations, getReservations } = useContext(GlobalContext);
+
+  const today = new Date();
+  const start = new Date(today);
+  const end = new Date(today);
+  start.setDate(start.getDate());
+  end.setDate(end.getDate() + 60);
 
   useEffect(()=>{
     allRooms.length === 0 && getAllRooms()
+    if(reservations?.length === 0){
+      getReservations(start.toLocaleDateString('en-CA'), end.toLocaleDateString('en-CA'))
+    }
   },[allRooms])
   
   // allRooms?.length && console.log(allRooms)

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import NavBar from '../NavBar/NavBar';
 import styles from './ConfirmDelete.module.css'
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 export default function EditRoom({props}) {
   
-  
+  console.log('propr desde EditRoom --> ', props)
+
+  const { allRooms, getAllRooms } = useContext(GlobalContext);
   
   return (
     <div className={styles.background}>

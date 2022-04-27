@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import NavBar from '../NavBar/NavBar';
 import styles from './ConfirmDelete.module.css'
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+
 
 export default function ConfirmDelete({props}) {
-  console.log('props desde ConfirmDelete--> ', props)
-
+  
+  let warning = false;
+  let name = props.nombre
+  const [ message, setMessage ] = useState(`If you DELETE the ROOM ${name}, all the room data and it's asosiated bookings will be lost!!! Are you sure you want to delete it?`)
+  const { reservations } = useContext(GlobalContext);
+  
+/////// VERIFICAMOS SI LA HABITACION TIENE RESERVAS ANTES DE ELIMINARLA ////////////////////////////
+reservations?.length && reservations.forEach((r) => { 
+  if(r.Habitacions?.length > 0){
+    r.Habitacions.forEach((h)=>{
+      if(h === props.id) warning = true;
+    })
+  }
+  if(r.Camas?.length > 0){
+    r.Camas.forEach((c)=>{
+      if(c.HabitacionId === props.id) warning = true; 
+    })
+  }
+});
 
   const handleConfirm = () => {
     console.log('id desde confirmDelete--> ',props.id)
@@ -29,24 +48,18 @@ export default function ConfirmDelete({props}) {
         console.log(response.headers);
       }
     })
+    setMessage(`The room ${name} has been deleted`)
   };
-
-  // function doSomething(){
-  //   document.getElementById('id_confrmdiv'); //this is the replace of this line
-
-
-  //   const handleDelete = (id) => {
-  //     setLocalModal((prevState) => !prevState);
-  //   }
-  //   // document.getElementById('id_truebtn').onClick = function(){
-  // }
 
   return (
     <div className={styles.background}>
       <NavBar/>
       <div id="id_confrmdiv">
         <h1>WARNING!!!</h1>
-        <h3>If you DELETE the ROOM {props.nombre}, all the room data and it's asosiated reservations will be lost!!! Are you sure you want to delete?</h3>
+        <h3>{message}</h3>
+        { 
+          warning && <h1>WARNING!!! This room has pending bookings!!!</h1>
+        }
       </div>
       <button onClick={()=> handleConfirm()}>Yes</button>
       

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function Reservations() {
+export default function Bookings() {
 
   const [allReservations, setAllReservations] = useState([])
   

@@ -13,7 +13,7 @@ import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
 import Calendar from '../../components/Calendar/Calendar';
 import NavBar from '../../components/NavBar/NavBar';
-import Reservations from '../../components/Reservations/Reservations'
+import Bookings from '../../components/Bookings/Bookings'
 import ListRooms from '../../components/RoomsAdmin/ListRooms'
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 

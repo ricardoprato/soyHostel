@@ -5,7 +5,7 @@ import EditRoom from './EditRoom';
 
 export default function Room({props}) {
 
-  console.log('props desde Room--> ', props)
+  // console.log('props desde Room--> ', props)
 
   const [localModal, setLocalModal] = useState(false)
   const [localModal2, setLocalModal2] = useState(false)
