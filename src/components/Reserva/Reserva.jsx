@@ -48,7 +48,7 @@ console.log(allRooms)
               bedsAvailable={r?.cantCamas} //json de los sueños
               totalBeds={r.totalBeds ? r?.totalBeds : r?.cantCamas}
               private={r?.privada}
-              bedPrice={r?.privada ? r?.precio : r?.precio / r?.totalBeds}
+              bedPrice={r?.privada ? r?.precio : r?.precio / r?.cantCamas}
               bathroom={r?.banoPrivado}
               image={r?.Imagens}
               bedIds={r?.bedIds}

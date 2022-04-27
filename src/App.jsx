@@ -6,7 +6,7 @@ import Prueba from './pages/Prueba/Prueba';
 import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import NewPassword from './components/NewPassword/NewPassword';
-import CreateRoom from './components/CreateRoom/CreateRoom';
+import CreateRoom from './components/RoomsAdmin/CreateRoom';
 
 function App() {
   return (
