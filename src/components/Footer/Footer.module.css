@@ -18,3 +18,12 @@
   color: var(--dark-color);
   transition: 03ms ease;
 }
+@media screen and (max-width: 785px) {
+  .footer {
+    right: 0;
+    margin-right: 20px;
+  }
+  .link {
+    font-size: 1.5em;
+  }
+}

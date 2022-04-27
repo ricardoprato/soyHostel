@@ -25,18 +25,23 @@
   transition: 0.3s ease;
   width: 100%;
 }
-.nav_flex {
+.nav_flex,
+.nav_items {
   display: flex;
   column-gap: 45px;
+  align-items: center;
 }
-.nav_link {
+.nav_link,
+.bag {
   color: var(--white-color);
   font-size: 1em;
-  text-shadow: var(--text-shadow);
   appearance: none;
   border: none;
   background: transparent;
   cursor: pointer;
+}
+.bag {
+  font-size: 1.2em;
 }
 .nav_link i {
   display: none;
@@ -46,7 +51,8 @@
   background: transparent;
   width: 2em;
 }
-.icons {
+.nav-menu-btn,
+.nav-close-btn {
   display: none;
 }
 
@@ -62,5 +68,80 @@
     background: rgba(100, 100, 100, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+  }
+}
+@media screen and (max-width: 1100px) {
+  .nav {
+    padding: 0 50px;
+  }
+}
+@media screen and (max-width: 785px) {
+  .nav {
+    padding: 25px 20px;
+  }
+  .nav-menu-btn {
+    display: block;
+    color: var(--white-color);
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  .nav-close-btn {
+    display: block;
+    color: var(--dark-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.3em;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .navigation {
+    z-index: 99999;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease;
+  }
+  .navigation.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  .nav_items {
+    position: relative;
+    background: var(--white-color);
+    width: 400px;
+    max-width: 400px;
+    display: grid;
+    place-content: center;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    transform: translateY(-200px);
+    transition: 0.3s ease;
+  }
+  .navigation.active .nav-items {
+    transform: translateY(0);
+  }
+  .nav_link {
+    color: var(--dark-color);
+    font-size: 1em;
+    transition: 0.3s ease;
+  }
+  .nav_link:hover {
+    color: var(--navigation-item-hover-color);
+  }
+  .nav_link > i {
+    display: inline-block;
+    font-size: 1.3em;
+    font-weight: bold;
   }
 }

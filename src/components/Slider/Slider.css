@@ -213,4 +213,8 @@
   .swiper-slide .text-content p {
     font-size: 0.9em;
   }
+  .swiper-slide .text-content .button {
+    font-size: 0.9em;
+    padding: 5px 15px;
+  }
 }

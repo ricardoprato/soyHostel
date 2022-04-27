@@ -12,9 +12,9 @@
 } */
 
 .RoomCardsContainer {
-  margin: 1rem 3rem;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+  color: var(--white-color);
   display: grid;
   place-items: center;
   column-gap: 2rem;

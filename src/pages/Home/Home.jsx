@@ -12,19 +12,13 @@ export default function Home() {
       <main className={styles.home} id="home">
         <Slider />
       </main>
-      <section className={styles.section} id="reserva">
+      <article className={styles.article}>
         <FilterBar />
         <Reserva />
-      </section>
-      <section className={styles.sectionExplore} id="explore">
         <Explore />
-      </section>
-      <section id="aboutUs">
         <AboutUs />
-      </section>
-      <section id="contactUs">
         <ContactUs />
-      </section>
+      </article>
     </>
   );
 }

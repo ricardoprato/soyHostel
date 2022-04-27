@@ -149,11 +149,9 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        
         setFilteredAvailableBeds(data);
-        console.log("disponibilidad desde back: ")
-        console.log(data)
-      
+        console.log('disponibilidad desde back: ');
+        console.log(data);
       })
       .catch((err) => {
         if (err.response) {
@@ -241,34 +239,34 @@ export const ContextProvider = (props) => {
   const genDataForCards = () => {
     let filteredCopy = []; //aqui voy a cargar la data convinada de las rutas availableBeds + allRooms
 
-      filteredAvailableBeds.forEach((roomFiltered) => {
-        //mapeo por cada habitacion que tiene algo disponible
-        let aux = {};
-        allRooms?.length &&
-          allRooms.forEach((roomFromAll) => {
-            //por cada habitacion disponible busco los datos de esa habitacion en allRooms
-            if (roomFiltered.idHabitacion === roomFromAll.id) {
-              //si coinciden los id de los 2 objetos armo un objeto con la info unificada
-              aux = {
-                roomId: roomFiltered.idHabitacion, //json de los sueños???
-                bedsAvailable: roomFiltered.camasDisponible, //json de los sueños???
-                bedIds: roomFiltered?.camasDisponiblesIds, //json de los sueños???
-                roomName: roomFromAll.nombre,
-                comodities: roomFromAll.comodidades,
-                ...(!roomFromAll.privada
-                  ? { bedPrice: roomFromAll.precio / roomFromAll.cantCamas }
-                  : { bedPrice: roomFromAll.precio }),
-                description: roomFromAll.descripcion,
-                bathroom: roomFromAll.banoPrivado,
-                image: roomFromAll.Imagens,
-                private: roomFromAll.privada,
-                totalBeds: roomFromAll.cantCamas,
-                filtradas: true,
-              };
-            }
-          });
-        filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
-      }) 
+    filteredAvailableBeds.forEach((roomFiltered) => {
+      //mapeo por cada habitacion que tiene algo disponible
+      let aux = {};
+      allRooms?.length &&
+        allRooms.forEach((roomFromAll) => {
+          //por cada habitacion disponible busco los datos de esa habitacion en allRooms
+          if (roomFiltered.idHabitacion === roomFromAll.id) {
+            //si coinciden los id de los 2 objetos armo un objeto con la info unificada
+            aux = {
+              roomId: roomFiltered.idHabitacion, //json de los sueños???
+              bedsAvailable: roomFiltered.camasDisponible, //json de los sueños???
+              bedIds: roomFiltered?.camasDisponiblesIds, //json de los sueños???
+              roomName: roomFromAll.nombre,
+              comodities: roomFromAll.comodidades,
+              ...(!roomFromAll.privada
+                ? { bedPrice: roomFromAll.precio / roomFromAll.cantCamas }
+                : { bedPrice: roomFromAll.precio }),
+              description: roomFromAll.descripcion,
+              bathroom: roomFromAll.banoPrivado,
+              image: roomFromAll.Imagens,
+              private: roomFromAll.privada,
+              totalBeds: roomFromAll.cantCamas,
+              filtradas: true,
+            };
+          }
+        });
+      filteredCopy.push(aux); //voy pusheando cada objero al array que luego pasamos mapeado a las cards
+    });
     if (filteredCopy?.length) {
       setDataForCards(filteredCopy);
       setDataForCardsCopy(filteredCopy);

@@ -21,8 +21,8 @@ import RoomDetails from '../RoomDetails/RoomDetails';
         bedIds
  */
 export default function RoomCard(props) {
-
-  const { cart, setCart, filterDates, dataForCards } = useContext(GlobalContext);
+  const { cart, setCart, filterDates, dataForCards } =
+    useContext(GlobalContext);
 
   const [localModal, setLocalModal] = useState(false);
 
@@ -36,14 +36,13 @@ export default function RoomCard(props) {
   let [count, setCount] = useState(countInitialState);
   let [bedsOnCart, setBedsOnCart] = useState(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     dataForCards?.length && setCount(props?.bedsAvailable);
     dataForCards?.length && setBedsOnCart(0);
-  },[dataForCards])
-
+  }, [dataForCards]);
 
   // cart?.length === 0 && setBedsOnCart(0);
-  
+
   const onClickHandler = function (arg) {
     if (arg === '+' && count > 0) {
       let aux = count - 1;
@@ -51,7 +50,11 @@ export default function RoomCard(props) {
       setToCart({
         numberOfBeds: toCart?.numberOfBeds + 1,
       });
-    } else if (arg === '-' && count < props?.bedsAvailable && toCart.numberOfBeds > 0) {
+    } else if (
+      arg === '-' &&
+      count < props?.bedsAvailable &&
+      toCart.numberOfBeds > 0
+    ) {
       let aux = count + 1;
       setCount(aux);
       setToCart({
@@ -72,7 +75,7 @@ export default function RoomCard(props) {
             roomName: props.roomName,
           },
         ]);
-        setBedsOnCart(props.totalBeds)
+        setBedsOnCart(props.totalBeds);
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
@@ -91,7 +94,7 @@ export default function RoomCard(props) {
         setBedsOnCart(bedsOnCart + toCart.numberOfBeds);
         setToCart(initialstate);
       }
-    } 
+    }
   };
 
   // console.log("cart");
@@ -100,7 +103,6 @@ export default function RoomCard(props) {
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
-
 
   return (
     <div className={styles.RoomCardContainer}>
@@ -162,7 +164,12 @@ export default function RoomCard(props) {
               <i className="bi bi-lock-fill"></i>
               bathroom
             </p>
-          ) : null}
+          ) : (
+            <p>
+              <i className="bi bi-unlock-fill"></i>
+              bathroom
+            </p>
+          )}
           <p>
             {props.totalBeds} <i className="bi bi-people-fill"></i>
           </p>
