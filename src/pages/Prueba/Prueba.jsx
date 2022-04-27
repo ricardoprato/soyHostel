@@ -6,7 +6,7 @@ import styles from '../../components/Register/Register.module.css';
 import Login from '../../components/Login/Login';
 import Google from '../../components/Google/Google';
 import FilterBar from '../../components/FilterBar/FilterBar';
-import Booking from '../../components/Booking/Booking';
+import BookingFromReception from '../../components/BookingFromReception/BookingFromReception';
 import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
@@ -21,8 +21,8 @@ const Prueba = () => {
   return (
     <>
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <NavBar/>
-        <ListRooms />
+        <RecepTionNavBar/>
+        <Calendar />
       </div>
       {/* <div style={{ marginTop: '150px', marginRight: '50px' }}>
         <Calendar />

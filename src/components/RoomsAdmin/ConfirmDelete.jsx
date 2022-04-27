@@ -12,10 +12,11 @@ export default function ConfirmDelete({props}) {
   const { reservations } = useContext(GlobalContext);
   
 /////// VERIFICAMOS SI LA HABITACION TIENE RESERVAS ANTES DE ELIMINARLA ////////////////////////////
+console.log('reservations --> ',reservations)
 reservations?.length && reservations.forEach((r) => { 
   if(r.Habitacions?.length > 0){
     r.Habitacions.forEach((h)=>{
-      if(h === props.id) warning = true;
+      if(h.id === props.id) warning = true;
     })
   }
   if(r.Camas?.length > 0){

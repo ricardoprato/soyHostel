@@ -14,7 +14,7 @@ const ReceptionNavBar = () => {
   console.log('TOKENENNAVBAR', token);
 
   const handleScroll = () => {
-    if (window.scrollY > 0) {
+    if (window.scrollY > 0) { 
       setActive(true);
     } else {
       setActive(false);
@@ -77,23 +77,23 @@ const ReceptionNavBar = () => {
             <i className="bi bi-compass"></i>
             Create Room
           </NavLink>
-          <NavLink className={styles.nav_link} to="#">
+          <NavLink className={styles.nav_link} to="/listrooms">
             <i className="bi bi-info-circle"></i>
-            Delete Room
+            Delete/Edit Room
           </NavLink>
           <NavLink className={styles.nav_link} to="#">
             <i className="bi bi-envelope"></i>
-            Create Admin/Recepcionist
+            Create Admin/Receptionist
           </NavLink>
-          <NavLink className={styles.nav_link} to="#">
+          <NavLink className={styles.nav_link} to="/bookfromreception">
             <i className="bi bi-compass"></i>
-            Create Reserve
+            Create booking
           </NavLink>
           <div className={styles.containerSearch}>
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 type="text"
-                placeholder="Search reserve"
+                placeholder="Search booking"
                 onChange={(e) => handleChange(e)}
                 name="name"
               ></input>
