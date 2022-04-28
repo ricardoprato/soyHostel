@@ -39,6 +39,7 @@ export default function Calendar() {
             id: '',
             title: '',
             tasks: [],
+            dataSet: {},
           };
 
           producto.title = cama?.nombre.toUpperCase(); //cama.nombre
@@ -51,8 +52,9 @@ export default function Calendar() {
           id: '',
           title: '',
           tasks: [],
+          dataSet: {},
         };
-        producto.title = room.nombre;
+        producto.title = room.nombre.toUpperCase();
         producto.id = room?.id;
         setCalendarState((prev) => [...prev, producto]);
         // state.push(producto);
@@ -68,31 +70,35 @@ export default function Calendar() {
         reserva?.Habitacions?.forEach((habitacion) => {
           let element = {
             id: reserva?.id,
-            title: reserva.UsuarioDni,
+            title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
+            dataSet: {
+              ...reserva,
+              idHabitacion: habitacion.id,
+              nombreHabitacion: habitacion.nombre,
+            }, ///ojo aca el nombre de la habitación
           };
           let stateCopy = calendarState.map((producto) => {
             if (producto.id == habitacion.id) {
               producto.tasks.push(element);
-              // let element = {
-              //   id: reserva.id,
-              //   title: `${reserva.Usuario.nombre} ${reserva.Usuario.apellido}`,
-              //   start: new Date(`${reserva.fecha_ingreso}`),
-              //   end: new Date(`${reserva.fecha_egreso}`),
-              // }
-              // producto.tasks.push(element);
             }
           });
           setCalendarState(stateCopy);
         });
-      } else if (reserva?.Camas?.length > 0) {
+      }
+      if (reserva?.Camas?.length > 0) {
         reserva.Camas.forEach((cama) => {
           let element = {
             id: reserva?.id,
-            title: reserva?.UsuarioDni,
+            title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
+            dataSet: {
+              ...reserva,
+              idCama: cama.id,
+              nombreCama: cama?.nombre,
+            },
           };
           let stateCopy = calendarState.map((producto) => {
             if (producto.id == cama.id) {
@@ -103,8 +109,6 @@ export default function Calendar() {
         });
       }
     });
-    console.log('esto es reservatios');
-    console.log(reservations);
   };
 
   useEffect(() => {
@@ -113,40 +117,26 @@ export default function Calendar() {
 
   useEffect(() => {
     allRooms.length && getInitialState();
+    let token = localStorage.getItem('tokenProp');
+    let dni = bycript.decoder(token);
+    console.log(dni);
   }, [allRooms]);
 
-  // useEffect(() => {
-  //   getReservations(localDate.start, localDate.end);
-  // }, [localDate]);
-
-  // useEffect(() => {
-  //   reservations.length && loadCalendar();
-  // }, [reservations]);
-
-  // useEffect(() => {
-  //   allRooms &&
-  // }, [localDate]);
-
-  // useEffect(() => {
-  //   calendarState.length && getReservations(localDate.start, localDate.end);
-  // }, [calendarState]);
-
-  // reservations.length > 0 && loadCalendar();
-
-  const taskClick = () => {
+  const [data, setData] = useState({});
+  const taskClick = (e) => {
+    setData(e.dataSet);
     setLocalModal((prevState) => !prevState);
-    (dataSet) => console.log(dataSet);
   };
 
   const handleFilters = (event) => {
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
     setLocaldate({ ...localDate, start: from, end: to });
-    if (localDate.start !== null && localDate.end !== null) {
-      // setTimeout(() => {
-      getReservations(from, to);
-      // }, 700);
-      console.log(reservations);
+
+    if (from !== '' && to !== '') {
+      if (Date.parse(from) <= Date.parse(to)) {
+        getReservations(from, to);
+      }
     }
   };
   const showReservations = () => {
@@ -157,7 +147,7 @@ export default function Calendar() {
     <>
       {!!localModal && (
         <Modal setLocalModal={setLocalModal}>
-          <Formulario />
+          <Formulario props={data} />
         </Modal>
       )}
       <div className={styles.form} id="form">
@@ -201,17 +191,19 @@ export default function Calendar() {
           projects={calendarState}
           enableSticky
           scrollToNow
+          sidebarWidth={220}
         />
       ) : reservations.length ? (
         <Gantt
-          start={new Date(`${localDate.start}`)} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
+          start={new Date(`${localDate.start}`)}
           end={new Date(`${localDate.end}`)}
           now={new Date()}
           zoom={1}
           projects={calendarState}
           enableSticky
           scrollToNow
-          clickTask={taskClick}
+          clickTask={(e) => taskClick(e)}
+          sidebarWidth={220}
         />
       ) : null}
     </>
