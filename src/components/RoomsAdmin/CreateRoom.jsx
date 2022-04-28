@@ -76,7 +76,11 @@ export function validate(input, image) {
 
 /////////////       SOLO FALTA CORREGIR BUG INPUT IMAGENES
 
-export default function CreateRoom() {
+export default function CreateRoom(props) {
+  // if(props?.id){
+  //   aqui deberia precargar los imputs con la info de una habitacion ya existente para editarla
+  //   y al mismo tiempo crear un flag de que en lugar del post habitacion se genere un patch(update) de la habitacion
+  // }
   let [error, setError] = useState({});
   let [image, setImage] = useState('');
   let [bedPrice, setBedPrice] = useState(0);
@@ -99,9 +103,12 @@ export default function CreateRoom() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    fetch('https://back-end-1407.herokuapp.com/habitaciones', {
+    let token = localStorage.getItem('tokenProp');
+    fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`, {
       method: 'POST',
       headers: {
+        api: `${import.meta.env.VITE_API}`,
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(input),
