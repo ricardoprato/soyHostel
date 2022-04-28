@@ -18,7 +18,7 @@ function Modal({ children, setLocalModal }) {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={styles.modal} onClick={onCancel}>
+    <div style={{display: 'flex', flexDirection: 'column'}}className={styles.modal} onClick={onCancel}>
       <div
         className={styles.modalBackground}
         onClick={(e) => e.stopPropagation()}

@@ -26,27 +26,40 @@ const Booking = () => {
   });
   const today = new Date();
 
-  const fetchDetails = () => {
-    fetch(`https://back-end-1407.herokuapp.com/habitaciones`)
-      .then((response) => response.json())
-      .then((data) => setRooms((prev) => data))
-      .catch((error) => {
-        if (error.response) {
-          const { response } = error;
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.headers);
-        }
-      });
-  };
+  // const fetchDetails = () => {
+  //   let token = localStorage.getItem('tokenProp');
+  //   fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`,
+  //   {
+  //     method: 'GET',
+  //     headers: {
+  //       api: `${import.meta.env.VITE_API}`,
+  //       Authorization: 'Bearer ' + token,
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => setRooms((prev) => data))
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         const { response } = error;
+  //         console.log(response.data);
+  //         console.log(response.status);
+  //         console.log(response.headers);
+  //       }
+  //     });
+  // };
 
-  useEffect(() => {
-    fetchDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchDetails();
+  // }, []);
+
+  if(allRooms?.length === 0) getAllRooms()
+
+
 
   const handleRoomSelect = () => {
     //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    let aux = rooms?.filter((r) => r.nombre === valores.roomName);
+    let aux = allRooms?.filter((r) => r.id === valores.roomName);
     if (aux.privada) {
       setRoom({
         private: true,
@@ -54,6 +67,7 @@ const Booking = () => {
       });
     } else {
       let aux2 = aux.Camas.map((c) => c.id);
+      console.log('BookingFromReception camas ids -->', aux2)
       setRoom({
         private: false,
         camas: aux.cantCamas, //cantidad
@@ -61,7 +75,7 @@ const Booking = () => {
       });
     }
   };
-
+  console.log('allRooms desde BookingFromReception -->', allRooms)
   return (
     <>
       <Formik
@@ -193,7 +207,7 @@ const Booking = () => {
       >
         {({ errors }) => (
           <Form className={styles.formulario}>
-            <div>
+            <div> {/* First Name */}
               <label htmlFor="name">First Name</label>
               <Field
                 type="text"
@@ -208,7 +222,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Last Name */}
               <label htmlFor="lastName">Last Name</label>
               <Field
                 type="text"
@@ -223,7 +237,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Document type */}
               <label htmlFor="typeofdni">Document type </label>
               <Field name="docType" as="select">
                 <option value="docType" id="AF">
@@ -249,7 +263,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* document number */}
               <Field
                 type="text"
                 id="docNumber"
@@ -263,7 +277,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Birth date */}
               <label htmlFor="birthDate">Birth date</label>
               <Field type="date" id="birthDate" name="birthDate" />
               <ErrorMessage
@@ -273,7 +287,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Email */}
               <label htmlFor="email">Email </label>
               <Field
                 type="text"
@@ -288,7 +302,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Nationality */}
               <label htmlFor="nationality">Nationality</label>
               <Field name="nationality" as="select">
                 {countries?.countries &&
@@ -305,7 +319,7 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Check-In / Out ---> al ingresar las 2 fechas deberia buscar disponibilidad entre esas fechas y luego al seleccionar habitacion y cama solo dar las opciones que estan disponibles*/}
               <label htmlFor="checkIn">Check-In</label>
               <Field type="date" id="checkIn" name="checkIn" />
               <ErrorMessage
@@ -323,17 +337,15 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div>
+            <div> {/* Room Name */}
               <label htmlFor="roomName">Room Name</label>
-              <Field name="roomName" as="select" onSubmit={handleRoomSelect}>
-                {' '}
-                {/* terminar este handler */}
+              <Field name="roomName" as="select" onChange={handleRoomSelect}>
                 <option value="roomName" id="AF">
                   Elegir opción
                 </option>
-                {rooms &&
-                  rooms?.map((r) => (
-                    <option key={r.id} value={r.nombre} id="AF">
+                {allRooms &&
+                  allRooms?.map((r) => (
+                    <option key={r.id} value={r.id} id="AF">
                       {r.nombre}
                     </option>
                   ))}
@@ -346,7 +358,7 @@ const Booking = () => {
               />
             </div>
             {room?.privada ? null : ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
-              <div>
+              <div> {/* Select bed */}
                 <Field name="bedId" as="select">
                   <option value="roomName" id="AF">
                     Select bed
