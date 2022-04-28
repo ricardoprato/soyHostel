@@ -40,94 +40,89 @@ const FilterBar = () => {
   // }
 
   const handleClick = () => {
-    getFilteredBeds(localDate.checkIn, localDate.checkOut)
+    getFilteredBeds(localDate.checkIn, localDate.checkOut);
     setFilterdates(localDate);
-    // setTimeout(() => {
-    //   filteredAvailableBeds?.length === 0 && alert("no available rooms")
-    // }, 3000);
-    // console.log("filteredAvailableBeds")
-    // console.log(filteredAvailableBeds)
-    // setFileteredRooms(availableBeds);
   };
 
   const sortPrice = () => {
-    if (dataForCards.length > 0) {
-      let price = document.getElementById('price');
+    // if (dataForCards.length > 0) {
+    //   let price = document.getElementById('price');
 
-      let data = [];
-      let data1 = [];
-      if (price.checked == true) {
-        data = [...dataForCards].sort(function (a, b) {
-          return a.bedPrice - b.bedPrice;
-        });
-        data1 = [...dataForCardsCopy].sort(function (a, b) {
-          return a.bedPrice - b.bedPrice;
-        });
-      } else {
-        data = [...dataForCards].sort(function (a, b) {
-          return b.bedPrice - a.bedPrice;
-        });
-        data1 = [...dataForCardsCopy].sort(function (a, b) {
-          return b.bedPrice - a.bedPrice;
-        });
-      }
-      setDataForCards(data);
-      setDataForCardsCopy(data1);
+    //   let data = [];
+    //   let data1 = [];
+    //   if (price.checked == true) {
+    //     data = [...dataForCards].sort(function (a, b) {
+    //       return a.precio - b.precio;
+    //     });
+    //     data1 = [...dataForCardsCopy].sort(function (a, b) {
+    //       return a.precio - b.precio;
+    //     });
+    //   } else {
+    //     data = [...dataForCards].sort(function (a, b) {
+    //       return b.precio - a.precio;
+    //     });
+    //     data1 = [...dataForCardsCopy].sort(function (a, b) {
+    //       return b.precio - a.precio;
+    //     });
+    //   }
+    //   setDataForCards(data);
+    //   setDataForCardsCopy(data1);
+    //   setFileteredRooms(data);
+    // } else {
+
+    let price = document.getElementById('price');
+
+    let data = [];
+    let data1 = [];
+    if (price.checked == true) {
+      data = [...filteredRooms].sort(function (a, b) {
+        if (a.privada && !b.privada) {
+          return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
+        } else if (!a.privada && b.privada) {
+          return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
+        } else if (a.privada && b.privada) {
+          return a.precio - b.precio; // precios de habitaciones privadas
+        } else {
+          return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
+        }
+      });
+      data1 = [...allRooms].sort(function (a, b) {
+        if (a.privada && !b.privada) {
+          return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
+        } else if (!a.privada && b.privada) {
+          return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
+        } else if (a.privada && b.privada) {
+          return a.precio - b.precio; // precios de habitaciones privadas
+        } else {
+          return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
+        }
+      });
     } else {
-      let price = document.getElementById('price');
-
-      let data = [];
-      let data1 = [];
-      if (price.checked == true) {
-        data = [...filteredRooms].sort(function (a, b) {
-          if (a.privada && !b.privada) {
-            return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
-          } else if (!a.privada && b.privada) {
-            return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
-          } else if (a.privada && b.privada) {
-            return a.precio - b.precio; // precios de habitaciones privadas
-          } else {
-            return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
-          }
-        });
-        data1 = [...allRooms].sort(function (a, b) {
-          if (a.privada && !b.privada) {
-            return a.precio - b.precio / b.cantCamas; // precios de habritaciónes
-          } else if (!a.privada && b.privada) {
-            return a.precio / a.cantCamas - b.precio; // precios de habitaciones privadas
-          } else if (a.privada && b.privada) {
-            return a.precio - b.precio; // precios de habitaciones privadas
-          } else {
-            return a.precio / a.cantCamas - b.precio / b.cantCamas; // precios de habitaciones privadas
-          }
-        });
-      } else {
-        data = [...filteredRooms].sort(function (a, b) {
-          if (b.privada && !a.privada) {
-            return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
-          } else if (!b.privada && a.privada) {
-            return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
-          } else if (b.privada && a.privada) {
-            return b.precio - a.precio; // precios de habitaciones privadas
-          } else {
-            return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
-          }
-        });
-        data1 = [...allRooms].sort(function (a, b) {
-          if (b.privada && !a.privada) {
-            return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
-          } else if (!b.privada && a.privada) {
-            return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
-          } else if (b.privada && a.privada) {
-            return b.precio - a.precio; // precios de habitaciones privadas
-          } else {
-            return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
-          }
-        });
-      }
-      setFileteredRooms(data);
-      setAllRooms(data1);
+      data = [...filteredRooms].sort(function (a, b) {
+        if (b.privada && !a.privada) {
+          return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
+        } else if (!b.privada && a.privada) {
+          return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
+        } else if (b.privada && a.privada) {
+          return b.precio - a.precio; // precios de habitaciones privadas
+        } else {
+          return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
+        }
+      });
+      data1 = [...allRooms].sort(function (a, b) {
+        if (b.privada && !a.privada) {
+          return b.precio - a.precio / a.cantCamas; // precios de habritaciónes
+        } else if (!b.privada && a.privada) {
+          return b.precio / b.cantCamas - a.precio; // precios de habitaciones privadas
+        } else if (b.privada && a.privada) {
+          return b.precio - a.precio; // precios de habitaciones privadas
+        } else {
+          return b.precio / b.cantCamas - a.precio / a.cantCamas; // precios de habitaciones privadas
+        }
+      });
     }
+    setFileteredRooms(data);
+    setAllRooms(data1);
   };
 
   const handleRooms = () => {
@@ -138,34 +133,34 @@ const FilterBar = () => {
 
       if (selected.value === 'All') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.bathroom === true)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.banoPrivado === true)
           );
         } else {
-          setDataForCards(dataForCardsCopy);
+          setFileteredRooms(dataForCardsCopy);
         }
       } else if (selected.value === 'Private') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
+          setFileteredRooms(
             dataForCardsCopy.filter(
-              (room) => room.private === true && room.bathroom === true
+              (room) => room.privada === true && room.banoPrivado === true
             )
           );
         } else {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.private === true)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.privada === true)
           );
         }
       } else if (selected.value === 'Shared') {
         if (checkBathroomBox.checked == true) {
-          setDataForCards(
+          setFileteredRooms(
             dataForCardsCopy.filter(
-              (room) => room.private === false && room.bathroom === true
+              (room) => room.privada === false && room.banoPrivado === true
             )
           );
         } else {
-          setDataForCards(
-            dataForCardsCopy.filter((room) => room.private === false)
+          setFileteredRooms(
+            dataForCardsCopy.filter((room) => room.privada === false)
           );
         }
       }
@@ -204,7 +199,6 @@ const FilterBar = () => {
         }
       }
     }
-    // console.log(dataForCardsCopy);
   };
 
   return (

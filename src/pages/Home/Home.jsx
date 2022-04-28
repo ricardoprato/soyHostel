@@ -6,6 +6,7 @@ import styles from './Home.module.css';
 import Explore from '../../components/Explore/Explore';
 import AboutUs from '../../components/AboutUs/AboutUs';
 import ContactUs from '../../components/ContactUs/ContactUs';
+
 export default function Home() {
   return (
     <>
