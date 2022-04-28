@@ -10,11 +10,23 @@ import BookingFromReception from '../../components/BookingFromReception/BookingF
 import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 
+import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
+import Calendar from '../../components/Calendar/Calendar';
+import NavBar from '../../components/NavBar/NavBar';
+
+import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import BookingHistory from '../../components/BookingHistory/BookingHistory';
+
+
+
 const Prueba = () => {
   return (
     <>
+
       {/* <Google /> */}
       <Stripe />
+
     </>
   );
 };

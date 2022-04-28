@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const GlobalContext = createContext();
 
@@ -78,6 +78,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  let aux = [];
   const getAllRooms = () => {
     // console.log(import.meta.env.VITE_APP_URL)
     // console.log(import.meta.env.VITE_API)
@@ -89,8 +90,6 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("getAllRooms");
-        // console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })
@@ -103,6 +102,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+
   const getReservations = (date1, date2) => {
     let token = localStorage.getItem('tokenProp');
     fetch(
