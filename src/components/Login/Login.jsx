@@ -22,8 +22,9 @@ const Login = () => {
     });
     let res2 = await res.json();
     let token = res2.token;
+    window.localStorage.setItem('imgAvatar', res2.avatar);
+    window.localStorage.setItem('nombrerol', res2.rol);
 
-    console.log('generalresponse', res2);
     if (token || localStorage.getItem('tokenProp')) {
       setToken(true);
     }

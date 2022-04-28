@@ -20,6 +20,7 @@ import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 const Prueba = () => {
   return (
     <>
+      {/* <Google /> */}
       <Stripe />
     </>
   );
