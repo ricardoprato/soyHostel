@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const GlobalContext = createContext();
 
@@ -99,6 +99,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+
   const getReservations = (date1, date2) => {
     let token = localStorage.getItem('tokenProp');
     fetch(
