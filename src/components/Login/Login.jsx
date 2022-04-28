@@ -5,11 +5,7 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-
-
 const Login = () => {
-
-
   const { setToken } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
