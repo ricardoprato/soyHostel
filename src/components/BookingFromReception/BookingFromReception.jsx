@@ -5,9 +5,7 @@ import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 console.log(countries);
 
-
 const Booking = () => {
-
   const {
     filteredAvailableBeds,
     allRooms,
@@ -373,7 +371,6 @@ const Booking = () => {
                 />
               </div>
             )}
-            
 
             <button type="submit">Send</button>
             {formularioEnviado && (

@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from '../Register/Register.module.css';
+import styles from '../InfoUser/InfoUser.module.css';
 import Logo from '../../Images/fondo.png';
-import Popup from '../Popup/Popup';
-import data from '../../data/countries.json';
-import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-const Register = () => {
+const InfoUser = () => {
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
 
   let sendData = async (valores) => {
     let res = await fetch(`${url}` + '/auth/signup', {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         api: `${api}`,
         'Content-Type': 'application/json',
@@ -26,29 +23,15 @@ const Register = () => {
     console.log('RESPUESTABACK', res2);
   };
 
-  // let [showPaises, setShowPaises] = useState([]);
-  // let todoslospaises;
-  // let paises;
-  // useEffect(async () => {
-  //   paises = await fetch(
-  //     'https://back-end-1407.herokuapp.com' + '/nacionalidades'
-  //   );
-  //   todoslospaises = await paises.json();
-  //   console.log('paises>>', todoslospaises);
-  //   setShowPaises(todoslospaises);
-  // }, []);
-
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   // const [dataProfile, setDataProfile] = useState({});
-  const [modal, setModal] = useState(false);
-  const { dataProfile, setDataProfile } = useContext(GlobalContext);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setModal(false);
-  };
+  //   const [modal, setModal] = useState(false);
 
-  let paises = data;
+  //   const handleClick = (e) => {
+  //     e.preventDefault();
+  //     setModal(false);
+  //   };
 
   const [typePw, setTypePw] = useState('password');
 
@@ -65,17 +48,11 @@ const Register = () => {
       {modal ? (
         <Formik
           initialValues={{
-            name: dataProfile.givenName,
-            lastname: dataProfile.familyName,
-            email: dataProfile.email,
-            avatar: dataProfile.imageUrl,
-            googleId: dataProfile.googleId,
-            dni: '',
-            typeofdocument: '',
+            name: '',
+            lastname: '',
+            email: '', // puede mostrarlo y no cambiarlo.
             password: '',
-            nationality: '',
             birthdate: '',
-            genre: '',
           }}
           validate={(valores) => {
             let errores = {};
@@ -93,13 +70,6 @@ const Register = () => {
             } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastname)) {
               errores.lastname =
                 'The lastname can only contain letters and spaces';
-            }
-
-            // Validacion DNI
-            if (!valores.dni) {
-              errores.dni = 'Please enter a dni';
-            } else if (!/^[0-9]{8,20}$/.test(valores.dni)) {
-              errores.dni = 'The dni can only contain numbers';
             }
 
             // Validacion email
@@ -122,21 +92,6 @@ const Register = () => {
             ) {
               errores.password =
                 'Minimum eight characters, at least one letter and one number:';
-            }
-
-            // Validacion type of document
-            if (!valores.typeofdocument) {
-              errores.typeofdocument = 'Please enter a type of document';
-            }
-
-            // Validacion nationality
-            if (!valores.nationality) {
-              errores.nationality = 'Please enter your nationality';
-            }
-
-            // Validacion genre
-            if (!valores.genre) {
-              errores.genre = 'Please enter a genre';
             }
 
             // Validacion birthdate
@@ -360,4 +315,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default InfoUser;

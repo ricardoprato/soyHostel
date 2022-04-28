@@ -8,9 +8,9 @@ export const ContextProvider = (props) => {
     checkOut: '',
   });
   const [cart, setCart] = useState([]);
-
+  const [dataPayment, setDataPayment] = useState([]);
   const [reservations, setReservations] = useState([]);
-
+  const [toBack, setToBack] = useState([]);
   const [details, setDetails] = useState({});
 
   const [dataForCards, setDataForCards] = useState([]);
@@ -24,6 +24,10 @@ export const ContextProvider = (props) => {
 
   const [token, setToken] = useState(false);
 
+  const [rol, setRol] = useState('');
+
+  const [googleData, setGoogleData] = useState({});
+  const [dataProfile, setDataProfile] = useState({});
   ///funciones que modifican estados
 
   const getFilteredBeds = (checkIn, checkOut) => {
@@ -171,6 +175,12 @@ export const ContextProvider = (props) => {
       value={{
         token,
         setToken,
+        toBack,
+        setToBack,
+        googleData,
+        setGoogleData,
+        dataProfile,
+        setDataProfile,
         dataForCards,
         setDataForCards,
         dataForCardsCopy,
@@ -190,6 +200,10 @@ export const ContextProvider = (props) => {
         genDataForCards,
         filterDates,
         setFilterdates,
+        dataPayment,
+        setDataPayment,
+        rol,
+        setRol,
         // availableBeds,
         // setAvailablebeds,
         cart,
