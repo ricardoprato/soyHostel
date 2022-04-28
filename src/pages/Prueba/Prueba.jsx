@@ -9,6 +9,7 @@ import FilterBar from '../../components/FilterBar/FilterBar';
 import BookingFromReception from '../../components/BookingFromReception/BookingFromReception';
 import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
+import Stripe from '../../components/Stripe/Stripe';
 
 const Prueba = () => {
   return (
