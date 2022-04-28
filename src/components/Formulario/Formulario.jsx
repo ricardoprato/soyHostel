@@ -26,37 +26,6 @@ function Formulario({ props }) {
       .catch((error) => console.log(error));
     // quiero que haga algo mas aca en el front???
   }; //mandar el saldo y el estado
-  useEffect(() => {
-    let token = localStorage.getItem('tokenProp');
-    let url = '';
-    props.idCama
-      ? (url = `${import.meta.env.VITE_APP_URL}/camas/${props.idCama}`)
-      : (url = `${import.meta.env.VITE_APP_URL}/habitaciones/${
-          props.idHabitacion
-        }`);
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        api: `${import.meta.env.VITE_API}`,
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setProductState(data.estado);
-        setIsLoading(false);
-        console.log(data);
-      })
-      .catch((error) => {
-        if (error.response) {
-          const { response } = error;
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.headers);
-        }
-      });
-  }, []);
 
   const handleStateUpdate = (e) => {
     let stateSelect = document.getElementById('stateSelect');

@@ -15,6 +15,7 @@ import Calendar from '../../components/Calendar/Calendar';
 import NavBar from '../../components/NavBar/NavBar';
 
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import BookingHistory from '../../components/BookingHistory/BookingHistory';
 
 const Prueba = () => {
   return (
@@ -23,7 +24,7 @@ const Prueba = () => {
         <NavBar />
       </div>
       <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <Calendar />
+        <BookingHistory />
       </div>
     </>
   );

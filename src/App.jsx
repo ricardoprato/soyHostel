@@ -20,7 +20,8 @@ function App() {
           <Route path="/changepassword" element={<NewPassword />} />
           <Route path="/createroom" element={<CreateRoom />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
+        {/* <Route path="/admin" element={<Admin />} /> */}
+        <Route path="/admin" element={<Prueba />} />
       </Routes>
     </BrowserRouter>
   );
