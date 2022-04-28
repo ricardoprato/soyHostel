@@ -5,11 +5,7 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-
-
 const Login = () => {
-
-
   const { setToken } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -26,8 +22,9 @@ const Login = () => {
     });
     let res2 = await res.json();
     let token = res2.token;
+    window.localStorage.setItem('imgAvatar', res2.avatar);
+    window.localStorage.setItem('nombrerol', res2.rol);
 
-    console.log('generalresponse', res2);
     if (token || localStorage.getItem('tokenProp')) {
       setToken(true);
     }

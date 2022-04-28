@@ -14,7 +14,7 @@ const ReceptionNavBar = ({ children }) => {
   console.log('TOKENENNAVBAR', token);
 
   const handleScroll = () => {
-    if (window.scrollY > 0) {
+    if (window.scrollY > 0) { 
       setActive(true);
     } else {
       setActive(false);
@@ -73,36 +73,32 @@ const ReceptionNavBar = ({ children }) => {
               </g>
             </svg>
           </NavLink>
-          <div className={styles.nav_flex}>
-            <NavLink className={styles.nav_link} to="/createroom">
-              <i className="bi bi-compass"></i>
-              Create Room
-            </NavLink>
-            <NavLink className={styles.nav_link} to="#">
-              <i className="bi bi-info-circle"></i>
-              Delete Room
-            </NavLink>
-            <NavLink className={styles.nav_link} to="#">
-              <i className="bi bi-envelope"></i>
-              Create Admin/Recepcionist
-            </NavLink>
-            <NavLink className={styles.nav_link} to="#">
-              <i className="bi bi-compass"></i>
-              Create Reserve
-            </NavLink>
-            <div className={styles.containerSearch}>
-              <form className={styles.form} onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Search reserve"
-                  onChange={(e) => handleChange(e)}
-                  name="name"
-                ></input>
-                <button className={styles.iconSearch} type="submit">
-                  <i className="bi bi-search"></i>
-                </button>
-              </form>
-            </div>
+
+          <NavLink className={styles.nav_link} to="/listrooms">
+            <i className="bi bi-info-circle"></i>
+            Delete/Edit Room
+          </NavLink>
+          <NavLink className={styles.nav_link} to="#">
+            <i className="bi bi-envelope"></i>
+            Create Admin/Receptionist
+          </NavLink>
+          <NavLink className={styles.nav_link} to="/bookfromreception">
+            <i className="bi bi-compass"></i>
+            Create booking
+          </NavLink>
+          <div className={styles.containerSearch}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Search booking"
+                onChange={(e) => handleChange(e)}
+                name="name"
+              ></input>
+              <button className={styles.iconSearch} type="submit">
+                <i className="bi bi-search"></i>
+              </button>
+            </form>
+
           </div>
           <div className={styles.nav_flex}>
             {/* <img src={avatar} alt="avatar" />

@@ -6,9 +6,10 @@ import styles from '../../components/Register/Register.module.css';
 import Login from '../../components/Login/Login';
 import Google from '../../components/Google/Google';
 import FilterBar from '../../components/FilterBar/FilterBar';
-import Booking from '../../components/Booking/Booking';
-import CreateRoom from '../../components/CreateRoom/CreateRoom';
+import BookingFromReception from '../../components/BookingFromReception/BookingFromReception';
+import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
+
 import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
 import Calendar from '../../components/Calendar/Calendar';
@@ -17,15 +18,15 @@ import NavBar from '../../components/NavBar/NavBar';
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
 
+
+
 const Prueba = () => {
   return (
     <>
-      <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <NavBar />
-      </div>
-      <div style={{ marginTop: '150px', marginRight: '50px' }}>
-        <BookingHistory />
-      </div>
+
+      {/* <Google /> */}
+      <Stripe />
+
     </>
   );
 };
