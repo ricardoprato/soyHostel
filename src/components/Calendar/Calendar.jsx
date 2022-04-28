@@ -117,9 +117,6 @@ export default function Calendar() {
 
   useEffect(() => {
     allRooms.length && getInitialState();
-    let token = localStorage.getItem('tokenProp');
-    let dni = bycript.decoder(token);
-    console.log(dni);
   }, [allRooms]);
 
   const [data, setData] = useState({});

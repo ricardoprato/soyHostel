@@ -17,16 +17,13 @@ import NavBar from '../../components/NavBar/NavBar';
 
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
-
-
+import Stripe from '../../components/Stripe/Stripe';
 
 const Prueba = () => {
   return (
     <>
-
       {/* <Google /> */}
       <Stripe />
-
     </>
   );
 };
