@@ -74,6 +74,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  let aux = [];
   const getAllRooms = () => {
     // console.log(import.meta.env.VITE_APP_URL)
     // console.log(import.meta.env.VITE_API)
@@ -85,8 +86,6 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("getAllRooms");
-        // console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })

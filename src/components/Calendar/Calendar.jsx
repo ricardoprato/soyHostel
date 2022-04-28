@@ -54,7 +54,7 @@ export default function Calendar() {
           tasks: [],
           dataSet: {},
         };
-        producto.title = room.nombre;
+        producto.title = room.nombre.toUpperCase();
         producto.id = room?.id;
         setCalendarState((prev) => [...prev, producto]);
         // state.push(producto);
@@ -94,7 +94,11 @@ export default function Calendar() {
             title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
-            dataSet: { ...reserva, idCama: cama.id, nombreCama: cama?.nombre },
+            dataSet: {
+              ...reserva,
+              idCama: cama.id,
+              nombreCama: cama?.nombre,
+            },
           };
           let stateCopy = calendarState.map((producto) => {
             if (producto.id == cama.id) {
@@ -118,8 +122,6 @@ export default function Calendar() {
   const [data, setData] = useState({});
   const taskClick = (e) => {
     setData(e.dataSet);
-    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaa');
-    console.log(e.dataSet);
     setLocalModal((prevState) => !prevState);
   };
 
@@ -127,11 +129,11 @@ export default function Calendar() {
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
     setLocaldate({ ...localDate, start: from, end: to });
-    if (localDate.start !== null && localDate.end !== null) {
-      // setTimeout(() => {
-      getReservations(from, to);
-      // }, 700);
-      console.log(reservations);
+
+    if (from !== '' && to !== '') {
+      if (Date.parse(from) <= Date.parse(to)) {
+        getReservations(from, to);
+      }
     }
   };
   const showReservations = () => {

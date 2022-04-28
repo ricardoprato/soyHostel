@@ -7,6 +7,7 @@ import Register from './components/Register/Register';
 import Login from './components/Login/Login';
 import NewPassword from './components/NewPassword/NewPassword';
 import CreateRoom from './components/CreateRoom/CreateRoom';
+import Admin from './pages/Admin/Admin';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           <Route path="/changepassword" element={<NewPassword />} />
           <Route path="/createroom" element={<CreateRoom />} />
         </Route>
-        <Route path="/reserva" element={<Prueba />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

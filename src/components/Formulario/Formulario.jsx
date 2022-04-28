@@ -1,138 +1,133 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Button from '../../components/Button/Button';
+import styles from './Formulario.module.css';
 // import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-const [productState, setProductState] = useState('');
-
 //para mi por buenas practicas las funciones no tienen que estar aca peeeeeeeeero.....
-const patchState = (state, id) => {
-  let token = localStorage.getItem('tokenProp');
-  fetch(`https://back-end-1407.herokuapp.com/camas/${id}`, {
-    method: 'PATCH',
-    headers: {
-      api: `${import.meta.env.VITE_API}`,
-      Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(state),
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-  // quiero que haga algo mas aca en el front???
-}; //mandar el saldo y el estado
-const getBedData = (id) => {
-  let token = localStorage.getItem('tokenProp');
-  fetch(
-    `${
-      import.meta.env.VITE_APP_URL
-    }/reservas/byFecha/?ingreso=${date1}&egreso=${date2}`,
-    {
-      method: 'GET',
-      headers: {
-        api: `${import.meta.env.VITE_API}`,
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      productState(data);
-    })
-    .catch((error) => {
-      if (error.response) {
-        const { response } = error;
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.headers);
-      }
-    });
-};
-
-const getRoomData = (id) => {
-  let token = localStorage.getItem('tokenProp');
-  fetch(
-    `${
-      import.meta.env.VITE_APP_URL
-    }/reservas/byFecha/?ingreso=${date1}&egreso=${date2}`,
-    {
-      method: 'GET',
-      headers: {
-        api: `${import.meta.env.VITE_API}`,
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      productState(data);
-    })
-    .catch((error) => {
-      if (error.response) {
-        const { response } = error;
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.headers);
-      }
-    });
-};
-
-// useEffect(() => {
-//   getRoomData(id);
-//   getBedData(id);
-// }, []);
 
 function Formulario({ props }) {
+  const [productState, setProductState] = useState('');
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const patchState = (state, id) => {
+    let token = localStorage.getItem('tokenProp');
+    fetch(`https://back-end-1407.herokuapp.com/camas/${id}`, {
+      method: 'PATCH',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(state),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+    // quiero que haga algo mas aca en el front???
+  }; //mandar el saldo y el estado
+  useEffect(() => {
+    let token = localStorage.getItem('tokenProp');
+    let url = '';
+    props.idCama
+      ? (url = `${import.meta.env.VITE_APP_URL}/camas/${props.idCama}`)
+      : (url = `${import.meta.env.VITE_APP_URL}/habitaciones/${
+          props.idHabitacion
+        }`);
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setProductState(data.estado);
+        setIsLoading(false);
+        console.log(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  }, []);
+
   const handleStateUpdate = (e) => {
-    patchState(e.target.value, props.idcama);
+    let stateSelect = document.getElementById('stateSelect');
+    let state = stateSelect.options[stateSelect.selectedIndex].value;
+    let id = props.idCama || props.idHabitacion;
+    patchState(state, id);
+    console.log(state);
+    // patchState(state, props.idcama);
+    //delete reservas
   };
 
   return (
-    <>
+    <div className={styles.formulario}>
       <div>
         <div>
           <h1>BOOKING DATA</h1>
         </div>
-        <h1>
+
+        <p>
           Costumer: {props.Usuario.nombre} {props.Usuario.apellido}
-        </h1>
-        <h1>User's DNI: {props.UsuarioDni} </h1>
-        <h1>Check In: {props.fecha_ingreso.substring(0, 10)} </h1>
-        <h1>Check Out: {props.fecha_egreso.substring(0, 10)} </h1>
+        </p>
+
+        <p>User's DNI: {props.UsuarioDni} </p>
+
+        <p>Check In: {props.fecha_ingreso.substring(0, 10)} </p>
+        <p>Check Out: {props.fecha_egreso.substring(0, 10)} </p>
+
         {props.idCama ? (
-          <h1>Bed: {props.nombreCama.toUpperCase()} </h1>
+          <p>Bed: {props.nombreCama.toUpperCase()} </p>
         ) : props.idHabitacion ? (
-          <h1>Room: {props.nombreHabitacion.toUpperCase()}</h1>
+          <p>Room: {props.nombreHabitacion.toUpperCase()}</p>
         ) : null}
+
         {props.idCama ? (
-          <h1>Bed Id: {props.idCama} </h1>
+          <p>Bed Id: {props.idCama} </p>
         ) : props.idHabitacion ? (
-          <h1>Room Id: {props.idHabitacion} </h1>
+          <p>Room Id: {props.idHabitacion} </p>
         ) : null}
-        <h1>Booking Id: {props.id}</h1>
+
+        <p>Booking Id: {props.id}</p>
 
         <div>
-          <h1>Balance: $ {props.saldo}</h1>
-          <h1>New Balance:</h1>
-          <input type="number" name="saldo" />
+          <p>Balance: $ {props.saldo}</p>
+          <p>New Balance:</p>
+          <input type="number" placeholder="$$" name="saldo" />
         </div>
       </div>
 
       <div>
-        <h1>Room State</h1>
-        <select>
-          <h1>State: {productState}</h1>
-          <option value="reservada">Booked</option>
-          <option value="ocupada">Ocupide</option>
-          <option value="libre">Available</option>
-          <option value="mantenimiento">For Manteinance</option>
+        {/* <p>Room State {props.estado}</p> */}
+        {/* {isLoading ? (
+          <p>Cargando...</p>
+        ) : productState === 'libre' ? (
+          <p>State: Available</p>
+        ) : productState === 'ocupada' ? (
+          <p>State: Occupied</p>
+        ) : productState === 'reservada' ? (
+          <p>State: Booked</p>
+        ) : productState === 'mantenimiento' ? (
+          <p>State: For Manteinance</p>
+        ) : null} */}
+        <select id="stateSelect">
+          <option value="booked">Booked</option>
+          <option value="occupide">Occupide</option>
+          <option value="closed">Closed</option>
+          <option value="for manteinance">For Manteinance</option>
         </select>
       </div>
 
       <button onClick={handleStateUpdate}>Update</button>
-    </>
+    </div>
   );
 }
 
