@@ -75,7 +75,6 @@ function Formulario({ props }) {
       </div>
 
       <div>
-        {/* <p>Room State {props.estado}</p> */}
         {/* {isLoading ? (
           <p>Cargando...</p>
         ) : productState === 'libre' ? (
@@ -87,6 +86,7 @@ function Formulario({ props }) {
         ) : productState === 'mantenimiento' ? (
           <p>State: For Manteinance</p>
         ) : null} */}
+        <p>Room State {props?.estado}</p>
         <select id="stateSelect">
           <option value="booked">Booked</option>
           <option value="occupide">Occupide</option>

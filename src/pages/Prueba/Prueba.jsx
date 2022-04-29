@@ -22,8 +22,7 @@ import Stripe from '../../components/Stripe/Stripe';
 const Prueba = () => {
   return (
     <>
-      {/* <Google /> */}
-      <Stripe />
+      <BookingHistory />
     </>
   );
 };
