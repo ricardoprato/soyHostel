@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../PopupChangePw/PopupChangePw.module.css';
 import Logo from '../../Images/fondo.png';
 
-const PopupChangePw = ({ handleClick }) => {
+const PopupChangePw = ({ handleClick, titleToChangePw }) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
   let url = import.meta.env.VITE_APP_URL;
@@ -66,9 +66,7 @@ const PopupChangePw = ({ handleClick }) => {
                 ></i>
               </button>
               <img className={styles.img} src={Logo} alt="" />
-              <label htmlFor="email">
-                Enter your email to recovery your password :
-              </label>
+              <label htmlFor="email">{titleToChangePw}</label>
               <Field
                 type="text"
                 id="email"

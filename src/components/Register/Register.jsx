@@ -170,11 +170,12 @@ const Register = () => {
 
             return errores;
           }}
-          onSubmit={(valores, { resetForm }) => {
-            sendData(valores);
+          onSubmit={async (valores, { resetForm }) => {
+            await sendData(valores);
             resetForm();
             console.log('INFO', valores);
             cambiarFormularioEnviado(true);
+
             setTimeout(
               () => cambiarFormularioEnviado(false),
 

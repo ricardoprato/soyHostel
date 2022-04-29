@@ -96,11 +96,9 @@ export default function CheckoutForm() {
       body: JSON.stringify({ toBack, infoPayment }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('datafetch>> ', data);
-      })
-      .catch((error) => console.log('error desde el back', error));
 
+      .catch((error) => console.log('error desde el back', error));
+    console.log('infoPaymentrodri>> ', { toBack, infoPayment });
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will

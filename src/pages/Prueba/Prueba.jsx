@@ -18,16 +18,16 @@ import NavBar from '../../components/NavBar/NavBar';
 
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
-
-
+import InfoUser from '../../components/InfoUser/InfoUser';
+import RegisterForAdmin from '../../components/RegisterForAdmin/RegisterForAdmin';
 
 const Prueba = () => {
   return (
     <>
-
+      <InfoUser />
       {/* <Google /> */}
+      {/* <RegisterForAdmin /> */}
       <Stripe />
-
     </>
   );
 };

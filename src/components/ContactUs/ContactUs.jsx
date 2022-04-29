@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../ContactUs/ContactUs.module.css';
 import Logo from '../../Images/fondo.png';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
+  const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
 
@@ -161,6 +163,7 @@ const ContactUs = () => {
                 )}
               />
             </div>
+            <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_} />
             <button type="submit">Send</button>
             {formularioEnviado && (
               <p className={styles.exito}>Formulario enviado con exito!</p>

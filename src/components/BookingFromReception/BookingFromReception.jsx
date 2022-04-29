@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from './Booking.module.css';
+import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 console.log(countries);
@@ -51,9 +51,7 @@ const Booking = () => {
   //   fetchDetails();
   // }, []);
 
-  if(allRooms?.length === 0) getAllRooms()
-
-
+  if (allRooms?.length === 0) getAllRooms();
 
   const handleRoomSelect = () => {
     //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
@@ -65,7 +63,7 @@ const Booking = () => {
       });
     } else {
       let aux2 = aux.Camas.map((c) => c.id);
-      console.log('BookingFromReception camas ids -->', aux2)
+      console.log('BookingFromReception camas ids -->', aux2);
       setRoom({
         private: false,
         camas: aux.cantCamas, //cantidad
@@ -73,9 +71,9 @@ const Booking = () => {
       });
     }
   };
-  console.log('allRooms desde BookingFromReception -->', allRooms)
+  console.log('allRooms desde BookingFromReception -->', allRooms);
   return (
-    <>
+    <div className={styles.register}>
       <Formik
         initialValues={{
           name: '',
@@ -205,7 +203,9 @@ const Booking = () => {
       >
         {({ errors }) => (
           <Form className={styles.formulario}>
-            <div> {/* First Name */}
+            <div>
+              {' '}
+              {/* First Name */}
               <label htmlFor="name">First Name</label>
               <Field
                 type="text"
@@ -220,7 +220,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Last Name */}
+            <div>
+              {' '}
+              {/* Last Name */}
               <label htmlFor="lastName">Last Name</label>
               <Field
                 type="text"
@@ -235,7 +237,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Document type */}
+            <div>
+              {' '}
+              {/* Document type */}
               <label htmlFor="typeofdni">Document type </label>
               <Field name="docType" as="select">
                 <option value="docType" id="AF">
@@ -261,7 +265,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* document number */}
+            <div>
+              {' '}
+              {/* document number */}
               <Field
                 type="text"
                 id="docNumber"
@@ -275,7 +281,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Birth date */}
+            <div>
+              {' '}
+              {/* Birth date */}
               <label htmlFor="birthDate">Birth date</label>
               <Field type="date" id="birthDate" name="birthDate" />
               <ErrorMessage
@@ -285,7 +293,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Email */}
+            <div>
+              {' '}
+              {/* Email */}
               <label htmlFor="email">Email </label>
               <Field
                 type="text"
@@ -300,7 +310,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Nationality */}
+            <div>
+              {' '}
+              {/* Nationality */}
               <label htmlFor="nationality">Nationality</label>
               <Field name="nationality" as="select">
                 {countries?.countries &&
@@ -317,7 +329,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Check-In / Out ---> al ingresar las 2 fechas deberia buscar disponibilidad entre esas fechas y luego al seleccionar habitacion y cama solo dar las opciones que estan disponibles*/}
+            <div>
+              {' '}
+              {/* Check-In / Out ---> al ingresar las 2 fechas deberia buscar disponibilidad entre esas fechas y luego al seleccionar habitacion y cama solo dar las opciones que estan disponibles*/}
               <label htmlFor="checkIn">Check-In</label>
               <Field type="date" id="checkIn" name="checkIn" />
               <ErrorMessage
@@ -335,7 +349,9 @@ const Booking = () => {
                 )}
               />
             </div>
-            <div> {/* Room Name */}
+            <div>
+              {' '}
+              {/* Room Name */}
               <label htmlFor="roomName">Room Name</label>
               <Field name="roomName" as="select" onChange={handleRoomSelect}>
                 <option value="roomName" id="AF">
@@ -356,7 +372,9 @@ const Booking = () => {
               />
             </div>
             {room?.privada ? null : ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
-              <div> {/* Select bed */}
+              <div>
+                {' '}
+                {/* Select bed */}
                 <Field name="bedId" as="select">
                   <option value="roomName" id="AF">
                     Select bed
@@ -379,7 +397,7 @@ const Booking = () => {
           </Form>
         )}
       </Formik>
-    </>
+    </div>
   );
 };
 
