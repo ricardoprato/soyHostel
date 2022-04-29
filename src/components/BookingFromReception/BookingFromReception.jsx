@@ -155,38 +155,32 @@ const Booking = () => {
   if(dataForCardsCopy?.length) localAvailable = [...dataForCardsCopy]
   console.log('localAvailable --> ', localAvailable)
 
-  const handleRoomSelect = (roomId) => {
+  const handleRoomSelect = (e) => {
     //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    // console.log('roomId --> ', roomId)
+    // console.log('e --> ', e.target.value)
     // console.log('dataForCardsCopy --> ', dataForCardsCopy)
     // console.log('dataForCardsCopy o id --> ', dataForCardsCopy[0].id)
-    // console.log('valores --> ', values)
-
-    let aux = localAvailable.filter((r) => r.id === Number(roomId));
-    // console.log('habitacion filtrada -->', aux)
+    console.log('e.target.value --> ')
+    console.log(e.target.value)
+    console.log('localAvailable --> ', localAvailable)
+    let aux = localAvailable.filter((r) => r.id === Number(e.target.value));
+    console.log('habitacion filtrada -->', aux)
     if (aux[0].privada === true) {
       setRoom({
         private: true,
         id: aux[0].id,
       });
-      // console.log('room --> ', room)
     } else {
-      // console.log('aux --> ', aux)
       let aux2 = [];
       let i = 1;
-      // console.log('aux2 --> ',aux2)
       aux[0]?.bedIds.forEach(c => {
         aux2.push({cama: i, id: c.camaId});
         i++;
       });
-      // console.log('BookingFromReception room id -->', roomId)
       setRoom({
         private: false,
         camas: [...aux2], //cantidad
-
       });
-     
-      // console.log('room --> ', room)
     }
   };
 
@@ -328,13 +322,13 @@ const Booking = () => {
 
           <div> Select Room:
             <label htmlFor="roomIds">Room Name</label>
-            <select name="roomIds" as="select" onChange={(e) => handleRoomSelect(e)}>
-              <option value="roomIds" id="AF">
+            <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
+              <option value="roomIds">
                 Elegir opción
               </option>
               {localAvailable?.length &&
                 localAvailable?.map((r) => (
-                  <option key={r.id} value={r.id} id="AF">
+                  <option key={r.id} value={r.id}>
                     {r.nombre}
                   </option>
                 ))}
@@ -344,13 +338,13 @@ const Booking = () => {
           {room?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
             <div> {/* Select bed */}
               <label htmlFor="bedId">Bed </label>
-              <select name="bedId" as="select" onChange={(e) => handleBedSelect(e)}>
-                <option value="bedId" id="AF">
+              <select name="bedId" onChange={(e) => handleBedSelect(e)}>
+                <option value="bedId">
                   Select bed
                 </option>
                 {room?.camas?.length &&
                 room?.camas.map((r) => (
-                  <option key={r.id} value={r.id} id="AF">
+                  <option key={r.id} value={r.id}>
                     {r.cama}
                   </option>))}
               </select>
