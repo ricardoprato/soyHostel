@@ -25,8 +25,8 @@ function App() {
           <Route path="/listrooms" element={<ListRooms />} />
           <Route path="/bookfromreception" element={<BookingFromReception />} />
         </Route>
-        {/* <Route path="/admin" element={<Admin />} /> */}
-        <Route path="/admin" element={<Prueba />} />
+        <Route path="/reserva" element={<Prueba />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

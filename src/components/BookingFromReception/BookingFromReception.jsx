@@ -10,70 +10,99 @@ const Booking = () => {
     filteredAvailableBeds,
     allRooms,
     filteredRooms,
+    dataForCardsCopy,
     getAllRooms,
     dataForCards,
+    getFilteredBeds,
     genDataForCards,
   } = useContext(GlobalContext);
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
-  const [rooms, setRooms] = useState([]);
+  const [toBack, setToBack] = useState([]);
+  let [cart, setCart] = useState([]);
   const [room, setRoom] = useState({
-    private: true,
+    private: null,
     camas: 0, //cantidad
     id: [], //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
   });
+  // const [localDate, setLocaldate] = useState({
+  //   checkIn: undefined,
+  //   checkOut: undefined,
+  //   roomName: undefined
+  // });
+  const [ values, setValues ] = useState({
+    checkIn: 'nada',
+    checkOut: 'nada',
+  })
+
   const today = new Date();
 
-  // const fetchDetails = () => {
-  //   let token = localStorage.getItem('tokenProp');
-  //   fetch(`${import.meta.env.VITE_APP_URL}/habitaciones`,
-  //   {
-  //     method: 'GET',
-  //     headers: {
-  //       api: `${import.meta.env.VITE_API}`,
-  //       Authorization: 'Bearer ' + token,
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => setRooms((prev) => data))
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         const { response } = error;
-  //         console.log(response.data);
-  //         console.log(response.status);
-  //         console.log(response.headers);
-  //       }
-  //     });
-  // };
+  useEffect(() => {
+    allRooms.length === 0 && getAllRooms();
+  }, [allRooms]);
 
-  // useEffect(() => {
-  //   fetchDetails();
-  // }, []);
+  useEffect(() => {
+    filteredAvailableBeds?.length > 0 && genDataForCards();
+  }, [filteredAvailableBeds]);
 
-  if(allRooms?.length === 0) getAllRooms()
+  // console.log('dataforCards --> ', dataForCardsCopy)
 
-
-
-  const handleRoomSelect = () => {
+  const handleRoomSelect = (roomId) => {
     //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    let aux = allRooms?.filter((r) => r.id === valores.roomName);
-    if (aux.privada) {
+    // console.log('roomId --> ', roomId)
+    // console.log('dataForCardsCopy --> ', dataForCardsCopy)
+    // console.log('dataForCardsCopy o id --> ', dataForCardsCopy[0].id)
+    // console.log('valores --> ', values)
+
+    let aux = dataForCardsCopy.filter((r) => r.id === Number(roomId));
+    // console.log('habitacion filtrada -->', aux)
+    if (aux[0].privada === true) {
       setRoom({
         private: true,
-        id: aux.id,
+        id: aux[0].id,
       });
+      // console.log('room --> ', room)
     } else {
-      let aux2 = aux.Camas.map((c) => c.id);
-      console.log('BookingFromReception camas ids -->', aux2)
+      // console.log('aux --> ', aux)
+      let aux2 = [];
+      let i = 1;
+      // console.log('aux2 --> ',aux2)
+      aux[0]?.bedIds.forEach(c => {
+        aux2.push({cama: i, id: c.camaId});
+        i++;
+      });
+      // console.log('BookingFromReception room id -->', roomId)
       setRoom({
         private: false,
-        camas: aux.cantCamas, //cantidad
-        id: aux2,
+        camas: [...aux2], //cantidad
+
       });
+     
+      // console.log('room --> ', room)
     }
   };
-  console.log('allRooms desde BookingFromReception -->', allRooms)
+
+  const handleClick = () => {
+    getFilteredBeds(values.checkIn, values.checkOut); //esto nos carga filteredAvailableBeds
+    setTimeout(() => {
+      genDataForCards();
+    }, 2000);
+    // filteredCopy?.length && console.log('BookingFromReception filteredCopy --> ', filteredCopy)
+  };
+
+  const handleAddBed = () => {
+    e.preventDefault()
+    let auxCart = 
+    setCart()
+  }
+  // console.log('values fuera de formik --> ', values)
+
+  const handleSubmit = (valores) => {
+    console.log('submit --> ', valores)
+  }
+
+  // dataForCardsCopy?.length && console.log('BookingFromReception dataForCardsCopy --> ', dataForCardsCopy)
+  // console.log('allRooms desde BookingFromReception -->', allRooms)
   return (
     <>
       <Formik
@@ -85,13 +114,14 @@ const Booking = () => {
           birthDate: '',
           nationality: '',
           email: '',
-          roomName: '',
+          roomIds: '',
           bedId: '',
           checkIn: '',
           checkOut: '',
         }}
         validate={(valores) => {
           let errores = {};
+          // console.log('valores dentro de formik --> ', valores)
 
           if (!valores.name) {
             errores.name = 'Please enter a name';
@@ -100,10 +130,10 @@ const Booking = () => {
           }
 
           // Validacion lastname
-          if (!valores.lastname) {
-            errores.lastname = 'Please enter a lastname';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastname)) {
-            errores.lastname =
+          if (!valores.lastName) {
+            errores.lastName = 'Please enter a lastname';
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastName)) {
+            errores.lastName =
               'The lastname can only contain letters and spaces';
           }
 
@@ -142,26 +172,33 @@ const Booking = () => {
             console.log(valores.checkIn);
             console.log(today.toLocaleDateString('en-CA'));
             errores.checkIn = 'CheckIn cant be in the past';
+          } else {
+            setValues({...values, checkIn: valores.checkIn})
           }
 
           if (!valores.checkOut) {
             errores.checkOut = 'Please enter checkOut date';
           } else if (valores.checkOut <= valores.checkIn) {
             errores.checkOut = 'Checkout has to be after checkIn';
+          }else {
+            setValues({...values, checkOut: valores.checkOut})
           }
 
-          if (!valores.roomName) {
-            errores.roomName = 'Please select room';
+          if (!valores.roomIds) {
+            errores.roomIds = 'Please select room';
+          }else{
+            handleRoomSelect(valores.roomIds)
+            // console.log('fdsbjhfibvsaifs ----> ', valores.roomIds)
           }
 
           if (!valores.bedId) {
-            if (!valores.roomName) {
+            if (!valores.roomIds) {
               errores.bedId = 'Please enter a room first';
             } else {
               errores.bedId = 'Please select a bed';
             }
           }
-
+          // console.log('values fuera de formik --> ', values)
           // Validacion birthdate
           var actual = new Date();
 
@@ -193,6 +230,7 @@ const Booking = () => {
         }}
         onSubmit={(valores, { resetForm }) => {
           // Lucho, para que recibe valores esta funcion si no los usa?
+          handleSubmit(valores)
           resetForm();
           console.log('form has been sent');
           cambiarFormularioEnviado(true);
@@ -334,35 +372,41 @@ const Booking = () => {
                   <div className={styles.error}>{errors.checkOut}</div>
                 )}
               />
+              <button onClick={(e)=> handleClick()}>get available</button> 
             </div>
             <div> {/* Room Name */}
-              <label htmlFor="roomName">Room Name</label>
-              <Field name="roomName" as="select" onChange={handleRoomSelect}>
-                <option value="roomName" id="AF">
+              <label htmlFor="roomIds">Room Name</label>
+              <Field name="roomIds" as="select" >
+                <option value="roomIds" id="AF">
                   Elegir opción
                 </option>
-                {allRooms &&
-                  allRooms?.map((r) => (
+                {dataForCardsCopy?.length &&
+                  dataForCardsCopy?.map((r) => (
                     <option key={r.id} value={r.id} id="AF">
                       {r.nombre}
                     </option>
                   ))}
               </Field>
               <ErrorMessage
-                name="roomName"
+                name="roomIds"
                 component={() => (
-                  <div className={styles.error}>{errors.roomName}</div>
+                  <div className={styles.error}>{errors.roomIds}</div>
                 )}
               />
             </div>
-            {room?.privada ? null : ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
+            {room?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
               <div> {/* Select bed */}
+                <label htmlFor="bedId">Bed </label>
                 <Field name="bedId" as="select">
-                  <option value="roomName" id="AF">
+                  <option value="bedId" id="AF">
                     Select bed
                   </option>
+                  {room?.camas?.length &&
+                  room?.camas.map((r) => (
+                    <option key={r.id} value={r.id} id="AF">
+                      {r.cama}
+                    </option>))}
                 </Field>
-                <label htmlFor="bedId">Bed </label>
                 <ErrorMessage
                   name="bedId"
                   component={() => (
@@ -370,9 +414,10 @@ const Booking = () => {
                   )}
                 />
               </div>
-            )}
+            ): null}
+            <button onClick={()=>handleAddBed()}>add to booking</button>
 
-            <button type="submit">Send</button>
+            <button type="submit" >Send</button>
             {formularioEnviado && (
               <p className="exito">Formulario enviado con exito!</p>
             )}
