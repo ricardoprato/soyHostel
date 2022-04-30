@@ -1,34 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-export default function EditRoom() {
-  const { allRooms, getAllRooms } = useContext(GlobalContext);
-  const navigate = useNavigate();
-
-  useEffect(async () => {
-    await getAllRooms();
-    console.log('allrooms', allRooms);
-  }, []);
-
-  const handleEditClick = (id, e) => {
-    navigate(`/editroom/${id}`);
+export default function EditRoom(props) {
+  const handleEditClick = () => {
+    console.log('props en EditRoom--> ', props);
   };
+  console.log('props name--> ', props.props.nombre);
 
   return (
     <div>
-      {allRooms?.map((r) => (
-        <div key={r.id}>
-          <ul>
-            <li>{r.nombre}</li>
-            <li>{r.cantCamas}</li>
-            <li>{r.comodidades}</li>
-            <li>{r.descripcion}</li>
-            <li>{r.precio}</li>
-            <button onClick={() => handleEditClick(r.id)}>Edit</button>
-          </ul>
-        </div>
-      ))}
+      <div key={props.id}>
+        <p>{props.props.nombre}</p>
+        <p>{props.props.cantCamas}</p>
+        <p>{props.props.comodidades}</p>
+        <p>{props.props.descripcion}</p>
+        <p>{props.props.precio}</p>
+        <button onClick={() => handleEditClick(props.id)}>Edit</button>
+      </div>
     </div>
   );
 }

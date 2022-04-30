@@ -10,10 +10,10 @@ const ContactUs = () => {
   const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
-
+  let url = import.meta.env.VITE_APP_URL;
   //FALTA IMPLEMENTAR EL FETCH A LA RUTA QUE ME DE ERIC (ASI LE ENVIAMOS LOS DATOS DE ESTE FORMULARIO)
   let sendData = async (valores) => {
-    let res = await fetch('https://backpfhenryv2.herokuapp.com' + '/contacto', {
+    let res = await fetch(`${url}` + '/contacto', {
       method: 'POST',
       headers: {
         api: `${api}`,

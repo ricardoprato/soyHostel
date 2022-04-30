@@ -26,18 +26,6 @@ const Register = () => {
     console.log('RESPUESTABACK', res2);
   };
 
-  // let [showPaises, setShowPaises] = useState([]);
-  // let todoslospaises;
-  // let paises;
-  // useEffect(async () => {
-  //   paises = await fetch(
-  //     'https://back-end-1407.herokuapp.com' + '/nacionalidades'
-  //   );
-  //   todoslospaises = await paises.json();
-  //   console.log('paises>>', todoslospaises);
-  //   setShowPaises(todoslospaises);
-  // }, []);
-
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   // const [dataProfile, setDataProfile] = useState({});
   const [modal, setModal] = useState(false);

@@ -5,8 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Avatar() {
-  const { setToken, token, googleData, rol, setRol } =
-    useContext(GlobalContext);
+  const { setToken, token, rol, setRol } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
   setRol(localStorage.getItem('nombrerol'));

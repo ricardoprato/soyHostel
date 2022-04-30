@@ -10,9 +10,10 @@ function Formulario({ props }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  let url = VITE_APP_URL;
   const patchState = (state, id) => {
     let token = localStorage.getItem('tokenProp');
-    fetch(`https://back-end-1407.herokuapp.com/camas/${id}`, {
+    fetch(`${url}` + `/camas/${id}`, {
       method: 'PATCH',
       headers: {
         api: `${import.meta.env.VITE_API}`,

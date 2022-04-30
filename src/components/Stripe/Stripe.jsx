@@ -16,12 +16,16 @@ const Stripe = () => {
   const [clientSecret, setClientSecret] = useState('');
   const { dataPayment, setDataPayment } = useContext(GlobalContext);
   let token = window.localStorage.getItem('tokenProp');
+
+  let url = import.meta.env.VITE_APP_URL;
+  let api = import.meta.env.VITE_API;
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch('https://prueba-google-auth.herokuapp.com' + '/pagos/checkout', {
+    fetch(`${url}` + '/pagos/checkout', {
       method: 'POST',
       headers: {
-        api: `${import.meta.env.VITE_API}`,
+        api: `${api}`,
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
@@ -31,7 +35,7 @@ const Stripe = () => {
       .then((data) => {
         setClientSecret(data.clientSecret),
           // data.cart,
-          console.log('datafetch, secret.>> ', data);
+          console.log('secret.>> ', data);
       })
       .catch((error) => console.log('error desde el back', error));
   }, []);

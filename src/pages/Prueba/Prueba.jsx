@@ -24,17 +24,20 @@ import ListRooms from '../../components/RoomsAdmin/ListRooms';
 import EditRoom from '../../components/RoomsAdmin/EditRoom';
 import RoomDetails from '../../components/RoomDetails/RoomDetails';
 import PopupEditRoom from '../../components/PopupEditRoom/PopupEditRoom';
+import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
 
 const Prueba = () => {
   return (
     <>
-      <EditRoom />
-      <PopupEditRoom />
+      {/* <EditRoom />
+      <PopupEditRoom /> */}
+      {/* <FormEditRoom /> */}
       {/* <ListRooms /> */}
       {/* <InfoUser /> */}
       {/* <Google /> */}
       {/* <RegisterForAdmin /> */}
       {/* <Stripe /> */}
+      <CreateRoom />
     </>
   );
 };

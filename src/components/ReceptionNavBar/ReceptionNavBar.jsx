@@ -79,7 +79,7 @@ const ReceptionNavBar = ({ children }) => {
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
               </NavLink>
-              <NavLink className={styles.nav_link} to="#">
+              <NavLink className={styles.nav_link} to="/createadmin">
                 <i className="bi bi-envelope"></i>
                 Create Admin/Receptionist
               </NavLink>

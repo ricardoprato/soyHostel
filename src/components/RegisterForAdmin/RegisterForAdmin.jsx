@@ -23,22 +23,9 @@ const RegisterForAdmin = () => {
       body: JSON.stringify(valores),
     });
     let res2 = await res.json();
-    // error = res2.msg;
-    // alert(error);
+
     console.log('RESPUESTABACK', res2);
   };
-
-  // let [showPaises, setShowPaises] = useState([]);
-  // let todoslospaises;
-  // let paises;
-  // useEffect(async () => {
-  //   paises = await fetch(
-  //     'https://back-end-1407.herokuapp.com' + '/nacionalidades'
-  //   );
-  //   todoslospaises = await paises.json();
-  //   console.log('paises>>', todoslospaises);
-  //   setShowPaises(todoslospaises);
-  // }, []);
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   // const [dataProfile, setDataProfile] = useState({});

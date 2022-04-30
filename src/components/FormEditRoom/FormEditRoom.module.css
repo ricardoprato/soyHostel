@@ -1,0 +1,109 @@
+.register {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 50px;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.formulario {
+  min-width: 600px;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  border-radius: 5px;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.formulario label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f1f1f;
+}
+
+.formulario input,
+.formulario textarea {
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #e2e2e2;
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.formulario input:focus {
+  outline: none;
+  border: 2px solid #0085ff;
+}
+
+.error {
+  color: #e92b2d;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.formulario button[type='submit'] {
+  display: block;
+  background: #0085ff;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.3s ease all;
+}
+
+.formulario button[type='submit']:hover {
+  background: #0051ff;
+}
+
+.formulario .exito {
+  text-align: center;
+  font-size: 14px;
+  padding-top: 20px;
+  color: #02a802;
+}
+
+.img {
+  width: 150px;
+  margin-left: 195px;
+}
+
+.icon {
+  font-size: 2rem;
+  color: #212529;
+  transition: 03ms ease all;
+}
+
+.icon:hover {
+  color: #000000;
+}
+.buttonicon {
+  display: block;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.eye {
+  position: relative;
+}
+
+.buttoneye {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 35px;
+}
