@@ -1,23 +1,34 @@
-import React, { useContext } from 'react'
-import NavBar from '../NavBar/NavBar';
-import styles from './ConfirmDelete.module.css'
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-export default function EditRoom({props}) {
-  
-  console.log('propr desde EditRoom --> ', props)
-
+export default function EditRoom() {
   const { allRooms, getAllRooms } = useContext(GlobalContext);
-  
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    await getAllRooms();
+    console.log('allrooms', allRooms);
+  }, []);
+
+  const handleEditClick = (id, e) => {
+    navigate(`/editroom/${id}`);
+  };
+
   return (
-    <div className={styles.background}>
-      <NavBar/>
-      <div id="id_confrmdiv">
-        <h1>EDIT</h1>
-        <h3>Room id: {props.id}</h3>
-      </div>
-      {/* <button onClick={()=> handleConfirm()}>Yes</button> */}
-      
+    <div>
+      {allRooms?.map((r) => (
+        <div key={r.id}>
+          <ul>
+            <li>{r.nombre}</li>
+            <li>{r.cantCamas}</li>
+            <li>{r.comodidades}</li>
+            <li>{r.descripcion}</li>
+            <li>{r.precio}</li>
+            <button onClick={() => handleEditClick(r.id)}>Edit</button>
+          </ul>
+        </div>
+      ))}
     </div>
-  )
+  );
 }

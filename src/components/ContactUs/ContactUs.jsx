@@ -163,7 +163,11 @@ const ContactUs = () => {
                 )}
               />
             </div>
-            <ReCAPTCHA ref={recaptchaRef} sitekey={import.meta.env.VITE_} />
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LcP-rAfAAAAAAFLpXQIOnNTKEi0Yf0czPmBjtkn
+              "
+            />
             <button type="submit">Send</button>
             {formularioEnviado && (
               <p className={styles.exito}>Formulario enviado con exito!</p>

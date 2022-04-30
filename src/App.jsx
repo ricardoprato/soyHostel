@@ -12,6 +12,7 @@ import CreateRoom from './components/RoomsAdmin/CreateRoom';
 import ListRooms from './components/RoomsAdmin/ListRooms';
 import BookingFromReception from './components/BookingFromReception/BookingFromReception';
 import { GlobalContext } from './GlobalContext/GlobalContext';
+import PopupEditRoom from './components/PopupEditRoom/PopupEditRoom';
 
 function App() {
   const { rol, setRol } = useContext(GlobalContext);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/createroom" element={<CreateRoom />} />
           <Route path="/listrooms" element={<ListRooms />} />
           <Route path="/bookfromreception" element={<BookingFromReception />} />
+          <Route path="/editroom/:id" element={<PopupEditRoom />} />
         </Route>
         <Route path="/reserva" element={<Prueba />} />
         <Route

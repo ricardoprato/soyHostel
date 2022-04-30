@@ -20,14 +20,21 @@ import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
 import InfoUser from '../../components/InfoUser/InfoUser';
 import RegisterForAdmin from '../../components/RegisterForAdmin/RegisterForAdmin';
+import ListRooms from '../../components/RoomsAdmin/ListRooms';
+import EditRoom from '../../components/RoomsAdmin/EditRoom';
+import RoomDetails from '../../components/RoomDetails/RoomDetails';
+import PopupEditRoom from '../../components/PopupEditRoom/PopupEditRoom';
 
 const Prueba = () => {
   return (
     <>
-      <InfoUser />
+      <EditRoom />
+      <PopupEditRoom />
+      {/* <ListRooms /> */}
+      {/* <InfoUser /> */}
       {/* <Google /> */}
       {/* <RegisterForAdmin /> */}
-      <Stripe />
+      {/* <Stripe /> */}
     </>
   );
 };
