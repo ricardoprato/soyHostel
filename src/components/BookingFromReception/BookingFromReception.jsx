@@ -71,11 +71,11 @@ export function validate(input) {  /////// VALIDACiONES ////////////////////////
     errores.roomIds = 'Please select room';
   }
 
-  if (!input.bedId && input.private === false) {
+  if (!input.bedQuantity && input.private === false) {
     if (!input.roomIds) {
-      errores.bedId = 'Please enter a room first';
+      errores.bedQuantity = 'Please enter a room first';
     } else {
-      errores.bedId = 'Please select a bed';
+      errores.bedQuantity = 'Please select number of beds';
     }
   }
 
@@ -129,7 +129,7 @@ const Booking = () => {
     nationality: '',
     email: '',
     roomIds: '',
-    bedId: '',
+    bedQuantity: '',
     checkIn: '',
     checkOut: '',
   }
@@ -160,11 +160,12 @@ const Booking = () => {
     // console.log('e --> ', e.target.value)
     // console.log('dataForCardsCopy --> ', dataForCardsCopy)
     // console.log('dataForCardsCopy o id --> ', dataForCardsCopy[0].id)
-    console.log('e.target.value --> ')
-    console.log(e.target.value)
+    // console.log('e.target.value --> ')
+    // console.log(e.target.value)
     console.log('localAvailable --> ', localAvailable)
     let aux = localAvailable.filter((r) => r.id === Number(e.target.value));
     console.log('habitacion filtrada -->', aux)
+    setInput({...input, roomIds: e.target.value})
     if (aux[0].privada === true) {
       setRoom({
         private: true,
@@ -174,22 +175,30 @@ const Booking = () => {
       let aux2 = [];
       let i = 1;
       aux[0]?.bedIds.forEach(c => {
-        aux2.push({cama: i, id: c.camaId});
+        aux2.push(i);
         i++;
       });
       setRoom({
         private: false,
         camas: [...aux2], //cantidad
+        id: aux[0].id
       });
     }
   };
+
+  useEffect(()=>{
+    console.log('room --> ', room)
+  },[room])
+
+  useEffect(()=>{
+    console.log('input --> ', input)
+  },[input])
 
   let handleChange = (e) => {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
     let objError = validate({ ...input, [e.target.name]: e.target.value });
     setError(objError);
-    console.log(input);
   };
 
   const handleClick = (e) => {
@@ -337,18 +346,18 @@ const Booking = () => {
           </div>
           {room?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
             <div> {/* Select bed */}
-              <label htmlFor="bedId">Bed </label>
-              <select name="bedId" onChange={(e) => handleBedSelect(e)}>
-                <option value="bedId">
+              <label htmlFor="bedQuantity">Bed </label>
+              <select name="bedQuantity" onChange={(e) => handleChange(e)}>
+                <option value="bedQuantity">
                   Select bed
                 </option>
                 {room?.camas?.length &&
                 room?.camas.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.cama}
+                  <option key={r} value={r}>
+                    {r}
                   </option>))}
               </select>
-              {error.bedId && <p className={styles.error}>{error.bedId}</p>}
+              {error.bedQuantity && <p className={styles.error}>{error.bedQuantity}</p>}
             </div>
           ): null}
 
