@@ -1,9 +1,9 @@
 .formulario {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   margin-top: 50px;
-  max-height: 80vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 2rem;
+  background-color: white;
+  width: 100%;
+  padding: 20px;
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import Gantt from 'react-gantt-antd-rocket-pt';
 import 'react-gantt-antd-rocket-pt/lib/css/style.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
@@ -77,7 +77,6 @@ export default function Calendar() {
               ...reserva,
               idHabitacion: habitacion?.id,
               nombreHabitacion: habitacion?.nombre,
-              estado: habitacion?.estado,
             }, ///ojo aca el nombre de la habitación
           };
           let stateCopy = calendarState.map((producto) => {
@@ -99,7 +98,7 @@ export default function Calendar() {
               ...reserva,
               idCama: cama?.id,
               nombreCama: cama?.nombre,
-              estado: cama?.estado,
+              estado: reserva.estado,
             },
           };
           let stateCopy = calendarState.map((producto) => {
@@ -117,7 +116,7 @@ export default function Calendar() {
     getAllRooms();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     allRooms.length && getInitialState();
   }, [allRooms]);
 

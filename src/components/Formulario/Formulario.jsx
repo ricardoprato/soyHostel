@@ -9,10 +9,10 @@ function Formulario({ props }) {
   const [productState, setProductState] = useState('');
 
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log(props);
   const patchState = (state, id) => {
     let token = localStorage.getItem('tokenProp');
-    fetch(`https://back-end-1407.herokuapp.com/camas/${id}`, {
+    fetch(`https://back-end-1407.herokuapp.com/resrvas/${id}`, {
       method: 'PATCH',
       headers: {
         api: `${import.meta.env.VITE_API}`,
@@ -86,7 +86,10 @@ function Formulario({ props }) {
         ) : productState === 'mantenimiento' ? (
           <p>State: For Manteinance</p>
         ) : null} */}
-        <p>Room State {props?.estado}</p>
+        <p>Room State:</p>
+        <p> {props?.estado}</p>
+
+        <label>Update State: </label>
         <select id="stateSelect">
           <option value="booked">Booked</option>
           <option value="occupide">Occupide</option>
