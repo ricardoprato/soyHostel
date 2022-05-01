@@ -9,8 +9,7 @@ import NewPassword from './components/NewPassword/NewPassword';
 import Admin from './pages/Admin/Admin';
 import CreateRoom from './components/RoomsAdmin/CreateRoom';
 import ListRooms from './components/RoomsAdmin/ListRooms';
-import BookingFromReception from './components/BookingFromReception/BookingFromReception'
-
+import BookingFromReception from './components/BookingFromReception/BookingFromReception';
 
 function App() {
   return (
@@ -25,8 +24,8 @@ function App() {
           <Route path="/listrooms" element={<ListRooms />} />
           <Route path="/bookfromreception" element={<BookingFromReception />} />
         </Route>
-        {/* <Route path="/admin" element={<Admin />} /> */}
-        <Route path="/admin" element={<Prueba />} />
+        <Route path="/reserva" element={<Prueba />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
