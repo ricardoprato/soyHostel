@@ -204,8 +204,6 @@ export const ContextProvider = (props) => {
         setDataPayment,
         rol,
         setRol,
-        // availableBeds,
-        // setAvailablebeds,
         cart,
         setCart,
         filteredAvailableBeds,
