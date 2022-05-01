@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
 import styles from './Cart.module.css';
+import { useNavigate } from 'react-router';
 
 export default function Cart() {
-  const { cart, setCart, genDataForCards, getFilteredBeds, setDataForCards } =
-    useContext(GlobalContext);
-  const [toBack, setToBack] = useState({});
+  const {
+    cart,
+    setCart,
+    genDataForCards,
+    getFilteredBeds,
+    setDataForCards,
+    toBack,
+    setToBack,
+  } = useContext(GlobalContext);
+  const navigate = useNavigate();
   // const { availableBeds } = useContext(GlobalContext)
 
   ////////// EL BACK NECESITA ESTO /////////////////////////
@@ -73,49 +81,92 @@ export default function Cart() {
     // console.log("handleCartRemove")
   };
 
-  const handleConfirm = () => {
-    // console.log('toBack')
-    // console.log(toBack)
-    fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
-      method: 'POST',
-      headers: {
-        api: `${import.meta.env.VITE_API}`,
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(toBack),
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        setTimeout(() => {
-          console.log('reserva enviada a back: ');
-          console.log(toBack);
-          getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
-        }, 2000)
-      )
+  //   const handleConfirm = () => {
+  //     // console.log('toBack')
+  //     // console.log(toBack)
+  //     fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
+  //       method: 'POST',
+  //       headers: {
+  //         api: `${import.meta.env.VITE_API}`,
+  //         Authorization: 'Bearer ' + token,
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(toBack),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) =>
+  //         setTimeout(() => {
+  //           console.log('reserva enviada a back: ');
+  //           console.log(toBack);
+  //           getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //         }, 2000)
+  //       )
 
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data?.id) {
-          console.log('reserva enviada a back: ');
-          console.log(toBack);
-          getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
-        }
-      })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         if (data?.id) {
+  //           console.log('reserva enviada a back: ');
+  //           console.log(toBack);
+  //           getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //         }
+  //       })
 
-      // .then(data => genDataForCards())
+  //       // .then(data => genDataForCards())
 
-      .catch((error) => {
-        if (error.response) {
-          const { response } = error;
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.headers);
-        }
-      });
-    setCart([]);
-  };
+  //       .catch((error) => {
+  //         if (error.response) {
+  //           const { response } = error;
+  //           console.log(response.data);
+  //           console.log(response.status);
+  //           console.log(response.headers);
+  //         }
+  //       });
+  //     setCart([]);
+  //   };
+  // const handleConfirm = () => {
+  //   // console.log('toBack')
+  //   // console.log(toBack)
+  //   fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
+  //     method: 'POST',
+  //     headers: {
+  //       api: `${import.meta.env.VITE_API}`,
+  //       Authorization: 'Bearer ' + token,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(toBack),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) =>
+  //       setTimeout(() => {
+  //         console.log('reserva enviada a back: ');
+  //         console.log(toBack);
+  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //       }, 2000)
+  //     )
+
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data?.id) {
+  //         console.log('reserva enviada a back: ');
+  //         console.log(toBack);
+  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //       }
+  //     })
+
+  //     // .then(data => genDataForCards())
+
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         const { response } = error;
+  //         console.log(response.data);
+  //         console.log(response.status);
+  //         console.log(response.headers);
+  //       }
+  //     });
+  //   setCart([]);
+  // };
   let token = window.localStorage.getItem('tokenProp');
 
   let totalToPay = 0;
@@ -167,6 +218,11 @@ export default function Cart() {
   // console.log("auxToBack")
   // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
+  const handleClick = () => {
+    token ? navigate('/reserva') : alert('You need to be logged to reserve');
+  };
+
+  console.log('CARRITO????', cart);
   return (
     <div className={styles.cartContainer}>
       <h2>You are about to book:</h2>
@@ -195,7 +251,7 @@ export default function Cart() {
           </div>
         ))}
       <p>Total to pay: {toBack.saldo}</p>
-      <button onClick={() => handleConfirm()}>Confirm booking</button>
+      <button onClick={handleClick}>Go to payment</button>
       <button onClick={() => setCart([])}>Empty cart</button>
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>

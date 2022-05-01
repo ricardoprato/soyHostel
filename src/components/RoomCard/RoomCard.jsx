@@ -78,6 +78,8 @@ export default function RoomCard(props) {
         setBedsOnCart(props.totalBeds);
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
+        console.log("props")
+        console.log(props)
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
         setCart([
           ...cart,

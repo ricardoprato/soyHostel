@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 
 export const GlobalContext = createContext();
 
@@ -8,9 +8,9 @@ export const ContextProvider = (props) => {
     checkOut: '',
   });
   const [cart, setCart] = useState([]);
-
+  const [dataPayment, setDataPayment] = useState([]);
   const [reservations, setReservations] = useState([]);
-
+  const [toBack, setToBack] = useState([]);
   const [details, setDetails] = useState({});
 
   const [dataForCards, setDataForCards] = useState([]);
@@ -24,6 +24,10 @@ export const ContextProvider = (props) => {
 
   const [token, setToken] = useState(false);
 
+  const [rol, setRol] = useState('');
+
+  const [googleData, setGoogleData] = useState({});
+  const [dataProfile, setDataProfile] = useState({});
   ///funciones que modifican estados
 
   const getFilteredBeds = (checkIn, checkOut) => {
@@ -74,6 +78,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+  let aux = [];
   const getAllRooms = () => {
     // console.log(import.meta.env.VITE_APP_URL)
     // console.log(import.meta.env.VITE_API)
@@ -85,8 +90,6 @@ export const ContextProvider = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("getAllRooms");
-        // console.log(data);
         setFileteredRooms(data);
         setAllRooms(data);
       })
@@ -99,6 +102,7 @@ export const ContextProvider = (props) => {
         }
       });
   };
+
   const getReservations = (date1, date2) => {
     let token = localStorage.getItem('tokenProp');
     fetch(
@@ -171,6 +175,12 @@ export const ContextProvider = (props) => {
       value={{
         token,
         setToken,
+        toBack,
+        setToBack,
+        googleData,
+        setGoogleData,
+        dataProfile,
+        setDataProfile,
         dataForCards,
         setDataForCards,
         dataForCardsCopy,
@@ -190,6 +200,10 @@ export const ContextProvider = (props) => {
         genDataForCards,
         filterDates,
         setFilterdates,
+        dataPayment,
+        setDataPayment,
+        rol,
+        setRol,
         // availableBeds,
         // setAvailablebeds,
         cart,

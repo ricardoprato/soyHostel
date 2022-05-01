@@ -25,10 +25,12 @@ export default function Reserva() {
     // console.log("genDataForCards desde Reserva useeffect")
     // console.log(dataForCards)
   }, [filteredAvailableBeds]);
-
+console.log("filteredRooms")
+console.log(filteredRooms)
   // console.log("dataForCards")
   // console.log(dataForCards)
-
+console.log("allRooms")
+console.log(allRooms)
   return (
     <>
       <div className={styles.RoomCardsContainer}>
@@ -49,6 +51,7 @@ export default function Reserva() {
               bedPrice={r?.privada ? r?.precio : r?.precio / r?.cantCamas}
               bathroom={r?.banoPrivado}
               image={r?.Imagens}
+              bedIds={r?.bedIds}
             />
           )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
         ) : (

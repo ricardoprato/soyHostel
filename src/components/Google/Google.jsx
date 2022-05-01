@@ -26,7 +26,7 @@ function Google() {
       body: JSON.stringify({ googleId }),
     });
     const res2 = await res.json();
-    console.log('GOOGLE???>>', imageGoogle);
+    console.log('res2???>>', res2);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };
