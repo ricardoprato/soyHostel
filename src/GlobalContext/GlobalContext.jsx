@@ -46,8 +46,6 @@ export const ContextProvider = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setFilteredAvailableBeds(data);
-        console.log('disponibilidad desde back: ');
-        console.log(data);
       })
       .catch((err) => {
         if (err.response) {

@@ -15,7 +15,7 @@ import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
 import Calendar from '../../components/Calendar/Calendar';
 import NavBar from '../../components/NavBar/NavBar';
-
+import Stripe from '../../components/Stripe/Stripe'
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
 
@@ -40,8 +40,7 @@ const Prueba = () => {
       {/* <ListRooms /> */}
       {/* <InfoUser /> */}
       {/* <Google /> */}
-      {/* <RegisterForAdmin /> */}
-      {/* <Stripe /> */}
+
       <CreateRoom />
 
     </>
