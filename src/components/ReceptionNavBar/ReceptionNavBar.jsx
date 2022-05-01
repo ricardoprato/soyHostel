@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from './ReceptionNavBar.module.css';
-import avatar from '../../Images/avatar.jpg';
 import Avatar from '../Avatar/Avatar';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 const ReceptionNavBar = ({ children }) => {
   const [active, setActive] = useState(false);
-
+  const { rol } = useContext(GlobalContext);
   let token = window.localStorage.getItem('tokenProp');
   if (!token) {
     token = null;
@@ -14,7 +14,7 @@ const ReceptionNavBar = ({ children }) => {
   console.log('TOKENENNAVBAR', token);
 
   const handleScroll = () => {
-    if (window.scrollY > 0) { 
+    if (window.scrollY > 0) {
       setActive(true);
     } else {
       setActive(false);
@@ -73,15 +73,18 @@ const ReceptionNavBar = ({ children }) => {
               </g>
             </svg>
           </NavLink>
-
-          <NavLink className={styles.nav_link} to="/listrooms">
-            <i className="bi bi-info-circle"></i>
-            Delete/Edit Room
-          </NavLink>
-          <NavLink className={styles.nav_link} to="#">
-            <i className="bi bi-envelope"></i>
-            Create Admin/Receptionist
-          </NavLink>
+          {rol === 'administrador' ? (
+            <>
+              <NavLink className={styles.nav_link} to="/listrooms">
+                <i className="bi bi-info-circle"></i>
+                Delete/Edit Room
+              </NavLink>
+              <NavLink className={styles.nav_link} to="/createadmin">
+                <i className="bi bi-envelope"></i>
+                Create Admin/Receptionist
+              </NavLink>
+            </>
+          ) : null}
           <NavLink className={styles.nav_link} to="/bookfromreception">
             <i className="bi bi-compass"></i>
             Create booking
@@ -98,7 +101,6 @@ const ReceptionNavBar = ({ children }) => {
                 <i className="bi bi-search"></i>
               </button>
             </form>
-
           </div>
           <div className={styles.nav_flex}>
             {/* <img src={avatar} alt="avatar" />

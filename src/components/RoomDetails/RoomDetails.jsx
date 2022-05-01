@@ -7,36 +7,9 @@ import Carousel from '../Carousel/Carousel';
 export default function RoomDetails({ roomId }) {
   const { getIdRoom, details, setDetails } = useContext(GlobalContext);
 
-  // const fetchDetails = (roomId) => {
-  //   fetch(`https://back-end-1407.herokuapp.com/habitaciones/${roomId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setDetails(data))
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         const { response } = error;
-  //         console.log(response.data);
-  //         console.log(response.status);
-  //         console.log(response.headers);
-  //       }
-  //     });
-  // };
-
   useEffect(() => {
     getIdRoom(roomId);
   }, [roomId]);
-
-  // Camas: []
-  // Imagenes: []
-  // Reservas: []
-  // banoPrivado: true
-  // cantCamas: 1
-  // comodidades: "frigobar, vista al rio, A/A, sommier, cama king size"
-  // createdAt: "2022-04-14T22:32:37.874Z"
-  // descripcion: "la bonita y mas mejor habitacion del hotel"
-  // id: 1
-  // nombre: "suite imperial"
-  // precio: 5000
-  // privada: true
 
   return (
     <>

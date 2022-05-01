@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from './Booking.module.css';
+import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 // console.log(countries);
@@ -164,6 +164,7 @@ const Booking = () => {
     allRooms.length === 0 && getAllRooms();
   }, [allRooms]);
 
+
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
@@ -191,10 +192,12 @@ const Booking = () => {
       aux[0]?.bedIds.forEach(c => {
         aux2.push(i);
         i++;
+
       });
       setInput({...input, private: false, roomIds: id, totalBeds: [...aux2], price: aux[0].precio / aux[0].totalBeds})
     }
   };
+
 
   let handleChange = (e) => {
     e.preventDefault();
@@ -398,6 +401,7 @@ const Booking = () => {
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
                 <option value="bedQuantity">
                   Select bed
+
                 </option>
                 {input?.totalBeds?.length &&
                 input?.totalBeds.map((r) => (
@@ -407,6 +411,7 @@ const Booking = () => {
               </select>
               {error.bedQuantity && <p className={styles.error}>{error.bedQuantity}</p>}
             </div>
+
           ): null}
 
           <button onClick={(e) => handleAddBed(e)}>add to booking</button>
@@ -432,6 +437,7 @@ const Booking = () => {
           )}
         </form>
       </div>
+
     </div>
   );
 };

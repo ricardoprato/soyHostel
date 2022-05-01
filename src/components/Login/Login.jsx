@@ -151,7 +151,10 @@ const Login = () => {
           )}
         </Formik>
       ) : (
-        <PopupChangePw handleClick={handleClick} />
+        <PopupChangePw
+          titleToChangePw={'Enter your email to recovery your password'}
+          handleClick={handleClick}
+        />
       )}
     </div>
   );
