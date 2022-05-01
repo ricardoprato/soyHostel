@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../ContactUs/ContactUs.module.css';
 import Logo from '../../Images/fondo.png';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
+  const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
-
+  let url = import.meta.env.VITE_APP_URL;
   //FALTA IMPLEMENTAR EL FETCH A LA RUTA QUE ME DE ERIC (ASI LE ENVIAMOS LOS DATOS DE ESTE FORMULARIO)
   let sendData = async (valores) => {
-    let res = await fetch('https://backpfhenryv2.herokuapp.com' + '/contacto', {
+    let res = await fetch(`${url}` + '/contacto', {
       method: 'POST',
       headers: {
         api: `${api}`,
@@ -161,6 +163,11 @@ const ContactUs = () => {
                 )}
               />
             </div>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LcP-rAfAAAAAAFLpXQIOnNTKEi0Yf0czPmBjtkn
+              "
+            />
             <button type="submit">Send</button>
             {formularioEnviado && (
               <p className={styles.exito}>Formulario enviado con exito!</p>

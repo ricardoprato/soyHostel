@@ -118,6 +118,7 @@ export default function Calendar() {
 
   useLayoutEffect(() => {
     allRooms.length && getInitialState();
+    //let token = localStorage.getItem('tokenProp');
   }, [allRooms]);
 
   const [data, setData] = useState({});
