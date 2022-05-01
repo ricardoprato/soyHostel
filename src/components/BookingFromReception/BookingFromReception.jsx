@@ -161,26 +161,26 @@ const Booking = () => {
   let [error, setError] = useState({});  ////////  Mensajes de error //////////////////////
 
   useEffect(() => {
-    allRooms.length === 0 && getAllRooms();
+    allRooms.length === 0 && getAllRooms(); // trae todas las habitaciones existentes ////////////////////
   }, [allRooms]);
 
   useEffect(() => {
-    filteredAvailableBeds?.length > 0 && genDataForCards();
+    filteredAvailableBeds?.length > 0 && genDataForCards(); // HandleClick carga filteredAvailableBeds y genDataForCards arma lista de habitaciones disponibles /////////////
   }, [filteredAvailableBeds]);
 
-  useEffect(()=>{
-    console.log('input --> ', input)
-  },[input])
+  // useEffect(()=>{
+  //   console.log('input --> ', input)
+  // },[input])
 
-  useEffect(()=>{
-    console.log('toBack --> ', toBack)
-  },[toBack])
+  // useEffect(()=>{
+  //   console.log('toBack --> ', toBack)
+  // },[toBack])
 
-  useEffect(()=>{
-    console.log('dataforCards --> ', dataForCards)
-  },[dataForCards])
+  // useEffect(()=>{
+  //   console.log('dataforCards --> ', dataForCards)
+  // },[dataForCards])
 
-  const handleRoomSelect = (e) => {
+  const handleRoomSelect = (e) => {  // carga id de habitacion seleccionada y carga en input.totalbeds la cantidad de camas para renderizar en el formulario ///////////////////////
     if(e.target.value === 'noRoom'){
       setInput({...input, private: true, roomIds: 0, price: 0})
       let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
@@ -190,7 +190,7 @@ const Booking = () => {
       let aux = dataForCards.filter((r) => r.id === id);
       if (aux[0].privada === true) {
         setInput({...input, private: true, roomIds: id, price: aux[0].precio})
-        let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
+        let objError = validate({ ...input, private: true, [e.target.name]: e.target.value }, toBack);
         setError(objError);
       } else {
 
@@ -207,22 +207,22 @@ const Booking = () => {
     }
   };
 
-  let handleChange = (e) => {
+  let handleChange = (e) => {  // valida todos los inputs y carga mensajes de error //////////////////
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
     let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
     setError(objError);
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e) => {  // una vez seleccionadas las fechas trae la disponibilidad entre esas fechas ////////////
     e.preventDefault()
     getFilteredBeds(input.checkIn, input.checkOut); //esto nos carga filteredAvailableBeds
   };
 
-  const handleAddBed = (e) => { //FALTA ESTO //////////////////////////////////////////////
+  const handleAddBed = (e) => { // manda al carrito las habitaciones o camas seleccionadas ///////////////////
     e.preventDefault()
     let aux = [];
-    if(input.bedQuantity > 0){
+    if(input.bedQuantity > 0 && input.private === false){
       let empty = false
       let position = undefined
       let localData = [...dataForCards]
@@ -243,30 +243,33 @@ const Booking = () => {
       let localAux = dataForCards.filter((r)=> r.id !== input.roomIds)
       setDataForCards([...localAux])
       setToBack({...toBack, habitaciones: [...toBack.habitaciones, input.roomIds], saldo: toBack.saldo + input.price})
-      setInput({...input, roomIds: 0, price: 0})
+      // setInput({...input, roomIds: 0, price: 0})
     }
     console.log('toback --> ', toBack)
+    console.log('errores --> ', error)
   }
 
-  const handleSubmit = (e) => { 
+  const handleSubmit = (e) => { // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
     e.preventDefault()
     if(toBack.camas?.length === 0 && toBack.habitaciones?.length === 0){
       alert('Please finish adding selected bed or room')
     }else{
-    setToBack({
-      camas: [...toBack.camas],
-      habitaciones: [...toBack.habitaciones],
-      ingreso: input.checkIn,  
-      egreso: input.checkOut,
-      nombre: input.name,
-      apellido: input.lastName,
-      tipoDoc: input.docType,
-      numDoc: input.docNumber,
-      fechaNac: input.birthDate,
-      nacionalidad: input.nationality,
-      email: input.email,
-      genero: input.gender
-    })
+      let paraConsologuear = {
+        camas: [...toBack.camas],
+        habitaciones: [...toBack.habitaciones],
+        ingreso: input.checkIn,  
+        egreso: input.checkOut,
+        nombre: input.name,
+        apellido: input.lastName,
+        tipoDoc: input.docType,
+        numDoc: input.docNumber,
+        fechaNac: input.birthDate,
+        nacionalidad: input.nationality,
+        email: input.email,
+        genero: input.gender,
+        saldo: toBack.saldo
+      }
+      console.log('POST AL BACK desde submit -->', paraConsologuear)
     let token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservasDesdeRecepcion`, {
       method: 'POST',
@@ -275,7 +278,21 @@ const Booking = () => {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(toBack),
+      body: JSON.stringify({
+        camas: [...toBack.camas],
+        habitaciones: [...toBack.habitaciones],
+        ingreso: input.checkIn,  
+        egreso: input.checkOut,
+        nombre: input.name,
+        apellido: input.lastName,
+        tipoDoc: input.docType,
+        numDoc: input.docNumber,
+        fechaNac: input.birthDate,
+        nacionalidad: input.nationality,
+        email: input.email,
+        genero: input.gender,
+        saldo: toBack.saldo
+      }),
     })
       .then((response) => response.json())
       .then((data) => console.log(data))
