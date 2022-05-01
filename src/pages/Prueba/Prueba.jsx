@@ -18,6 +18,7 @@ import NavBar from '../../components/NavBar/NavBar';
 
 import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import BookingHistory from '../../components/BookingHistory/BookingHistory';
+
 import InfoUser from '../../components/InfoUser/InfoUser';
 import RegisterForAdmin from '../../components/RegisterForAdmin/RegisterForAdmin';
 import ListRooms from '../../components/RoomsAdmin/ListRooms';
@@ -26,9 +27,13 @@ import RoomDetails from '../../components/RoomDetails/RoomDetails';
 import PopupEditRoom from '../../components/PopupEditRoom/PopupEditRoom';
 import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
 
+
+
+
 const Prueba = () => {
   return (
     <>
+
       {/* <EditRoom />
       <PopupEditRoom /> */}
       {/* <FormEditRoom /> */}
@@ -38,6 +43,7 @@ const Prueba = () => {
       {/* <RegisterForAdmin /> */}
       {/* <Stripe /> */}
       <CreateRoom />
+
     </>
   );
 };

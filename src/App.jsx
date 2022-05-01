@@ -15,6 +15,7 @@ import { GlobalContext } from './GlobalContext/GlobalContext';
 import PopupEditRoom from './components/PopupEditRoom/PopupEditRoom';
 import RegisterForAdmin from './components/RegisterForAdmin/RegisterForAdmin';
 
+
 function App() {
   const { rol, setRol } = useContext(GlobalContext);
   console.log('ROL', rol);
@@ -34,12 +35,14 @@ function App() {
           <Route path="/createadmin" element={<RegisterForAdmin />} />
         </Route>
         <Route path="/reserva" element={<Prueba />} />
+
         <Route
           path="/admin"
           element={
             <>{rol === 'cliente' ? <Navigate replace to="/" /> : <Admin />}</>
           }
         />
+
       </Routes>
     </BrowserRouter>
   );

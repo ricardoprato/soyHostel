@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import Gantt from 'react-gantt-antd-rocket-pt';
 import 'react-gantt-antd-rocket-pt/lib/css/style.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
@@ -75,8 +75,8 @@ export default function Calendar() {
             end: new Date(`${reserva.fecha_egreso}`),
             dataSet: {
               ...reserva,
-              idHabitacion: habitacion.id,
-              nombreHabitacion: habitacion.nombre,
+              idHabitacion: habitacion?.id,
+              nombreHabitacion: habitacion?.nombre,
             }, ///ojo aca el nombre de la habitación
           };
           let stateCopy = calendarState.map((producto) => {
@@ -88,16 +88,17 @@ export default function Calendar() {
         });
       }
       if (reserva?.Camas?.length > 0) {
-        reserva.Camas.forEach((cama) => {
+        reserva?.Camas?.forEach((cama) => {
           let element = {
             id: reserva?.id,
-            title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
+            title: `${reserva?.Usuario?.nombre} ${reserva?.Usuario?.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
             dataSet: {
               ...reserva,
-              idCama: cama.id,
+              idCama: cama?.id,
               nombreCama: cama?.nombre,
+              estado: reserva.estado,
             },
           };
           let stateCopy = calendarState.map((producto) => {
@@ -115,11 +116,9 @@ export default function Calendar() {
     getAllRooms();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     allRooms.length && getInitialState();
-    let token = localStorage.getItem('tokenProp');
-    // let dni = bycript.decoder(token);
-    // console.log(dni);
+    //let token = localStorage.getItem('tokenProp');
   }, [allRooms]);
 
   const [data, setData] = useState({});
