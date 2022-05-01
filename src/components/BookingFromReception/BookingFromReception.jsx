@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './Booking.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-console.log(countries);
+// console.log(countries);
 
 export function validate(input) {  /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -56,8 +56,8 @@ export function validate(input) {  /////// VALIDACiONES ////////////////////////
   if (!input.checkIn) {
     errores.checkIn = 'Please enter checkIn date';
   } else if (input.checkIn < today.toLocaleDateString('en-CA')) {
-    console.log(input.checkIn);
-    console.log(today.toLocaleDateString('en-CA'));
+    // console.log(input.checkIn);
+    // console.log(today.toLocaleDateString('en-CA'));
     errores.checkIn = 'CheckIn cant be in the past';
   } 
 
@@ -128,18 +128,22 @@ const Booking = () => {
     birthDate: '',
     nationality: '',
     email: '',
-    roomIds: '',
-    bedQuantity: '',
+    roomIds: 0,
+    bedQuantity: 0,
     checkIn: '',
     checkOut: '',
+    private: '',
+    totalBeds: [],
+    price: 0
   }
   const [ input, setInput ] = useState(initialState)
+  const [ toBack, setToBack ] = useState({camas: [], habitaciones:[], saldo: 0, ingreso: '', egreso: ''})
   let [error, setError] = useState({});  ////////  Mensajes de error //////////////////////
-  const [room, setRoom] = useState({
-    private: null,
-    camas: 0, //cantidad
-    id: [], //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
-  });
+  // const [room, setRoom] = useState({
+  //   private: null,
+  //   camas: 0, //cantidad
+  //   id: [], //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
+  // });
   // const [bedOrRoom, setBedOrRoom] = useState({idsCamas: 0, idsHabitaciones: 0});
   // let [cart, setCart] = useState({idsCamas: [], idsHabitaciones: []});
 
@@ -151,26 +155,30 @@ const Booking = () => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
 
+    // useEffect(()=>{
+  //   console.log('room --> ', room)
+  // },[room])
+
+  useEffect(()=>{
+    console.log('input --> ', input)
+  },[input])
+
+  useEffect(()=>{
+    console.log('toBack --> ', toBack)
+  },[toBack])
+
+
   let localAvailable = []
   if(dataForCardsCopy?.length) localAvailable = [...dataForCardsCopy]
-  console.log('localAvailable --> ', localAvailable)
 
   const handleRoomSelect = (e) => {
-    //esta funcion debe recibir el id de la habitacion seleccionada y setear un estado con la cantidad y el id de las camas de esa habitacion, asi como si es privada o no, esto es para usar en el input de beds
-    // console.log('e --> ', e.target.value)
-    // console.log('dataForCardsCopy --> ', dataForCardsCopy)
-    // console.log('dataForCardsCopy o id --> ', dataForCardsCopy[0].id)
-    // console.log('e.target.value --> ')
-    // console.log(e.target.value)
-    console.log('localAvailable --> ', localAvailable)
-    let aux = localAvailable.filter((r) => r.id === Number(e.target.value));
+    // console.log('localAvailable --> ', localAvailable)
+    let id = Number(e.target.value)
+    let aux = localAvailable.filter((r) => r.id === id);
     console.log('habitacion filtrada -->', aux)
-    setInput({...input, roomIds: e.target.value})
+    // console.log('id -->', id)
     if (aux[0].privada === true) {
-      setRoom({
-        private: true,
-        id: aux[0].id,
-      });
+      setInput({...input, private: true, roomIds: id, price: aux[0].precio})
     } else {
       let aux2 = [];
       let i = 1;
@@ -178,21 +186,9 @@ const Booking = () => {
         aux2.push(i);
         i++;
       });
-      setRoom({
-        private: false,
-        camas: [...aux2], //cantidad
-        id: aux[0].id
-      });
+      setInput({...input, private: false, roomIds: id, totalBeds: [...aux2], price: aux[0].precio / aux[0].totalBeds})
     }
   };
-
-  useEffect(()=>{
-    console.log('room --> ', room)
-  },[room])
-
-  useEffect(()=>{
-    console.log('input --> ', input)
-  },[input])
 
   let handleChange = (e) => {
     e.preventDefault();
@@ -206,19 +202,38 @@ const Booking = () => {
     getFilteredBeds(input.checkIn, input.checkOut); //esto nos carga filteredAvailableBeds
   };
 
-  const handleAddBed = (e) => {
+  const handleAddBed = (e) => { //FALTA ESTO //////////////////////////////////////////////
     e.preventDefault()
-    console.log('bedOrRoom desde addBed --> ', bedOrRoom)
-    if(bedOrRoom.idsCamas !== 0){
-      setCart({...cart, idsCamas: [...cart.idsCamas, bedOrRoom.idsCamas]})
-    }else if(bedOrRoom.idsHabitaciones !== 0){
-      setCart({...cart, idsHabitaciones: [...cart.idsHabitaciones, bedOrRoom.idsHabitaciones]})
+    let aux = [];
+    console.log('localAvailable ANTES de AddBed --> ', localAvailable)
+    if(input.bedQuantity > 0){
+      let empty = false
+      let position = undefined
+      localAvailable.forEach((r)=>{
+        if(r.id === input.roomIds){
+          aux = r.bedIds.splice(0, input.bedQuantity);
+          r.cantCamas = r.cantCamas-input.bedQuantity
+          if(r.cantCamas === 0) empty = true
+        }
+      })
+
+      if(empty === true) localAvailable.slice(position, 1)
+      let aux2 = aux.map((c)=>{ return c.camaId })
+      // console.log('aux --> ', aux)
+      setToBack({...toBack, camas: [...toBack.camas, ...aux2], saldo: toBack.saldo + input.price})
+      setInput({...input, roomIds: 0, price: 0, totalBeds: input.totalBeds.slice(0, input.totalBeds.length-input.bedQuantity), bedQuantity: 0} )
+    }else if(input.roomIds > 0){
+      // console.log('posicion de la habitacion -- > ', localAvailable.indexOf((r)=>r.id === input.roomIds))
+      // localAvailable.slice(localAvailable.find((r)=>r.id === input.roomIds))
+      let localAux = localAvailable.filter((r)=> r.id !== input.roomIds)
+      localAvailable = [...localAux]
+      setToBack({...toBack, habitaciones: [...toBack.habitaciones, input.roomIds], saldo: toBack.saldo + input.price})
+      setInput({...input, roomIds: 0, price: 0})
     }
-    setBedOrRoom({idsCamas: 0, idsHabitaciones: 0})
-    console.log('cart --> ', cart)
+    console.log('localAvailable DESPUES de AddBed --> ', localAvailable)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => { //FALTA ESTO //////////////////////////////////////////////
     e.preventDefault()
     console.log('submit --> ', input)
   }
@@ -329,7 +344,7 @@ const Booking = () => {
             <button onClick={(e)=> handleClick(e)}>get available</button> 
           </div>
 
-          <div> Select Room:
+          <div> {/* Select Room: */}
             <label htmlFor="roomIds">Room Name</label>
             <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
               <option value="roomIds">
@@ -344,15 +359,15 @@ const Booking = () => {
             </select>
             {error.roomIds && <p className={styles.error}>{error.roomIds}</p>}
           </div>
-          {room?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
+          {input?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
             <div> {/* Select bed */}
               <label htmlFor="bedQuantity">Bed </label>
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
                 <option value="bedQuantity">
                   Select bed
                 </option>
-                {room?.camas?.length &&
-                room?.camas.map((r) => (
+                {input?.totalBeds?.length &&
+                input?.totalBeds.map((r) => (
                   <option key={r} value={r}>
                     {r}
                   </option>))}
@@ -362,6 +377,8 @@ const Booking = () => {
           ): null}
 
           <button onClick={(e) => handleAddBed(e)}>add to booking</button>
+          <div>Booking: {toBack?.camas?.length} beds and {toBack?.habitaciones.length} private rooms</div>
+          <h2>Total to pay: $ {toBack?.saldo}</h2>
           <button type="submit" >Send</button>
         </form>
       </div>
