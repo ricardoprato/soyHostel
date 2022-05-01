@@ -19,6 +19,7 @@ const FilterBar = () => {
     setDataForCards,
     dataForCardsCopy,
     setDataForCardsCopy,
+    cart,
   } = useContext(GlobalContext);
 
   const today = new Date();
@@ -35,13 +36,13 @@ const FilterBar = () => {
     setLocaldate({ ...localDate, [name]: value });
   };
 
-  // const alert = async () => {
-  //   await getFilteredBeds(localDate.checkIn, localDate.checkOut)
-  // }
-
   const handleClick = () => {
-    getFilteredBeds(localDate.checkIn, localDate.checkOut);
-    setFilterdates(localDate);
+    if (!cart.length) {
+      getFilteredBeds(localDate.checkIn, localDate.checkOut);
+      setFilterdates(localDate);
+    } else {
+      alert('Before you can change the dates, you must empty your cart');
+    }
   };
 
   const sortPrice = () => {

@@ -77,6 +77,7 @@ export default function Calendar() {
               ...reserva,
               idHabitacion: habitacion?.id,
               nombreHabitacion: habitacion?.nombre,
+              // huesped:habitacion?.huesped
             }, ///ojo aca el nombre de la habitación
           };
           let stateCopy = calendarState.map((producto) => {
@@ -99,6 +100,7 @@ export default function Calendar() {
               idCama: cama?.id,
               nombreCama: cama?.nombre,
               estado: reserva.estado,
+              // huesped: cama?.huesped,
             },
           };
           let stateCopy = calendarState.map((producto) => {
