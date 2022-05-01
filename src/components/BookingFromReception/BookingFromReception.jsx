@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from './Booking.module.css';
+import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 // console.log(countries);
@@ -182,7 +181,7 @@ const Booking = () => {
   },[dataForCards])
 
   const handleRoomSelect = (e) => {
-    if(e.target.value === ''){
+    if(e.target.value === 'noRoom'){
       setInput({...input, private: true, roomIds: 0, price: 0})
       let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
         setError(objError);
@@ -411,7 +410,7 @@ const Booking = () => {
           <div> {/* Select Room: */}
             <label htmlFor="roomIds">Room Name</label>
             <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
-              <option value=''>
+              <option value='noRoom'>
                 ...Select
               </option>
               {dataForCards?.length &&
@@ -460,7 +459,7 @@ const Booking = () => {
             // error.totalBeds ||
             error.checkOut ||
             error.checkIn ? null : (
-              <button type="submit">send</button>
+              <button type="submit" >send</button>
           )}
         </form>
       </div>

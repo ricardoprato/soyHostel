@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
+import ReservationCards from '../ReservationCards/ReservationCards';
 
 function BookingHistory() {
   const [isloading, setIsloading] = useState(true);
   const [bookingHistory, setBookingHistory] = useState([]);
 
-  let userReservations = [];
   let token = localStorage.getItem('tokenProp');
   let decode = jwt_decode(token);
-  const filterdReservations = (reservations) => {
-    userReservations = reservations.filter((reservation) => {
-      reservation.UsuarioDni == decode.sub;
-    });
-    setBookingHistory(userReservations);
-  };
 
   const getReservations = () => {
     fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
@@ -26,8 +20,9 @@ function BookingHistory() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        filterdReservations(data);
+        // console.log(data);
+
+        setBookingHistory(data);
         setIsloading(false);
       })
       .catch((error) => {
@@ -43,13 +38,19 @@ function BookingHistory() {
   useEffect(() => {
     getReservations();
   }, []);
-
+  //  bookingHistory
+  //           .filter((booking) => booking.UsuarioDni == decode.sub)
+  //           .map((r) => <ReservationCards props={r} />)
   return (
-    //   <>{isloading ? <div>Cargando...</div> : bookingHistory.map((reservation) => { }}
-    <div>
-      <p>lalalalalalalalalalalalalal</p>
-    </div>
-    // </>
+    <>
+      {isloading ? (
+        <div>Cargando...</div>
+      ) : (
+        bookingHistory
+          .filter((booking) => booking.UsuarioDni == decode.sub)
+          .map((r) => <ReservationCards key={r.id} props={r} />)
+      )}
+    </>
   );
 }
 
