@@ -23,11 +23,6 @@ export function validate(input) {  /////// VALIDACiONES ////////////////////////
       'The lastname can only contain letters and spaces';
   }
 
-    // gender
-    if (!input.gender) {
-      errores.gender = 'Please select a gender';
-    }
-
   // Validacion DNI
   if (!input.docNumber) {
     errores.docNumber = 'Please enter a dni';
@@ -121,7 +116,6 @@ const Booking = () => {
     allRooms,
     dataForCardsCopy,
     dataForCards,
-    setDataForCards,
     getAllRooms,
     getFilteredBeds,
     genDataForCards,
@@ -143,22 +137,15 @@ const Booking = () => {
     price: 0
   }
   const [ input, setInput ] = useState(initialState)
-  const [ toBack, setToBack ] = useState({
-    camas: [], 
-    habitaciones:[], 
-    saldo: 0, 
-    ingreso: '', 
-    egreso: '',
-    nombre: '',
-    apellido: '',
-    tipoDoc: '',
-    numDoc: '',
-    fechaNac: '',
-    nacionalidad: '',
-    email: '',
-    genero: ''
-  })
+  const [ toBack, setToBack ] = useState({camas: [], habitaciones:[], saldo: 0, ingreso: '', egreso: ''})
   let [error, setError] = useState({});  ////////  Mensajes de error //////////////////////
+  // const [room, setRoom] = useState({
+  //   private: null,
+  //   camas: 0, //cantidad
+  //   id: [], //esto seria si es privada el id de la habitacion y si es compartida un array de ids de camas
+  // });
+  // const [bedOrRoom, setBedOrRoom] = useState({idsCamas: 0, idsHabitaciones: 0});
+  // let [cart, setCart] = useState({idsCamas: [], idsHabitaciones: []});
 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms();
@@ -168,6 +155,10 @@ const Booking = () => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
 
+    // useEffect(()=>{
+  //   console.log('room --> ', room)
+  // },[room])
+
   useEffect(()=>{
     console.log('input --> ', input)
   },[input])
@@ -176,13 +167,17 @@ const Booking = () => {
     console.log('toBack --> ', toBack)
   },[toBack])
 
-  useEffect(()=>{
-    console.log('dataforCards --> ', dataForCards)
-  },[dataForCards])
+  
+
+  let localAvailable = []
+  if(dataForCardsCopy?.length) localAvailable = [...dataForCardsCopy]
 
   const handleRoomSelect = (e) => {
+    // console.log('localAvailable --> ', localAvailable)
     let id = Number(e.target.value)
-    let aux = dataForCards.filter((r) => r.id === id);
+    let aux = localAvailable.filter((r) => r.id === id);
+    console.log('habitacion filtrada -->', aux)
+    // console.log('id -->', id)
     if (aux[0].privada === true) {
       setInput({...input, private: true, roomIds: id, price: aux[0].precio})
     } else {
@@ -211,47 +206,37 @@ const Booking = () => {
   const handleAddBed = (e) => { //FALTA ESTO //////////////////////////////////////////////
     e.preventDefault()
     let aux = [];
+    console.log('localAvailable ANTES de AddBed --> ', localAvailable)
     if(input.bedQuantity > 0){
       let empty = false
       let position = undefined
-      let localData = [...dataForCards]
-      localData.forEach((r)=>{
+      localAvailable.forEach((r)=>{
         if(r.id === input.roomIds){
           aux = r.bedIds.splice(0, input.bedQuantity);
           r.cantCamas = r.cantCamas-input.bedQuantity
-          if(r.bedIds?.length === 0) { empty = true }
-          position = localData.indexOf(r)
+          if(r.cantCamas === 0) empty = true
         }
       })
-      if(empty == true) { localData.splice(position, 1)} 
+
+      if(empty === true) localAvailable.slice(position, 1) //no me estaria funcionando ************************************
       let aux2 = aux.map((c)=>{ return c.camaId })
-      setDataForCards([...localData])
+      // console.log('aux --> ', aux)
       setToBack({...toBack, camas: [...toBack.camas, ...aux2], saldo: toBack.saldo + input.price * aux2.length})
       setInput({...input, roomIds: 0, price: 0, totalBeds: input.totalBeds.slice(0, input.totalBeds.length-input.bedQuantity), bedQuantity: 0} )
     }else if(input.roomIds > 0){
-      let localAux = dataForCards.filter((r)=> r.id !== input.roomIds)
-      setDataForCards([...localAux])
+      // console.log('posicion de la habitacion -- > ', localAvailable.indexOf((r)=>r.id === input.roomIds))
+      // localAvailable.slice(localAvailable.find((r)=>r.id === input.roomIds))
+      let localAux = localAvailable.filter((r)=> r.id !== input.roomIds) //no me estaria funcionando ************************************
+      localAvailable = [...localAux]
       setToBack({...toBack, habitaciones: [...toBack.habitaciones, input.roomIds], saldo: toBack.saldo + input.price})
       setInput({...input, roomIds: 0, price: 0})
     }
+    console.log('localAvailable DESPUES de AddBed --> ', localAvailable)
   }
 
   const handleSubmit = (e) => { //FALTA ESTO //////////////////////////////////////////////
     e.preventDefault()
-    setToBack({
-      camas: [...toBack.camas],
-      habitaciones: [...toBack.habitaciones],
-      ingreso: input.checkIn,  
-      egreso: input.checkOut,
-      nombre: input.name,
-      apellido: input.lastName,
-      tipoDoc: input.docType,
-      numDoc: input.docNumber,
-      fechaNac: input.birthDate,
-      nacionalidad: input.nationality,
-      email: input.email,
-      genero: input.gender
-    })
+    console.log('submit --> ', toBack)
   }
 
  
@@ -285,25 +270,6 @@ const Booking = () => {
             {error.lastName && <p className={styles.error}>{error.lastName}</p>}
           </div>
 
-          <div> {/* Gender */}
-            <label>Gender: </label>
-            <select name="gender" onChange={(e) => handleChange(e)}>
-              <option value=''>
-                ...Select
-              </option>
-              <option value="masculino">
-                male
-              </option>
-              <option value="femelnino">
-                female
-              </option>
-              <option value="no-binario">
-                other
-              </option>
-            </select>
-            {error.gender && <p className={styles.error}>{error.gender}</p>}
-          </div>
-
           <div> {/* Document type */}
             <label>Document type: </label>
             <select name="docType" onChange={(e) => handleChange(e)}>
@@ -316,8 +282,11 @@ const Booking = () => {
               <option value="Passport">
                 Passport
               </option>
-              <option value="Driver License">
-              Driver License
+              <option value="Libreta civica">
+                Libreta Civica
+              </option>
+              <option value="CLI">
+                CLI
               </option>
             </select>
             {error.docType && <p className={styles.error}>{error.docType}</p>}
@@ -383,8 +352,8 @@ const Booking = () => {
               <option value="roomIds">
                 Elegir opción
               </option>
-              {dataForCards?.length &&
-                dataForCards?.map((r) => (
+              {localAvailable?.length &&
+                localAvailable?.map((r) => (
                   <option key={r.id} value={r.id}>
                     {r.nombre}
                   </option>
@@ -410,7 +379,7 @@ const Booking = () => {
           ): null}
 
           <button onClick={(e) => handleAddBed(e)}>add to booking</button>
-          <div>Booking: {toBack?.camas?.length} beds and {toBack?.habitaciones?.length} private rooms</div>
+          <div>Booking: {toBack?.camas?.length} beds and {toBack?.habitaciones.length} private rooms</div>
           <h2>Total to pay: $ {toBack?.saldo}</h2>
           {
             (toBack.camas === 0 && toBack.habitaciones === 0) ||
@@ -421,7 +390,6 @@ const Booking = () => {
             error.birthDate ||
             error.nationality ||
             error.email ||
-            error.gender ||
             // error.roomIds ||
             error.bedQuantity ||
             error.private ||
