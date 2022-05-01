@@ -25,7 +25,7 @@ const Prueba = () => {
     <>
 
       {/* <Google /> */}
-      <Stripe />
+      <CreateRoom />
 
     </>
   );

@@ -331,7 +331,9 @@ export default function CreateRoom(props) {
           <div>
             {' '}
             {/* errores */}
-            {error.name ||
+            {
+            !input.cantCamas ||
+            error.name ||
             error.privada ||
             error.banoPrivado ||
             error.comodidades ||
