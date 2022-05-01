@@ -139,9 +139,14 @@ function Formulario({ props }) {
   };
   const [input, setInput] = useState(initialState);
 
+
+
+
+  let url = VITE_APP_URL;
   const patchState = (state, id) => {
     let token = localStorage.getItem('tokenProp');
-    fetch(`https://back-end-1407.herokuapp.com/resrvas/${id}`, {
+    fetch(`${url}` + `/camas/${id}`, {
+
       method: 'PATCH',
       headers: {
         api: `${import.meta.env.VITE_API}`,

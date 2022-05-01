@@ -8,7 +8,7 @@ const Carousel = ({ images }) => {
   return (
     <>
       <div className="img-slider">
-        {images.map((item, index) => {
+        {images?.map((item, index) => {
           return (
             <>
               <div className={`slide ${!index ? 'active' : ''}`} key={item.id}>
@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
           );
         })}
         <div className="navigation">
-          {images.map((item, index) => (
+          {images?.map((item, index) => (
             <div
               className={`btn ${!index ? 'active' : ''}`}
               key={item.id}

@@ -28,6 +28,7 @@ export const ContextProvider = (props) => {
 
   const [googleData, setGoogleData] = useState({});
   const [dataProfile, setDataProfile] = useState({});
+
   ///funciones que modifican estados
 
   const getFilteredBeds = (checkIn, checkOut) => {
@@ -175,6 +176,8 @@ export const ContextProvider = (props) => {
       value={{
         token,
         setToken,
+        rol,
+        setRol,
         toBack,
         setToBack,
         googleData,
@@ -202,8 +205,6 @@ export const ContextProvider = (props) => {
         setFilterdates,
         dataPayment,
         setDataPayment,
-        rol,
-        setRol,
         cart,
         setCart,
         filteredAvailableBeds,
