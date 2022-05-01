@@ -1,3 +1,6 @@
+select {
+  cursor: pointer;
+}
 .register {
   display: flex;
   align-items: flex-start;
@@ -26,10 +29,10 @@
   color: #1f1f1f;
 }
 
-.formulario input,
+.input,
 .formulario textarea {
-  font-family: 'Open Sans', sans-serif;
   width: 100%;
+  background-color: var(--white-color);
   border-radius: 5px;
   border: 2px solid #e2e2e2;
   font-size: 18px;
@@ -97,13 +100,19 @@
   cursor: pointer;
 }
 
-.eye {
+.containerInput {
   position: relative;
 }
 
 .buttoneye {
   font-size: 20px;
   position: absolute;
-  right: 10px;
-  top: 35px;
+  color: var(--dark-color);
+  cursor: pointer;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.buttoneye:hover {
+  color: black;
 }

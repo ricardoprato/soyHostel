@@ -5,11 +5,7 @@ import Logo from '../../Images/fondo.png';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
-
-
 const Login = () => {
-
-
   const { setToken } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -121,21 +117,25 @@ const Login = () => {
                 />
               </div>
               <div>
+                <label htmlFor="password">Password</label>
                 <div className={styles.containerInput}>
-                  <label htmlFor="password">Password</label>
                   <Field
                     type={typePw}
                     id="password"
                     name="password"
                     placeholder="mipassword123"
                   />
-                  <button
-                    type="button"
-                    className={styles.buttoneye}
-                    onClick={revealPassword}
-                  >
-                    <i className="bi bi-eye-fill"></i>
-                  </button>
+                  {typePw === 'password' ? (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  ) : (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-slash-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  )}
                 </div>
                 <ErrorMessage
                   name="password"
@@ -144,7 +144,6 @@ const Login = () => {
                   )}
                 />
               </div>
-
               <button type="submit">Send</button>
               <button className={styles.button} onClick={handleClick}>
                 Forgot your password?

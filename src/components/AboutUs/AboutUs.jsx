@@ -4,7 +4,7 @@ import aboutus from '../../Images/aboutus.jpg';
 
 const AboutUs = () => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="aboutUs">
       <div className={styles.box}>
         <p className={styles.parrafo}>
           SoyHostel was created in 1890 by a young couple, at that time it was

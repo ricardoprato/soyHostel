@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
-import styles from './Cart.modules.css';
+import styles from './Cart.module.css';
 
 export default function Cart() {
   const { cart, setCart, genDataForCards, getFilteredBeds, setDataForCards } =
@@ -94,13 +94,15 @@ export default function Cart() {
         }, 2000)
       )
 
-      .then(response => response.json())
-      .then(data =>{ 
-        console.log(data)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
         if (data?.id) {
-          console.log("reserva enviada a back: ");console.log(toBack);
-          getFilteredBeds(cart[0].checkIn, cart[0].checkOut)
-        }})
+          console.log('reserva enviada a back: ');
+          console.log(toBack);
+          getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+        }
+      })
 
       // .then(data => genDataForCards())
 
@@ -133,67 +135,66 @@ export default function Cart() {
     // console.log("se ejecuto fillToBack")
     // console.log("cart")
     // console.log(cart)
-    cart.length && cart.forEach((r) => {
-    if(r.private === "private"){
-      auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId]
-      totalToPay = totalToPay + r.price;
-    }
-    if(r.private === "shared"){
-      let aux = r.beds.map((b)=> {
-        return b.camaId
-      })
-      // console.log(aux)
-      auxToBack.camas = [...auxToBack.camas, ...aux]   //mapear porque beds ahora es un array de objetos
-      totalToPay = totalToPay + (r.price * r.beds.length)
-    }
-  }); 
-  auxToBack.saldo = totalToPay;
-  setToBack(auxToBack)
-  // toBack?.saldo > 0 && console.log("toBack")
-  // toBack?.saldo > 0 && console.log(toBack)
+    cart.length &&
+      cart.forEach((r) => {
+        if (r.private === 'private') {
+          auxToBack.habitaciones = [...auxToBack.habitaciones, r.roomId];
+          totalToPay = totalToPay + r.price;
+        }
+        if (r.private === 'shared') {
+          let aux = r.beds.map((b) => {
+            return b.camaId;
+          });
+          // console.log(aux)
+          auxToBack.camas = [...auxToBack.camas, ...aux]; //mapear porque beds ahora es un array de objetos
+          totalToPay = totalToPay + r.price * r.beds.length;
+        }
+      });
+    auxToBack.saldo = totalToPay;
+    setToBack(auxToBack);
+    // toBack?.saldo > 0 && console.log("toBack")
+    // toBack?.saldo > 0 && console.log(toBack)
+  };
 
-  }
-  
   // useEffect(()=>{
   //   cart?.length === 0 && setCart([])
   // },[])
 
   useEffect(() => {
     /* cart?.length && */ fillToBack();
-
-  },[cart])
+  }, [cart]);
 
   // console.log("auxToBack")
   // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
   return (
     <div className={styles.cartContainer}>
-      <h1>You are about to book:</h1>
+      <h2>You are about to book:</h2>
       {cart?.length &&
         cart?.map((r) => (
           <div key={r.roomId}>
-            <h2>
+            <p>
               {r.roomName} - {r.private} room:
-            </h2>
-            <h3>Check-In: {r.checkIn}</h3>
-            <h3>Check-Out: {r.checkOut}</h3>
+            </p>
+            <p>Check-In: {r.checkIn}</p>
+            <p>Check-Out: {r.checkOut}</p>
             {r.private === 'shared' ? (
               <>
-                <h3>Bed price per day: {r.price}</h3>
-                <h3>{r.beds.length} beds booked</h3>
-                <h3>subtotal: {r.beds.length * r.price}</h3>
+                <p>Bed price per day: {r.price}</p>
+                <p>{r.beds.length} beds booked</p>
+                <p>subtotal: {r.beds.length * r.price}</p>
                 {/* {r.beds.length * r.price} */}
               </>
             ) : (
               <>
-                <h3>Room price per day: {r.price}</h3>
+                <p>Room price per day: {r.price}</p>
                 {/* <h3>{r.beds?.length} beds booked</h3> */}
               </>
             )}
             <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
           </div>
         ))}
-      <h2>Total to pay: {toBack.saldo}</h2>
+      <p>Total to pay: {toBack.saldo}</p>
       <button onClick={() => handleConfirm()}>Confirm booking</button>
       <button onClick={() => setCart([])}>Empty cart</button>
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}

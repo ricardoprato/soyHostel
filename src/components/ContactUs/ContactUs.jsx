@@ -29,7 +29,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className={styles.register}>
+    <div className={styles.register} id="contactUs">
       <Formik
         initialValues={{
           name: '',

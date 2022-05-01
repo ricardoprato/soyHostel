@@ -194,6 +194,7 @@ const Register = () => {
                   type="text"
                   id="name"
                   name="name"
+                  className={styles.input}
                   placeholder="Put your name"
                 />
                 <ErrorMessage
@@ -210,6 +211,7 @@ const Register = () => {
                   id="lastname"
                   name="lastname"
                   placeholder="Put your lastname"
+                  className={styles.input}
                   // onChange={handleChange}
                 />
                 <ErrorMessage
@@ -221,7 +223,11 @@ const Register = () => {
               </div>
               <div>
                 <label htmlFor="typeofdocument">Type of document</label>
-                <Field name="typeofdocument" as="select">
+                <Field
+                  name="typeofdocument"
+                  as="select"
+                  className={styles.input}
+                >
                   <option value="typeofdocument" id="AF">
                     Elegir opción
                   </option>
@@ -248,6 +254,7 @@ const Register = () => {
                   id="dni"
                   name="dni"
                   placeholder="Put your dni"
+                  className={styles.input}
                 />
                 <ErrorMessage
                   name="dni"
@@ -258,7 +265,12 @@ const Register = () => {
               </div>
               <div>
                 <label htmlFor="birthdate">Birthdate</label>
-                <Field type="date" id="birthdate" name="birthdate" />
+                <Field
+                  type="date"
+                  id="birthdate"
+                  name="birthdate"
+                  className={styles.input}
+                />
                 <ErrorMessage
                   name="birthdate"
                   component={() => (
@@ -273,6 +285,7 @@ const Register = () => {
                   id="email"
                   name="email"
                   placeholder="email@gmail.com"
+                  className={styles.input}
                 />
                 <ErrorMessage
                   name="email"
@@ -281,22 +294,29 @@ const Register = () => {
                   )}
                 />
               </div>
-              <div className={styles.eye}>
+              <div>
                 <label htmlFor="password">Password</label>
-                <Field
-                  type={typePw}
-                  id="password"
-                  name="password"
-                  placeholder="mypassword123"
-                />
+                <div className={styles.containerInput}>
+                  <Field
+                    type={typePw}
+                    id="password"
+                    name="password"
+                    placeholder="mypassword123"
+                    className={styles.input}
+                  />
 
-                <button
-                  type="button"
-                  className={styles.buttoneye}
-                  onClick={revealPassword}
-                >
-                  <i className="bi bi-eye-fill"></i>
-                </button>
+                  {typePw === 'password' ? (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  ) : (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-slash-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  )}
+                </div>
                 <ErrorMessage
                   name="password"
                   component={() => (
@@ -306,7 +326,7 @@ const Register = () => {
               </div>
               <div>
                 <label htmlFor="nationality">Nationality</label>
-                <Field name="nationality" as="select">
+                <Field name="nationality" as="select" className={styles.input}>
                   <option>Elegir pais</option>
                   {paises.countries.map((p) => {
                     return <option key={p}>{p}</option>;
@@ -321,7 +341,7 @@ const Register = () => {
               </div>
               <div>
                 <label htmlFor="genre">Genre</label>
-                <Field name="genre" as="select">
+                <Field name="genre" as="select" className={styles.input}>
                   <option value="" id="AF">
                     Elegir opción
                   </option>
