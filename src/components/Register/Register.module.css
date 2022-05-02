@@ -1,16 +1,7 @@
 select {
   cursor: pointer;
 }
-.register {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 50px;
-  max-height: 80vh;
-  border-radius: 15px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+
 .nav_logo {
   width: 2rem;
 }
@@ -19,7 +10,10 @@ select {
   margin-bottom: 1rem;
 }
 .formulario {
-  min-width: 600px;
+  min-width: 360px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 70vh;
   background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
@@ -27,6 +21,8 @@ select {
   border-radius: 5px;
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .formulario label {

@@ -54,7 +54,7 @@ const Login = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [mensaje, setMensaje] = useState('');
   return (
-    <div className={styles.register}>
+    <>
       {!show ? (
         <Formik
           initialValues={{
@@ -177,7 +177,7 @@ const Login = () => {
           handleClick={handleClick}
         />
       )}
-    </div>
+    </>
   );
 };
 

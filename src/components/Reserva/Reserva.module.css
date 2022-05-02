@@ -38,8 +38,8 @@
 
 .RoomCardsContainer {
   position: relative;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(360px, 1fr));
   color: var(--white-color);
   display: grid;
   place-items: center;

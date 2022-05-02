@@ -225,35 +225,42 @@ export default function Cart() {
   console.log('CARRITO????', cart);
   return (
     <div className={styles.cartContainer}>
-      <h2>You are about to book:</h2>
-      {cart?.length &&
-        cart?.map((r) => (
-          <div key={r.roomId}>
-            <p>
-              {r.roomName} - {r.private} room:
-            </p>
-            <p>Check-In: {r.checkIn}</p>
-            <p>Check-Out: {r.checkOut}</p>
-            {r.private === 'shared' ? (
-              <>
-                <p>Bed price per day: {r.price}</p>
-                <p>{r.beds.length} beds booked</p>
-                <p>subtotal: {r.beds.length * r.price}</p>
-                {/* {r.beds.length * r.price} */}
-              </>
-            ) : (
-              <>
-                <p>Room price per day: {r.price}</p>
-                {/* <h3>{r.beds?.length} beds booked</h3> */}
-              </>
-            )}
-            <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
-          </div>
-        ))}
-      <p>Total to pay: {toBack.saldo}</p>
-      <button onClick={handleClick}>Go to payment</button>
-      <button onClick={() => setCart([])}>Empty cart</button>
-      {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
+      {cart?.length ? (
+        <>
+          <h2>You are about to book:</h2>
+          {cart?.map((r) => (
+            <div key={r.roomId}>
+              <p>
+                {r.roomName} - {r.private} room:
+              </p>
+              <p>Check-In: {r.checkIn}</p>
+              <p>Check-Out: {r.checkOut}</p>
+              {r.private === 'shared' ? (
+                <>
+                  <p>Bed price per day: {r.price}</p>
+                  <p>{r.beds.length} beds booked</p>
+                  <p>subtotal: {r.beds.length * r.price}</p>
+                  {/* {r.beds.length * r.price} */}
+                </>
+              ) : (
+                <>
+                  <p>Room price per day: {r.price}</p>
+                  {/* <h3>{r.beds?.length} beds booked</h3> */}
+                </>
+              )}
+              <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
+            </div>
+          ))}
+          <p>Total to pay: {toBack.saldo}</p>
+          <button onClick={handleClick}>Go to payment</button>
+          <button onClick={() => setCart([])}>Empty cart</button>
+          {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
+        </>
+      ) : (
+        <div className={styles.noAvalaible}>
+          You have no reserves in the bag, please make one and come back
+        </div>
+      )}
     </div>
   );
 }
