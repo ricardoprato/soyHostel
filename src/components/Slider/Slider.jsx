@@ -21,7 +21,7 @@ export default function Slider() {
         loop={true}
         spaceBetween={0}
         thumbs={{ swiper: thumbsSwiper }}
-        autoplay={{ delay: 5000 }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
         modules={[FreeMode, Thumbs, Autoplay]}
         className="bg-slider"
       >

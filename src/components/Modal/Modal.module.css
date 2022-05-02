@@ -15,6 +15,7 @@
   justify-content: center;
   width: fit-content;
   position: relative;
+  z-index: 10001;
 }
 .cancel {
   position: absolute;
