@@ -2,10 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
+import ConfirmDelete from './ConfirmDelete';
 
-// import { GlobalContext } from '../../GlobalContext/GlobalContext';
-
-//p
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -58,6 +56,7 @@ function Formulario({ props }) {
     estado: props.estado,
     huesped: {},
   });
+  const [flag, setFlag] = useState(false);
 
   const patchState = async (valores) => {
     const token = localStorage.getItem('tokenProp');
@@ -112,193 +111,233 @@ function Formulario({ props }) {
     await patchState(bookingState); //objeto a enviar al backend
     // setBookingState(bookingInitialState);
   };
+  const handleDeleteReservation = (e) => {
+    const token = localStorage.getItem('tokenProp');
+    fetch(`${import.meta.env.VITE_APP_URL}/reservas/${id}`, {
+      method: 'DELETE',
+      headers: {
+        api: import.meta.env.VITE_API,
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+
   return (
-    <div className={styles.formulario}>
-      <div>
-        <div>
-          <h1 className={styles.font}>BOOKING DATA</h1>
-        </div>
-        <p className={styles.font}>Costumer:</p>
-        <p>
-          {props.Usuario.nombre} {props.Usuario.apellido}
-        </p>
-        <p className={styles.font}>User's DNI:</p> <p> {props.UsuarioDni} </p>
-        <p className={styles.font}>Check In: </p>
-        <p> {props.fecha_ingreso.substring(0, 10)} </p>
-        <p className={styles.font}>Check Out:</p>
-        <p> {props.fecha_egreso.substring(0, 10)} </p>
-        {props.idCama ? (
+    <>
+      {' '}
+      {!flag ? (
+        <div className={styles.formulario}>
           <div>
-            <p className={styles.font}>Bed: </p>
-            <p> {props.nombreCama.toUpperCase()} </p>
-          </div>
-        ) : props.idHabitacion ? (
-          <div>
-            {' '}
-            <p className={styles.font}>Room: </p>{' '}
-            <p> {props.nombreHabitacion.toUpperCase()}</p>
-          </div>
-        ) : null}
-        {props.idCama ? (
-          <div>
-            {' '}
-            <p className={styles.font}>Bed Id: </p> <p>{props.idCama} </p>{' '}
-          </div>
-        ) : props.idHabitacion ? (
-          <div>
-            <p className={styles.font}>Room Id: </p>
-            <p>{props.idHabitacion} </p>
-          </div>
-        ) : null}
-        {/* <p className={styles.font}>Guest:</p> <p> {props.huesped} </p> */}
-        <p className={styles.font}>Booking Id:</p> <p> {props.id}</p>
-        <div>
-          <p className={styles.font}>Balance: $ </p> <p> {props.saldo}</p>
-          <p className={styles.font}>New Balance:</p>
-          <input
-            onChange={(e) => handleBookingUpdate(e)}
-            type="number"
-            placeholder="$$"
-            name="saldo"
-          />
-        </div>
-      </div>
+            <div className={styles.jodido}>
+              <h1 className={styles.font}>BOOKING DATA</h1>
+            </div>
+            <div className={styles.microContainer}>
+              <p className={styles.font}>Costumer: </p>
+              <p>
+                {props.Usuario.nombre} {props.Usuario.apellido}
+              </p>
+            </div>
+            <div className={styles.microContainer}>
+              <p className={styles.font}>User's DNI:</p>{' '}
+              <p> {props.UsuarioDni} </p>
+            </div>
+            <div className={styles.microContainer}>
+              <p className={styles.font}>Check In: </p>
 
-      <div>
-        <p className={styles.font}>Room State:</p>
-        <p> {props?.estado}</p>
+              <p> {props.fecha_ingreso.substring(0, 10)} </p>
+            </div>
+            <div className={styles.microContainer}>
+              <p className={styles.font}>Check Out:</p>
 
-        <label className={styles.font}>Update State: </label>
-        <select
-          id="stateSelect"
-          onChange={(e) => handleBookingUpdate(e)}
-          name="estado"
-        >
-          <option value="Booked">Booked</option>
-          <option value="Occupide">Occupide</option>
-          <option value="Closed">Closed</option>
-          <option value="For Manteinance">For Manteinance</option>
-        </select>
-      </div>
-      <div>
-        <div>
-          <p className={styles.font}>Guest Data Update</p>
-          {/* <form onSubmit={(e) => handleGuestAdd(e)}> */}
-          <form>
-            <div>
+              <p> {props.fecha_egreso.substring(0, 10)} </p>
+            </div>
+            {props.idCama ? (
+              <div className={styles.microContainer}>
+                <p className={styles.font}>Bed: </p>
+                <p> {props.nombreCama.toUpperCase()} </p>
+              </div>
+            ) : props.idHabitacion ? (
+              <div className={styles.microContainer}>
+                {' '}
+                <p className={styles.font}>Room: </p>{' '}
+                <p> {props.nombreHabitacion.toUpperCase()}</p>
+              </div>
+            ) : null}
+
+            <div className={styles.microContainer}>
+              <p className={styles.font}>Booking Id:</p> <p> {props.id}</p>
+            </div>
+
+            <div className={styles.microContainer}>
+              <p className={styles.font}>Total Payed: $ </p>
+              <p> {props.saldo}</p>
+            </div>
+
+            <div className={styles.microContainer}>
+              <p className={styles.font}>New Balance:</p>
+              <input
+                onChange={(e) => handleBookingUpdate(e)}
+                type="number"
+                placeholder="$$"
+                name="saldo"
+              />
+            </div>
+          </div>
+
+          <div className={styles.microContainer}>
+            <p className={styles.font}>Booking State: </p>
+            <select
+              id="stateSelect"
+              onChange={(e) => handleBookingUpdate(e)}
+              name="estado"
+              dafaultValue={props?.estado}
+            >
+              <option value="Booked">Booked</option>
+              <option value="Occupide">Occupide</option>
+              <option value="Closed">Closed</option>
+              <option value="For Manteinance">For Manteinance</option>
+            </select>
+          </div>
+          <div>
+            <div className={styles.jodido}>
+              <h3 className={styles.font}>Guest Data Update</h3>
+            </div>
+            <form>
               {/* First Name */}
 
-              <label>First Name: </label>
-              <input
-                type="text"
-                id="name"
-                name="huesped.nombre"
-                onChange={(e) => handleGuestChange(e)}
-                placeholder="first name..."
-              />
-              {error.nombre && <p className={styles.error}>{error.nombre}</p>}
-            </div>
+              <div className={styles.microContainer}>
+                {' '}
+                <label>First Name: </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="huesped.nombre"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="first name..."
+                />
+                {error.nombre && <p className={styles.error}>{error.nombre}</p>}
+              </div>
 
-            <div>
-              {' '}
-              {/* Last Name */}
-              <label>Last Name: </label>
-              <input
-                type="text"
-                id="lastName"
-                name="huesped.apellido"
-                onChange={(e) => handleGuestChange(e)}
-                placeholder="last name..."
-              />
-              {error.apellido && (
-                <p className={styles.error}>{error.apellido}</p>
-              )}
-            </div>
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Last Name */}
+                <label>Last Name: </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="huesped.apellido"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="last name..."
+                />
+                {error.apellido && (
+                  <p className={styles.error}>{error.apellido}</p>
+                )}
+              </div>
 
-            <div>
-              {' '}
-              {/* Document type */}
-              <label>Document type: </label>
-              <select
-                name="huesped.tipoDocumento"
-                onChange={(e) => handleGuestChange(e)}
-              >
-                <option value="docType">Elegir opción</option>
-                <option value="DNI">DNI</option>
-                <option value="Passport">Passport</option>
-                <option value="Libreta civica">Libreta Civica</option>
-                <option value="CLI">CLI</option>
-              </select>
-              {error.tipoDocumento && (
-                <p className={styles.error}>{error.tipoDocumento}</p>
-              )}
-            </div>
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Document type */}
+                <label>Document type: </label>
+                <select
+                  name="huesped.tipoDocumento"
+                  onChange={(e) => handleGuestChange(e)}
+                >
+                  <option value="docType">Elegir opción</option>
+                  <option value="DNI">DNI</option>
+                  <option value="Passport">Passport</option>
+                  <option value="Libreta civica">Libreta Civica</option>
+                  <option value="CLI">CLI</option>
+                </select>
+                {error.tipoDocumento && (
+                  <p className={styles.error}>{error.tipoDocumento}</p>
+                )}
+              </div>
 
-            <div>
-              {' '}
-              {/* document number */}
-              <label>Document Number: </label>
-              <input
-                type="text"
-                id="dni"
-                name="huesped.dni"
-                onChange={(e) => handleGuestChange(e)}
-                placeholder="document number..."
-              />
-              {error.dni && <p className={styles.error}>{error.dni}</p>}
-            </div>
+              <div className={styles.microContainer}>
+                {' '}
+                {/* document number */}
+                <label>Document Number: </label>
+                <input
+                  type="text"
+                  id="dni"
+                  name="huesped.dni"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="document number..."
+                />
+                {error.dni && <p className={styles.error}>{error.dni}</p>}
+              </div>
 
-            <div>
-              {' '}
-              {/* Nationality */}
-              <label htmlFor="nationality">Nationality</label>
-              <select
-                name="huesped.nacionalidad"
-                onChange={(e) => handleGuestChange(e)}
-              >
-                <option value="">...select country</option>
-                {countries?.countries &&
-                  countries?.countries.map((c) => (
-                    <option key={c} value={c} id={c}>
-                      {c}
-                    </option>
-                  ))}
-              </select>
-              {error.nacionalidad && (
-                <p className={styles.error}>{error.nacionalidad}</p>
-              )}
-            </div>
-            {/* Gender */}
-            <label htmlFor="gender">Gender</label>
-            <select
-              onChange={(e) => handleGuestChange(e)}
-              name="huesped.genero"
-            >
-              <option value="">Select option</option>
-              <option value="masculino">Male</option>
-              <option value="femenino">Female</option>
-              <option value="no-binario">Other</option>
-            </select>
-            {error.genero && <p className={styles.error}>{error.genero}</p>}
-            {/* <button type="submit">Add Gest</button> */}
-          </form>
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Nationality */}
+                <label htmlFor="nationality">Nationality</label>
+                <select
+                  name="huesped.nacionalidad"
+                  onChange={(e) => handleGuestChange(e)}
+                >
+                  <option value="">...select country</option>
+                  {countries?.countries &&
+                    countries?.countries.map((c) => (
+                      <option key={c} value={c} id={c}>
+                        {c}
+                      </option>
+                    ))}
+                </select>
+                {error.nacionalidad && (
+                  <p className={styles.error}>{error.nacionalidad}</p>
+                )}
+              </div>
+              <div className={styles.microContainer}>
+                {/* Gender */}
+                <label htmlFor="gender">Gender</label>
+                <select
+                  onChange={(e) => handleGuestChange(e)}
+                  name="huesped.genero"
+                >
+                  <option value="">Select option</option>
+                  <option value="masculino">Male</option>
+                  <option value="femenino">Female</option>
+                  <option value="no-binario">Other</option>
+                </select>
+                {error.genero && <p className={styles.error}>{error.genero}</p>}
+                {/* <button type="submit">Add Gest</button> */}
+              </div>
+            </form>
+          </div>
+          <button
+            className={styles.button}
+            onClick={(e) => SubmitBookingUpdate(e)}
+          >
+            Update
+          </button>
+          <button className={styles.button} onClick={() => setFlag(true)}>
+            Delete Reservation
+          </button>
         </div>
-      </div>
-      <button
-        className={styles.button}
-        onClick={(e) => SubmitBookingUpdate(e)}
-        // disable={
-        //   error.nombre ||
-        //   error.apellido ||
-        //   error.dni ||
-        //   error.tipoDocumento ||
-        //   error.nacionalidad ||
-        //   error.genero
-        // }
-      >
-        Update
-      </button>
-    </div>
+      ) : (
+        <div className={styles.formulario}>
+          <p>
+            eh wachin mira que estas borrando tambien una banda de otras cosa
+          </p>
+          <button className={styles.button} onClick={handleDeleteReservation}>
+            Yes
+          </button>
+          <button className={styles.button} onClick={() => setFlag(false)}>
+            No
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 
