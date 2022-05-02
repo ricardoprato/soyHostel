@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+
 import Cart from '../../components/Cart/Cart';
 import Register from '../../components/Register/Register';
 import styles from '../../components/Register/Register.module.css';
@@ -32,7 +33,6 @@ import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
 const Prueba = () => {
   return (
     <>
-
       {/* <EditRoom />
       <PopupEditRoom /> */}
       {/* <FormEditRoom /> */}
@@ -40,7 +40,11 @@ const Prueba = () => {
       {/* <InfoUser /> */}
       {/* <Google /> */}
 
+
       <Stripe />
+
+
+      <CreateRoom />
 
     </>
   );
