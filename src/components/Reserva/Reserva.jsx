@@ -27,7 +27,7 @@ export default function Reserva() {
   }, [filteredAvailableBeds]);
   console.log('filteredRooms');
   console.log(filteredRooms);
-  // console.log("dataForCards")
+  // console.log("dataForCards") 
   // console.log(dataForCards)
   console.log('allRooms');
   console.log(allRooms);

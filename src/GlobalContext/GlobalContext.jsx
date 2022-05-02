@@ -169,7 +169,7 @@ export const ContextProvider = (props) => {
     // console.log(filteredCopy);
   };
 
-  return (
+  return ( 
     <GlobalContext.Provider
       value={{
         token,

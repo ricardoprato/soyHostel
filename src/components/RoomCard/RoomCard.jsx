@@ -135,19 +135,19 @@ export default function RoomCard(props) {
     let aux = cart?.map((e) => {
       if(e.roomId === roomId){
         props.bedIds.push(...e.beds)
-        let countAux = count + e.beds.length
-        setCount(countAux)
+        // let countAux = count + e.beds.length
+        setCount((prev)=> prev + e.beds.length)
         return undefined
       }else{
         return {...e}
       }
     });
     setBedsOnCart(0)
-    // console.log(aux)
+    console.log('++++++aux++++ ', aux)
     // if(aux[0] === undefined) setCart
-    setCart(aux.filter((e)=>{
-      e !== undefined
-    }));
+    let otroAux = aux.filter((e)=> e !== undefined )
+    console.log('++++++otroAux++++ ', otroAux)
+    setCart(otroAux);
     console.log('****DESPUES**props.berIds*** ', props.bedIds)
     // console.log("handleCartRemove")
   };
