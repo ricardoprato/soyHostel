@@ -1,98 +1,212 @@
-import React from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import Gantt from 'react-gantt-antd-rocket-pt';
+import 'react-gantt-antd-rocket-pt/lib/css/style.css';
+import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
+import { Modal } from '../Modal/Modal';
+import { Formulario } from '../Formulario/Formulario';
 import styles from './Calendar.module.css';
-import TimeLine from 'react-gantt-timeline';
-
-let d1 = new Date();
-let d2 = new Date();
-d2.setDate(d2.getDate() + 5);
-let d3 = new Date();
-d3.setDate(d3.getDate() + 8);
-let d4 = new Date();
-d4.setDate(d4.getDate() + 20);
-
-let data = [
-  { id: 'cama 1', start: d1, end: d2, name: 'Lucian', color: '#ff0000' },
-  { id: 'cama 1', start: d3, end: d4, name: 'Richi', color: 'green' },
-  { id: 'cama 2', start: d3, end: d4, name: 'Richi', color: 'green' },
-  { id: 'cama 2', start: d3, end: d4, name: 'Richi', color: 'green' },
-  { id: 'cama 3', start: d3, end: d4, name: 'Richi', color: 'green' },
-  { id: 'cama 3', start: d3, end: d4, name: 'Richi', color: 'green' },
-  { id: 'cama 4', start: d3, end: d4, name: 'Richi', color: 'green' },
-];
-
-const config = {
-  header: {
-    top: {
-      style: {
-        background: 'linear-gradient( grey, black)',
-        textShadow: '0.5px 0.5px black',
-        fontSize: 12,
-      },
-    },
-    middle: {
-      style: {
-        background: 'linear-gradient( orange, grey)',
-        fontSize: 9,
-      },
-    },
-    bottom: {
-      style: {
-        background: 'linear-gradient( grey, black)',
-        fontSize: 9,
-        color: 'orange',
-      },
-      selectedStyle: {
-        background: 'linear-gradient( #d011dd ,#d011dd)',
-        fontWeight: 'bold',
-        color: 'white',
-      },
-    },
-  },
-  taskList: {
-    title: {
-      label: 'Task Todo',
-      style: {
-        background: 'linear-gradient( grey, black)',
-      },
-    },
-    task: {
-      style: {
-        backgroundColor: 'grey',
-        color: 'white',
-      },
-    },
-    verticalSeparator: {
-      style: {
-        backgroundColor: '#fbf9f9',
-      },
-      grip: {
-        style: {
-          backgroundColor: 'red',
-        },
-      },
-    },
-  },
-  dataViewPort: {
-    rows: {
-      style: {
-        backgroundColor: 'white',
-        borderBottom: 'solid 0.5px silver',
-      },
-    },
-    task: {
-      showLabel: true,
-      style: {
-        borderRadius: 1,
-        boxShadow: '2px 2px 8px #888888',
-      },
-    },
-  },
-};
 
 export default function Calendar() {
+  const [localModal, setLocalModal] = useState(false);
+  const {
+    allRooms,
+    getAllRooms,
+    reservations,
+    setReservations,
+    getReservations,
+  } = useContext(GlobalContext);
+
+  const today = new Date();
+  const start = new Date(today);
+  const end = new Date(today);
+  start.setDate(start.getDate() - 15);
+  end.setDate(end.getDate() + 15);
+
+  const [localDate, setLocaldate] = useState({
+    // start: start.toLocaleDateString('en-CA'),
+    // end: end.toLocaleDateString('en-CA'),
+    start: null,
+    end: null,
+  });
+
+  const [calendarState, setCalendarState] = useState([]);
+
+  const getInitialState = () => {
+    allRooms.forEach((room) => {
+      if (room?.privada == false) {
+        room?.Camas.forEach((cama) => {
+          let producto = {
+            id: '',
+            title: '',
+            tasks: [],
+            dataSet: {},
+          };
+
+          producto.title = cama?.nombre.toUpperCase(); //cama.nombre
+          producto.id = cama?.id;
+          setCalendarState((prev) => [...prev, producto]);
+          // state.push(producto);
+        });
+      } else {
+        let producto = {
+          id: '',
+          title: '',
+          tasks: [],
+          dataSet: {},
+        };
+        producto.title = room.nombre.toUpperCase();
+        producto.id = room?.id;
+        setCalendarState((prev) => [...prev, producto]);
+        // state.push(producto);
+      }
+    });
+  };
+
+  const loadCalendar = () => {
+    console.log('esto es reservatios');
+    console.log(reservations);
+    reservations?.forEach((reserva) => {
+      if (reserva?.Habitacions?.length > 0) {
+        reserva?.Habitacions?.forEach((habitacion) => {
+          let element = {
+            id: reserva?.id,
+            title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
+            start: new Date(`${reserva.fecha_ingreso}`),
+            end: new Date(`${reserva.fecha_egreso}`),
+            dataSet: {
+              ...reserva,
+              idHabitacion: habitacion?.id,
+              nombreHabitacion: habitacion?.nombre,
+              // huesped:habitacion?.huesped
+            }, ///ojo aca el nombre de la habitación
+          };
+          let stateCopy = calendarState.map((producto) => {
+            if (producto.id == habitacion.id) {
+              producto.tasks.push(element);
+            }
+          });
+          setCalendarState(stateCopy);
+        });
+      }
+      if (reserva?.Camas?.length > 0) {
+        reserva?.Camas?.forEach((cama) => {
+          let element = {
+            id: reserva?.id,
+            title: `${reserva?.Usuario?.nombre} ${reserva?.Usuario?.apellido}`,
+            start: new Date(`${reserva.fecha_ingreso}`),
+            end: new Date(`${reserva.fecha_egreso}`),
+            dataSet: {
+              ...reserva,
+              idCama: cama?.id,
+              nombreCama: cama?.nombre,
+              estado: reserva.estado,
+              // huesped: cama?.huesped,
+            },
+          };
+          let stateCopy = calendarState.map((producto) => {
+            if (producto.id == cama.id) {
+              producto.tasks.push(element);
+            }
+          });
+          setCalendarState((prev) => [...stateCopy]);
+        });
+      }
+    });
+  };
+
+  useEffect(() => {
+    getAllRooms();
+  }, []);
+
+  useLayoutEffect(() => {
+    allRooms.length && getInitialState();
+    //let token = localStorage.getItem('tokenProp');
+  }, [allRooms]);
+
+  const [data, setData] = useState({});
+  const taskClick = (e) => {
+    setData(e.dataSet);
+    setLocalModal((prevState) => !prevState);
+  };
+
+  const handleFilters = (event) => {
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    setLocaldate({ ...localDate, start: from, end: to });
+
+    if (from !== '' && to !== '') {
+      if (Date.parse(from) <= Date.parse(to)) {
+        getReservations(from, to);
+      }
+    }
+  };
+  const showReservations = () => {
+    reservations.length > 0 && loadCalendar();
+  };
+
   return (
-    <div className={styles.lala}>
-      <TimeLine data={data} config={config} />
-    </div>
+    <>
+      {!!localModal && (
+        <Modal setLocalModal={setLocalModal}>
+          <Formulario props={data} />
+        </Modal>
+      )}
+      <div className={styles.form} id="form">
+        <label className={styles.input}>
+          From:
+          <input
+            type="date"
+            name="checkIn"
+            onChange={handleFilters}
+            className={styles.data}
+            // defaultValue={start.toLocaleDateString('en-CA')}
+            id="from"
+          />
+        </label>
+        <label className={styles.input}>
+          To:
+          <input
+            type="date"
+            name="checkOut"
+            onChange={handleFilters}
+            className={styles.data}
+            // defaultValue={end.toLocaleDateString('en-CA')}
+            id="to"
+          />
+        </label>
+
+        <button
+          className={styles.button}
+          onClick={showReservations}
+          disabled={Date.parse(localDate.start) >= Date.parse(localDate.end)}
+        >
+          View
+        </button>
+      </div>
+      {calendarState.length && !reservations.length ? (
+        <Gantt
+          start={new Date(`${start.toLocaleDateString('en-CA')}`)} //lo tengo que reemplazar por las fechas del mes en curso o meter un función respecto al día de hoy
+          end={new Date(`${end.toLocaleDateString('en-CA')}`)}
+          now={new Date()}
+          zoom={1}
+          projects={calendarState}
+          enableSticky
+          scrollToNow
+          sidebarWidth={220}
+        />
+      ) : reservations.length ? (
+        <Gantt
+          start={new Date(`${localDate.start}`)}
+          end={new Date(`${localDate.end}`)}
+          now={new Date()}
+          zoom={1}
+          projects={calendarState}
+          enableSticky
+          scrollToNow
+          clickTask={(e) => taskClick(e)}
+          sidebarWidth={220}
+        />
+      ) : null}
+    </>
   );
 }

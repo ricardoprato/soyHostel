@@ -1,6 +1,12 @@
 .roomDetailsContainer {
-  display: flex;
-  flex-direction: row;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 2rem;
+  background-color: white;
+  width: 1000px;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .roomDetailsText {
@@ -16,4 +22,3 @@
   width: 250px;
   height: auto;
 }
-

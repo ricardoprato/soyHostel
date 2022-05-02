@@ -1,0 +1,122 @@
+.register {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 50px;
+}
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
+}
+.formulario {
+  min-width: 600px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.formulario > div {
+  margin-bottom: 20px;
+}
+
+.formulario label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.formulario input,
+.formulario textarea {
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid #e2e2e2;
+  font-size: 18px;
+  padding: 10px;
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.formulario input:focus {
+  outline: none;
+  border: 2px solid #0085ff;
+}
+
+.error {
+  color: #e92b2d;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.formulario button[type='submit'] {
+  display: block;
+  background: #0085ff;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.3s ease all;
+}
+
+.formulario button[type='submit']:hover {
+  background: #0051ff;
+}
+
+.formulario .exito {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 20px;
+  color: #ff0000;
+}
+
+.img {
+  width: 150px;
+  display: block;
+  margin: 0 auto;
+}
+.button {
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6c757d;
+}
+.button:hover {
+  color: #3f4549;
+}
+.buttonicon {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 40px;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.containerInput {
+  position: relative;
+}
+.buttoneye {
+  font-size: 20px;
+  position: absolute;
+  color: var(--dark-color);
+  cursor: pointer;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.buttoneye:hover {
+  color: black;
+}

@@ -1,997 +1,389 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../Register/Register.module.css';
+import Logo from '../../Images/fondo.png';
+import Popup from '../Popup/Popup';
+import data from '../../data/countries.json';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 const Register = () => {
+  let error;
+  let url = import.meta.env.VITE_APP_URL;
+  let api = import.meta.env.VITE_API;
+
+  let sendData = async (valores) => {
+    let res = await fetch(`${url}` + '/auth/signup', {
+      method: 'POST',
+      headers: {
+        api: `${api}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(valores),
+    });
+    let res2 = await res.json();
+    error = res2.msg;
+    alert(error);
+    console.log('RESPUESTABACK', res2);
+  };
+
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
+  // const [dataProfile, setDataProfile] = useState({});
+  const [modal, setModal] = useState(false);
+  const { dataProfile, setDataProfile } = useContext(GlobalContext);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setModal(false);
+  };
+
+  let paises = data;
+
+  const [typePw, setTypePw] = useState('password');
+
+  const revealPassword = (e) => {
+    if (typePw === 'password') {
+      setTypePw('text');
+    } else {
+      setTypePw('password');
+    }
+  };
+
   return (
-    <>
-      <Formik
-        initialValues={{
-          nombre: '',
-          lastname: '',
-          correo: '',
-          dni: '',
-          typeofdni: '',
-          password: '',
-          nationality: '',
-          birthdate: '',
-          genre: '',
-        }}
-        validate={(valores) => {
-          let errores = {};
+    <div className={styles.register}>
+      {modal ? (
+        <Formik
+          initialValues={{
+            name: dataProfile.givenName,
+            lastname: dataProfile.familyName,
+            email: dataProfile.email,
+            avatar: dataProfile.imageUrl,
+            googleId: dataProfile.googleId,
+            dni: '',
+            typeofdocument: '',
+            password: '',
+            nationality: '',
+            birthdate: '',
+            genre: '',
+          }}
+          validate={(valores) => {
+            let errores = {};
+            console.log('pararicky', valores);
+            // Validacion nombre
+            if (!valores.name || !valores.name.trim()) {
+              errores.name = 'Please enter a name';
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.name)) {
+              errores.name = 'The name can only contain letters and spaces';
+            }
 
-          // Validacion nombre
-          if (!valores.nombre) {
-            errores.nombre = 'Please enter a name';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.nombre)) {
-            errores.nombre = 'The name can only contain letters and spaces';
-          }
+            // Validacion lastname
+            if (!valores.lastname || !valores.lastname.trim()) {
+              errores.lastname = 'Please enter a lastname';
+            } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastname)) {
+              errores.lastname =
+                'The lastname can only contain letters and spaces';
+            }
 
-          // Validacion lastname
-          if (!valores.lastname) {
-            errores.lastname = 'Please enter a lastname';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.lastname)) {
-            errores.lastname =
-              'The lastname can only contain letters and spaces';
-          }
+            // Validacion DNI
+            if (!valores.dni) {
+              errores.dni = 'Please enter a dni';
+            } else if (!/^[0-9]{8,20}$/.test(valores.dni)) {
+              errores.dni = 'The dni can only contain numbers';
+            }
 
-          // Validacion DNI
-          if (!valores.dni) {
-            errores.dni = 'Please enter a dni';
-          } else if (!/^[0-9]{8,20}$/.test(valores.dni)) {
-            errores.dni = 'The dni can only contain numbers';
-          }
+            // Validacion email
+            if (!valores.email) {
+              errores.email = 'Please enter a email';
+            } else if (
+              !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+                valores.email
+              )
+            ) {
+              errores.email =
+                'Email can only contain letters, numbers, points, script and underscores';
+            }
 
-          // Validacion correo
-          if (!valores.correo) {
-            errores.correo = 'Please enter a email';
-          } else if (
-            !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-              valores.correo
-            )
-          ) {
-            errores.correo =
-              'Email can only contain letters, numbers, points, script and underscores';
-          }
+            // Validacion password
+            if (!valores.password) {
+              errores.password = 'Please enter a password';
+            } else if (
+              !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(valores.password)
+            ) {
+              errores.password =
+                'Minimum eight characters, at least one letter and one number:';
+            }
 
-          // Validacion password
-          if (!valores.password) {
-            errores.password = 'Please enter a password';
-          } else if (
-            !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(valores.password)
-          ) {
-            errores.password =
-              'Minimum eight characters, at least one letter and one number:';
-          }
+            // Validacion type of document
+            if (!valores.typeofdocument) {
+              errores.typeofdocument = 'Please enter a type of document';
+            }
 
-          // Validacion type of dni
-          if (!valores.typeofdni) {
-            errores.typeofdni = 'Please enter a type of document';
-          }
+            // Validacion nationality
+            if (!valores.nationality) {
+              errores.nationality = 'Please enter your nationality';
+            }
 
-          // Validacion nationality
-          if (!valores.nationality) {
-            errores.nationality = 'Please enter your nationality';
-          }
+            // Validacion genre
+            if (!valores.genre) {
+              errores.genre = 'Please enter a genre';
+            }
 
-          // Validacion genre
-          if (!valores.genre) {
-            errores.genre = 'Please enter a genre';
-          }
+            // Validacion birthdate
+            var actual = new Date();
 
-          // Validacion birthdate
-          var actual = new Date();
+            const [actualMenos18, month, day] = [
+              actual.getFullYear() - 18,
+              actual.getMonth() + 1,
+              actual.getDate(),
+            ];
+            const array = [actualMenos18, month, day];
+            let arrayLindo = new Date(array.join('-'));
 
-          const [actualMenos18, month, day] = [
-            actual.getFullYear() - 18,
-            actual.getMonth() + 1,
-            actual.getDate(),
-          ];
-          const array = [actualMenos18, month, day];
-          let arrayLindo = new Date(array.join('-'));
+            const formatYmd = (date) => date.toISOString().slice(0, 10);
 
-          const formatYmd = (date) => date.toISOString().slice(0, 10);
+            let fechaActualFormateada = null;
+            if (arrayLindo) {
+              fechaActualFormateada = formatYmd(arrayLindo);
+            }
+            if (birthdate.value) {
+              valores.birthdate = formatYmd(new Date(birthdate.value));
+            }
 
-          let fechaActualFormateada = null;
-          if (arrayLindo) {
-            fechaActualFormateada = formatYmd(arrayLindo);
-          }
-          if (birthdate.value) {
-            valores.birthdate = formatYmd(new Date(birthdate.value));
-          }
+            if (!valores.birthdate) {
+              errores.birthdate = 'Please enter a birthdate';
+            } else if (!(valores.birthdate <= fechaActualFormateada)) {
+              errores.birthdate = 'Need to be 18 or more years old';
+            } else if (valores.birthdate < '1922-01-01') {
+              errores.birthdate = 'You are very old for register';
+            }
 
-          if (!valores.birthdate) {
-            errores.birthdate = 'Please enter a birthdate';
-          } else if (!(valores.birthdate <= fechaActualFormateada)) {
-            errores.birthdate = 'Need to be 18 or more years old';
-          }
+            return errores;
+          }}
+          onSubmit={async (valores, { resetForm }) => {
+            await sendData(valores);
+            resetForm();
+            console.log('INFO', valores);
+            cambiarFormularioEnviado(true);
 
-          return errores;
-        }}
-        onSubmit={(valores, { resetForm }) => {
-          resetForm();
-          console.log('Sended formulary');
-          cambiarFormularioEnviado(true);
-          setTimeout(
-            () => cambiarFormularioEnviado(false),
+            setTimeout(
+              () => cambiarFormularioEnviado(false),
 
-            5000
-          );
-        }}
-      >
-        {({ errors }) => (
-          <Form className={styles.formulario}>
-            <div>
-              <label htmlFor="nombre">First Name</label>
-              <Field
-                type="text"
-                id="nombre"
-                name="nombre"
-                placeholder="Put your name"
-              />
-              <ErrorMessage
-                name="nombre"
-                component={() => (
-                  <div className={styles.error}>{errors.nombre}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="lastname">Last Name</label>
-              <Field
-                type="text"
-                id="lastname"
-                name="lastname"
-                placeholder="Put your lastname"
-              />
-              <ErrorMessage
-                name="lastname"
-                component={() => (
-                  <div className={styles.error}>{errors.lastname}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="typeofdni">Type of document</label>
-              <Field name="typeofdni" as="select">
-                <option value="typeofdni" id="AF">
-                  Elegir opción
-                </option>
-                <option value="DNI" id="AF">
-                  DNI
-                </option>
-                <option value="Passport" id="AF">
-                  Passport
-                </option>
-                <option value="Libreta civica" id="AF">
-                  Libreta Civica
-                </option>
-                <option value="CLI" id="AF">
-                  CLI
-                </option>
-              </Field>
-              <ErrorMessage
-                name="typeofdni"
-                component={() => (
-                  <div className={styles.error}>{errors.typeofdni}</div>
-                )}
-              />
-            </div>
-            <div>
-              <Field
-                type="text"
-                id="dni"
-                name="dni"
-                placeholder="Put your dni"
-              />
-              <ErrorMessage
-                name="dni"
-                component={() => (
-                  <div className={styles.error}>{errors.dni}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="birthdate">Birthdate</label>
-              <Field type="date" id="birthdate" name="birthdate" />
-              <ErrorMessage
-                name="birthdate"
-                component={() => (
-                  <div className={styles.error}>{errors.birthdate}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="correo">Email (Username)</label>
-              <Field
-                type="text"
-                id="correo"
-                name="correo"
-                placeholder="correo@correo.com"
-              />
-              <ErrorMessage
-                name="correo"
-                component={() => (
-                  <div className={styles.error}>{errors.correo}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <Field
-                type="text"
-                id="password"
-                name="password"
-                placeholder="mipassword123"
-              />
-              <ErrorMessage
-                name="password"
-                component={() => (
-                  <div className={styles.error}>{errors.password}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="nationality">Nationality</label>
-              <Field name="nationality" as="select">
-                <option value="" id="AF">
-                  Elegir opción
-                </option>
-                <option value="Afganistán" id="AF">
-                  Afganistán
-                </option>
-                <option value="Albania" id="AL">
-                  Albania
-                </option>
-                <option value="Alemania" id="DE">
-                  Alemania
-                </option>
-                <option value="Andorra" id="AD">
-                  Andorra
-                </option>
-                <option value="Angola" id="AO">
-                  Angola
-                </option>
-                <option value="Anguila" id="AI">
-                  Anguila
-                </option>
-                <option value="Antártida" id="AQ">
-                  Antártida
-                </option>
-                <option value="Antigua y Barbuda" id="AG">
-                  Antigua y Barbuda
-                </option>
-                <option value="Antillas holandesas" id="AN">
-                  Antillas holandesas
-                </option>
-                <option value="Arabia Saudí" id="SA">
-                  Arabia Saudí
-                </option>
-                <option value="Argelia" id="DZ">
-                  Argelia
-                </option>
-                <option value="Argentina" id="AR">
-                  Argentina
-                </option>
-                <option value="Armenia" id="AM">
-                  Armenia
-                </option>
-                <option value="Aruba" id="AW">
-                  Aruba
-                </option>
-                <option value="Australia" id="AU">
-                  Australia
-                </option>
-                <option value="Austria" id="AT">
-                  Austria
-                </option>
-                <option value="Azerbaiyán" id="AZ">
-                  Azerbaiyán
-                </option>
-                <option value="Bahamas" id="BS">
-                  Bahamas
-                </option>
-                <option value="Bahrein" id="BH">
-                  Bahrein
-                </option>
-                <option value="Bangladesh" id="BD">
-                  Bangladesh
-                </option>
-                <option value="Barbados" id="BB">
-                  Barbados
-                </option>
-                <option value="Bélgica" id="BE">
-                  Bélgica
-                </option>
-                <option value="Belice" id="BZ">
-                  Belice
-                </option>
-                <option value="Benín" id="BJ">
-                  Benín
-                </option>
-                <option value="Bermudas" id="BM">
-                  Bermudas
-                </option>
-                <option value="Bhután" id="BT">
-                  Bhután
-                </option>
-                <option value="Bielorrusia" id="BY">
-                  Bielorrusia
-                </option>
-                <option value="Birmania" id="MM">
-                  Birmania
-                </option>
-                <option value="Bolivia" id="BO">
-                  Bolivia
-                </option>
-                <option value="Bosnia y Herzegovina" id="BA">
-                  Bosnia y Herzegovina
-                </option>
-                <option value="Botsuana" id="BW">
-                  Botsuana
-                </option>
-                <option value="Brasil" id="BR">
-                  Brasil
-                </option>
-                <option value="Brunei" id="BN">
-                  Brunei
-                </option>
-                <option value="Bulgaria" id="BG">
-                  Bulgaria
-                </option>
-                <option value="Burkina Faso" id="BF">
-                  Burkina Faso
-                </option>
-                <option value="Burundi" id="BI">
-                  Burundi
-                </option>
-                <option value="Cabo Verde" id="CV">
-                  Cabo Verde
-                </option>
-                <option value="Camboya" id="KH">
-                  Camboya
-                </option>
-                <option value="Camerún" id="CM">
-                  Camerún
-                </option>
-                <option value="Canadá" id="CA">
-                  Canadá
-                </option>
-                <option value="Chad" id="TD">
-                  Chad
-                </option>
-                <option value="Chile" id="CL">
-                  Chile
-                </option>
-                <option value="China" id="CN">
-                  China
-                </option>
-                <option value="Chipre" id="CY">
-                  Chipre
-                </option>
-                <option value="Ciudad estado del Vaticano" id="VA">
-                  Ciudad estado del Vaticano
-                </option>
-                <option value="Colombia" id="CO">
-                  Colombia
-                </option>
-                <option value="Comores" id="KM">
-                  Comores
-                </option>
-                <option value="Congo" id="CG">
-                  Congo
-                </option>
-                <option value="Corea" id="KR">
-                  Corea
-                </option>
-                <option value="Corea del Norte" id="KP">
-                  Corea del Norte
-                </option>
-                <option value="Costa del Marfíl" id="CI">
-                  Costa del Marfíl
-                </option>
-                <option value="Costa Rica" id="CR">
-                  Costa Rica
-                </option>
-                <option value="Croacia" id="HR">
-                  Croacia
-                </option>
-                <option value="Cuba" id="CU">
-                  Cuba
-                </option>
-                <option value="Dinamarca" id="DK">
-                  Dinamarca
-                </option>
-                <option value="Djibouri" id="DJ">
-                  Djibouri
-                </option>
-                <option value="Dominica" id="DM">
-                  Dominica
-                </option>
-                <option value="Ecuador" id="EC">
-                  Ecuador
-                </option>
-                <option value="Egipto" id="EG">
-                  Egipto
-                </option>
-                <option value="El Salvador" id="SV">
-                  El Salvador
-                </option>
-                <option value="Emiratos Arabes Unidos" id="AE">
-                  Emiratos Arabes Unidos
-                </option>
-                <option value="Eritrea" id="ER">
-                  Eritrea
-                </option>
-                <option value="Eslovaquia" id="SK">
-                  Eslovaquia
-                </option>
-                <option value="Eslovenia" id="SI">
-                  Eslovenia
-                </option>
-                <option value="España" id="ES">
-                  España
-                </option>
-                <option value="Estados Unidos" id="US">
-                  Estados Unidos
-                </option>
-                <option value="Estonia" id="EE">
-                  Estonia
-                </option>
-                <option value="c" id="ET">
-                  Etiopía
-                </option>
-                <option value="Ex-República Yugoslava de Macedonia" id="MK">
-                  Ex-República Yugoslava de Macedonia
-                </option>
-                <option value="Filipinas" id="PH">
-                  Filipinas
-                </option>
-                <option value="Finlandia" id="FI">
-                  Finlandia
-                </option>
-                <option value="Francia" id="FR">
-                  Francia
-                </option>
-                <option value="Gabón" id="GA">
-                  Gabón
-                </option>
-                <option value="Gambia" id="GM">
-                  Gambia
-                </option>
-                <option value="Georgia" id="GE">
-                  Georgia
-                </option>
-                <option
-                  value="Georgia del Sur y las islas Sandwich del Sur"
-                  id="GS"
+              5000
+            );
+          }}
+        >
+          {({ errors }) => (
+            <Form className={styles.formulario}>
+              <div>
+                <button onClick={handleClick} className={styles.buttonicon}>
+                  <i
+                    className={`${styles.icon} bi bi-arrow-left-square-fill`}
+                  ></i>
+                </button>
+                <h2 className={styles.logo}>
+                  Soy{' '}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 154.87 113"
+                    className={styles.nav_logo}
+                  >
+                    <g id="Capa_2" data-name="Capa 2">
+                      <g id="Capa_1-2" data-name="Capa 1">
+                        <path d="M0,34c0,18.7.2,34,.5,34s6.6-1.5,14.2-3.4,16.4-4,19.6-4.7L40,58.7V0H0Z" />
+                        <path d="M66,27V54l2.3-.4c3.8-.8,14.9-2.5,23.2-3.6,4.4-.6,9.5-1.3,11.3-1.6l3.2-.5V0H66Z" />
+                        <path d="M126.82,39.6c-.4.3.3,1.5,1.4,2.6,1.5,1.4,1.7,2.3.9,3.1-1.6,1.6-1.4,9,.3,11.3,1.3,1.6,1.3,2.2,0,4.1-.9,1.4-1,2.4-.4,2.8,1.6,1,4.8-.4,5.5-2.4.4-1.2,2.3-2.1,6.5-2.9,11.2-2.1,15.8-5.9,13.1-11-1.2-2.3-7.9-4.2-14.8-4.2-3.6,0-5.3-.5-6.6-2C131.12,39.1,128,38.3,126.82,39.6Z" />
+                        <path d="M91,68.5c-5.8,1.9-13.8,4.4-17.7,5.6L66,76.4V113h40V65l-2.2.1C102.52,65.1,96.82,66.7,91,68.5Z" />
+                        <path d="M21,92.9C-1.48,102,0,101,0,107.5V113H40V99.5c0-10.2-.3-13.5-1.2-13.4C38.12,86.1,30.12,89.1,21,92.9Z" />
+                      </g>
+                    </g>
+                  </svg>
+                  ostel
+                </h2>
+                <label htmlFor="name">First Name</label>
+                <Field
+                  type="text"
+                  id="name"
+                  name="name"
+                  className={styles.input}
+                  placeholder="Put your name"
+                />
+                <ErrorMessage
+                  name="name"
+                  component={() => (
+                    <div className={styles.error}>{errors.name}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="lastname">Last Name</label>
+                <Field
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  placeholder="Put your lastname"
+                  className={styles.input}
+                  // onChange={handleChange}
+                />
+                <ErrorMessage
+                  name="lastname"
+                  component={() => (
+                    <div className={styles.error}>{errors.lastname}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="typeofdocument">Type of document</label>
+                <Field
+                  name="typeofdocument"
+                  as="select"
+                  className={styles.input}
                 >
-                  Georgia del Sur y las islas Sandwich del Sur
-                </option>
-                <option value="Ghana" id="GH">
-                  Ghana
-                </option>
-                <option value="Gibraltar" id="GI">
-                  Gibraltar
-                </option>
-                <option value="Granada" id="GD">
-                  Granada
-                </option>
-                <option value="Grecia" id="GR">
-                  Grecia
-                </option>
-                <option value="Groenlandia" id="GL">
-                  Groenlandia
-                </option>
-                <option value="Guadalupe" id="GP">
-                  Guadalupe
-                </option>
-                <option value="Guam" id="GU">
-                  Guam
-                </option>
-                <option value="Guatemala" id="GT">
-                  Guatemala
-                </option>
-                <option value="Guayana" id="GY">
-                  Guayana
-                </option>
-                <option value="Guayana francesa" id="GF">
-                  Guayana francesa
-                </option>
-                <option value="Guinea" id="GN">
-                  Guinea
-                </option>
-                <option value="Guinea Ecuatorial" id="GQ">
-                  Guinea Ecuatorial
-                </option>
-                <option value="Guinea-Bissau" id="GW">
-                  Guinea-Bissau
-                </option>
-                <option value="Haití" id="HT">
-                  Haití
-                </option>
-                <option value="Holanda" id="NL">
-                  Holanda
-                </option>
-                <option value="Honduras" id="HN">
-                  Honduras
-                </option>
-                <option value="Hong Kong R. A. E" id="HK">
-                  Hong Kong R. A. E
-                </option>
-                <option value="Hungría" id="HU">
-                  Hungría
-                </option>
-                <option value="India" id="IN">
-                  India
-                </option>
-                <option value="Indonesia" id="ID">
-                  Indonesia
-                </option>
-                <option value="Irak" id="IQ">
-                  Irak
-                </option>
-                <option value="Irán" id="IR">
-                  Irán
-                </option>
-                <option value="Irlanda" id="IE">
-                  Irlanda
-                </option>
-                <option value="Isla Bouvet" id="BV">
-                  Isla Bouvet
-                </option>
-                <option value="Isla Christmas" id="CX">
-                  Isla Christmas
-                </option>
-                <option value="Isla Heard e Islas McDonald" id="HM">
-                  Isla Heard e Islas McDonald
-                </option>
-                <option value="Islandia" id="IS">
-                  Islandia
-                </option>
-                <option value="Islas Caimán" id="KY">
-                  Islas Caimán
-                </option>
-                <option value="Islas Cook" id="CK">
-                  Islas Cook
-                </option>
-                <option value="Islas de Cocos o Keeling" id="CC">
-                  Islas de Cocos o Keeling
-                </option>
-                <option value="Islas Faroe" id="FO">
-                  Islas Faroe
-                </option>
-                <option value="Islas Fiyi" id="FJ">
-                  Islas Fiyi
-                </option>
-                <option value="Islas Malvinas Islas Falkland" id="FK">
-                  Islas Malvinas Islas Falkland
-                </option>
-                <option value="Islas Marianas del norte" id="MP">
-                  Islas Marianas del norte
-                </option>
-                <option value="Islas Marshall" id="MH">
-                  Islas Marshall
-                </option>
-                <option value="Islas menores de Estados Unidos" id="UM">
-                  Islas menores de Estados Unidos
-                </option>
-                <option value="Islas Palau" id="PW">
-                  Islas Palau
-                </option>
-                <option value="Islas Salomón" d="SB">
-                  Islas Salomón
-                </option>
-                <option value="Islas Tokelau" id="TK">
-                  Islas Tokelau
-                </option>
-                <option value="Islas Turks y Caicos" id="TC">
-                  Islas Turks y Caicos
-                </option>
-                <option value="Islas Vírgenes EE.UU." id="VI">
-                  Islas Vírgenes EE.UU.
-                </option>
-                <option value="Islas Vírgenes Reino Unido" id="VG">
-                  Islas Vírgenes Reino Unido
-                </option>
-                <option value="Israel" id="IL">
-                  Israel
-                </option>
-                <option value="Italia" id="IT">
-                  Italia
-                </option>
-                <option value="Jamaica" id="JM">
-                  Jamaica
-                </option>
-                <option value="Japón" id="JP">
-                  Japón
-                </option>
-                <option value="Jordania" id="JO">
-                  Jordania
-                </option>
-                <option value="Kazajistán" id="KZ">
-                  Kazajistán
-                </option>
-                <option value="Kenia" id="KE">
-                  Kenia
-                </option>
-                <option value="Kirguizistán" id="KG">
-                  Kirguizistán
-                </option>
-                <option value="Kiribati" id="KI">
-                  Kiribati
-                </option>
-                <option value="Kuwait" id="KW">
-                  Kuwait
-                </option>
-                <option value="Laos" id="LA">
-                  Laos
-                </option>
-                <option value="Lesoto" id="LS">
-                  Lesoto
-                </option>
-                <option value="Letonia" id="LV">
-                  Letonia
-                </option>
-                <option value="Líbano" id="LB">
-                  Líbano
-                </option>
-                <option value="Liberia" id="LR">
-                  Liberia
-                </option>
-                <option value="Libia" id="LY">
-                  Libia
-                </option>
-                <option value="Liechtenstein" id="LI">
-                  Liechtenstein
-                </option>
-                <option value="Lituania" id="LT">
-                  Lituania
-                </option>
-                <option value="Luxemburgo" id="LU">
-                  Luxemburgo
-                </option>
-                <option value="Macao R. A. E" id="MO">
-                  Macao R. A. E
-                </option>
-                <option value="Madagascar" id="MG">
-                  Madagascar
-                </option>
-                <option value="Malasia" id="MY">
-                  Malasia
-                </option>
-                <option value="Malawi" id="MW">
-                  Malawi
-                </option>
-                <option value="Maldivas" id="MV">
-                  Maldivas
-                </option>
-                <option value="Malí" id="ML">
-                  Malí
-                </option>
-                <option value="Malta" id="MT">
-                  Malta
-                </option>
-                <option value="Marruecos" id="MA">
-                  Marruecos
-                </option>
-                <option value="Martinica" id="MQ">
-                  Martinica
-                </option>
-                <option value="Mauricio" id="MU">
-                  Mauricio
-                </option>
-                <option value="Mauritania" id="MR">
-                  Mauritania
-                </option>
-                <option value="Mayotte" id="YT">
-                  Mayotte
-                </option>
-                <option value="México" id="MX">
-                  México
-                </option>
-                <option value="Micronesia" id="FM">
-                  Micronesia
-                </option>
-                <option value="Moldavia" id="MD">
-                  Moldavia
-                </option>
-                <option value="Mónaco" id="MC">
-                  Mónaco
-                </option>
-                <option value="Mongolia" id="MN">
-                  Mongolia
-                </option>
-                <option value="Montserrat" id="MS">
-                  Montserrat
-                </option>
-                <option value="Mozambique" id="MZ">
-                  Mozambique
-                </option>
-                <option value="Namibia" id="NA">
-                  Namibia
-                </option>
-                <option value="Nauru" id="NR">
-                  Nauru
-                </option>
-                <option value="Nepal" id="NP">
-                  Nepal
-                </option>
-                <option value="Nicaragua" id="NI">
-                  Nicaragua
-                </option>
-                <option value="Níger" id="NE">
-                  Níger
-                </option>
-                <option value="Nigeria" id="NG">
-                  Nigeria
-                </option>
-                <option value="Niue" id="NU">
-                  Niue
-                </option>
-                <option value="Norfolk" id="NF">
-                  Norfolk
-                </option>
-                <option value="Noruega" id="NO">
-                  Noruega
-                </option>
-                <option value="Nueva Caledonia" id="NC">
-                  Nueva Caledonia
-                </option>
-                <option value="Nueva Zelanda" id="NZ">
-                  Nueva Zelanda
-                </option>
-                <option value="Omán" id="OM">
-                  Omán
-                </option>
-                <option value="Panamá" id="PA">
-                  Panamá
-                </option>
-                <option value="Papua Nueva Guinea" id="PG">
-                  Papua Nueva Guinea
-                </option>
-                <option value="Paquistán" id="PK">
-                  Paquistán
-                </option>
-                <option value="Paraguay" id="PY">
-                  Paraguay
-                </option>
-                <option value="Perú" id="PE">
-                  Perú
-                </option>
-                <option value="Pitcairn" id="PN">
-                  Pitcairn
-                </option>
-                <option value="Polinesia francesa" id="PF">
-                  Polinesia francesa
-                </option>
-                <option value="Polonia" id="PL">
-                  Polonia
-                </option>
-                <option value="Portugal" id="PT">
-                  Portugal
-                </option>
-                <option value="Puerto Rico" id="PR">
-                  Puerto Rico
-                </option>
-                <option value="Qatar" id="QA">
-                  Qatar
-                </option>
-                <option value="Reino Unido" id="UK">
-                  Reino Unido
-                </option>
-                <option value="República Centroafricana" id="CF">
-                  República Centroafricana
-                </option>
-                <option value="República Checa" id="CZ">
-                  República Checa
-                </option>
-                <option value="República de Sudáfrica" id="ZA">
-                  República de Sudáfrica
-                </option>
-                <option value="República Democrática del Congo Zaire" id="CD">
-                  República Democrática del Congo Zaire
-                </option>
-                <option value="República Dominicana" id="DO">
-                  República Dominicana
-                </option>
-                <option value="Reunión" id="RE">
-                  Reunión
-                </option>
-                <option value="Ruanda" id="RW">
-                  Ruanda
-                </option>
-                <option value="Rumania" id="RO">
-                  Rumania
-                </option>
-                <option value="Rusia" id="RU">
-                  Rusia
-                </option>
-                <option value="Samoa" id="WS">
-                  Samoa
-                </option>
-                <option value="Samoa occidental" id="AS">
-                  Samoa occidental
-                </option>
-                <option value="San Kitts y Nevis" id="KN">
-                  San Kitts y Nevis
-                </option>
-                <option value="San Marino" id="SM">
-                  San Marino
-                </option>
-                <option value="San Pierre y Miquelon" id="PM">
-                  San Pierre y Miquelon
-                </option>
-                <option value="San Vicente e Islas Granadinas" id="VC">
-                  San Vicente e Islas Granadinas
-                </option>
-                <option value="Santa Helena" id="SH">
-                  Santa Helena
-                </option>
-                <option value="Santa Lucía" id="LC">
-                  Santa Lucía
-                </option>
-                <option value="Santo Tomé y Príncipe" id="ST">
-                  Santo Tomé y Príncipe
-                </option>
-                <option value="Senegal" id="SN">
-                  Senegal
-                </option>
-                <option value="Serbia y Montenegro" id="YU">
-                  Serbia y Montenegro
-                </option>
-                <option value="Sychelles" id="SC">
-                  Seychelles
-                </option>
-                <option value="Sierra Leona" id="SL">
-                  Sierra Leona
-                </option>
-                <option value="Singapur" id="SG">
-                  Singapur
-                </option>
-                <option value="Siria" id="SY">
-                  Siria
-                </option>
-                <option value="Somalia" id="SO">
-                  Somalia
-                </option>
-                <option value="Sri Lanka" id="LK">
-                  Sri Lanka
-                </option>
-                <option value="Suazilandia" id="SZ">
-                  Suazilandia
-                </option>
-                <option value="Sudán" id="SD">
-                  Sudán
-                </option>
-                <option value="Suecia" id="SE">
-                  Suecia
-                </option>
-                <option value="Suiza" id="CH">
-                  Suiza
-                </option>
-                <option value="Surinam" id="SR">
-                  Surinam
-                </option>
-                <option value="Svalbard" id="SJ">
-                  Svalbard
-                </option>
-                <option value="Tailandia" id="TH">
-                  Tailandia
-                </option>
-                <option value="Taiwán" id="TW">
-                  Taiwán
-                </option>
-                <option value="Tanzania" id="TZ">
-                  Tanzania
-                </option>
-                <option value="Tayikistán" id="TJ">
-                  Tayikistán
-                </option>
-                <option
-                  value="Territorios británicos del océano Indico"
-                  id="IO"
-                >
-                  Territorios británicos del océano Indico
-                </option>
-                <option value="Territorios franceses del sur" id="TF">
-                  Territorios franceses del sur
-                </option>
-                <option value="Timor Oriental" id="TP">
-                  Timor Oriental
-                </option>
-                <option value="Togo" id="TG">
-                  Togo
-                </option>
-                <option value="Tonga" id="TO">
-                  Tonga
-                </option>
-                <option value="Trinidad y Tobago" id="TT">
-                  Trinidad y Tobago
-                </option>
-                <option value="Túnez" id="TN">
-                  Túnez
-                </option>
-                <option value="Turkmenistán" id="TM">
-                  Turkmenistán
-                </option>
-                <option value="Turquía" id="TR">
-                  Turquía
-                </option>
-                <option value="Tuvalu" id="TV">
-                  Tuvalu
-                </option>
-                <option value="Ucrania" id="UA">
-                  Ucrania
-                </option>
-                <option value="Uganda" id="UG">
-                  Uganda
-                </option>
-                <option value="Uruguay" id="UY">
-                  Uruguay
-                </option>
-                <option value="Uzbekistán" id="UZ">
-                  Uzbekistán
-                </option>
-                <option value="Vanuatu" id="VU">
-                  Vanuatu
-                </option>
-                <option value="Venezuela" id="VE">
-                  Venezuela
-                </option>
-                <option value="Vietnam" id="VN">
-                  Vietnam
-                </option>
-                <option value="Wallis y Futuna" id="WF">
-                  Wallis y Futuna
-                </option>
-                <option value="Yemen" id="YE">
-                  Yemen
-                </option>
-                <option value="Zambia" id="ZM">
-                  Zambia
-                </option>
-                <option value="Zimbabue" id="ZW">
-                  Zimbabue
-                </option>
-              </Field>
-              <ErrorMessage
-                name="nationality"
-                component={() => (
-                  <div className={styles.error}>{errors.nationality}</div>
-                )}
-              />
-            </div>
-            <div>
-              <label htmlFor="genre">Genre</label>
-              <Field name="genre" as="select">
-                <option value="" id="AF">
-                  Elegir opción
-                </option>
-                <option value="Male" id="AF">
-                  Male
-                </option>
-                <option value="Female" id="AF">
-                  Female
-                </option>
-              </Field>
-              <ErrorMessage
-                name="genre"
-                component={() => (
-                  <div className={styles.error}>{errors.genre}</div>
-                )}
-              />
-            </div>
+                  <option value="typeofdocument" id="AF">
+                    Elegir opción
+                  </option>
+                  <option value="DNI" id="AF">
+                    DNI
+                  </option>
+                  <option value="Passport" id="AF">
+                    Passport
+                  </option>
+                  <option value="Driver License" id="AF">
+                    Driver License
+                  </option>
+                </Field>
+                <ErrorMessage
+                  name="typeofdocument"
+                  component={() => (
+                    <div className={styles.error}>{errors.typeofdocument}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <Field
+                  type="text"
+                  id="dni"
+                  name="dni"
+                  placeholder="Put your dni"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="dni"
+                  component={() => (
+                    <div className={styles.error}>{errors.dni}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="birthdate">Birthdate</label>
+                <Field
+                  type="date"
+                  id="birthdate"
+                  name="birthdate"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="birthdate"
+                  component={() => (
+                    <div className={styles.error}>{errors.birthdate}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Email (Username)</label>
+                <Field
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="email@gmail.com"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="email"
+                  component={() => (
+                    <div className={styles.error}>{errors.email}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password</label>
+                <div className={styles.containerInput}>
+                  <Field
+                    type={typePw}
+                    id="password"
+                    name="password"
+                    placeholder="mypassword123"
+                    className={styles.input}
+                  />
 
-            <button type="submit">Send</button>
-            {formularioEnviado && (
-              <p className="exito">Formulario enviado con exito!</p>
-            )}
-          </Form>
-        )}
-      </Formik>
-    </>
+                  {typePw === 'password' ? (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  ) : (
+                    <i
+                      className={`${styles.buttoneye} bi bi-eye-slash-fill`}
+                      onClick={revealPassword}
+                    ></i>
+                  )}
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component={() => (
+                    <div className={styles.error}>{errors.password}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="nationality">Nationality</label>
+                <Field name="nationality" as="select" className={styles.input}>
+                  <option>Elegir pais</option>
+                  {paises.countries.map((p) => {
+                    return <option key={p}>{p}</option>;
+                  })}
+                </Field>
+                <ErrorMessage
+                  name="nationality"
+                  component={() => (
+                    <div className={styles.error}>{errors.nationality}</div>
+                  )}
+                />
+              </div>
+              <div>
+                <label htmlFor="genre">Genre</label>
+                <Field name="genre" as="select" className={styles.input}>
+                  <option value="" id="AF">
+                    Elegir opción
+                  </option>
+                  <option value="masculino" id="AF">
+                    masculino
+                  </option>
+                  <option value="femenino" id="AF">
+                    femenino
+                  </option>
+                </Field>
+                <ErrorMessage
+                  name="genre"
+                  component={() => (
+                    <div className={styles.error}>{errors.genre}</div>
+                  )}
+                />
+              </div>
+
+              <button type="submit">Send</button>
+              {formularioEnviado && (
+                <p className={styles.exito}>Formulario enviado con exito!</p>
+              )}
+            </Form>
+          )}
+        </Formik>
+      ) : (
+        <Popup
+          setModal={setModal}
+          setDataProfile={setDataProfile}
+          handleClick={handleClick}
+        />
+      )}
+    </div>
   );
 };
 
