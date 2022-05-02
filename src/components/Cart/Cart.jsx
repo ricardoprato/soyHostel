@@ -71,15 +71,16 @@ export default function Cart() {
     }
   ]   */
 
-  const handleCartRemove = (roomId) => {
-    //  funcion para eliminar items del carrito
-    let aux = cart.filter((e) => {
-      return e.roomId !== roomId;
-    });
-    // console.log(aux)
-    setCart(aux);
-    // console.log("handleCartRemove")
-  };
+
+  // const handleCartRemove = (roomId) => {
+  //   //  funcion para eliminar items del carrito
+  //   let aux = cart.filter((e) => {
+  //     return e.roomId !== roomId;
+  //   });
+    
+  //   // console.log(aux)
+  //   setCart(aux);
+  //   // console.log("handleCartRemove")
 
   //   const handleConfirm = () => {
   //     // console.log('toBack')
@@ -167,11 +168,12 @@ export default function Cart() {
   //     });
   //   setCart([]);
   // };
+
   let token = window.localStorage.getItem('tokenProp');
 
   let totalToPay = 0;
   let auxToBack = {};
-  if (cart.length > 0) {
+  if (cart?.length > 0) {
     auxToBack = {
       //   ESTO ES LO QUE MANDAMOS AL BACK
       fecha_ingreso: cart[0]?.checkIn,
@@ -183,9 +185,6 @@ export default function Cart() {
   }
 
   const fillToBack = () => {
-    // console.log("se ejecuto fillToBack")
-    // console.log("cart")
-    // console.log(cart)
     cart.length &&
       cart.forEach((r) => {
         if (r.private === 'private') {
@@ -247,7 +246,7 @@ export default function Cart() {
                 {/* <h3>{r.beds?.length} beds booked</h3> */}
               </>
             )}
-            <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
+            {/* <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button> */}
           </div>
         ))}
       <p>Total to pay: {toBack.saldo}</p>
