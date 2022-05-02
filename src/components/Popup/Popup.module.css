@@ -2,14 +2,16 @@
   background-color: var(--white-color);
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  border-radius: 8px;
   row-gap: 2rem;
   padding: 2rem;
+  width: 600px;
 }
-.img {
-  width: 30%;
-  display: block;
-  margin: 0 auto;
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
 }
 .input {
   display: flex;

@@ -20,35 +20,49 @@ function Avatar() {
     console.log(token);
   };
 
-  const handleAvatarClick = (e) => {
+  const handleAvatarClick = () => {
     setToggle(!toggle);
   };
 
   console.log('ROL', rol);
   return (
     <div className={styles.container}>
-      <img
-        onClick={handleAvatarClick}
-        className={styles.img}
-        src={imgAvatar}
-        alt="Avatar"
-      />
+      <div className={styles.profile}>
+        <img
+          onClick={handleAvatarClick}
+          className={styles.img}
+          src={imgAvatar}
+          alt="Avatar"
+        />
+      </div>
       {toggle && rol === 'cliente' ? (
-        <div className={styles.buttons}>
-          <button className={styles.button}>Account details</button>
-          <button className={styles.button}>History</button>
+        <div className={styles.menu}>
+          <button className={styles.button}>
+            <i class="bi bi-pencil-square"></i>Account details
+          </button>
+          <button className={styles.button}>
+            <i class="bi bi-book"></i>History
+          </button>
           <button onClick={handleClick} className={styles.button}>
+            <i class="bi bi-box-arrow-right"></i>
             Logout
           </button>
         </div>
       ) : toggle && (rol === 'administrador' || rol === 'recepcionista') ? (
-        <div className={styles.buttons}>
+        <div className={styles.menu}>
           <NavLink to="/admin">
-            <button className={styles.button}>Go to admin panel</button>
+            <button className={styles.button}>
+              <i class="bi bi-command"></i>Go to admin panel
+            </button>
           </NavLink>
-          <button className={styles.button}>Account details</button>
-          <button className={styles.button}>Booking History</button>
+          <button className={styles.button}>
+            <i class="bi bi-pencil-square"></i>Account details
+          </button>
+          <button className={styles.button}>
+            <i class="bi bi-book"></i>Booking History
+          </button>
           <button onClick={handleClick} className={styles.button}>
+            <i class="bi bi-box-arrow-right"></i>
             Logout
           </button>
         </div>

@@ -78,8 +78,8 @@ export default function RoomCard(props) {
         setBedsOnCart(props.totalBeds);
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
-        console.log("props")
-        console.log(props)
+        console.log('props');
+        console.log(props);
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
         setCart([
           ...cart,
@@ -127,7 +127,12 @@ export default function RoomCard(props) {
           {props?.filtradas ? (
             <div className={styles.RoomCardFlex}>
               <p className={styles.text}>
-                {bedsOnCart} <i className="bi bi-cart"></i>
+                {bedsOnCart}{' '}
+                {bedsOnCart ? (
+                  <i className="bi bi-bag-fill"></i>
+                ) : (
+                  <i className="bi bi-bag"></i>
+                )}
               </p>
               {props?.private ? null : (
                 <>
@@ -196,7 +201,7 @@ export default function RoomCard(props) {
             {props?.private ? null : (
               <Button msg="-" funct={() => onClickHandler('-')} />
             )}
-            <Button msg="ADD to Cart" funct={() => onClickHandler('add')} />
+            <Button msg="add to bag" funct={() => onClickHandler('add')} />
             {props?.private ? null : (
               <Button msg="+" funct={() => onClickHandler('+')} />
             )}

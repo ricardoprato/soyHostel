@@ -18,10 +18,4 @@
   justify-content: center;
   row-gap: 3.5rem;
   background: var(--section-bg-color);
-  padding: 3.5rem;
-}
-.section {
-  position: relative;
-  color: var(--white-color);
-  background: var(--section-bg-color);
 }

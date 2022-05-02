@@ -4,7 +4,12 @@
   justify-content: center;
   margin-top: 50px;
 }
-
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
+}
 .formulario {
   min-width: 600px;
   background: #fff;

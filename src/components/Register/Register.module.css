@@ -7,10 +7,17 @@ select {
   justify-content: center;
   margin-top: 50px;
   max-height: 80vh;
+  border-radius: 15px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 .formulario {
   min-width: 600px;
   background: rgb(255, 255, 255);

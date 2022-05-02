@@ -1,11 +1,11 @@
-import React from 'react';
-import FilterBar from '../../components/FilterBar/FilterBar';
+import React, { useEffect, useRef } from 'react';
 import Slider from '../../components/Slider/Slider';
 import Reserva from '../../components/Reserva/Reserva';
-import styles from './Home.module.css';
 import Explore from '../../components/Explore/Explore';
 import AboutUs from '../../components/AboutUs/AboutUs';
 import ContactUs from '../../components/ContactUs/ContactUs';
+import Location from '../../components/Location/Location';
+import styles from './Home.module.css';
 // import Calendar from '../../components/Calendar/Calendar';
 
 export default function Home() {
@@ -15,11 +15,11 @@ export default function Home() {
         <Slider />
       </main>
       <article className={styles.article}>
-        <FilterBar />
         <Reserva />
         <Explore />
         <AboutUs />
         <ContactUs />
+        <Location />
       </article>
     </>
   );

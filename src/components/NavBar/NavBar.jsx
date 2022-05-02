@@ -17,6 +17,7 @@ const NavBar = () => {
   const [navActive, setNavActive] = useState(false);
   const { token, cart } = useContext(GlobalContext);
   const header = useRef();
+  console.log(header);
   const lastScrollTop = useRef(0);
 
   const handleClick = (e) => {
@@ -47,7 +48,7 @@ const NavBar = () => {
     if (scrollTop === 0) {
       setActive(false);
     } else if (scrollTop > lastScrollTop.current) {
-      header.current.style.top = '-200px';
+      header.current.style.top = '-100%';
       setActive(true);
     } else {
       header.current.style.top = '0';
@@ -134,13 +135,19 @@ const NavBar = () => {
               onClick={() => setModalCart(true)}
               name="cart"
               className={`${styles.bag} bi bi-bag-fill`}
-            ></i>
+            >
+              <span className={styles.total_cart}>{cart.length}</span>
+            </i>
           ) : (
-            <i
-              onClick={() => setModalCart(true)}
-              name="cart"
-              className={`${styles.bag} bi bi-bag`}
-            ></i>
+            <div className={styles.cartRelative}>
+              <i
+                onClick={() => setModalCart(true)}
+                name="cart"
+                className={`${styles.bag} bi bi-bag`}
+              >
+                <span className={styles.total_cart}>{cart.length}</span>
+              </i>
+            </div>
           )}
           {token || tokencito ? (
             <Avatar />

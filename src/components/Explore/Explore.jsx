@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Carousel from '../../components/Carousel/Carousel';
 import styles from '../Explore/Explore.module.css';
 import explore1 from '../../Images/explore1.jpg';
@@ -6,6 +6,7 @@ import explore2 from '../../Images/explore2.jpg';
 import explore3 from '../../Images/explore3.jpg';
 import explore4 from '../../Images/explore4.jpg';
 import explore5 from '../../Images/explore5.jpg';
+import hotel from '../../Images/aboutus.jpg';
 // <img className={styles.img} src={explore1} alt="Imagen con montaña" />
 // <p>This is a beautiful close up view of where it is located our hostel</p>
 // <img className={styles.img} src={explore2} alt="Imagen con laberinto" />
@@ -45,11 +46,32 @@ const img5 = {
   imagen: explore5,
   descripcion: 'Tourist attraction to enter the falls',
 };
+
 const Explore = () => {
+  const divImage = useRef();
+  useEffect(() => {
+    divImage.current.style.backgroundImage = `url(${hotel})`;
+  }, [divImage]);
   return (
-    <div className={styles.container} id="explore">
-      <Carousel images={[img1, img2, img3, img4, img5]} />
-    </div>
+    <>
+      <div className={styles.divRelative}>
+        <div className={styles.parallax} ref={divImage}></div>
+        <div className={styles.header}>
+          <h2 className={styles.title}>
+            Explore, Enjoy & have fun with your family
+          </h2>
+          <p className={styles.text}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nemo
+            veniam rerum facere libero asperiores placeat, accusantium omnis vel
+            consequatur atque aperiam eum officia quas soluta commodi quos
+            harum. Ut!
+          </p>
+        </div>
+        <div className={styles.container} id="explore">
+          <Carousel images={[img1, img2, img3, img4, img5]} />
+        </div>
+      </div>
+    </>
   );
 };
 
