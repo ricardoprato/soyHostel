@@ -49,7 +49,7 @@ const Register = () => {
   };
 
   return (
-    <div className={styles.register}>
+    <>
       {modal ? (
         <Formik
           initialValues={{
@@ -231,7 +231,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label htmlFor="typeofdocument">Type of document</label>
+                <label htmlFor="typeofdocument">Document Type</label>
                 <Field
                   name="typeofdocument"
                   as="select"
@@ -349,16 +349,19 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label htmlFor="genre">Genre</label>
-                <Field name="genre" as="select" className={styles.input}>
+                <label htmlFor="genre">Gender</label>
+                <Field name="genre" as="select">
                   <option value="" id="AF">
-                    Elegir opción
+                    Select option
                   </option>
-                  <option value="masculino" id="AF">
-                    masculino
+                  <option value="Male" id="AF">
+                    Male
                   </option>
-                  <option value="femenino" id="AF">
-                    femenino
+                  <option value="Female" id="AF">
+                    Female
+                  </option>
+                  <option value="Other" id="AF">
+                    Other
                   </option>
                 </Field>
                 <ErrorMessage
@@ -371,7 +374,7 @@ const Register = () => {
 
               <button type="submit">Send</button>
               {formularioEnviado && (
-                <p className={styles.exito}>Formulario enviado con exito!</p>
+                <p className={styles.exito}>Succesfully completed</p>
               )}
             </Form>
           )}
@@ -383,7 +386,7 @@ const Register = () => {
           handleClick={handleClick}
         />
       )}
-    </div>
+    </>
   );
 };
 

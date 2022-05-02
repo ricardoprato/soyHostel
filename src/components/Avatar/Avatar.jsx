@@ -6,20 +6,21 @@ import { useNavigate } from 'react-router-dom';
 
 function Avatar() {
   const { setToken, token, rol, setRol } = useContext(GlobalContext);
-  const navigate = useNavigate();
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
+  // Aca traigo a avatar el rol, el token y la img
   setRol(localStorage.getItem('nombrerol'));
   let imgAvatar = localStorage.getItem('imgAvatar');
-  // const token2 = window.localStorage.getItem('tokenProp');
 
+  // Con el logout elimino rol, token y img.
   const handleClick = (e) => {
-    window.localStorage.removeItem('tokenProp');
     window.localStorage.removeItem('imgAvatar');
     window.localStorage.removeItem('nombrerol');
+    window.localStorage.removeItem('tokenProp');
+    setToken(null);
     navigate('/');
-    setToken(false);
-    console.log(token);
   };
+  console.log('tokenenavatar???', token);
 
   const handleAvatarClick = () => {
     setToggle(!toggle);
