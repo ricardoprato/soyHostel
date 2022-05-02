@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../PopupChangePw/PopupChangePw.module.css';
 import Logo from '../../Images/fondo.png';
 
-const PopupChangePw = ({ handleClick }) => {
+const PopupChangePw = ({ handleClick, titleToChangePw }) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
 
   let url = import.meta.env.VITE_APP_URL;

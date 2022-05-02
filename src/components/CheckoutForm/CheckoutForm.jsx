@@ -83,24 +83,25 @@ export default function CheckoutForm() {
 
     // ESPERANDO A VER Q LAS VARIABLES SEAN EN ESPAÑOL O INGLES. ESTE FETCH ES PARA MANDAR CART + PAYMENT DATA (EMAIL ID ETC) PA
     // ENVIAR EL MAIL DE CONFIRMACION DE PAGO
+    let url = import.meta.env.VITE_APP_URL;
+    let api = import.meta.env.VITE_API;
+
     console.log('toback', toBack);
     let token = window.localStorage.getItem('tokenProp');
     console.log('datapayment', dataPayment);
-    fetch('https://prueba-google-auth.herokuapp.com' + '/reservas', {
+    fetch(`${url}` + '/reservas', {
       method: 'POST',
       headers: {
-        api: `${import.meta.env.VITE_API}`,
+        api: `${api}`,
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({ toBack, infoPayment }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log('datafetch>> ', data);
-      })
-      .catch((error) => console.log('error desde el back', error));
 
+      .catch((error) => console.log('error desde el back', error));
+    console.log('infocheckout>> ', { toBack, infoPayment });
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
