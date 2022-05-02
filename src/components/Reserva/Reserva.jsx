@@ -12,6 +12,7 @@ export default function Reserva() {
     dataForCards,
     dataForCardsCopy,
     genDataForCards,
+    flag,
   } = useContext(GlobalContext);
 
   //este va a ser el estado del cual se le va a pasar las props a las cards
@@ -22,21 +23,14 @@ export default function Reserva() {
 
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
-    // console.log("genDataForCards desde Reserva useeffect")
-    // console.log(dataForCards)
   }, [filteredAvailableBeds]);
-  console.log('filteredRooms');
-  console.log(filteredRooms);
-  // console.log("dataForCards")
-  // console.log(dataForCards)
-  console.log('allRooms');
-  console.log(allRooms);
+  console.log(flag);
   return (
     <>
       <div className={styles.RoomCardsContainer}>
-        {!dataForCards?.length && !filteredRooms.length ? (
+        {!dataForCards.length && !filteredRooms.length ? (
           'Cargando...'
-        ) : filteredRooms.length ? (
+        ) : !flag && filteredRooms.length ? (
           filteredRooms?.map((r) => (
             <RoomCard
               filtradas={r?.filtradas}
@@ -57,11 +51,12 @@ export default function Reserva() {
               image={r?.Imagens}
               bedIds={r?.bedIds}
             />
-          )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
-        ) : (
-          // ) : filteredAvailableBeds.length > 0 ? (
-          <p>No Available Rooms</p>
-        )}
+          ))
+        ) : flag ? (
+          <h1 style={{ color: 'black', background: 'red' }}>
+            No Available Rooms
+          </h1>
+        ) : null}
       </div>
     </>
   );

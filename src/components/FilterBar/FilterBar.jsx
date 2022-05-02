@@ -33,7 +33,13 @@ const FilterBar = () => {
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
-    setLocaldate({ ...localDate, [name]: value });
+    if (name === 'checkIn' && value < today.toLocaleDateString('en-CA')) {
+      alert('Check-in date must be today or later');
+    } else if (name === 'checkOut' && value < localDate.checkIn) {
+      alert('Check-out date must be after check-in date');
+    } else {
+      setLocaldate({ ...localDate, [name]: value });
+    }
   };
 
   const handleClick = () => {
