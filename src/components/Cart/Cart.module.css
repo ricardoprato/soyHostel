@@ -1,0 +1,11 @@
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  row-gap: 1.5rem;
+  border-radius: 2%;
+  margin-top: 50px;
+  padding: 2rem;
+  background-color: var(--white-color);
+}
+

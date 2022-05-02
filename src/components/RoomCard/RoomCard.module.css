@@ -5,14 +5,14 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
   width: 100%;
-  height: 100%;
-  background: rgba(100, 100, 100, 0.6);
+  height: fit-content;
+  background: rgb(152, 143, 134);
   overflow: hidden;
 }
 
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
   .RoomCardContainer {
-    background: rgba(100, 100, 100, 0.6);
+    background: rgba(152, 143, 134, 0.6);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
@@ -21,7 +21,7 @@
   font-size: 1.2rem;
 }
 .price {
-  color: #0847a3;
+  color: var(--dark-color);
   font-weight: bold;
 }
 

@@ -1,8 +1,0 @@
-.cartContainer{
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-around;
-    border-radius: 15px;
-    border: 2px solid black;
-}

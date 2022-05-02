@@ -215,7 +215,7 @@ const RegisterForAdmin = () => {
               />
             </div>
             <div>
-              <label htmlFor="typeofdocument">Type of document</label>
+              <label htmlFor="typeofdocument">Document Type</label>
               <Field name="typeofdocument" as="select">
                 <option value="typeofdocument" id="AF">
                   Elegir opción
@@ -342,16 +342,16 @@ const RegisterForAdmin = () => {
               <label htmlFor="role">Role</label>
               <Field name="role" as="select">
                 <option value="" id="AF">
-                  Elegir opción
+                  Select option
                 </option>
                 <option value="administrador" id="AF">
-                  administrador
+                  Administrator
                 </option>
                 <option value="recepcionista" id="AF">
-                  recepcionista
+                  Recepcionist
                 </option>
                 <option value="cliente" id="AF">
-                  cliente
+                  Client
                 </option>
               </Field>
               <ErrorMessage
@@ -364,7 +364,7 @@ const RegisterForAdmin = () => {
 
             <button type="submit">Send</button>
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Sent succesfully!</p>
             )}
           </Form>
         )}

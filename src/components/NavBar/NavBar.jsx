@@ -14,8 +14,10 @@ const NavBar = () => {
   const [modalLogin, setModalLogin] = useState(false);
   const [modalCart, setModalCart] = useState(false);
   const [modalRegister, setModalRegister] = useState(false);
-  const { token } = useContext(GlobalContext);
+  const [navActive, setNavActive] = useState(false);
+  const { token, cart } = useContext(GlobalContext);
   const header = useRef();
+  console.log(header);
   const lastScrollTop = useRef(0);
 
   const handleClick = (e) => {
@@ -37,14 +39,16 @@ const NavBar = () => {
   // if (!tokencito.current) {
   //   tokencito.current = null;
   // }
-  console.log('token en navbar', token);
 
+  const handleActive = () => {
+    setNavActive((prev) => !prev);
+  };
   const handleScroll = () => {
     const scrollTop = window.scrollY;
     if (scrollTop === 0) {
       setActive(false);
     } else if (scrollTop > lastScrollTop.current) {
-      header.current.style.top = '-200px';
+      header.current.style.top = '-100%';
       setActive(true);
     } else {
       header.current.style.top = '0';
@@ -86,77 +90,100 @@ const NavBar = () => {
             </g>
           </svg>
         </NavLink>
+        <div
+          className={`${styles.navigation} ${navActive ? styles.active : ''}`}
+        >
+          <div className={styles.nav_items}>
+            <button
+              className={styles.nav_link}
+              onClick={handleClick}
+              name="explore"
+            >
+              <i className="bi bi-compass"></i>
+              Explore
+            </button>
+            <button
+              className={styles.nav_link}
+              onClick={handleClick}
+              name="aboutUs"
+            >
+              <i className="bi bi-info-circle"></i>
+              About Us
+            </button>
+            <button
+              className={styles.nav_link}
+              onClick={handleClick}
+              name="contactUs"
+            >
+              <i className="bi bi-envelope"></i>
+              Contact US
+            </button>
+            <i
+              className={`${styles['nav-close-btn']} bi bi-x`}
+              onClick={handleActive}
+            ></i>
+          </div>
+        </div>
         <div className={styles.nav_flex}>
-          <button
-            className={styles.nav_link}
-            onClick={handleClick}
-            name="explore"
-          >
-            <i className="bi bi-compass"></i>
-            Explore
-          </button>
-          <button
-            className={styles.nav_link}
-            onClick={handleClick}
-            name="aboutUs"
-          >
-            <i className="bi bi-info-circle"></i>
-            About Us
-          </button>
-          <button
-            className={styles.nav_link}
-            onClick={handleClick}
-            name="contactUs"
-          >
-            <i className="bi bi-envelope"></i>
-            Contact US
-          </button>
           {modalCart ? (
             <Modal setLocalModal={setModalCart}>
               <Cart />
             </Modal>
           ) : null}
-          <div className={styles.iconCart}>
+          {cart.length ? (
             <i
               onClick={() => setModalCart(true)}
               name="cart"
-              className="bi bi-cart"
-            ></i>
-          </div>
+              className={`${styles.bag} bi bi-bag-fill`}
+            >
+              <span className={styles.total_cart}>{cart.length}</span>
+            </i>
+          ) : (
+            <div className={styles.cartRelative}>
+              <i
+                onClick={() => setModalCart(true)}
+                name="cart"
+                className={`${styles.bag} bi bi-bag`}
+              >
+                <span className={styles.total_cart}>{cart.length}</span>
+              </i>
+            </div>
+          )}
+          {token ? (
+            <Avatar />
+          ) : (
+            <>
+              {modalLogin ? (
+                <Modal setLocalModal={setModalLogin}>
+                  <Login />
+                </Modal>
+              ) : null}
+
+              <button
+                className={styles.nav_link}
+                onClick={() => setModalLogin(true)}
+              >
+                <i className="bi bi-user"></i>
+                Login
+              </button>
+              {modalRegister ? (
+                <Modal setLocalModal={setModalRegister}>
+                  <Register />
+                </Modal>
+              ) : null}
+              <button
+                className={styles.nav_link}
+                onClick={() => setModalRegister(true)}
+              >
+                Register
+              </button>
+            </>
+          )}
         </div>
-
-        {token ? (
-          <Avatar />
-        ) : (
-          <div className={styles.nav_flex}>
-            {modalLogin ? (
-              <Modal setLocalModal={setModalLogin}>
-                <Login />
-              </Modal>
-            ) : null}
-
-            <button
-              className={styles.nav_link}
-              onClick={() => setModalLogin(true)}
-            >
-              <i className="bi bi-user"></i>
-              Login
-            </button>
-            {modalRegister ? (
-              <Modal setLocalModal={setModalRegister}>
-                <Register />
-              </Modal>
-            ) : null}
-            <button
-              className={styles.nav_link}
-              onClick={() => setModalRegister(true)}
-            >
-              Register
-            </button>
-          </div>
-        )}
-        <i className={`${styles.icons} bi bi-three-dots-vertical`}></i>
-        <i className={`${styles.icons} bi bi-x`}></i>
+        <i
+          className={`${styles['nav-menu-btn']} bi bi-three-dots-vertical`}
+          onClick={handleActive}
+        ></i>
       </nav>
     </header>
   );

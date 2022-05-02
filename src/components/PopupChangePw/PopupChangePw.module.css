@@ -2,7 +2,13 @@
   display: flex;
   align-items: flex-start;
 }
-
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 .formulario {
   min-width: 600px;
   width: 100%;

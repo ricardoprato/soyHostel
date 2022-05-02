@@ -29,14 +29,14 @@ import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
 const Prueba = () => {
   return (
     <>
-      {/* <EditRoom /> */}
-      {/* <PopupEditRoom /> */}
-      <FormEditRoom />
-      <ListRooms />
+      {/* <EditRoom />
+      <PopupEditRoom /> */}
+      {/* <FormEditRoom /> */}
+      {/* <ListRooms /> */}
       {/* <InfoUser /> */}
       {/* <Google /> */}
 
-      {/* <CreateRoom /> */}
+      <CreateRoom />
     </>
   );
 };
