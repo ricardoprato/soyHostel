@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
-import styles from './Cart.modules.css';
+import styles from './Cart.module.css';
 import { useNavigate } from 'react-router';
 
 export default function Cart() {
@@ -71,64 +71,22 @@ export default function Cart() {
     }
   ]   */
 
-  const handleCartRemove = (roomId) => {
-    //  funcion para eliminar items del carrito
-    let aux = cart.filter((e) => {
-      return e.roomId !== roomId;
-    });
-    // console.log(aux)
-    setCart(aux);
-    // console.log("handleCartRemove")
-  };
-
-  // const handleConfirm = () => {
-  //   // console.log('toBack')
-  //   // console.log(toBack)
-  //   fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
-  //     method: 'POST',
-  //     headers: {
-  //       api: `${import.meta.env.VITE_API}`,
-  //       Authorization: 'Bearer ' + token,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(toBack),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) =>
-  //       setTimeout(() => {
-  //         console.log('reserva enviada a back: ');
-  //         console.log(toBack);
-  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
-  //       }, 2000)
-  //     )
-
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       if (data?.id) {
-  //         console.log('reserva enviada a back: ');
-  //         console.log(toBack);
-  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
-  //       }
-  //     })
-
-  //     // .then(data => genDataForCards())
-
-  //     .catch((error) => {
-  //       if (error.response) {
-  //         const { response } = error;
-  //         console.log(response.data);
-  //         console.log(response.status);
-  //         console.log(response.headers);
-  //       }
-  //     });
-  //   setCart([]);
+  // const handleCartRemove = (roomId) => {
+  //   //  funcion para eliminar items del carrito
+  //   let aux = cart.filter((e) => {
+  //     return e.roomId !== roomId;
+  //   });
+    
+  //   // console.log(aux)
+  //   setCart(aux);
+  //   // console.log("handleCartRemove")
   // };
+
   let token = window.localStorage.getItem('tokenProp');
 
   let totalToPay = 0;
   let auxToBack = {};
-  if (cart.length > 0) {
+  if (cart?.length > 0) {
     auxToBack = {
       //   ESTO ES LO QUE MANDAMOS AL BACK
       fecha_ingreso: cart[0]?.checkIn,
@@ -140,9 +98,6 @@ export default function Cart() {
   }
 
   const fillToBack = () => {
-    // console.log("se ejecuto fillToBack")
-    // console.log("cart")
-    // console.log(cart)
     cart.length &&
       cart.forEach((r) => {
         if (r.private === 'private') {
@@ -204,7 +159,7 @@ export default function Cart() {
                 {/* <h3>{r.beds?.length} beds booked</h3> */}
               </>
             )}
-            <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
+            {/* <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button> */}
           </div>
         ))}
       <h2>Total to pay: {toBack.saldo}</h2>
