@@ -10,6 +10,24 @@ import BookingFromReception from '../../components/BookingFromReception/BookingF
 import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 
+
+import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
+import Calendar from '../../components/Calendar/Calendar';
+import NavBar from '../../components/NavBar/NavBar';
+import Stripe from '../../components/Stripe/Stripe';
+import ReceptionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
+import BookingHistory from '../../components/BookingHistory/BookingHistory';
+
+import InfoUser from '../../components/InfoUser/InfoUser';
+import RegisterForAdmin from '../../components/RegisterForAdmin/RegisterForAdmin';
+import ListRooms from '../../components/RoomsAdmin/ListRooms';
+import EditRoom from '../../components/RoomsAdmin/EditRoom';
+import RoomDetails from '../../components/RoomDetails/RoomDetails';
+import PopupEditRoom from '../../components/PopupEditRoom/PopupEditRoom';
+import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
+
+
 const Prueba = () => {
   return (
     <>
@@ -21,8 +39,8 @@ const Prueba = () => {
       {/* <Google /> */}
 
       <Stripe />
+      {/* <CreateRoom /> */}
 
-      <CreateRoom />
     </>
   );
 };
