@@ -6,7 +6,7 @@ import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 const Login = () => {
-  const { setToken } = useContext(GlobalContext);
+  const { setToken, token } = useContext(GlobalContext);
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
 
@@ -25,9 +25,10 @@ const Login = () => {
     window.localStorage.setItem('imgAvatar', res2.avatar);
     window.localStorage.setItem('nombrerol', res2.rol);
 
-    if (token || localStorage.getItem('tokenProp')) {
-      setToken(true);
-    }
+    // if (token || localStorage.getItem('tokenProp')) {
+    //   setToken(true);
+    // }
+    setToken(token);
     token ? window.localStorage.setItem('tokenProp', token) : null;
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
     {
@@ -92,6 +93,7 @@ const Login = () => {
             sendData(valores);
             setMensaje('');
             cambiarFormularioEnviado(true);
+
             setTimeout(
               () => cambiarFormularioEnviado(false),
 
