@@ -25,16 +25,16 @@ const NavBar = () => {
     target.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const [tokencito, setTokencito] = useState('');
+  // const [tokencito, setTokencito] = useState('');
 
-  useEffect(() => {
-    if (localStorage.getItem('tokenProp')) {
-      setTokencito(localStorage.getItem('tokenProp'));
-    } else {
-      setTokencito('');
-    }
-    console.log(localStorage.getItem('tokenProp'));
-  }, [token]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('tokenProp')) {
+  //     setTokencito(localStorage.getItem('tokenProp'));
+  //   } else {
+  //     setTokencito('');
+  //   }
+  //   console.log(localStorage.getItem('tokenProp'));
+  // }, [token]);
 
   // if (!tokencito.current) {
   //   tokencito.current = null;
@@ -149,7 +149,7 @@ const NavBar = () => {
               </i>
             </div>
           )}
-          {token || tokencito ? (
+          {token ? (
             <Avatar />
           ) : (
             <>
