@@ -22,7 +22,7 @@ export const ContextProvider = (props) => {
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(window.localStorage.getItem('tokenProp'));
 
   const [rol, setRol] = useState('');
 

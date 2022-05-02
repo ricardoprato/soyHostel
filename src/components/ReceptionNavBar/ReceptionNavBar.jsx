@@ -75,6 +75,10 @@ const ReceptionNavBar = ({ children }) => {
           </NavLink>
           {rol === 'administrador' ? (
             <>
+              <NavLink className={styles.nav_link} to="/createroom">
+                <i className="bi bi-envelope"></i>
+                Create Room
+              </NavLink>
               <NavLink className={styles.nav_link} to="/listrooms">
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room

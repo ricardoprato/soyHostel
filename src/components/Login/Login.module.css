@@ -1,12 +1,13 @@
-.register {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 50px;
+.nav_logo {
+  width: 2rem;
 }
-
+.logo {
+  text-align: center;
+}
 .formulario {
-  min-width: 600px;
+  min-width: 360px;
+  width: 100%;
+  max-width: 720px;
   background: #fff;
   border-radius: 5px;
   padding: 20px;
@@ -100,17 +101,18 @@
   cursor: pointer;
 }
 
-.eye {
+.containerInput {
   position: relative;
 }
-
 .buttoneye {
   font-size: 20px;
   position: absolute;
-  right: 1%;
-  bottom: 20%;
+  color: var(--dark-color);
+  cursor: pointer;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
 }
-
-.containerInput {
-  position: relative;
+.buttoneye:hover {
+  color: black;
 }

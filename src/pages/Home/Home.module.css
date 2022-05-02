@@ -1,17 +1,5 @@
-section {
-  min-height: 100vh;
-}
-.sectionExplore {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow-y: scroll;
-}
 .home {
   position: relative;
-  min-height: 100vh;
 }
 .home:before {
   z-index: 888;
@@ -23,9 +11,11 @@ section {
   left: 0;
   background: linear-gradient(transparent, var(--section-bg-color));
 }
-.section {
-  position: relative;
-  color: var(--white-color);
+.article {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 3.5rem;
   background: var(--section-bg-color);
-  transition: 0.3s ease;
 }

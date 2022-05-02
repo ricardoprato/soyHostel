@@ -10,6 +10,7 @@ import BookingFromReception from '../../components/BookingFromReception/BookingF
 import CreateRoom from '../../components/RoomsAdmin/CreateRoom';
 import Avatar from '../../components/Avatar/Avatar';
 
+
 import RecepTionNavBar from '../../components/ReceptionNavBar/ReceptionNavBar';
 import ReceptionFilters from '../../components/ReceptionFilters/ReceptionFilters';
 import Calendar from '../../components/Calendar/Calendar';
@@ -26,6 +27,7 @@ import RoomDetails from '../../components/RoomDetails/RoomDetails';
 import PopupEditRoom from '../../components/PopupEditRoom/PopupEditRoom';
 import FormEditRoom from '../../components/FormEditRoom/FormEditRoom';
 
+
 const Prueba = () => {
   return (
     <>
@@ -35,8 +37,10 @@ const Prueba = () => {
       {/* <ListRooms /> */}
       {/* <InfoUser /> */}
       {/* <Google /> */}
+
       <Stripe />
       {/* <CreateRoom /> */}
+
     </>
   );
 };

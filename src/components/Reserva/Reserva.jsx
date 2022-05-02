@@ -1,9 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import RoomCard from '../../components/RoomCard/RoomCard';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
-
+import explore1 from '../../Images/explore1.jpg';
 export default function Reserva() {
+  const divImage = useRef();
+  useEffect(() => {
+    divImage.current.style.backgroundImage = `url(${explore1})`;
+  }, [divImage]);
+
   const {
     filteredAvailableBeds,
     allRooms,
@@ -27,7 +33,20 @@ export default function Reserva() {
   console.log(flag);
   return (
     <>
-      <div className={styles.RoomCardsContainer}>
+
+      <div className={styles.header}>
+        <h2 className={styles.title}>Simple, Elegant & Comfortable rooms</h2>
+        <p className={styles.text}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nemo
+          veniam rerum facere libero asperiores placeat, accusantium omnis vel
+          consequatur atque aperiam eum officia quas soluta commodi quos harum.
+          Ut!
+        </p>
+      </div>
+      <div className={styles.relative}>
+        <div className={styles.parallax} ref={divImage}></div>
+        <FilterBar />
+                <div className={styles.RoomCardsContainer}>
         {!dataForCards.length && !filteredRooms.length ? (
           'Cargando...'
         ) : !flag && filteredRooms.length ? (
@@ -57,6 +76,8 @@ export default function Reserva() {
             No Available Rooms
           </h1>
         ) : null}
+        
+
       </div>
     </>
   );

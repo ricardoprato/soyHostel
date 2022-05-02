@@ -1,19 +1,66 @@
-.register {
+.container {
+  width: 100%;
   min-height: 100vh;
+  background-color: var(--body-bg-color);
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  justify-content: space-around;
 }
-
+.contact_link {
+  cursor: pointer;
+  color: var(--dark-color);
+  display: block;
+}
+.info {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.title {
+  font-size: 2rem;
+  color: var(--dark-color);
+}
+.titleStrong {
+  font-weight: bold;
+}
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  font-weight: lighter;
+}
+.city {
+  font-size: 1.2rem;
+  color: var(--dark-color);
+  letter-spacing: 0.2rem;
+}
+.social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+.socialContainer {
+  display: flex;
+  column-gap: 1rem;
+}
+.link {
+  color: #888888;
+  font-size: 1.4rem;
+}
+.link:hover {
+  color: var(--dark-color);
+}
 .formulario {
   min-width: 600px;
   margin-top: 50px;
   background: rgb(255, 255, 255);
-  border-radius: 5px;
   padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
-
+.nav_logo {
+  width: 2rem;
+}
 .formulario > div {
   margin-bottom: 20px;
 }
@@ -64,6 +111,21 @@
   transition: 0.3s ease all;
 }
 
+/* .formulario button[type='submit']:disabled {
+  display: block;
+  background: #ff0303;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.3s ease all;
+} */
+
 .formulario button[type='submit']:hover {
   background: #0051ff;
 }
@@ -79,9 +141,8 @@
   width: auto;
 }
 
-.img {
-  width: 150px;
-  margin-left: 195px;
+.logo {
+  text-align: center;
 }
 
 .buttonicon {

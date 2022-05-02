@@ -1,0 +1,23 @@
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  min-width: 360px;
+  max-width: 720px;
+  min-height: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  border-radius: 2%;
+  overflow-y: auto;
+  row-gap: 1rem;
+  padding: 1rem;
+  background-color: var(--white-color);
+}
+.noAvalaible {
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+}

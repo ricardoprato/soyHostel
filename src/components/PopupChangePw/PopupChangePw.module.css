@@ -1,11 +1,14 @@
-.register {
-  display: flex;
-  align-items: flex-start;
+.nav_logo {
+  width: 2rem;
 }
-
+.logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 .formulario {
-  min-width: 600px;
+  min-width: 360px;
   width: 100%;
+  max-width: 720px;
   background: var(--white-color);
   border-radius: 5px;
   padding: 20px;
