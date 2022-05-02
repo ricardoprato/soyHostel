@@ -75,6 +75,10 @@ const ReceptionNavBar = ({ children }) => {
           </NavLink>
           {rol === 'administrador' ? (
             <>
+              <NavLink className={styles.nav_link} to="/createroom">
+                <i className="bi bi-envelope"></i>
+                Create Room
+              </NavLink>
               <NavLink className={styles.nav_link} to="/listrooms">
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
@@ -89,7 +93,7 @@ const ReceptionNavBar = ({ children }) => {
             <i className="bi bi-compass"></i>
             Create booking
           </NavLink>
-          <div className={styles.containerSearch}>
+          {/* <div className={styles.containerSearch}>
             <form className={styles.form} onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -101,7 +105,7 @@ const ReceptionNavBar = ({ children }) => {
                 <i className="bi bi-search"></i>
               </button>
             </form>
-          </div>
+          </div> */}
           <div className={styles.nav_flex}>
             {/* <img src={avatar} alt="avatar" />
             <button onClick={handleClick}>Logout</button> */}

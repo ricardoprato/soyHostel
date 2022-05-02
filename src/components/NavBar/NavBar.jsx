@@ -23,20 +23,22 @@ const NavBar = () => {
     target.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const [tokencito, setTokencito] = useState('');
+  // const [tokencito, setTokencito] = useState('');
 
-  useEffect(() => {
-    if (localStorage.getItem('tokenProp')) {
-      setTokencito(localStorage.getItem('tokenProp'));
-    } else {
-      setTokencito('');
-    }
-    console.log(localStorage.getItem('tokenProp'));
-  }, [token]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('tokenProp')) {
+  //     setTokencito(localStorage.getItem('tokenProp'));
+  //   } else {
+  //     setTokencito('');
+  //   }
+  //   console.log(localStorage.getItem('tokenProp'));
+  // }, [token]);
 
   // if (!tokencito.current) {
   //   tokencito.current = null;
   // }
+  console.log('token en navbar', token);
+
   const handleScroll = () => {
     const scrollTop = window.scrollY;
     if (scrollTop === 0) {
@@ -123,7 +125,7 @@ const NavBar = () => {
           </div>
         </div>
 
-        {token || tokencito ? (
+        {token ? (
           <Avatar />
         ) : (
           <div className={styles.nav_flex}>

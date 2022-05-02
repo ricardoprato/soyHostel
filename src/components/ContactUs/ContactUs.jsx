@@ -7,6 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
+  const [captchaVerify, setCaptchaVerify] = useState(false);
   const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
@@ -28,6 +29,11 @@ const ContactUs = () => {
   const handleClick = (e) => {
     e.preventDefault();
     setModal(false);
+  };
+
+  const handleChange = () => {
+    setCaptchaVerify(true);
+    console.log('CAPTCHA VERIFY', captchaVerify);
   };
 
   return (
@@ -164,11 +170,13 @@ const ContactUs = () => {
               />
             </div>
             <ReCAPTCHA
+              onChange={handleChange}
               ref={recaptchaRef}
-              sitekey="6LcP-rAfAAAAAAFLpXQIOnNTKEi0Yf0czPmBjtkn
-              "
+              sitekey={import.meta.env.VITE_CAPTCHA}
             />
-            <button type="submit">Send</button>
+            <button type="submit" disabled>
+              Send
+            </button>
             {formularioEnviado && (
               <p className={styles.exito}>Formulario enviado con exito!</p>
             )}
