@@ -1,9 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import RoomCard from '../../components/RoomCard/RoomCard';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
+import explore1 from '../../Images/explore1.jpg';
+
 
 export default function Reserva() {
+  
+  const divImage = useRef();
+
+  useEffect(() => {
+    divImage.current.style.backgroundImage = `url(${explore1})`;
+  }, [divImage]);
+
   const {
     filteredAvailableBeds,
     allRooms,
@@ -12,6 +22,7 @@ export default function Reserva() {
     dataForCards,
     dataForCardsCopy,
     genDataForCards,
+    flag,
   } = useContext(GlobalContext);
 
   //este va a ser el estado del cual se le va a pasar las props a las cards
@@ -22,21 +33,33 @@ export default function Reserva() {
 
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
-    // console.log("genDataForCards desde Reserva useeffect")
-    // console.log(dataForCards)
   }, [filteredAvailableBeds]);
+
   console.log('filteredRooms');
   console.log(filteredRooms);
   // console.log("dataForCards") 
   // console.log(dataForCards)
   console.log('allRooms');
   console.log(allRooms);
+
   return (
     <>
-      <div className={styles.RoomCardsContainer}>
-        {!dataForCards?.length && !filteredRooms.length ? (
+      <div className={styles.header}>
+        <h2 className={styles.title}>Simple, Elegant and Comfortable rooms</h2>
+        <p className={styles.text}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nemo
+          veniam rerum facere libero asperiores placeat, accusantium omnis vel
+          consequatur atque aperiam eum officia quas soluta commodi quos harum.
+          Ut!
+        </p>
+      </div>
+      <div className={styles.relative}>
+        <div className={styles.parallax} ref={divImage}></div>
+        <FilterBar />
+        <div className={styles.RoomCardsContainer}>
+        {!dataForCards.length && !filteredRooms.length ? (
           'Cargando...'
-        ) : filteredRooms.length ? (
+        ) : !flag && filteredRooms.length ? (
           filteredRooms?.map((r) => (
             <RoomCard
               filtradas={r?.filtradas}
@@ -57,11 +80,13 @@ export default function Reserva() {
               image={r?.Imagens}
               bedIds={r?.bedIds}
             />
-          )) /// mucho ojo con los nombres de las propiedades como vienen en el objeto
-        ) : (
-          // ) : filteredAvailableBeds.length > 0 ? (
-          <p>No Available Rooms</p>
-        )}
+          ))
+        ) : flag ? (
+          <h1 style={{ color: 'black', background: 'red' }}>
+            No Available Rooms
+          </h1>
+        ) : null}
+      </div>  
       </div>
     </>
   );

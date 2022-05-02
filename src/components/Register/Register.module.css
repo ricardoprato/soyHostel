@@ -1,15 +1,19 @@
-.register {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin-top: 50px;
-  max-height: 80vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+select {
+  cursor: pointer;
 }
 
+.nav_logo {
+  width: 2rem;
+}
+.logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 .formulario {
-  min-width: 600px;
+  min-width: 360px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 70vh;
   background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
@@ -17,6 +21,8 @@
   border-radius: 5px;
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .formulario label {
@@ -26,10 +32,10 @@
   color: #1f1f1f;
 }
 
-.formulario input,
+.input,
 .formulario textarea {
-  font-family: 'Open Sans', sans-serif;
   width: 100%;
+  background-color: var(--white-color);
   border-radius: 5px;
   border: 2px solid #e2e2e2;
   font-size: 18px;
@@ -97,13 +103,19 @@
   cursor: pointer;
 }
 
-.eye {
+.containerInput {
   position: relative;
 }
 
 .buttoneye {
   font-size: 20px;
   position: absolute;
-  right: 10px;
-  top: 35px;
+  color: var(--dark-color);
+  cursor: pointer;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.buttoneye:hover {
+  color: black;
 }

@@ -17,12 +17,14 @@ export default function RoomDetails({ roomId }) {
         <p> Cargando.......................</p>
       ) : (
         <div className={styles.roomDetailsContainer}>
-          <Carousel images={details?.Imagens} />
+          {details?.Imagens?.length ? (
+            <Carousel images={details?.Imagens} />
+          ) : null}
           <div className={styles.roomDetailsText}>
             <h2>Room: {details?.nombre}</h2>
             {details?.privada ? (
               <p>
-                This is a PRIVATE room with beds for {details?.cantCamas}{' '}
+                This is a PRIVATE room with beds for {details?.cantCamas}
                 people.
               </p>
             ) : (

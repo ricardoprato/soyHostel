@@ -5,22 +5,22 @@ input[type='checkbox'] {
 }
 
 .form {
-  margin: 0 4rem;
-  display: flex;
-  padding: 2rem;
-  padding-top: 4rem;
-  column-gap: 1rem;
-  justify-content: space-between;
-  align-items: flex-end;
+  display: grid;
   color: var(--dark-color);
+  grid-template-columns: repeat(6, 1fr);
+  align-items: flex-end;
+  grid-gap: 1rem;
   height: fit-content;
   font-size: 14px;
+  position: relative;
+  z-index: 10;
 }
 
 .input {
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: var(--white-color);
 }
 .data {
   padding: 0.5rem 1rem;
@@ -162,15 +162,14 @@ input[type='checkbox']:checked ~ .check::after {
   background: #fff;
   border-radius: 0.3rem;
   box-shadow: var(--box-shadow);
+  cursor: pointer;
   color: var(--dark-color);
 }
 
 .button {
-  width: 100%;
-  margin-top: 4px;
-  padding: 15px 25px;
   border: unset;
-  border-radius: 8px;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
   color: #212121;
   z-index: 1;
   background: #fff;
@@ -191,7 +190,7 @@ input[type='checkbox']:checked ~ .check::after {
   left: 0;
   height: 100%;
   width: 0;
-  border-radius: 8px;
+  border-radius: 0.3rem;
   background-color: #212121;
   z-index: -1;
   -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);

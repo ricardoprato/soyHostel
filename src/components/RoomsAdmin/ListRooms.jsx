@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import Room from './Room'
+import Room from './Room';
+import styles from '../RoomsAdmin/ListRooms.module.css';
 
 export default function ListRooms() {
-  
-  const { allRooms, getAllRooms, reservations, getReservations } = useContext(GlobalContext);
+  const { allRooms, getAllRooms, reservations, getReservations } =
+    useContext(GlobalContext);
 
   const today = new Date();
   const start = new Date(today);
@@ -12,20 +13,21 @@ export default function ListRooms() {
   start.setDate(start.getDate());
   end.setDate(end.getDate() + 60);
 
-  useEffect(()=>{
-    allRooms.length === 0 && getAllRooms()
-    if(reservations?.length === 0){
-      getReservations(start.toLocaleDateString('en-CA'), end.toLocaleDateString('en-CA'))
+  useEffect(() => {
+    allRooms.length === 0 && getAllRooms();
+    if (reservations?.length === 0) {
+      getReservations(
+        start.toLocaleDateString('en-CA'),
+        end.toLocaleDateString('en-CA')
+      );
     }
-  },[allRooms])
-  
+  }, [allRooms]);
+
   // allRooms?.length && console.log(allRooms)
   return (
-    <div>
+    <div className={styles.container}>
       <h3>List of Room:</h3>
-      {allRooms?.length && allRooms.map((r)=> (
-        <Room key={r.id} props={r}/>
-      ))}
+      {allRooms?.length && allRooms.map((r) => <Room key={r.id} props={r} />)}
     </div>
-  )
+  );
 }

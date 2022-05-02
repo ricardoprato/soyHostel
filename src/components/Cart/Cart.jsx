@@ -78,10 +78,96 @@ export default function Cart() {
   //   let aux = cart.filter((e) => {
   //     return e.roomId !== roomId;
   //   });
-    
+
   //   // console.log(aux)
   //   setCart(aux);
   //   // console.log("handleCartRemove")
+
+  //   const handleConfirm = () => {
+  //     // console.log('toBack')
+  //     // console.log(toBack)
+  //     fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
+  //       method: 'POST',
+  //       headers: {
+  //         api: `${import.meta.env.VITE_API}`,
+  //         Authorization: 'Bearer ' + token,
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(toBack),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) =>
+  //         setTimeout(() => {
+  //           console.log('reserva enviada a back: ');
+  //           console.log(toBack);
+  //           getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //         }, 2000)
+  //       )
+
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         if (data?.id) {
+  //           console.log('reserva enviada a back: ');
+  //           console.log(toBack);
+  //           getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //         }
+  //       })
+
+  //       // .then(data => genDataForCards())
+
+  //       .catch((error) => {
+  //         if (error.response) {
+  //           const { response } = error;
+  //           console.log(response.data);
+  //           console.log(response.status);
+  //           console.log(response.headers);
+  //         }
+  //       });
+  //     setCart([]);
+  //   };
+  // const handleConfirm = () => {
+  //   // console.log('toBack')
+  //   // console.log(toBack)
+  //   fetch(`${import.meta.env.VITE_APP_URL}/reservas`, {
+  //     method: 'POST',
+  //     headers: {
+  //       api: `${import.meta.env.VITE_API}`,
+  //       Authorization: 'Bearer ' + token,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(toBack),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) =>
+  //       setTimeout(() => {
+  //         console.log('reserva enviada a back: ');
+  //         console.log(toBack);
+  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //       }, 2000)
+  //     )
+
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       if (data?.id) {
+  //         console.log('reserva enviada a back: ');
+  //         console.log(toBack);
+  //         getFilteredBeds(cart[0].checkIn, cart[0].checkOut);
+  //       }
+  //     })
+
+  //     // .then(data => genDataForCards())
+
+  //     .catch((error) => {
+  //       if (error.response) {
+  //         const { response } = error;
+  //         console.log(response.data);
+  //         console.log(response.status);
+  //         console.log(response.headers);
+  //       }
+  //     });
+  //   setCart([]);
   // };
 
   let token = window.localStorage.getItem('tokenProp');

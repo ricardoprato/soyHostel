@@ -118,7 +118,7 @@ export default function Calendar() {
     getAllRooms();
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     allRooms.length && getInitialState();
     //let token = localStorage.getItem('tokenProp');
   }, [allRooms]);
@@ -151,37 +151,39 @@ export default function Calendar() {
           <Formulario props={data} />
         </Modal>
       )}
-      <div className={styles.form} id="form">
-        <label className={styles.input}>
-          From:
-          <input
-            type="date"
-            name="checkIn"
-            onChange={handleFilters}
-            className={styles.data}
-            // defaultValue={start.toLocaleDateString('en-CA')}
-            id="from"
-          />
-        </label>
-        <label className={styles.input}>
-          To:
-          <input
-            type="date"
-            name="checkOut"
-            onChange={handleFilters}
-            className={styles.data}
-            // defaultValue={end.toLocaleDateString('en-CA')}
-            id="to"
-          />
-        </label>
+      <div className={styles.calendar}>
+        <div className={styles.container} id="form">
+          <label className={styles.input}>
+            From:
+            <input
+              type="date"
+              name="checkIn"
+              onChange={handleFilters}
+              className={styles.data}
+              // defaultValue={start.toLocaleDateString('en-CA')}
+              id="from"
+            />
+          </label>
+          <label className={styles.input}>
+            To:
+            <input
+              type="date"
+              name="checkOut"
+              onChange={handleFilters}
+              className={styles.data}
+              // defaultValue={end.toLocaleDateString('en-CA')}
+              id="to"
+            />
+          </label>
 
-        <button
-          className={styles.button}
-          onClick={showReservations}
-          disabled={Date.parse(localDate.start) >= Date.parse(localDate.end)}
-        >
-          View
-        </button>
+          <button
+            className={styles.button}
+            onClick={showReservations}
+            disabled={Date.parse(localDate.start) >= Date.parse(localDate.end)}
+          >
+            View
+          </button>
+        </div>
       </div>
       {calendarState.length && !reservations.length ? (
         <Gantt

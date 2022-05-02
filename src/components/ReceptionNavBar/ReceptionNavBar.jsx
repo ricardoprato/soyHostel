@@ -54,7 +54,7 @@ const ReceptionNavBar = ({ children }) => {
 
   return (
     <>
-      <header className={`${styles.header} ${active && styles.sticky}`}>
+      <header className={`${styles.header} ${active}`}>
         <nav className={styles.nav}>
           <NavLink to="/">
             <svg
@@ -75,6 +75,10 @@ const ReceptionNavBar = ({ children }) => {
           </NavLink>
           {rol === 'administrador' ? (
             <>
+              <NavLink className={styles.nav_link} to="/createroom">
+                <i className="bi bi-envelope"></i>
+                Create Room
+              </NavLink>
               <NavLink className={styles.nav_link} to="/listrooms">
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
@@ -89,22 +93,8 @@ const ReceptionNavBar = ({ children }) => {
             <i className="bi bi-compass"></i>
             Create booking
           </NavLink>
-          <div className={styles.containerSearch}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Search booking"
-                onChange={(e) => handleChange(e)}
-                name="name"
-              ></input>
-              <button className={styles.iconSearch} type="submit">
-                <i className="bi bi-search"></i>
-              </button>
-            </form>
-          </div>
+
           <div className={styles.nav_flex}>
-            {/* <img src={avatar} alt="avatar" />
-            <button onClick={handleClick}>Logout</button> */}
             <Avatar />
           </div>
           <i className={`${styles.icons} bi bi-three-dots-vertical`}></i>

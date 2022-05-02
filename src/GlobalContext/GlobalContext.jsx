@@ -22,12 +22,13 @@ export const ContextProvider = (props) => {
   const [allRooms, setAllRooms] = useState([]);
   const [filteredRooms, setFileteredRooms] = useState([]); //copia
 
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(window.localStorage.getItem('tokenProp'));
 
   const [rol, setRol] = useState('');
 
   const [googleData, setGoogleData] = useState({});
   const [dataProfile, setDataProfile] = useState({});
+  const [flag, setFlag] = useState(false);
 
   ///funciones que modifican estados
 
@@ -45,7 +46,12 @@ export const ContextProvider = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setFilteredAvailableBeds(data);
+        if (data.length) {
+          setFilteredAvailableBeds(data);
+          setFlag(false);
+        } else {
+          setFlag(true);
+        }
       })
       .catch((err) => {
         if (err.response) {
@@ -207,6 +213,8 @@ export const ContextProvider = (props) => {
         setCart,
         filteredAvailableBeds,
         setFilteredAvailableBeds,
+        flag,
+        setFlag,
       }}
     >
       {props.children}

@@ -2,191 +2,115 @@ import React, { useContext, useState, useEffect } from 'react';
 import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
+
 // import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 //p
-export function validate(input) {
+const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
 
   //   Name
-  if (!input.name) {
-    errores.name = 'Please enter a name';
-  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.name)) {
-    errores.name = 'The name can only contain letters and spaces';
+  if (!input.huesped.nombre) {
+    errores.nombre = 'Please enter a name';
+  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.huesped.nombre)) {
+    errores.nombre = 'The name can only contain letters and spaces';
   }
 
   // Validacion lastname
-  if (!input.lastName) {
-    errores.lastName = 'Please enter a lastname';
-  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.lastName)) {
-    errores.lastName = 'The lastname can only contain letters and spaces';
+  if (!input.huesped.apellido) {
+    errores.apellido = 'Please enter a lastname';
+  } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.huesped.apellido)) {
+    errores.apellido = 'The lastname can only contain letters and spaces';
   }
 
   // Validacion DNI
-  if (!input.docNumber) {
-    errores.docNumber = 'Please enter a dni';
-  } else if (!/^[0-9]{8,20}$/.test(input.docNumber)) {
-    errores.docNumber = 'The dni can only contain numbers';
-  }
-
-  // Validacion correo
-  if (!input.email) {
-    errores.email = 'Please enter a email';
-  } else if (
-    !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)
-  ) {
-    errores.email =
-      'Email can only contain letters, numbers, points, script and underscores';
+  if (!input.huesped.dni) {
+    errores.dni = 'Please enter a dni';
+  } else if (!/^[0-9]{8,20}$/.test(input.huesped.dni)) {
+    errores.dni = 'The dni can only contain numbers';
   }
 
   // Validacion documento tipo
-  if (!input.docType) {
-    errores.docType = 'Please select a document type';
+  if (!input.huesped.tipoDocumento) {
+    errores.tipoDocumento = 'Please select a document type';
   }
-
+  //Validación género
+  if (!input.huesped.genero) {
+    errores.genero = 'Please enter a gender';
+  }
   // Validacion nationality
-  if (!input.nationality) {
-    errores.nationality = 'Please enter your nationality';
+  if (!input.huesped.nacionalidad) {
+    errores.nacionalidad = 'Please enter your nationality';
   }
-
-  // const today = new Date();
-  // if (!input.checkIn) {
-  //   errores.checkIn = 'Please enter checkIn date';
-  // } else if (input.checkIn < today.toLocaleDateString('en-CA')) {
-  //   // console.log(input.checkIn);
-  //   // console.log(today.toLocaleDateString('en-CA'));
-  //   errores.checkIn = 'CheckIn cant be in the past';
+  // if (!/^[0-9]{0,20}$/.test(input.saldo)) {
+  //   errores.saldo = 'Balance must be a number';
   // }
-
-  // if (!input.checkOut) {
-  //   errores.checkOut = 'Please enter checkOut date';
-  // } else if (input.checkOut <= input.checkIn) {
-  //   errores.checkOut = 'Checkout has to be after checkIn';
-  //}
-
-  // if (!input.roomIds) {
-  //   errores.roomIds = 'Please select room';
-  // }
-
-  // if (!input.bedQuantity && input.private === false) {
-  //   if (!input.roomIds) {
-  //     errores.bedQuantity = 'Please enter a room first';
-  //   } else {
-  //     errores.bedQuantity = 'Please select number of beds';
-  //   }
-  // }
-
-  // Validacion birthdate
-  var actual = new Date();
-
-  const [actualMenos18, month, day] = [
-    actual.getFullYear() - 18,
-    actual.getMonth() + 1,
-    actual.getDate(),
-  ];
-  const array = [actualMenos18, month, day];
-  let arrayLindo = new Date(array.join('-'));
-
-  const formatYmd = (date) => date.toISOString().slice(0, 10);
-
-  let fechaActualFormateada = null;
-  if (arrayLindo) {
-    fechaActualFormateada = formatYmd(arrayLindo);
-  }
-  if (birthDate.value) {
-    input.birthDate = formatYmd(new Date(birthDate.value));
-  }
-
-  if (!input.birthDate) {
-    errores.birthDate = 'Please enter a birthdate';
-  } else if (!(input.birthDate <= fechaActualFormateada)) {
-    errores.birthDate = 'Need to be 18 or more years old';
-  }
-
   return errores;
-}
+};
+
 function Formulario({ props }) {
-  const [huesped, setHuesped] = useState({
-    // camas: [],
-    // habitaciones: [],
-    nombre: '',
-    apellido: '',
-    tipoDoc: '',
-    numDoc: '',
-    fechaNac: '',
-    nacionalidad: '',
-    email: '',
-    genero: '',
-  });
   const [error, setError] = useState({});
-  let initialState = {
-    /////// Inputs initial state ///////////////////////
-    name: '',
-    lastName: '',
-    docType: '',
-    docNumber: '',
-    birthDate: '',
-    nationality: '',
-    email: '',
-    roomIds: 0,
-    bedQuantity: 0,
-    checkIn: '',
-    checkOut: '',
-    private: '',
-    totalBeds: [],
-    price: 0,
-  };
-  const [input, setInput] = useState(initialState);
+  const [bookingState, setBookingState] = useState({
+    id_reserva: props.id,
+    id_producto: props.idCama || props.idHabitacion,
+    saldo: props.saldo,
+    estado: props.estado,
+    huesped: {},
+  });
 
-
-
-
-  let url = VITE_APP_URL;
-  const patchState = (state, id) => {
-    let token = localStorage.getItem('tokenProp');
-    fetch(`${url}` + `/camas/${id}`, {
-
-      method: 'PATCH',
-      headers: {
-        api: `${import.meta.env.VITE_API}`,
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(state), //saldo, el estado y los huespedes
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-    // quiero que haga algo mas aca en el front???
+  const patchState = async (valores) => {
+    const token = localStorage.getItem('tokenProp');
+    const res = await fetch(
+      `${import.meta.env.VITE_APP_URL}/reservas/update/`,
+      {
+        method: 'PATCH',
+        headers: {
+          api: import.meta.env.VITE_API,
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(valores),
+      }
+    );
+    let res2 = await res.json();
   };
 
-  const handleStateUpdate = (e) => {
+  const handleBookingUpdate = (e) => {
     e.preventDefault();
-    let stateSelect = document.getElementById('stateSelect');
-    let state = stateSelect.options[stateSelect.selectedIndex].value;
-    let id = props.idCama || props.idHabitacion;
+    console.log(e.target.name);
+    console.log(e.target.value);
 
-    setHuesped({
-      nombre: '',
-      apellido: '',
-      tipoDoc: '',
-      numDoc: '',
-      fechaNac: '',
-      nacionalidad: '',
-      email: '',
-      genero: '',
+    if (e.target.name === 'saldo')
+      setBookingState({ ...bookingState, saldo: Number(e.target.value) });
+    if (e.target.name === 'estado')
+      setBookingState({ ...bookingState, estado: e.target.value });
+
+    let objError = validate({
+      ...bookingState,
+      [e.target.name]: e.target.value,
     });
-
-    patchState(state, id);
-    console.log(state);
+    setError(objError);
   };
 
-  const handleChange = (e) => {
+  const handleGuestChange = (e) => {
     e.preventDefault();
-    setInput({ ...input, [e.target.name]: e.target.value });
-    let objError = validate({ ...input, [e.target.name]: e.target.value });
+    bookingState.huesped = {
+      ...bookingState.huesped,
+      [e.target.name]: e.target.value,
+    };
+
+    let objError = validate({
+      ...bookingState,
+      [e.target.name]: e.target.value,
+    });
     setError(objError);
+  };
+
+  const SubmitBookingUpdate = async (e) => {
+    console.log(bookingState);
+    await patchState(bookingState); //objeto a enviar al backend
+    // setBookingState(bookingInitialState);
   };
   return (
     <div className={styles.formulario}>
@@ -231,7 +155,12 @@ function Formulario({ props }) {
         <div>
           <p className={styles.font}>Balance: $ </p> <p> {props.saldo}</p>
           <p className={styles.font}>New Balance:</p>
-          <input type="number" placeholder="$$" name="saldo" />
+          <input
+            onChange={(e) => handleBookingUpdate(e)}
+            type="number"
+            placeholder="$$"
+            name="saldo"
+          />
         </div>
       </div>
 
@@ -240,29 +169,34 @@ function Formulario({ props }) {
         <p> {props?.estado}</p>
 
         <label className={styles.font}>Update State: </label>
-        <select id="stateSelect">
-          <option value="booked">Booked</option>
-          <option value="occupide">Occupide</option>
-          <option value="closed">Closed</option>
-          <option value="for manteinance">For Manteinance</option>
+        <select
+          id="stateSelect"
+          onChange={(e) => handleBookingUpdate(e)}
+          name="estado"
+        >
+          <option value="Booked">Booked</option>
+          <option value="Occupide">Occupide</option>
+          <option value="Closed">Closed</option>
+          <option value="For Manteinance">For Manteinance</option>
         </select>
       </div>
-      <div className={styles.allcss}>
-        <div className={styles.formulario}>
+      <div>
+        <div>
           <p className={styles.font}>Guest Data Update</p>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          {/* <form onSubmit={(e) => handleGuestAdd(e)}> */}
+          <form>
             <div>
-              {' '}
               {/* First Name */}
+
               <label>First Name: </label>
               <input
                 type="text"
                 id="name"
-                name="name"
-                onChange={(e) => handleChange(e)}
+                name="huesped.nombre"
+                onChange={(e) => handleGuestChange(e)}
                 placeholder="first name..."
               />
-              {error.name && <p className={styles.error}>{error.name}</p>}
+              {error.nombre && <p className={styles.error}>{error.nombre}</p>}
             </div>
 
             <div>
@@ -272,12 +206,12 @@ function Formulario({ props }) {
               <input
                 type="text"
                 id="lastName"
-                name="lastName"
-                onChange={(e) => handleChange(e)}
+                name="huesped.apellido"
+                onChange={(e) => handleGuestChange(e)}
                 placeholder="last name..."
               />
-              {error.lastName && (
-                <p className={styles.error}>{error.lastName}</p>
+              {error.apellido && (
+                <p className={styles.error}>{error.apellido}</p>
               )}
             </div>
 
@@ -285,14 +219,19 @@ function Formulario({ props }) {
               {' '}
               {/* Document type */}
               <label>Document type: </label>
-              <select name="docType" onChange={(e) => handleChange(e)}>
+              <select
+                name="huesped.tipoDocumento"
+                onChange={(e) => handleGuestChange(e)}
+              >
                 <option value="docType">Elegir opción</option>
                 <option value="DNI">DNI</option>
                 <option value="Passport">Passport</option>
                 <option value="Libreta civica">Libreta Civica</option>
                 <option value="CLI">CLI</option>
               </select>
-              {error.docType && <p className={styles.error}>{error.docType}</p>}
+              {error.tipoDocumento && (
+                <p className={styles.error}>{error.tipoDocumento}</p>
+              )}
             </div>
 
             <div>
@@ -301,43 +240,12 @@ function Formulario({ props }) {
               <label>Document Number: </label>
               <input
                 type="text"
-                id="docNumber"
-                name="docNumber"
-                onChange={(e) => handleChange(e)}
+                id="dni"
+                name="huesped.dni"
+                onChange={(e) => handleGuestChange(e)}
                 placeholder="document number..."
               />
-              {error.docNumber && (
-                <p className={styles.error}>{error.docNumber}</p>
-              )}
-            </div>
-
-            <div>
-              {' '}
-              {/* Birth date */}
-              <label htmlFor="birthDate">Birth date</label>
-              <input
-                type="date"
-                id="birthDate"
-                name="birthDate"
-                onChange={(e) => handleChange(e)}
-              />
-              {error.birthDate && (
-                <p className={styles.error}>{error.birthDate}</p>
-              )}
-            </div>
-
-            <div>
-              {' '}
-              {/* Email */}
-              <label htmlFor="email">Email </label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                onChange={(e) => handleChange(e)}
-                placeholder="email@mail.com..."
-              />
-              {error.email && <p className={styles.error}>{error.email}</p>}
+              {error.dni && <p className={styles.error}>{error.dni}</p>}
             </div>
 
             <div>
@@ -345,9 +253,8 @@ function Formulario({ props }) {
               {/* Nationality */}
               <label htmlFor="nationality">Nationality</label>
               <select
-                name="nationality"
-                as="select"
-                onChange={(e) => handleChange(e)}
+                name="huesped.nacionalidad"
+                onChange={(e) => handleGuestChange(e)}
               >
                 <option value="">...select country</option>
                 {countries?.countries &&
@@ -357,31 +264,38 @@ function Formulario({ props }) {
                     </option>
                   ))}
               </select>
-              {error.nationality && (
-                <p className={styles.error}>{error.nationality}</p>
+              {error.nacionalidad && (
+                <p className={styles.error}>{error.nacionalidad}</p>
               )}
             </div>
-
-            {/* {(toBack.camas === 0 && toBack.habitaciones === 0) ||
-            error.name ||
-            error.lastName ||
-            error.docType ||
-            error.docNumber ||
-            error.birthDate ||
-            error.nationality ||
-            error.email ||
-            // error.roomIds ||
-            error.bedQuantity ||
-            error.private ||
-            // error.totalBeds ||
-            error.checkOut ||
-            error.checkIn ? null : (
-              <button type="submit">send</button>
-            )} */}
+            {/* Gender */}
+            <label htmlFor="gender">Gender</label>
+            <select
+              onChange={(e) => handleGuestChange(e)}
+              name="huesped.genero"
+            >
+              <option value="">Select option</option>
+              <option value="masculino">Male</option>
+              <option value="femenino">Female</option>
+              <option value="no-binario">Other</option>
+            </select>
+            {error.genero && <p className={styles.error}>{error.genero}</p>}
+            {/* <button type="submit">Add Gest</button> */}
           </form>
         </div>
       </div>
-      <button className={styles.button} onClick={handleStateUpdate}>
+      <button
+        className={styles.button}
+        onClick={(e) => SubmitBookingUpdate(e)}
+        // disable={
+        //   error.nombre ||
+        //   error.apellido ||
+        //   error.dni ||
+        //   error.tipoDocumento ||
+        //   error.nacionalidad ||
+        //   error.genero
+        // }
+      >
         Update
       </button>
     </div>
