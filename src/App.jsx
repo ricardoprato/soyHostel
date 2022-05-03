@@ -14,6 +14,7 @@ import BookingFromReception from './components/BookingFromReception/BookingFromR
 import { GlobalContext } from './GlobalContext/GlobalContext';
 
 import RegisterForAdmin from './components/RegisterForAdmin/RegisterForAdmin';
+import BookingHistory from './components/BookingHistory/BookingHistory';
 
 function App() {
   const { rol, setRol } = useContext(GlobalContext);
@@ -27,11 +28,11 @@ function App() {
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/changepassword" element={<NewPassword />} />
-          <Route path="/createroom" element={<CreateRoom />} />
           <Route path="/listrooms" element={<ListRooms />} />
           <Route path="/bookfromreception" element={<BookingFromReception />} />
           <Route path="/createadmin" element={<RegisterForAdmin />} />
           <Route path="/createroom" element={<CreateRoom />} />
+          <Route path="/history" element={<BookingHistory />} />
         </Route>
         <Route path="/reserva" element={<Prueba />} />
 

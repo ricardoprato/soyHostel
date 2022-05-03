@@ -85,7 +85,7 @@ const RegisterForAdmin = () => {
           // Validacion DNI
           if (!valores.dni) {
             errores.dni = 'Please enter a dni';
-          } else if (!/^[0-9]{8,20}$/.test(valores.dni)) {
+          } else if (!/^[0-9]{7,20}$/.test(valores.dni)) {
             errores.dni = 'The dni can only contain numbers';
           }
 
@@ -186,6 +186,7 @@ const RegisterForAdmin = () => {
               <img className={styles.img} src={Logo} alt="" />
               <label htmlFor="name">First Name</label>
               <Field
+                className={styles.input}
                 type="text"
                 id="name"
                 name="name"
@@ -201,6 +202,7 @@ const RegisterForAdmin = () => {
             <div>
               <label htmlFor="lastname">Last Name</label>
               <Field
+                className={styles.input}
                 type="text"
                 id="lastname"
                 name="lastname"
@@ -216,7 +218,7 @@ const RegisterForAdmin = () => {
             </div>
             <div>
               <label htmlFor="typeofdocument">Document Type</label>
-              <Field name="typeofdocument" as="select">
+              <Field className={styles.input} name="typeofdocument" as="select">
                 <option value="typeofdocument" id="AF">
                   Elegir opción
                 </option>
@@ -239,6 +241,7 @@ const RegisterForAdmin = () => {
             </div>
             <div>
               <Field
+                className={styles.input}
                 type="text"
                 id="dni"
                 name="dni"
@@ -253,7 +256,12 @@ const RegisterForAdmin = () => {
             </div>
             <div>
               <label htmlFor="birthdate">Birthdate</label>
-              <Field type="date" id="birthdate" name="birthdate" />
+              <Field
+                className={styles.input}
+                type="date"
+                id="birthdate"
+                name="birthdate"
+              />
               <ErrorMessage
                 name="birthdate"
                 component={() => (
@@ -264,6 +272,7 @@ const RegisterForAdmin = () => {
             <div>
               <label htmlFor="email">Email (Username)</label>
               <Field
+                className={styles.input}
                 type="text"
                 id="email"
                 name="email"
@@ -279,6 +288,7 @@ const RegisterForAdmin = () => {
             <div className={styles.eye}>
               <label htmlFor="password">Password</label>
               <Field
+                className={styles.input}
                 type={typePw}
                 id="password"
                 name="password"
@@ -301,7 +311,7 @@ const RegisterForAdmin = () => {
             </div>
             <div>
               <label htmlFor="nationality">Nationality</label>
-              <Field name="nationality" as="select">
+              <Field className={styles.input} name="nationality" as="select">
                 <option>Elegir pais</option>
                 {paises.countries.map((p) => {
                   return <option key={p}>{p}</option>;
@@ -316,7 +326,7 @@ const RegisterForAdmin = () => {
             </div>
             <div>
               <label htmlFor="genre">Gender</label>
-              <Field name="genre" as="select">
+              <Field className={styles.input} name="genre" as="select">
                 <option value="" id="AF">
                   Select option
                 </option>
@@ -340,7 +350,7 @@ const RegisterForAdmin = () => {
 
             <div>
               <label htmlFor="role">Role</label>
-              <Field name="role" as="select">
+              <Field className={styles.input} name="role" as="select">
                 <option value="" id="AF">
                   Select option
                 </option>
