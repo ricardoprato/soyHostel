@@ -39,36 +39,28 @@ const FilterBar = () => {
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
-    if (name === 'checkIn' && value < today.toLocaleDateString('en-CA')) {
-      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
-      setMessage('Check-in date must be today or later')
-      setLocalModal((prevState) => !prevState);
-      setLocaldate({
-        checkIn: today.toLocaleDateString('en-CA'),
-        checkOut: localDate.checkOut
-      })
-    } else if (name === 'checkOut' && value < localDate.checkIn) {
-      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
-      setMessage('Check-out date must be after check-in date')
-      setLocalModal((prevState) => !prevState);
-      setLocaldate({
-        checkIn: localDate.checkIn,
-        checkOut: localDate.checkIn + 1,
-      })
-    } else {
-      setLocaldate({ ...localDate, [name]: value });
-    }
+    setLocaldate({ ...localDate, [name]: value });
   };
 
   const handleClick = () => {
-    if (!cart.length) {
+    if (localDate.checkIn < today.toLocaleDateString('en-CA')) {
+
+      setMessage('Check-in date must be today or later.')
+      setLocalModal((prevState) => !prevState);
+    } else if (localDate.checkOut < localDate.checkIn) {
+
+      setMessage('Check-out date must be after check-in date.')
+      setLocalModal((prevState) => !prevState);
+    } else {
+      if (!cart.length) {
       getFilteredBeds(localDate.checkIn, localDate.checkOut);
       setFilterdates(localDate);
-    } else {
-      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
-      setMessage('Before you can change the dates, you must empty your cart')
+      } else {
+
+      setMessage('Before you can change the dates, you must empty your cart.')
       setLocalModal((prevState) => !prevState);
-    }
+      }
+    }  
   };
 
   const sortPrice = () => {
@@ -230,7 +222,7 @@ const FilterBar = () => {
 
   return (
     <div className={styles.form} id="form">
-      {/* // ACA ESTUVE MANOSEANDO TU BEBE ////////////////////////////////////////////////////////// */}
+
       {!!localModal && (
         <Modal setLocalModal={setLocalModal}>
           <AlertModal message={message}/>
@@ -284,9 +276,9 @@ const FilterBar = () => {
       <button
         className={styles.button}
         onClick={handleClick}
-        disabled={
-          Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
-        }
+        // disabled={
+        //   Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
+        // }
       >
         View available
       </button>

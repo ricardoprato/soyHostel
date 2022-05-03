@@ -40,7 +40,7 @@ function Avatar() {
         <div className={styles.menu}>
           <NavLink to="/reserva">
             <button className={styles.button}>
-              <i class="bi bi-pencil-square"></i>Account details
+              <i className="bi bi-pencil-square"></i>Account details
             </button>
           </NavLink>
           <NavLink to="/history">
