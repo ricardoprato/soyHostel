@@ -1,11 +1,14 @@
-.cartContainer {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  row-gap: 1.5rem;
-  border-radius: 2%;
-  margin-top: 50px;
-  padding: 2rem;
-  background-color: var(--white-color);
+.cartContainer{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-top: 50px;
+    column-gap: 2rem;
+    background-color: rgb(228, 228, 228);
+    width: 50vh;
+    height: auto;
+    padding: 25px;
+    border-radius: 10px;
 }
 
