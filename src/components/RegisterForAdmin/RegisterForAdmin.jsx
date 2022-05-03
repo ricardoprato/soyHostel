@@ -84,9 +84,24 @@ const RegisterForAdmin = () => {
 
           // Validacion DNI
           if (!valores.dni) {
-            errores.dni = 'Please enter a dni';
-          } else if (!/^[0-9]{7,20}$/.test(valores.dni)) {
-            errores.dni = 'The dni can only contain numbers';
+            errores.dni = 'Please complete the field';
+          } else if (
+            !/^[0-9]{7,20}$/.test(valores.dni) &&
+            valores.typeofdocument === 'DNI'
+          ) {
+            errores.dni =
+              'The dni can only contain numbers and need to be 7 or more';
+          } else if (
+            valores.typeofdocument === 'Passport' &&
+            !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,25}$/.test(valores.dni)
+          ) {
+            errores.dni =
+              'Passport need to be 8 to 25 characters with letters and numbers';
+          } else if (
+            valores.typeofdocument === 'Driver License' &&
+            !/^[0-9]{7,20}$/.test(valores.dni)
+          ) {
+            errores.dni = 'Driver License need to be 7 or more numbers';
           }
 
           // Validacion email
@@ -245,7 +260,7 @@ const RegisterForAdmin = () => {
                 type="text"
                 id="dni"
                 name="dni"
-                placeholder="Put your dni"
+                placeholder="Put your document"
               />
               <ErrorMessage
                 name="dni"
@@ -312,7 +327,7 @@ const RegisterForAdmin = () => {
             <div>
               <label htmlFor="nationality">Nationality</label>
               <Field className={styles.input} name="nationality" as="select">
-                <option>Elegir pais</option>
+                <option>Select option</option>
                 {paises.countries.map((p) => {
                   return <option key={p}>{p}</option>;
                 })}

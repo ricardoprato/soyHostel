@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../PopupChangePw/PopupChangePw.module.css';
-import Logo from '../../Images/fondo.png';
 
 const PopupChangePw = ({ handleClick, titleToChangePw }) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -101,7 +100,7 @@ const PopupChangePw = ({ handleClick, titleToChangePw }) => {
           <button type="submit">Send</button>
 
           {formularioEnviado && (
-            <p className={styles.exito}>Formulario enviado con exito!</p>
+            <p className={styles.exito}>Form sent successfully!</p>
           )}
         </Form>
       )}
