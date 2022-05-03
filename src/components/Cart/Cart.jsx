@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
 import styles from './Cart.module.css';
-import { useNavigate } from 'react-router';
-
+import Stripe from '../../components/Stripe/Stripe';
 export default function Cart() {
+  const [pay, setPay] = useState(false);
   const {
     cart,
     setCart,
@@ -14,9 +14,7 @@ export default function Cart() {
     toBack,
     setToBack,
     filterDates,
-
   } = useContext(GlobalContext);
-  const navigate = useNavigate();
   // const { availableBeds } = useContext(GlobalContext)
 
   ////////// EL BACK NECESITA ESTO /////////////////////////
@@ -219,46 +217,69 @@ export default function Cart() {
   // auxToBack?.totalToPay !== 0 && console.log(auxToBack)
 
   const handleClick = () => {
-    token ? navigate('/reserva') : alert('You need to be logged to reserve');
+    setPay((prev) => !prev);
+    // token ? navigate('/reserva') : alert('You need to be logged to reserve');
   };
 
   const handleEmprtyCart = () => {
     setCart([]);
     getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
-  }
+  };
 
   console.log('CARRITO????', cart);
   return (
-    <div className={styles.cartContainer}>
-      <h2>You are about to book:</h2>
-      {cart?.length &&
-        cart?.map((r) => (
-          <div key={r.roomId}>
-            <h3>
-              {r.roomName} - {r.private} room:
-            </h3>
-            <h4>Check-In: {r.checkIn}</h4>
-            <h4>Check-Out: {r.checkOut}</h4>
-            {r.private === 'shared' ? (
-              <>
-                <h4>Bed price per day: {r.price}</h4>
-                <h4>{r.beds.length} beds booked</h4>
-                <h4>subtotal: {r.beds.length * r.price}</h4>
-                {/* {r.beds.length * r.price} */}
-              </>
-            ) : (
-              <>
-                <h4>Room price per day: {r.price}</h4>
-                {/* <h3>{r.beds?.length} beds booked</h3> */}
-              </>
-            )}
-            {/* <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button> */}
-          </div>
-        ))}
-      <h3>Total to pay: {toBack.saldo}</h3>
-      <button onClick={handleClick}>Go to payment</button>
-      <button onClick={() => handleEmprtyCart()}>Empty cart</button>
-      {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
-    </div>
+    <>
+      {pay ? (
+        <Stripe setPay={setPay} />
+      ) : (
+        <div className={styles.cartContainer}>
+          {cart?.length ? (
+            <>
+              <h2>You are about to book:</h2>
+              {cart?.map((r) => (
+                <div key={r.roomId} className={styles.info}>
+                  <p>
+                    {r.roomName} - {r.private} room:
+                  </p>
+                  <p>Check-In: {r.checkIn}</p>
+                  <p>Check-Out: {r.checkOut}</p>
+                  {r.private === 'shared' ? (
+                    <>
+                      <p>Bed price per day: {r.price}</p>
+                      <p>{r.beds.length} beds booked</p>
+                      <p>subtotal: ${r.beds.length * r.price}</p>
+                      {/* {r.beds.length * r.price} */}
+                    </>
+                  ) : (
+                    <>
+                      <p>Room price per day: ${r.price}</p>
+                      {/* <h3>{r.beds?.length} beds booked</h3> */}
+                    </>
+                  )}
+                </div>
+              ))}
+              <p>Total to pay: ${toBack.saldo}</p>
+              <button
+                className={`${styles.button} ${styles.payment}`}
+                onClick={handleClick}
+              >
+                <i className="bi bi-credit-card-2-back"></i> Go to payment
+              </button>
+              <button
+                className={`${styles.button} ${styles.empty}`}
+                onClick={() => setCart([])}
+              >
+                <i className="bi bi-bag"></i> Empty cart
+              </button>
+              {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
+            </>
+          ) : (
+            <div className={styles.noAvalaible}>
+              You have no reserves in the bag, please make one and come back
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 }

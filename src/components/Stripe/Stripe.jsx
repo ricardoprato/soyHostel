@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../CheckoutForm/CheckoutForm';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import styles from './Stripe.module.css';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -11,7 +12,7 @@ const stripePromise = loadStripe(
   'pk_test_51KspgPGBaeIIP5yaLo9bmqTFkfFUljdASOfg04AYy3P9TKa2TGm4g5XcMGnjwfwZv1fJev9a9uEXPcfBUmF959GC00hIwLgLEi'
 );
 
-const Stripe = () => {
+const Stripe = ({ setPay }) => {
   const { cart } = useContext(GlobalContext);
   const [clientSecret, setClientSecret] = useState('');
   const { dataPayment, setDataPayment } = useContext(GlobalContext);
@@ -47,16 +48,32 @@ const Stripe = () => {
     clientSecret,
     appearance,
   };
-
+  const handleClick = () => {
+    setPay((prev) => !prev);
+  };
   return (
-    <div className="App">
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
+    <div className={styles.stripeContainer}>
+      <button onClick={handleClick} className={styles.buttonicon}>
+        <i className={`${styles.icon} bi bi-arrow-left-square-fill`}></i>
+      </button>
+      {token ? (
+        clientSecret && (
+          <Elements stripe={stripePromise}>
+            <CheckoutForm options={options} />
+          </Elements>
+        )
+      ) : (
+        <div className={styles.noAuthorize}>
+          <h2>You need to be logged to reserve</h2>
+        </div>
       )}
     </div>
   );
 };
+// {clientSecret && (
+//   <Elements options={options} stripe={stripePromise}>
+//     <CheckoutForm />
+//   </Elements>
+// )}
 
 export default Stripe;
