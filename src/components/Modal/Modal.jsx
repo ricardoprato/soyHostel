@@ -18,15 +18,15 @@ function Modal({ children, setLocalModal }) {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={styles.modal} onClick={onCancel}>
+    <div className={styles.modal}>
       <div
         className={styles.modalBackground}
         onClick={(e) => e.stopPropagation()}
       >
-        {children}
         <button className={styles.cancel} onClick={onCancel}>
           Cancel
         </button>
+        {children}
       </div>
     </div>,
     document.getElementById('modal')

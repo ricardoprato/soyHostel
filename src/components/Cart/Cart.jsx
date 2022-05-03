@@ -13,6 +13,8 @@ export default function Cart() {
     setDataForCards,
     toBack,
     setToBack,
+    filterDates,
+
   } = useContext(GlobalContext);
   const navigate = useNavigate();
   // const { availableBeds } = useContext(GlobalContext)
@@ -71,15 +73,15 @@ export default function Cart() {
     }
   ]   */
 
-  const handleCartRemove = (roomId) => {
-    //  funcion para eliminar items del carrito
-    let aux = cart.filter((e) => {
-      return e.roomId !== roomId;
-    });
-    // console.log(aux)
-    setCart(aux);
-    // console.log("handleCartRemove")
-  };
+  // const handleCartRemove = (roomId) => {
+  //   //  funcion para eliminar items del carrito
+  //   let aux = cart.filter((e) => {
+  //     return e.roomId !== roomId;
+  //   });
+
+  //   // console.log(aux)
+  //   setCart(aux);
+  //   // console.log("handleCartRemove")
 
   //   const handleConfirm = () => {
   //     // console.log('toBack')
@@ -167,11 +169,12 @@ export default function Cart() {
   //     });
   //   setCart([]);
   // };
+
   let token = window.localStorage.getItem('tokenProp');
 
   let totalToPay = 0;
   let auxToBack = {};
-  if (cart.length > 0) {
+  if (cart?.length > 0) {
     auxToBack = {
       //   ESTO ES LO QUE MANDAMOS AL BACK
       fecha_ingreso: cart[0]?.checkIn,
@@ -183,9 +186,6 @@ export default function Cart() {
   }
 
   const fillToBack = () => {
-    // console.log("se ejecuto fillToBack")
-    // console.log("cart")
-    // console.log(cart)
     cart.length &&
       cart.forEach((r) => {
         if (r.private === 'private') {
@@ -222,6 +222,11 @@ export default function Cart() {
     token ? navigate('/reserva') : alert('You need to be logged to reserve');
   };
 
+  const handleEmprtyCart = () => {
+    setCart([]);
+    getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
+  }
+
   console.log('CARRITO????', cart);
   return (
     <div className={styles.cartContainer}>
@@ -229,30 +234,30 @@ export default function Cart() {
       {cart?.length &&
         cart?.map((r) => (
           <div key={r.roomId}>
-            <p>
+            <h3>
               {r.roomName} - {r.private} room:
-            </p>
-            <p>Check-In: {r.checkIn}</p>
-            <p>Check-Out: {r.checkOut}</p>
+            </h3>
+            <h4>Check-In: {r.checkIn}</h4>
+            <h4>Check-Out: {r.checkOut}</h4>
             {r.private === 'shared' ? (
               <>
-                <p>Bed price per day: {r.price}</p>
-                <p>{r.beds.length} beds booked</p>
-                <p>subtotal: {r.beds.length * r.price}</p>
+                <h4>Bed price per day: {r.price}</h4>
+                <h4>{r.beds.length} beds booked</h4>
+                <h4>subtotal: {r.beds.length * r.price}</h4>
                 {/* {r.beds.length * r.price} */}
               </>
             ) : (
               <>
-                <p>Room price per day: {r.price}</p>
+                <h4>Room price per day: {r.price}</h4>
                 {/* <h3>{r.beds?.length} beds booked</h3> */}
               </>
             )}
-            <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button>
+            {/* <button onClick={() => handleCartRemove(r.roomId)}>Cancel</button> */}
           </div>
         ))}
-      <p>Total to pay: {toBack.saldo}</p>
+      <h3>Total to pay: {toBack.saldo}</h3>
       <button onClick={handleClick}>Go to payment</button>
-      <button onClick={() => setCart([])}>Empty cart</button>
+      <button onClick={() => handleEmprtyCart()}>Empty cart</button>
       {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
     </div>
   );

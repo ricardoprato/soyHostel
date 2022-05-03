@@ -5,6 +5,7 @@ import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 // console.log(countries);
 
+
 export function validate(input) {
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -75,10 +76,10 @@ export function validate(input) {
   }
 
   if (!input.bedQuantity && input.private === false) {
-    if (!input.roomIds) {
-      errores.bedQuantity = 'Please enter a room first';
-    } else {
+    if(input?.bedQuantity === 0){
       errores.bedQuantity = 'Please select number of beds';
+    } else if(toBack?.camas?.length === 0){
+      errores.bedQuantity = 'Pleade click add to finish adding the selected beds'
     }
   }
 
@@ -163,8 +164,9 @@ const Booking = () => {
   }, [allRooms]);
 
   useEffect(() => {
-    filteredAvailableBeds?.length > 0 && genDataForCards();
+    filteredAvailableBeds?.length > 0 && genDataForCards(); // HandleClick carga filteredAvailableBeds y genDataForCards arma lista de habitaciones disponibles /////////////
   }, [filteredAvailableBeds]);
+
 
   useEffect(() => {
     console.log('input --> ', input);
@@ -201,11 +203,13 @@ const Booking = () => {
   };
 
   let handleChange = (e) => {
+
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
-    let objError = validate({ ...input, [e.target.name]: e.target.value });
+    let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
     setError(objError);
   };
+
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -452,6 +456,7 @@ const Booking = () => {
               {/* Select bed */}
               <label htmlFor="bedQuantity">Bed </label>
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
+
                 <option value="bedQuantity">Select bed</option>
                 {input?.totalBeds?.length &&
                   input?.totalBeds.map((r) => (

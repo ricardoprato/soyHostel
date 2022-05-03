@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   return (
-    <div className={styles.register}>
+    <>
       {modal ? (
         <Formik
           initialValues={{
@@ -388,7 +388,7 @@ const Register = () => {
           handleClick={handleClick}
         />
       )}
-    </div>
+    </>
   );
 };
 

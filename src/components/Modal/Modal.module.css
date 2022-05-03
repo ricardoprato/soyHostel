@@ -13,18 +13,20 @@
 .modalBackground {
   display: flex;
   justify-content: center;
-  width: fit-content;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 1rem;
+  width: 100%;
   position: relative;
   z-index: 10001;
 }
 .cancel {
-  position: absolute;
+  width: 100%;
+  max-width: 100px;
   color: white;
   font-weight: bold;
   appearance: none;
   border: none;
-  top: 0;
-  right: 0;
   padding: 10px;
   background-color: #dc3545;
   border-radius: 5px;
