@@ -4,6 +4,10 @@ import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
 
+// cama?.Huesped == null
+//               ? `${cama.Huesped.nombre} ${cama.Huesped.apellido}`
+//               : `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
+
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -113,7 +117,7 @@ function Formulario({ props }) {
   };
   const handleDeleteReservation = (e) => {
     const token = localStorage.getItem('tokenProp');
-    fetch(`${import.meta.env.VITE_APP_URL}/reservas/${props.id}`, {
+    fetch(`${import.meta.env.VITE_APP_URL}/reservas/${proid}`, {
       method: 'DELETE',
       headers: {
         api: import.meta.env.VITE_API,
@@ -208,6 +212,109 @@ function Formulario({ props }) {
               <option value="For Manteinance">For Manteinance</option>
             </select>
           </div>
+          <div>
+            <div className={styles.jodido}>
+              <h3 className={styles.font}>Guest Data Update</h3>
+            </div>
+            <form>
+              {/* First Name */}
+
+              <div className={styles.microContainer}>
+                {' '}
+                <label>First Name: </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="nombre"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="first name..."
+                />
+                {error.nombre && <p className={styles.error}>{error.nombre}</p>}
+              </div>
+
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Last Name */}
+                <label>Last Name: </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="apellido"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="last name..."
+                />
+                {error.apellido && (
+                  <p className={styles.error}>{error.apellido}</p>
+                )}
+              </div>
+
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Document type */}
+                <label>Document type: </label>
+                <select
+                  name="tipoDocumento"
+                  onChange={(e) => handleGuestChange(e)}
+                >
+                  <option value="docType">Elegir opción</option>
+                  <option value="DNI">DNI</option>
+                  <option value="Passport">Passport</option>
+                  <option value="Libreta civica">Libreta Civica</option>
+                  <option value="CLI">CLI</option>
+                </select>
+                {error.tipoDocumento && (
+                  <p className={styles.error}>{error.tipoDocumento}</p>
+                )}
+              </div>
+
+              <div className={styles.microContainer}>
+                {' '}
+                {/* document number */}
+                <label>Document Number: </label>
+                <input
+                  type="text"
+                  id="dni"
+                  name="dni"
+                  onChange={(e) => handleGuestChange(e)}
+                  placeholder="document number..."
+                />
+                {error.dni && <p className={styles.error}>{error.dni}</p>}
+              </div>
+
+              <div className={styles.microContainer}>
+                {' '}
+                {/* Nationality */}
+                <label htmlFor="nationality">Nationality</label>
+                <select
+                  name="nacionalidad"
+                  onChange={(e) => handleGuestChange(e)}
+                >
+                  <option value="">...select country</option>
+                  {countries?.countries &&
+                    countries?.countries.map((c) => (
+                      <option key={c} value={c} id={c}>
+                        {c}
+                      </option>
+                    ))}
+                </select>
+                {error.nacionalidad && (
+                  <p className={styles.error}>{error.nacionalidad}</p>
+                )}
+              </div>
+              <div className={styles.microContainer}>
+                {/* Gender */}
+                <label htmlFor="gender">Gender</label>
+                <select onChange={(e) => handleGuestChange(e)} name="genero">
+                  <option value="">Select option</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                {error.genero && <p className={styles.error}>{error.genero}</p>}
+                {/* <button type="submit">Add Gest</button> */}
+              </div>
+            </form>
+          </div>
           <button
             className={styles.button}
             onClick={(e) => SubmitBookingUpdate(e)}
@@ -220,8 +327,9 @@ function Formulario({ props }) {
         </div>
       ) : (
         <div className={styles.formulario}>
-          <h1>Warning</h1>
-          <p>All asociated products will be erased too</p>
+          <p>
+            eh wachin mira que estas borrando tambien una banda de otras cosa
+          </p>
           <button className={styles.button} onClick={handleDeleteReservation}>
             Yes
           </button>

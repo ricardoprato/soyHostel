@@ -92,7 +92,7 @@ export default function Calendar() {
         reserva?.Camas?.forEach((cama) => {
           let element = {
             id: reserva?.id,
-            title: `${reserva?.Usuario?.nombre} ${reserva?.Usuario?.apellido}`,
+            title: `${reserva?.Usuario.nombre} ${reserva?.Usuario.apellido}`,
             start: new Date(`${reserva.fecha_ingreso}`),
             end: new Date(`${reserva.fecha_egreso}`),
             dataSet: {
@@ -122,6 +122,10 @@ export default function Calendar() {
     allRooms.length && getInitialState();
     //let token = localStorage.getItem('tokenProp');
   }, [allRooms]);
+
+  useEffect(() => {
+    console.log(calendarState);
+  }, [calendarState]);
 
   const [data, setData] = useState({});
   const taskClick = (e) => {
