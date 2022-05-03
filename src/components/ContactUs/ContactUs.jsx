@@ -7,7 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
-  const [captchaVerify, setCaptchaVerify] = useState(false);
+  // const [captchaVerify, setCaptchaVerify] = useState(false);
   const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
@@ -31,10 +31,10 @@ const ContactUs = () => {
     setModal(false);
   };
 
-  const handleChange = () => {
-    setCaptchaVerify(true);
-    console.log('CAPTCHA VERIFY', captchaVerify);
-  };
+  // const handleChange = () => {
+  //   setCaptchaVerify(true);
+  //   console.log('CAPTCHA VERIFY', captchaVerify);
+  // };
 
   return (
     <div className={styles.container} id="contactUs">
@@ -138,7 +138,7 @@ const ContactUs = () => {
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
             errores.textarea = 'Please enter a textarea';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.textarea)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,200}$/.test(valores.textarea)) {
             errores.textarea =
               'The textarea can only contain letters and spaces';
           }
@@ -243,13 +243,11 @@ const ContactUs = () => {
               />
             </div>
             <ReCAPTCHA
-              onChange={handleChange}
+              /// onChange={handleChange}
               ref={recaptchaRef}
               sitekey={import.meta.env.VITE_CAPTCHA}
             />
-            <button type="submit" disabled>
-              Send
-            </button>
+            <button type="submit">Send</button>
             {formularioEnviado && (
               <p className={styles.exito}>Formulario enviado con exito!</p>
             )}
