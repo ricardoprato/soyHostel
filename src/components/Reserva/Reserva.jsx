@@ -5,9 +5,7 @@ import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
 import explore1 from '../../Images/explore1.jpg';
 
-
 export default function Reserva() {
-  
   const divImage = useRef();
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function Reserva() {
 
   console.log('filteredRooms');
   console.log(filteredRooms);
-  // console.log("dataForCards") 
+  // console.log("dataForCards")
   // console.log(dataForCards)
   console.log('allRooms');
   console.log(allRooms);
@@ -57,36 +55,6 @@ export default function Reserva() {
         <div className={styles.parallax} ref={divImage}></div>
         <FilterBar />
         <div className={styles.RoomCardsContainer}>
-        {!dataForCards.length && !filteredRooms.length ? (
-          'Cargando...'
-        ) : !flag && filteredRooms.length ? (
-          filteredRooms?.map((r) => (
-            <RoomCard
-              filtradas={r?.filtradas}
-              key={r?.id}
-              roomId={r?.id} //json de los sueños
-              roomName={r?.nombre}
-              comodities={r?.comodidades}
-              description={r?.descripcion}
-              bedsAvailable={r?.cantCamas} //json de los sueños
-              totalBeds={r.totalBeds ? r?.totalBeds : r?.cantCamas}
-              private={r?.privada}
-              bedPrice={
-                r?.privada
-                  ? r?.precio
-                  : r?.precio / (r?.totalBeds || r?.cantCamas)
-              }
-              bathroom={r?.banoPrivado}
-              image={r?.Imagens}
-              bedIds={r?.bedIds}
-            />
-          ))
-        ) : flag ? (
-          <h1 style={{ color: 'black', background: 'red' }}>
-            No Available Rooms
-          </h1>
-        ) : null}
-      </div>  
           {!dataForCards.length && !filteredRooms.length ? (
             'Cargando...'
           ) : !flag && filteredRooms.length ? (
