@@ -14,7 +14,6 @@ export default function Cart() {
     toBack,
     setToBack,
     filterDates,
-
   } = useContext(GlobalContext);
   // const { availableBeds } = useContext(GlobalContext)
 
@@ -225,11 +224,10 @@ export default function Cart() {
   const handleEmprtyCart = () => {
     setCart([]);
     getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
-  }
+  };
 
   console.log('CARRITO????', cart);
   return (
-
     <>
       {pay ? (
         <Stripe setPay={setPay} />
@@ -258,12 +256,6 @@ export default function Cart() {
                       {/* <h3>{r.beds?.length} beds booked</h3> */}
                     </>
                   )}
-                  <button
-                    className={`${styles.button} ${styles.empty}`}
-                    onClick={() => handleCartRemove(r.roomId)}
-                  >
-                    Cancel
-                  </button>
                 </div>
               ))}
               <p>Total to pay: ${toBack.saldo}</p>
