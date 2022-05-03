@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 
-import Stripe from '../../components/Stripe/Stripe';
 
 const Prueba = () => {
   return (
@@ -10,9 +9,8 @@ const Prueba = () => {
       <PopupEditRoom /> */}
       {/* <FormEditRoom /> */}
       {/* <ListRooms /> */}
-      {/* <InfoUser /> */}
+      <InfoUser />
       {/* <Google /> */}
-
       <Stripe />
       {/* <CreateRoom /> */}
     </>

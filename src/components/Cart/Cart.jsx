@@ -13,6 +13,8 @@ export default function Cart() {
     setDataForCards,
     toBack,
     setToBack,
+    filterDates,
+
   } = useContext(GlobalContext);
   // const { availableBeds } = useContext(GlobalContext)
 
@@ -220,8 +222,14 @@ export default function Cart() {
     // token ? navigate('/reserva') : alert('You need to be logged to reserve');
   };
 
+  const handleEmprtyCart = () => {
+    setCart([]);
+    getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
+  }
+
   console.log('CARRITO????', cart);
   return (
+
     <>
       {pay ? (
         <Stripe setPay={setPay} />
