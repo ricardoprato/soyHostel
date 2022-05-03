@@ -3,6 +3,11 @@ import { useEffect, useState, useContext } from 'react';
 import styles from './ReceptionNavBar.module.css';
 import Avatar from '../Avatar/Avatar';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import { Modal } from '../Modal/Modal';
+import CreateRoom from '../RoomsAdmin/CreateRoom';
+import DeleteEditRoom from '../RoomsAdmin/ListRooms';
+import BookingFromReception from '../BookingFromReception/BookingFromReception';
+import CreateAdminReceptionist from '../RegisterForAdmin/RegisterForAdmin';
 
 const ReceptionNavBar = ({ children }) => {
   const [active, setActive] = useState(false);
@@ -11,7 +16,14 @@ const ReceptionNavBar = ({ children }) => {
   if (!token) {
     token = null;
   }
-  console.log('TOKENENNAVBAR', token);
+  const [localModalCreateRoom, setLocalModalCreateRoom] = useState(false);
+  const [localModalDeleteEditRoom, setLocalModalDeleteEditRoom] =
+    useState(false);
+  const [
+    localModalCreateAdminReceptionist,
+    setLocalModalCreateAdminReceptionist,
+  ] = useState(false);
+  const [localModalCreateBooking, setLocalModalCreateBooking] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -75,24 +87,36 @@ const ReceptionNavBar = ({ children }) => {
           </NavLink>
           {rol === 'administrador' ? (
             <>
-              <NavLink className={styles.nav_link} to="/createroom">
+              <button
+                className={styles.nav_link}
+                onClick={() => setLocalModalCreateRoom(true)}
+              >
                 <i className="bi bi-envelope"></i>
                 Create Room
-              </NavLink>
-              <NavLink className={styles.nav_link} to="/listrooms">
+              </button>
+              <button
+                className={styles.nav_link}
+                onClick={() => setLocalModalDeleteEditRoom(true)}
+              >
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
-              </NavLink>
-              <NavLink className={styles.nav_link} to="/createadmin">
+              </button>
+              <button
+                className={styles.nav_link}
+                onClick={() => setLocalModalCreateAdminReceptionist(true)}
+              >
                 <i className="bi bi-envelope"></i>
                 Create Admin/Receptionist
-              </NavLink>
+              </button>
             </>
           ) : null}
-          <NavLink className={styles.nav_link} to="/bookfromreception">
+          <button
+            className={styles.nav_link}
+            onClick={() => setLocalModalCreateBooking(true)}
+          >
             <i className="bi bi-compass"></i>
             Create booking
-          </NavLink>
+          </button>
 
           <div className={styles.nav_flex}>
             <Avatar />
@@ -101,6 +125,26 @@ const ReceptionNavBar = ({ children }) => {
           <i className={`${styles.icons} bi bi-x`}></i>
         </nav>
       </header>
+      {!!localModalCreateBooking && (
+        <Modal setLocalModal={setLocalModalCreateBooking}>
+          <BookingFromReception />
+        </Modal>
+      )}
+      {!!localModalCreateAdminReceptionist && (
+        <Modal setLocalModal={setLocalModalCreateAdminReceptionist}>
+          <CreateAdminReceptionist />
+        </Modal>
+      )}
+      {!!localModalDeleteEditRoom && (
+        <Modal setLocalModal={setLocalModalDeleteEditRoom}>
+          <DeleteEditRoom />
+        </Modal>
+      )}
+      {!!localModalCreateRoom && (
+        <Modal setLocalModal={setLocalModalCreateRoom}>
+          <CreateRoom />
+        </Modal>
+      )}
       {children}
     </>
   );

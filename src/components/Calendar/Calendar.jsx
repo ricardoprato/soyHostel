@@ -63,7 +63,7 @@ export default function Calendar() {
   };
 
   const loadCalendar = () => {
-    console.log('esto es reservatios');
+    console.log('esto es reservations');
     console.log(reservations);
     reservations?.forEach((reserva) => {
       if (reserva?.Habitacions?.length > 0) {
@@ -118,14 +118,14 @@ export default function Calendar() {
     getAllRooms();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     allRooms.length && getInitialState();
     //let token = localStorage.getItem('tokenProp');
   }, [allRooms]);
 
-  useEffect(() => {
-    console.log(calendarState);
-  }, [calendarState]);
+  // useEffect(() => {
+  //   console.log(calendarState);
+  // }, [calendarState]);
 
   const [data, setData] = useState({});
   const taskClick = (e) => {
