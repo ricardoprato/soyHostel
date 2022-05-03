@@ -243,7 +243,7 @@ const ContactUs = () => {
               />
             </div>
             <ReCAPTCHA
-              // onChange={handleChange}
+              /// onChange={handleChange}
               ref={recaptchaRef}
               sitekey={import.meta.env.VITE_CAPTCHA}
             />
