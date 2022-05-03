@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import Stripe from '../../components/Stripe/Stripe';
-
 
 
 const Prueba = () => {
@@ -16,7 +14,6 @@ const Prueba = () => {
 
       <Stripe />
       {/* <CreateRoom /> */}
-
     </>
   );
 };
