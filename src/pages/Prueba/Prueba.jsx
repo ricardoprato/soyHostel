@@ -33,10 +33,11 @@ const Prueba = () => {
       <PopupEditRoom /> */}
       {/* <FormEditRoom /> */}
       {/* <ListRooms /> */}
-      {/* <InfoUser /> */}
+      <InfoUser />
       {/* <Google /> */}
+      <Stripe />
 
-      <CreateRoom />
+      {/* <CreateRoom /> */}
     </>
   );
 };

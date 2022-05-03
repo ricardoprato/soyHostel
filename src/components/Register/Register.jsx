@@ -10,12 +10,13 @@ const Register = () => {
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
-
+  let token = window.localStorage.getItem('tokenProp');
   let sendData = async (valores) => {
-    let res = await fetch(`${url}` + '/auth/signup', {
+    let res = await fetch(`${url}` + '/usuarios', {
       method: 'POST',
       headers: {
         api: `${api}`,
+        Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(valores),
@@ -163,6 +164,7 @@ const Register = () => {
             resetForm();
             console.log('INFO', valores);
             cambiarFormularioEnviado(true);
+            window.location.reload();
 
             setTimeout(
               () => cambiarFormularioEnviado(false),
