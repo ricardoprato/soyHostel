@@ -227,7 +227,7 @@ export default function Cart() {
     getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
   }
 
-  console.log('CARRITO????', cart);
+  // console.log('CARRITO????', cart);
   return (
     <div className={styles.cartContainer}>
       <h2>You are about to book:</h2>

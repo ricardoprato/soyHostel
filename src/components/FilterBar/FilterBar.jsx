@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useContext, useState, useRef } from 'react';
 import styles from './FilterBar.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
+// ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+import AlertModal from './AlertModal';
+import { Modal } from '../Modal/Modal';
 
 const FilterBar = () => {
   const {
@@ -30,13 +33,28 @@ const FilterBar = () => {
     checkIn: today.toLocaleDateString('en-CA'),
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
+  // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+  const [localModal, setLocalModal] = useState(false);
+  const [message, setMessage ] = useState('');
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
     if (name === 'checkIn' && value < today.toLocaleDateString('en-CA')) {
-      alert('Check-in date must be today or later');
+      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+      setMessage('Check-in date must be today or later')
+      setLocalModal((prevState) => !prevState);
+      setLocaldate({
+        checkIn: today.toLocaleDateString('en-CA'),
+        checkOut: localDate.checkOut
+      })
     } else if (name === 'checkOut' && value < localDate.checkIn) {
-      alert('Check-out date must be after check-in date');
+      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+      setMessage('Check-out date must be after check-in date')
+      setLocalModal((prevState) => !prevState);
+      setLocaldate({
+        checkIn: localDate.checkIn,
+        checkOut: localDate.checkIn + 1,
+      })
     } else {
       setLocaldate({ ...localDate, [name]: value });
     }
@@ -47,7 +65,9 @@ const FilterBar = () => {
       getFilteredBeds(localDate.checkIn, localDate.checkOut);
       setFilterdates(localDate);
     } else {
-      alert('Before you can change the dates, you must empty your cart');
+      // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+      setMessage('Before you can change the dates, you must empty your cart')
+      setLocalModal((prevState) => !prevState);
     }
   };
 
@@ -210,6 +230,12 @@ const FilterBar = () => {
 
   return (
     <div className={styles.form} id="form">
+      {/* // ACA ESTUVE MANOSEANDO TU BEBE ////////////////////////////////////////////////////////// */}
+      {!!localModal && (
+        <Modal setLocalModal={setLocalModal}>
+          <AlertModal message={message}/>
+        </Modal>
+      )}
       <label className={styles.input}>
         From:
         <input

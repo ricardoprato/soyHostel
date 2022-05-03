@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import AlertModal from './AlertModal';
+import { Modal } from '../Modal/Modal';
 // console.log(countries);
 
 export function validate(input, toBack) {  /////// VALIDACiONES /////////////////////////////////
@@ -160,6 +162,8 @@ const Booking = () => {
   const [ toBack, setToBack ] = useState(initialToBack)
   let [error, setError] = useState({});  ////////  Mensajes de error //////////////////////
 
+  const [localModal, setLocalModal] = useState(false);
+
   useEffect(() => {
     allRooms.length === 0 && getAllRooms(); // trae todas las habitaciones existentes ////////////////////
   }, [allRooms]);
@@ -252,13 +256,14 @@ const Booking = () => {
   const handleSubmit = (e) => { // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
     e.preventDefault()
     if(toBack.camas?.length === 0 && toBack.habitaciones?.length === 0){
-      alert('Please finish adding selected bed or room')
+      setLocalModal((prevState) => !prevState);
+      // alert('Please finish adding selected bed or room')
     }else{
       let paraConsologuear = {
         camas: [...toBack.camas],
         habitaciones: [...toBack.habitaciones],
         ingreso: input.checkIn,  
-        egreso: input.checkOut,
+        egreso: input.checkOut, 
         nombre: input.name,
         apellido: input.lastName,
         tipoDoc: input.docType,
@@ -319,7 +324,11 @@ const Booking = () => {
             />
             {error.name && <p className={styles.error}>{error.name}</p>}
           </div>
-
+          {!!localModal && (
+          <Modal setLocalModal={setLocalModal}>
+            <AlertModal/>
+          </Modal>
+          )}
           <div> {/* Last Name */}
             <label>Last Name: </label>
             <input
