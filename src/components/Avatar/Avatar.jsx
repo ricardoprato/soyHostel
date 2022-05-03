@@ -43,9 +43,11 @@ function Avatar() {
               <i class="bi bi-pencil-square"></i>Account details
             </button>
           </NavLink>
-          <button className={styles.button}>
-            <i class="bi bi-book"></i>History
-          </button>
+          <NavLink to="/history">
+            <button className={styles.button}>
+              <i class="bi bi-book"></i>Booking History
+            </button>
+          </NavLink>
           <button onClick={handleClick} className={styles.button}>
             <i class="bi bi-box-arrow-right"></i>
             Logout
@@ -63,9 +65,11 @@ function Avatar() {
               <i class="bi bi-pencil-square"></i>Account details
             </button>
           </NavLink>
-          <button className={styles.button}>
-            <i class="bi bi-book"></i>Booking History
-          </button>
+          <NavLink to="/history">
+            <button className={styles.button}>
+              <i class="bi bi-book"></i>Booking History
+            </button>
+          </NavLink>
           <button onClick={handleClick} className={styles.button}>
             <i class="bi bi-box-arrow-right"></i>
             Logout
