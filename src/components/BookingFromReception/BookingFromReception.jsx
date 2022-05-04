@@ -6,7 +6,9 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 // console.log(countries);
 
 
+
 export function validate(input) {
+
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
 
@@ -76,10 +78,11 @@ export function validate(input) {
   }
 
   if (!input.bedQuantity && input.private === false) {
-    if(input?.bedQuantity === 0){
+    if (input?.bedQuantity === 0) {
       errores.bedQuantity = 'Please select number of beds';
-    } else if(toBack?.camas?.length === 0){
-      errores.bedQuantity = 'Pleade click add to finish adding the selected beds'
+    } else if (toBack?.camas?.length === 0) {
+      errores.bedQuantity =
+        'Pleade click add to finish adding the selected beds';
     }
   }
 
@@ -142,7 +145,9 @@ const Booking = () => {
     price: 0,
   };
   const [input, setInput] = useState(initialState);
+
   const [toBack, setToBack] = useState({
+
     camas: [],
     habitaciones: [],
     saldo: 0,
@@ -156,7 +161,9 @@ const Booking = () => {
     nacionalidad: '',
     email: '',
     genero: '',
+
   });
+
   let [error, setError] = useState({}); ////////  Mensajes de error //////////////////////
 
   useEffect(() => {
@@ -166,6 +173,7 @@ const Booking = () => {
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards(); // HandleClick carga filteredAvailableBeds y genDataForCards arma lista de habitaciones disponibles /////////////
   }, [filteredAvailableBeds]);
+
 
 
   useEffect(() => {
@@ -204,11 +212,17 @@ const Booking = () => {
 
   let handleChange = (e) => {
 
+    // valida todos los inputs y carga mensajes de error //////////////////
+
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
-    let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
+    let objError = validate(
+      { ...input, [e.target.name]: e.target.value },
+      toBack
+    );
     setError(objError);
   };
+
 
 
   const handleClick = (e) => {
@@ -217,7 +231,7 @@ const Booking = () => {
   };
 
   const handleAddBed = (e) => {
-    //FALTA ESTO //////////////////////////////////////////////
+
     e.preventDefault();
     let aux = [];
     if (input.bedQuantity > 0) {
@@ -256,7 +270,9 @@ const Booking = () => {
         ),
         bedQuantity: 0,
       });
+
     } else if (input.roomIds > 0) {
+
       let localAux = dataForCards.filter((r) => r.id !== input.roomIds);
       setDataForCards([...localAux]);
       setToBack({
@@ -264,6 +280,7 @@ const Booking = () => {
         habitaciones: [...toBack.habitaciones, input.roomIds],
         saldo: toBack.saldo + input.price,
       });
+
       setInput({ ...input, roomIds: 0, price: 0 });
     }
   };
@@ -286,6 +303,7 @@ const Booking = () => {
       genero: input.gender,
     });
   };
+
 
   return (
     <div className={styles.allcss}>
@@ -432,7 +450,9 @@ const Booking = () => {
               onChange={(e) => handleChange(e)}
             />
             {error.checkOut && <p className={styles.error}>{error.checkOut}</p>}
+
             <button onClick={(e) => handleClick(e)}>get available</button>
+
           </div>
 
           <div>
@@ -440,7 +460,9 @@ const Booking = () => {
             {/* Select Room: */}
             <label htmlFor="roomIds">Room Name</label>
             <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
+
               <option value="roomIds">Elegir opción</option>
+
               {dataForCards?.length &&
                 dataForCards?.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -457,6 +479,7 @@ const Booking = () => {
               <label htmlFor="bedQuantity">Bed </label>
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
 
+
                 <option value="bedQuantity">Select bed</option>
                 {input?.totalBeds?.length &&
                   input?.totalBeds.map((r) => (
@@ -471,6 +494,7 @@ const Booking = () => {
             </div>
           ) : null}
 
+
           <button onClick={(e) => handleAddBed(e)}>add to booking</button>
           <div>
             Booking: {toBack?.camas?.length} beds and{' '}
@@ -478,6 +502,7 @@ const Booking = () => {
           </div>
           <h2>Total to pay: $ {toBack?.saldo}</h2>
           {(toBack.camas === 0 && toBack.habitaciones === 0) ||
+
           error.name ||
           error.lastName ||
           error.docType ||
@@ -492,7 +517,9 @@ const Booking = () => {
           // error.totalBeds ||
           error.checkOut ||
           error.checkIn ? null : (
+
             <button type="submit">send</button>
+
           )}
         </form>
       </div>

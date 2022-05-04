@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from '../Register/Register.module.css';
+
+import styles from './RegisterForAdmin.module.css';
 import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
@@ -193,12 +194,7 @@ const RegisterForAdmin = () => {
         {({ errors }) => (
           <Form className={styles.formulario}>
             <div>
-              <button onClick={handleClick} className={styles.buttonicon}>
-                <i
-                  className={`${styles.icon} bi bi-arrow-left-square-fill`}
-                ></i>
-              </button>
-              <img className={styles.img} src={Logo} alt="" />
+              <h1>Register new Admin/Receptionist</h1>
               <label htmlFor="name">First Name</label>
               <Field
                 className={styles.input}
