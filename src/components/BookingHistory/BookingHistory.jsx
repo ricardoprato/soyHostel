@@ -37,7 +37,7 @@ function BookingHistory() {
 
   useEffect(() => {
     getReservations();
-  }, []);
+  }, [bookingHistory.length]);
   //  bookingHistory
   //           .filter((booking) => booking.UsuarioDni == decode.sub)
   //           .map((r) => <ReservationCards props={r} />)

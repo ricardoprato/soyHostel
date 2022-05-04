@@ -297,7 +297,12 @@ export default function CreateRoom(props) {
               />
               {bedPrice > 0 && (
                 <div className={styles.oneLine}>
-                  <button onClick={handleBedPriceLoad}>set</button>{' '}
+                  <button
+                    onClick={handleBedPriceLoad}
+                    className={styles.butoncito}
+                  >
+                    set
+                  </button>{' '}
                   <div> Price seted to: {input?.preciosCamas[0]} </div>
                 </div>
               )}
@@ -319,7 +324,9 @@ export default function CreateRoom(props) {
             />
             {input?.imagenes?.length < 3 && (
               <div className={styles.oneLine}>
-                <button onClick={handleImageLoad}>load</button>{' '}
+                <button onClick={handleImageLoad} className={styles.butoncito}>
+                  load
+                </button>{' '}
                 <div> {input?.imagenes?.length} images added</div>
               </div>
             )}
@@ -331,8 +338,7 @@ export default function CreateRoom(props) {
           <div>
             {' '}
             {/* errores */}
-            {
-            !input.cantCamas ||
+            {!input.cantCamas ||
             error.name ||
             error.privada ||
             error.banoPrivado ||
@@ -342,7 +348,9 @@ export default function CreateRoom(props) {
             error.precioHabitacion ||
             error.preciosCamas ||
             error.imagenes ? null : (
-              <button type="submit">Create</button>
+              <button className={styles.butoncito} type="submit">
+                Create
+              </button>
             )}
           </div>
         </form>

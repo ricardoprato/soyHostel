@@ -69,7 +69,7 @@
   font-size: 12px;
 }
 
-.formulario button[type='submit'] {
+.butoncito {
   display: block;
   background: #0085ff;
   font-weight: 600;
@@ -84,7 +84,7 @@
   transition: 0.3s ease all;
 }
 
-.formulario button[type='submit']:hover {
+.butoncito:hover {
   background: #0051ff;
 }
 

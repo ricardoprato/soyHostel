@@ -27,14 +27,20 @@ export default function Reserva() {
 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms();
+    console.log('allRooms desde reserva');
+    console.log(allRooms);
   }, [allRooms]);
 
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
 
-  console.log('filteredRooms');
-  console.log(filteredRooms);
+
+  useEffect(()=>{
+    console.log('filteredRooms desde reserva');
+    console.log(filteredRooms);
+  },[filteredRooms])
+  
   // console.log("dataForCards")
   // console.log(dataForCards)
   console.log('allRooms');

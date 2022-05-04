@@ -75,6 +75,7 @@ export default function RoomCard(props) {
             checkOut: filterDates.checkOut,
             price: props.bedPrice,
             roomName: props.roomName,
+            totalBeds: props.totalBeds,
           },
         ]);
         setBedsOnCart(props.totalBeds);
@@ -138,10 +139,13 @@ export default function RoomCard(props) {
     //  funcion para eliminar items del carrito
     console.log('****ANTES**props.berIds*** ', props.bedIds);
     let aux = cart?.map((e) => {
-      if (e.roomId === roomId) {
+      if (e.roomId === roomId && e.private === 'shared') {
         props.bedIds.push(...e.beds);
         // let countAux = count + e.beds.length
         setCount((prev) => prev + e.beds.length);
+        return undefined;
+      } else if (e.roomId === roomId && e.private === 'private') {
+        setCount(e.totalBeds);
         return undefined;
       } else {
         return { ...e };
