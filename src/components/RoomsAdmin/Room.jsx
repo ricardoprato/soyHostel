@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import ConfirmDelete from './ConfirmDelete';
 import FormEditRoom from '../FormEditRoom/FormEditRoom';
-
+import styles from './Room.module.css';
 export default function Room({ props }) {
   // console.log('props desde Room--> ', props)
 
@@ -18,9 +18,9 @@ export default function Room({ props }) {
   };
 
   return (
-    <div>
+    <div className={styles.room}>
       {props.nombre}: {props.privada ? 'Private' : 'Shared'},{props.cantCamas}{' '}
-      <button onClick={() => handleEdit(props.id)}>
+      <button className={styles.butoncito} onClick={() => handleEdit(props.id)}>
         {!!localModal2 && (
           <Modal setLocalModal={setLocalModal2}>
             <FormEditRoom props={props} />
@@ -28,7 +28,10 @@ export default function Room({ props }) {
         )}
         Edit
       </button>
-      <button onClick={() => handleDelete(props.id)}>
+      <button
+        className={styles.butoncito}
+        onClick={() => handleDelete(props.id)}
+      >
         {!!localModal && (
           <Modal setLocalModal={setLocalModal}>
             <ConfirmDelete props={props} />

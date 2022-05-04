@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import styles from '../Register/Register.module.css';
+
+import styles from './RegisterForAdmin.module.css';
 import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
@@ -84,9 +85,24 @@ const RegisterForAdmin = () => {
 
           // Validacion DNI
           if (!valores.dni) {
-            errores.dni = 'Please enter a dni';
-          } else if (!/^[0-9]{7,20}$/.test(valores.dni)) {
-            errores.dni = 'The dni can only contain numbers';
+            errores.dni = 'Please complete the field';
+          } else if (
+            !/^[0-9]{7,20}$/.test(valores.dni) &&
+            valores.typeofdocument === 'DNI'
+          ) {
+            errores.dni =
+              'The dni can only contain numbers and need to be 7 or more';
+          } else if (
+            valores.typeofdocument === 'Passport' &&
+            !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,25}$/.test(valores.dni)
+          ) {
+            errores.dni =
+              'Passport need to be 8 to 25 characters with letters and numbers';
+          } else if (
+            valores.typeofdocument === 'Driver License' &&
+            !/^[0-9]{7,20}$/.test(valores.dni)
+          ) {
+            errores.dni = 'Driver License need to be 7 or more numbers';
           }
 
           // Validacion email
@@ -178,12 +194,7 @@ const RegisterForAdmin = () => {
         {({ errors }) => (
           <Form className={styles.formulario}>
             <div>
-              <button onClick={handleClick} className={styles.buttonicon}>
-                <i
-                  className={`${styles.icon} bi bi-arrow-left-square-fill`}
-                ></i>
-              </button>
-              <img className={styles.img} src={Logo} alt="" />
+              <h1>Register new Admin/Receptionist</h1>
               <label htmlFor="name">First Name</label>
               <Field
                 className={styles.input}
@@ -245,7 +256,7 @@ const RegisterForAdmin = () => {
                 type="text"
                 id="dni"
                 name="dni"
-                placeholder="Put your dni"
+                placeholder="Put your document"
               />
               <ErrorMessage
                 name="dni"
@@ -312,7 +323,7 @@ const RegisterForAdmin = () => {
             <div>
               <label htmlFor="nationality">Nationality</label>
               <Field className={styles.input} name="nationality" as="select">
-                <option>Elegir pais</option>
+                <option>Select option</option>
                 {paises.countries.map((p) => {
                   return <option key={p}>{p}</option>;
                 })}
