@@ -3,7 +3,7 @@ import RoomCard from '../../components/RoomCard/RoomCard';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
-import explore1 from '../../Images/explore1.jpg';
+import explore1 from '../../Images/lava-rock.gif';
 import LoaderDark from '../Loader/LoaderDark';
 
 export default function Reserva() {
@@ -11,6 +11,7 @@ export default function Reserva() {
 
   useEffect(() => {
     divImage.current.style.backgroundImage = `url(${explore1})`;
+    divImage.current.style.backgroundPosition = window.scrollY * 0.5 + 'px';
   }, [divImage]);
 
   const {

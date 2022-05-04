@@ -14,11 +14,10 @@ export default function Home() {
   useEffect(() => {
     !infoHostel.length && getInfoHostel();
   }, [infoHostel.length]);
-  console.log(infoHostel);
   return (
     <>
       <main className={styles.home} id="home">
-        <Slider />
+        <Slider images={infoHostel} />
       </main>
       <article className={styles.article}>
         <Reserva />
