@@ -34,7 +34,7 @@ const ContactUs = () => {
 
   const handleChange = () => {
     setCaptchaVerify(true);
-    console.log('CAPTCHA VERIFY', captchaVerify);
+    // console.log('CAPTCHA VERIFY', captchaVerify);
   };
 
   return (

@@ -6,10 +6,10 @@ import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const RegisterForAdmin = ({ modalExterno }) => {
-  console.log('modalExterno', modalExterno);
+  // console.log('modalExterno', modalExterno);
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;

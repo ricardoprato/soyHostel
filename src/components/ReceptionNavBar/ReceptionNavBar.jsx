@@ -8,7 +8,7 @@ import CreateRoom from '../RoomsAdmin/CreateRoom';
 import DeleteEditRoom from '../RoomsAdmin/ListRooms';
 import BookingFromReception from '../BookingFromReception/BookingFromReception';
 import CreateAdminReceptionist from '../RegisterForAdmin/RegisterForAdmin';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const ReceptionNavBar = ({ children }) => {
   const [active, setActive] = useState(false);
