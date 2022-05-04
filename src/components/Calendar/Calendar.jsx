@@ -66,7 +66,6 @@ export default function Calendar() {
   };
 
   const loadCalendar = () => {
-    console.log(reservations);
     let roomStateCopy = [];
     let bedStateCopy = [];
     // getInitialState();
@@ -122,8 +121,6 @@ export default function Calendar() {
           });
         }
       });
-      // console.log(bedStateCopy);
-      // console.log(roomStateCopy);
 
       setCalendarState([...bedStateCopy, ...roomStateCopy]);
     } else {
@@ -153,7 +150,6 @@ export default function Calendar() {
     if (from !== '' && to !== '') {
       if (Date.parse(from) <= Date.parse(to)) {
         getReservations(from, to);
-        console.log(from, to);
       }
     }
   };
@@ -161,8 +157,6 @@ export default function Calendar() {
   useEffect(() => {
     getInitialState();
     return loadCalendar();
-
-    // return () => getInitialState();
   }, [reservations]);
 
   return (

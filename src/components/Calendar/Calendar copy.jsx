@@ -66,7 +66,6 @@ export default function Calendar() {
   };
 
   const loadCalendar = () => {
-    console.log(reservations);
     let roomStateCopy = [];
     let bedStateCopy = [];
     reservations?.forEach((reserva) => {
@@ -114,8 +113,6 @@ export default function Calendar() {
         });
       }
     });
-    // console.log(bedStateCopy);
-    // console.log(roomStateCopy);
 
     setCalendarState([...bedStateCopy, ...roomStateCopy]);
   };
