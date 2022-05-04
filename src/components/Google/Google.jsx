@@ -33,11 +33,17 @@ function Google() {
   };
 
   const onLoginFailure = (googleData) => {
-    ('Login Failed:', googleData);
+    'Login Failed:', googleData;
   };
 
   const onSignoutSuccess = () => {
-    swal('You have been logged out successfully');
+    swal.fire({
+      title: 'info',
+      text: 'You have been logged out successfully',
+      icon: 'info',
+      confirmButtonText: 'Ok',
+    });
+
     console.clear();
     setShowloginButton(true);
     setShowlogoutButton(false);
