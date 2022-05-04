@@ -66,6 +66,7 @@ export default function Calendar() {
   };
 
   const loadCalendar = () => {
+    console.log(reservations);
     let roomStateCopy = [];
     let bedStateCopy = [];
     reservations?.forEach((reserva) => {
@@ -157,7 +158,7 @@ export default function Calendar() {
     <>
       {!!localModal && (
         <Modal setLocalModal={setLocalModal}>
-          <Formulario modalExterno={setLocalModal}props={data} />
+          <Formulario modalExterno={setLocalModal} props={data} />
         </Modal>
       )}
       <div className={styles.calendar}>
