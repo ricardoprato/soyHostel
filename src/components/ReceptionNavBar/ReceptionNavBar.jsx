@@ -89,21 +89,23 @@ const ReceptionNavBar = ({ children }) => {
             <>
               <button
                 className={styles.nav_link}
-                onClick={() => setLocalModalCreateRoom(true)}
+                onClick={() => setLocalModalCreateRoom((prev) => !prev)}
               >
                 <i className="bi bi-envelope"></i>
                 Create Room
               </button>
               <button
                 className={styles.nav_link}
-                onClick={() => setLocalModalDeleteEditRoom(true)}
+                onClick={() => setLocalModalDeleteEditRoom((prev) => !prev)}
               >
                 <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
               </button>
               <button
                 className={styles.nav_link}
-                onClick={() => setLocalModalCreateAdminReceptionist(true)}
+                onClick={() =>
+                  setLocalModalCreateAdminReceptionist((prev) => !prev)
+                }
               >
                 <i className="bi bi-envelope"></i>
                 Create Admin/Receptionist
@@ -112,7 +114,7 @@ const ReceptionNavBar = ({ children }) => {
           ) : null}
           <button
             className={styles.nav_link}
-            onClick={() => setLocalModalCreateBooking(true)}
+            onClick={() => setLocalModalCreateBooking(!localModalCreateBooking)}
           >
             <i className="bi bi-compass"></i>
             Create booking
@@ -142,7 +144,9 @@ const ReceptionNavBar = ({ children }) => {
       )}
       {!!localModalCreateRoom && (
         <Modal setLocalModal={setLocalModalCreateRoom}>
-          <CreateRoom />
+          <div className={styles.CreateRoom}>
+            <CreateRoom />
+          </div>
         </Modal>
       )}
       {children}

@@ -31,6 +31,7 @@ export default function Calendar() {
 
   const [calendarState, setCalendarState] = useState([]);
 
+  let state = [];
   const getInitialState = () => {
     allRooms.forEach((room) => {
       if (room?.privada == false) {
@@ -44,7 +45,8 @@ export default function Calendar() {
 
           producto.title = cama?.nombre.toUpperCase(); //cama.nombre
           producto.id = cama?.id;
-          setCalendarState((prev) => [...prev, producto]);
+          state = [...state, producto];
+          setCalendarState(state);
           // state.push(producto);
         });
       } else {
@@ -56,15 +58,16 @@ export default function Calendar() {
         };
         producto.title = room.nombre.toUpperCase();
         producto.id = room?.id;
-        setCalendarState((prev) => [...prev, producto]);
-        // state.push(producto);
+
+        state = [...state, producto];
+        setCalendarState(state);
       }
     });
   };
 
   const loadCalendar = () => {
-    console.log('esto es reservations');
-    console.log(reservations);
+    let roomStateCopy = [];
+    let bedStateCopy = [];
     reservations?.forEach((reserva) => {
       if (reserva?.Habitacions?.length > 0) {
         reserva?.Habitacions?.forEach((habitacion) => {
@@ -77,17 +80,16 @@ export default function Calendar() {
               ...reserva,
               idHabitacion: habitacion?.id,
               nombreHabitacion: habitacion?.nombre,
-              // huesped:habitacion?.huesped
             }, ///ojo aca el nombre de la habitación
           };
-          let stateCopy = calendarState.map((producto) => {
+          roomStateCopy = calendarState.map((producto) => {
             if (producto.id == habitacion.id) {
               producto.tasks.push(element);
             }
           });
-          setCalendarState(stateCopy);
         });
       }
+
       if (reserva?.Camas?.length > 0) {
         reserva?.Camas?.forEach((cama) => {
           let element = {
@@ -103,15 +105,18 @@ export default function Calendar() {
               // huesped: cama?.huesped,
             },
           };
-          let stateCopy = calendarState.map((producto) => {
+          bedStateCopy = calendarState.map((producto) => {
             if (producto.id == cama.id) {
               producto.tasks.push(element);
             }
           });
-          setCalendarState((prev) => [...stateCopy]);
         });
       }
     });
+    console.log(bedStateCopy);
+    console.log(roomStateCopy);
+
+    setCalendarState([...bedStateCopy, ...roomStateCopy]);
   };
 
   useEffect(() => {
@@ -124,8 +129,8 @@ export default function Calendar() {
   }, [allRooms]);
 
   // useEffect(() => {
-  //   console.log(calendarState);
-  // }, [calendarState]);
+  //   return calendarState(state);
+  // }, []);
 
   const [data, setData] = useState({});
   const taskClick = (e) => {
@@ -136,7 +141,7 @@ export default function Calendar() {
   const handleFilters = (event) => {
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
-    setLocaldate({ ...localDate, start: from, end: to });
+    setLocaldate({ start: from, end: to });
 
     if (from !== '' && to !== '') {
       if (Date.parse(from) <= Date.parse(to)) {
@@ -181,7 +186,7 @@ export default function Calendar() {
           </label>
 
           <button
-            className={styles.button}
+            className={styles.butoncito}
             onClick={showReservations}
             disabled={Date.parse(localDate.start) >= Date.parse(localDate.end)}
           >

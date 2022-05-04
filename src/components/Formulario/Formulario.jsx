@@ -209,12 +209,12 @@ function Formulario({ props }) {
             </select>
           </div>
           <button
-            className={styles.button}
+            className={styles.butoncito}
             onClick={(e) => SubmitBookingUpdate(e)}
           >
             Update
           </button>
-          <button className={styles.button} onClick={() => setFlag(true)}>
+          <button className={styles.butoncito} onClick={() => setFlag(true)}>
             Delete Reservation
           </button>
         </div>
@@ -222,10 +222,13 @@ function Formulario({ props }) {
         <div className={styles.formulario}>
           <h1>Warning</h1>
           <p>All asociated products will be erased too</p>
-          <button className={styles.button} onClick={handleDeleteReservation}>
+          <button
+            className={styles.butoncito}
+            onClick={handleDeleteReservation}
+          >
             Yes
           </button>
-          <button className={styles.button} onClick={() => setFlag(false)}>
+          <button className={styles.butoncito} onClick={() => setFlag(false)}>
             No
           </button>
         </div>
