@@ -61,7 +61,7 @@ const Stripe = ({ setPay }) => {
         )
       ) : (
         <div className={styles.noAuthorize}>
-          <h2>You need to be logged to reserve</h2>
+          <h2>You need to be login as a register user</h2>
         </div>
       )}
     </div>
