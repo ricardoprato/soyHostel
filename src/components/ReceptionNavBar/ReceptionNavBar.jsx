@@ -135,7 +135,9 @@ const ReceptionNavBar = ({ children }) => {
       )}
       {!!localModalCreateAdminReceptionist && (
         <Modal setLocalModal={setLocalModalCreateAdminReceptionist}>
-          <CreateAdminReceptionist modalExterno={setLocalModalCreateAdminReceptionist}/>
+          <CreateAdminReceptionist
+            modalExterno={setLocalModalCreateAdminReceptionist}
+          />
         </Modal>
       )}
       {!!localModalDeleteEditRoom && (

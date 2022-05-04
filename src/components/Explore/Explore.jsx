@@ -6,7 +6,7 @@ import explore2 from '../../Images/explore2.jpg';
 import explore3 from '../../Images/explore3.jpg';
 import explore4 from '../../Images/explore4.jpg';
 import explore5 from '../../Images/explore5.jpg';
-import hotel from '../../Images/aboutus.jpg';
+import hotel from '../../Images/slashes.png';
 // <img className={styles.img} src={explore1} alt="Imagen con montaña" />
 // <p>This is a beautiful close up view of where it is located our hostel</p>
 // <img className={styles.img} src={explore2} alt="Imagen con laberinto" />
@@ -51,6 +51,7 @@ const Explore = () => {
   const divImage = useRef();
   useEffect(() => {
     divImage.current.style.backgroundImage = `url(${hotel})`;
+    divImage.current.style.backgroundPosition = window.scrollY * 0.5 + 'px';
   }, [divImage]);
   return (
     <>

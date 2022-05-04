@@ -4,6 +4,7 @@ import styles from '../NewPassword/NewPassword.module.css';
 import Logo from '../../Images/fondo.png';
 import { useLocation } from 'react-router-dom';
 import swal from 'sweetalert';
+import { useNavigate } from 'react-router';
 
 const NewPassword = (props) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -11,7 +12,7 @@ const NewPassword = (props) => {
 
   const search = useLocation().search;
   const name = new URLSearchParams(search).get('token');
-
+  const navigate = useNavigate();
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
 
@@ -77,15 +78,18 @@ const NewPassword = (props) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores.password2);
-          swal('Changed succesfully');
+          swal.fire({
+            title: 'success',
+            text: 'Changed succesfully',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+          });
+
           resetForm();
+          // navigate('/', { replace: true }),
           // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
-          setTimeout(
-            () => cambiarFormularioEnviado(false),
-
-            5000
-          );
+          setTimeout(() => navigate('/', { replace: true }), 2000);
         }}
       >
         {({ errors }) => (
