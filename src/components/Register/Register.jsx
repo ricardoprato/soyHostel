@@ -26,7 +26,7 @@ const Register = () => {
 
     // alert(res2.message);
     setMensaje(res2.message);
-
+    console.log(res2.message);
     console.log('RESPUESTABACK', res2);
   };
 
