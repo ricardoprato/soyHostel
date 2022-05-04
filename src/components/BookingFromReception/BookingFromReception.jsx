@@ -232,7 +232,7 @@ const Booking = () => {
           r.cantCamas = r.cantCamas-input.bedQuantity
           if(r.bedIds?.length === 0) { empty = true }
           position = localData.indexOf(r)
-        }
+        } 
       })
       if(empty == true) { localData.splice(position, 1)} 
       let aux2 = aux.map((c)=>{ return c.camaId })
