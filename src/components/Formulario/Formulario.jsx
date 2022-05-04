@@ -3,6 +3,7 @@ import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
+import swal from 'sweetalert';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -47,7 +48,7 @@ const validate = (input) => {
   return errores;
 };
 
-function Formulario({ props }) {
+function Formulario({ props, modalExterno }) {
   const [error, setError] = useState({});
   const [bookingState, setBookingState] = useState({
     id_reserva: props.id,
@@ -122,6 +123,10 @@ function Formulario({ props }) {
       },
     })
       .then((response) => response.json())
+      .then((data)=> {
+        swal('Booking deleted!')
+        modalExterno(false)
+      })
       .catch((error) => {
         if (error.response) {
           const { response } = error;

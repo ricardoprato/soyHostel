@@ -8,8 +8,8 @@ import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import swal from 'sweetalert';
 
-const RegisterForAdmin = (props) => {
-  // console.log('modalexterno', modalExterno)
+const RegisterForAdmin = ({modalExterno}) => {
+  console.log('modalExterno', modalExterno)
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -185,7 +185,7 @@ const RegisterForAdmin = (props) => {
           resetForm();
           cambiarFormularioEnviado(true);
           swal('Register successfully');
-          props.modal((prev)=> !prev)
+          modalExterno((prev)=> !prev)
           setTimeout(
             () => cambiarFormularioEnviado(false),
 
