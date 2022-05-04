@@ -13,6 +13,7 @@ const stripePromise = loadStripe(
 );
 
 const Stripe = ({ setPay }) => {
+  console.log('setPay ', setPay)
   const { cart } = useContext(GlobalContext);
   const [clientSecret, setClientSecret] = useState('');
   const { dataPayment, setDataPayment } = useContext(GlobalContext);
