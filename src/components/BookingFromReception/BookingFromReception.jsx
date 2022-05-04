@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-
+import swal from 'sweetalert';
 
 export function validate(input, toBack) {  /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -251,7 +251,7 @@ const Booking = () => {
   const handleSubmit = (e) => { // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
     e.preventDefault()
     if(toBack.camas?.length === 0 && toBack.habitaciones?.length === 0){
-      alert('Please finish adding selected bed or room')
+      swal('Please finish adding selected bed or room')
     }else{
       let paraConsologuear = {
         camas: [...toBack.camas],
