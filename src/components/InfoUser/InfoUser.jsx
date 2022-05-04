@@ -58,10 +58,10 @@ const InfoUser = () => {
 
   const [modal, setModal] = useState(false);
 
-  const handleChangePw = (e) => {
-    e.preventDefault();
-    setShow((prev) => !prev);
-  };
+  // const handleChangePw = (e) => {
+  //   e.preventDefault();
+  //   setShow((prev) => !prev);
+  // };
 
   const handleClick = (e) => {
     e.preventDefault();
