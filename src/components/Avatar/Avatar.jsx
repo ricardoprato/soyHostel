@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styles from '../Avatar/Avatar.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { Modal } from '../Modal/Modal';
@@ -13,7 +13,10 @@ function Avatar() {
   const [infoModal, setInfoModal] = useState(false);
   const navigate = useNavigate();
   // Aca traigo a avatar el rol, el token y la img
-  setRol(localStorage.getItem('nombrerol'));
+  useEffect(() => {
+    setRol(localStorage.getItem('nombrerol'));
+  }, []);
+
   let imgAvatar = localStorage.getItem('imgAvatar');
 
   // Con el logout elimino rol, token y img.

@@ -113,6 +113,8 @@ function Formulario({ props, modalExterno }) {
     // setBookingState(bookingInitialState);
   };
   const handleDeleteReservation = (e) => {
+    console.log('eh wachin te borre');
+    console.log(props.id);
     const token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservas/${props.id}`, {
       method: 'DELETE',
@@ -124,12 +126,14 @@ function Formulario({ props, modalExterno }) {
     })
       .then((response) => response.json())
       .then((data) => {
+
         swal.fire({
           title: 'info',
           text: 'Booking deleted!',
           icon: 'info',
           confirmButtonText: 'Ok',
         });
+
 
         modalExterno(false);
       })

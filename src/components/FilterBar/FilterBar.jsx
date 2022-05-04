@@ -35,7 +35,7 @@ const FilterBar = () => {
   });
   // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
   const [localModal, setLocalModal] = useState(false);
-  const [message, setMessage ] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
@@ -44,51 +44,31 @@ const FilterBar = () => {
 
   const handleClick = () => {
     if (localDate.checkIn < today.toLocaleDateString('en-CA')) {
-
-      setMessage('Check-in date must be today or later.')
+      setMessage('Check-in date must be today or later.');
       setLocalModal((prevState) => !prevState);
     } else if (localDate.checkOut < localDate.checkIn) {
-
-      setMessage('Check-out date must be after check-in date.')
+      setMessage('Check-out date must be after check-in date.');
       setLocalModal((prevState) => !prevState);
     } else {
       if (!cart.length) {
-      getFilteredBeds(localDate.checkIn, localDate.checkOut);
-      setFilterdates(localDate);
+        getFilteredBeds(localDate.checkIn, localDate.checkOut);
+        setFilterdates(localDate);
+        let checkBathroomBox = document.getElementById('privateBathrooms');
+        let selected = document.getElementById('roomTypes');
+        let price = document.getElementById('price');
+        selected.value = 'All';
+        checkBathroomBox.checked = false;
+        price.checked = false;
       } else {
-
-      setMessage('Before you can change the dates, you must empty your cart.')
-      setLocalModal((prevState) => !prevState);
+        setMessage(
+          'Before you can change the dates, you must empty your cart.'
+        );
+        setLocalModal((prevState) => !prevState);
       }
-    }  
+    }
   };
 
   const sortPrice = () => {
-    // if (dataForCards.length > 0) {
-    //   let price = document.getElementById('price');
-
-    //   let data = [];
-    //   let data1 = [];
-    //   if (price.checked == true) {
-    //     data = [...dataForCards].sort(function (a, b) {
-    //       return a.precio - b.precio;
-    //     });
-    //     data1 = [...dataForCardsCopy].sort(function (a, b) {
-    //       return a.precio - b.precio;
-    //     });
-    //   } else {
-    //     data = [...dataForCards].sort(function (a, b) {
-    //       return b.precio - a.precio;
-    //     });
-    //     data1 = [...dataForCardsCopy].sort(function (a, b) {
-    //       return b.precio - a.precio;
-    //     });
-    //   }
-    //   setDataForCards(data);
-    //   setDataForCardsCopy(data1);
-    //   setFileteredRooms(data);
-    // } else {
-
     let price = document.getElementById('price');
 
     let data = [];
@@ -148,7 +128,6 @@ const FilterBar = () => {
     if (dataForCards.length > 0) {
       let checkBathroomBox = document.getElementById('privateBathrooms');
       let selected = document.getElementById('roomTypes');
-      // let price = document.getElementById('price');
 
       if (selected.value === 'All') {
         if (checkBathroomBox.checked == true) {
@@ -222,10 +201,9 @@ const FilterBar = () => {
 
   return (
     <div className={styles.form} id="form">
-
       {!!localModal && (
         <Modal setLocalModal={setLocalModal}>
-          <AlertModal message={message}/>
+          <AlertModal message={message} />
         </Modal>
       )}
       <label className={styles.input}>
