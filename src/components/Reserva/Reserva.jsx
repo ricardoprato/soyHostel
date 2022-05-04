@@ -27,8 +27,8 @@ export default function Reserva() {
 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms();
-    console.log('allRooms desde reserva');
-    console.log(allRooms);
+    // console.log('allRooms desde reserva');
+    // console.log(allRooms);
   }, [allRooms]);
 
   useEffect(() => {
@@ -36,15 +36,15 @@ export default function Reserva() {
   }, [filteredAvailableBeds]);
 
 
-  useEffect(()=>{
-    console.log('filteredRooms desde reserva');
-    console.log(filteredRooms);
-  },[filteredRooms])
+  // useEffect(()=>{
+  //   console.log('filteredRooms desde reserva');
+  //   console.log(filteredRooms);
+  // },[filteredRooms])
   
   // console.log("dataForCards")
   // console.log(dataForCards)
-  console.log('allRooms');
-  console.log(allRooms);
+  // console.log('allRooms');
+  // console.log(allRooms);
 
   return (
     <>

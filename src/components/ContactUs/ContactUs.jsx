@@ -107,7 +107,7 @@ const ContactUs = () => {
         }}
         validate={(valores) => {
           let errores = {};
-          console.log('pararicky', valores);
+          // console.log('pararicky', valores);
           // Validacion nombre
           if (!valores.name || !valores.name.trim()) {
             errores.name = 'Please enter a name';
@@ -147,10 +147,10 @@ const ContactUs = () => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
-          console.log('valores>>>', valores);
+          // console.log('valores>>>', valores);
           alert('Created Succesfully');
           resetForm();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
           setTimeout(
             () => cambiarFormularioEnviado(false),

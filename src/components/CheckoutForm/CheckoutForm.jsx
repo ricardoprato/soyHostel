@@ -71,7 +71,7 @@ export default function CheckoutForm({ setPay }) {
         return_url: 'http://localhost:3000',
       },
     });
-    console.log('DATANEW', data);
+    // console.log('DATANEW', data);
     let infoPayment = data.paymentIntent;
 
     // setDataPayment(
@@ -87,9 +87,9 @@ export default function CheckoutForm({ setPay }) {
     let url = import.meta.env.VITE_APP_URL;
     let api = import.meta.env.VITE_API;
 
-    console.log('toback', toBack);
+    // console.log('toback', toBack);
     let token = window.localStorage.getItem('tokenProp');
-    console.log('datapayment', dataPayment);
+    // console.log('datapayment', dataPayment);
     fetch(`${url}` + '/reservas', {
       method: 'POST',
       headers: {

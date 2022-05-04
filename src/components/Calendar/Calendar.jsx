@@ -113,8 +113,8 @@ export default function Calendar() {
         });
       }
     });
-    console.log(bedStateCopy);
-    console.log(roomStateCopy);
+    // console.log(bedStateCopy);
+    // console.log(roomStateCopy);
 
     setCalendarState([...bedStateCopy, ...roomStateCopy]);
   };

@@ -26,10 +26,10 @@ const Popup = ({ setModal, setDataProfile }) => {
     if (res2.existe) {
       setModal(false);
       alert('Ya existe un usuario con ese correo');
-      console.log('FUNCION', useGoogleLogout);
+      // console.log('FUNCION', useGoogleLogout);
       googleFn.signOut();
     } else {
-      console.log('Res2', res2);
+      // console.log('Res2', res2);
       setDataProfile(googleData.profileObj);
       setModal(true);
     }

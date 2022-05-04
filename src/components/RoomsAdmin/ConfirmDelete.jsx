@@ -12,7 +12,7 @@ export default function ConfirmDelete({props}) {
   const { reservations } = useContext(GlobalContext);
   
 /////// VERIFICAMOS SI LA HABITACION TIENE RESERVAS ANTES DE ELIMINARLA ////////////////////////////
-console.log('reservations --> ',reservations)
+// console.log('reservations --> ',reservations)
 reservations?.length && reservations.forEach((r) => { 
   if(r.Habitacions?.length > 0){
     r.Habitacions.forEach((h)=>{
@@ -27,7 +27,7 @@ reservations?.length && reservations.forEach((r) => {
 });
 
   const handleConfirm = () => {
-    console.log('id desde confirmDelete--> ',props.id)
+    // console.log('id desde confirmDelete--> ',props.id)
     let token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/habitaciones/${props.id}`,
     {

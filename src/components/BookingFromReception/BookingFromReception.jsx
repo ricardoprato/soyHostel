@@ -2,11 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-// console.log(countries);
 
 
 export function validate(input, toBack) {  /////// VALIDACiONES /////////////////////////////////
-
   let errores = {};
 
   //   Name
@@ -62,8 +60,7 @@ export function validate(input, toBack) {  /////// VALIDACiONES ////////////////
   if (!input.checkIn) {
     errores.checkIn = 'Please enter checkIn date';
   } else if (input.checkIn < today.toLocaleDateString('en-CA')) {
-    // console.log(input.checkIn);
-    // console.log(today.toLocaleDateString('en-CA'));
+
     errores.checkIn = 'CheckIn cant be in the past';
   } 
 
@@ -78,11 +75,10 @@ export function validate(input, toBack) {  /////// VALIDACiONES ////////////////
   }
 
   if (!input.bedQuantity && input.private === false) {
-    if (input?.bedQuantity === 0) {
+    if(input?.bedQuantity === 0){
       errores.bedQuantity = 'Please select number of beds';
-    } else if (toBack?.camas?.length === 0) {
-      errores.bedQuantity =
-        'Pleade click add to finish adding the selected beds';
+    } else if(toBack?.camas?.length === 0){
+      errores.bedQuantity = 'Pleade click add to finish adding the selected beds'
     }
   }
 
@@ -142,7 +138,6 @@ const Booking = () => {
     checkOut: '',
     private: '',
     totalBeds: [],
-
     price: 0
   }
   const [ input, setInput ] = useState(initialState)
@@ -151,7 +146,6 @@ const Booking = () => {
     habitaciones:[], 
     saldo: 0, 
     ingreso: '', 
-
     egreso: '',
     nombre: '',
     apellido: '',
@@ -160,12 +154,10 @@ const Booking = () => {
     fechaNac: '',
     nacionalidad: '',
     email: '',
-
     genero: ''
   }
   const [ toBack, setToBack ] = useState(initialToBack)
   let [error, setError] = useState({});  ////////  Mensajes de error //////////////////////
-
 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms(); // trae todas las habitaciones existentes ////////////////////
@@ -174,7 +166,6 @@ const Booking = () => {
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards(); // HandleClick carga filteredAvailableBeds y genDataForCards arma lista de habitaciones disponibles /////////////
   }, [filteredAvailableBeds]);
-
 
   // useEffect(()=>{
   //   console.log('input --> ', input)
@@ -216,16 +207,11 @@ const Booking = () => {
   };
 
   let handleChange = (e) => {  // valida todos los inputs y carga mensajes de error //////////////////
-
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
-    let objError = validate(
-      { ...input, [e.target.name]: e.target.value },
-      toBack
-    );
+    let objError = validate({ ...input, [e.target.name]: e.target.value }, toBack);
     setError(objError);
   };
-
 
   const handleClick = (e) => {  // una vez seleccionadas las fechas trae la disponibilidad entre esas fechas ////////////
     e.preventDefault()
@@ -234,7 +220,6 @@ const Booking = () => {
 
   const handleAddBed = (e) => { // manda al carrito las habitaciones o camas seleccionadas ///////////////////
     e.preventDefault()
-
     let aux = [];
     if(input.bedQuantity > 0 && input.private === false){
       let empty = false
@@ -246,8 +231,7 @@ const Booking = () => {
           r.cantCamas = r.cantCamas-input.bedQuantity
           if(r.bedIds?.length === 0) { empty = true }
           position = localData.indexOf(r)
-        }
-
+        } 
       })
       if(empty == true) { localData.splice(position, 1)} 
       let aux2 = aux.map((c)=>{ return c.camaId })
@@ -259,10 +243,9 @@ const Booking = () => {
       setDataForCards([...localAux])
       setToBack({...toBack, habitaciones: [...toBack.habitaciones, input.roomIds], saldo: toBack.saldo + input.price})
       // setInput({...input, roomIds: 0, price: 0})
-
     }
-    console.log('toback --> ', toBack)
-    console.log('errores --> ', error)
+    // console.log('toback --> ', toBack)
+    // console.log('errores --> ', error)
   }
 
   const handleSubmit = (e) => { // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
@@ -285,7 +268,7 @@ const Booking = () => {
         genero: input.gender,
         saldo: toBack.saldo
       }
-      console.log('POST AL BACK desde submit -->', paraConsologuear)
+      // console.log('POST AL BACK desde submit -->', paraConsologuear)
     let token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservas/recepcion`, {
       method: 'POST',
@@ -318,7 +301,6 @@ const Booking = () => {
     e.target.reset();
     }
   }
-
 
   return (
     <div className={styles.allcss}>
@@ -438,19 +420,15 @@ const Booking = () => {
             <label htmlFor="checkOut">Check-Out</label>
             <input type="date" id="checkOut" name="checkOut" onChange={(e) => handleChange(e)}/>
             {error.checkOut && <p className={styles.error}>{error.checkOut}</p>}
-
             <button onClick={(e)=> handleClick(e)}>get available</button> 
-
           </div>
 
           <div> {/* Select Room: */}
             <label htmlFor="roomIds">Room Name</label>
             <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
-
               <option value='noRoom'>
                 ...Select
               </option>
-
               {dataForCards?.length &&
                 dataForCards?.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -464,11 +442,9 @@ const Booking = () => {
             <div> {/* Select bed */}
               <label htmlFor="bedQuantity">Bed </label>
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
-
                 <option value="bedQuantity">
                   Select bed
                 </option>
-
                 {input?.totalBeds?.length &&
                 input?.totalBeds.map((r) => (
                   <option key={r} value={r}>
@@ -479,11 +455,9 @@ const Booking = () => {
             </div>
           ): null}
 
-
           <button onClick={(e) => handleAddBed(e)}>add to booking</button>
           <h2>Booking: {toBack?.camas?.length} beds and {toBack?.habitaciones?.length} private rooms</h2>
           <h2>Total to pay: $ {toBack?.saldo}</h2>
-
           {
             (!toBack?.camas?.length && !toBack?.habitaciones?.length) ||
             !input.name ||
@@ -502,7 +476,6 @@ const Booking = () => {
             error.checkOut ||
             error.checkIn ? null : (
               <button type="submit" >send</button>
-
           )}
         </form>
       </div>

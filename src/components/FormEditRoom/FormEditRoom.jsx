@@ -7,7 +7,7 @@ const FormEditRoom = (props) => {
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
   let token = localStorage.getItem('tokenProp');
-  console.log('PROPS???', props.props);
+  // console.log('PROPS???', props.props);
   let sendData = async (valores) => {
     let res = await fetch(`${url}` + `/habitaciones/${props.props.id}`, {
       method: 'PATCH',
@@ -41,7 +41,7 @@ const FormEditRoom = (props) => {
         }}
         validate={(valores) => {
           let errores = {};
-          console.log('pararicky', valores);
+          // console.log('pararicky', valores);
           // Validacion nombre
           if (!valores.nombre || !valores.nombre.trim()) {
             errores.nombre = 'Please enter a name';
@@ -87,7 +87,7 @@ const FormEditRoom = (props) => {
         onSubmit={async (valores, { resetForm }) => {
           await sendData(valores);
           window.location.reload();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
         }}
       >

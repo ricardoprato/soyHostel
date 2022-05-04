@@ -32,7 +32,7 @@ const InfoUser = () => {
 
     let respuesta2 = await respuesta.json();
     setUserDetails(respuesta2);
-    console.log('RES GENERAL', respuesta2);
+    ('RES GENERAL', respuesta2);
     // error = respuesta2.msg;
     // alert(error);
   }, []);
@@ -50,8 +50,8 @@ const InfoUser = () => {
     let res2 = await respuesta.json();
     // error = res2.msg;
     // alert(error);
-    console.log('RESPUESTABACK', res2);
-    console.log('valorescambian???', valores);
+    ('RESPUESTABACK', res2);
+    ('valorescambian???', valores);
   };
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -88,7 +88,7 @@ const InfoUser = () => {
             }}
             validate={(valores) => {
               let errores = {};
-              console.log('pararicky', valores);
+              ('pararicky', valores);
               // Validacion nombre
               if (!valores.name || !valores.name.trim()) {
                 errores.name = 'Please enter a name';
@@ -157,7 +157,7 @@ const InfoUser = () => {
             onSubmit={async (valores, { resetForm }) => {
               await sendData(valores);
               // resetForm();
-              console.log('INFO', valores);
+              ('INFO', valores);
               cambiarFormularioEnviado(true);
               alert('Form completed successfully');
             }}
