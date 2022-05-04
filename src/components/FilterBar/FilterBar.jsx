@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useContext, useState, useRef } from 'react';
 import styles from './FilterBar.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
+// ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+import AlertModal from './AlertModal';
+import { Modal } from '../Modal/Modal';
 
 const FilterBar = () => {
   const {
@@ -30,25 +33,34 @@ const FilterBar = () => {
     checkIn: today.toLocaleDateString('en-CA'),
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
+  // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
+  const [localModal, setLocalModal] = useState(false);
+  const [message, setMessage ] = useState('');
 
   const handleFilters = (event) => {
     let { name, value } = event.target;
-    if (name === 'checkIn' && value < today.toLocaleDateString('en-CA')) {
-      alert('Check-in date must be today or later');
-    } else if (name === 'checkOut' && value < localDate.checkIn) {
-      alert('Check-out date must be after check-in date');
-    } else {
-      setLocaldate({ ...localDate, [name]: value });
-    }
+    setLocaldate({ ...localDate, [name]: value });
   };
 
   const handleClick = () => {
-    if (!cart.length) {
+    if (localDate.checkIn < today.toLocaleDateString('en-CA')) {
+
+      setMessage('Check-in date must be today or later.')
+      setLocalModal((prevState) => !prevState);
+    } else if (localDate.checkOut < localDate.checkIn) {
+
+      setMessage('Check-out date must be after check-in date.')
+      setLocalModal((prevState) => !prevState);
+    } else {
+      if (!cart.length) {
       getFilteredBeds(localDate.checkIn, localDate.checkOut);
       setFilterdates(localDate);
-    } else {
-      alert('Before you can change the dates, you must empty your cart');
-    }
+      } else {
+
+      setMessage('Before you can change the dates, you must empty your cart.')
+      setLocalModal((prevState) => !prevState);
+      }
+    }  
   };
 
   const sortPrice = () => {
@@ -210,6 +222,12 @@ const FilterBar = () => {
 
   return (
     <div className={styles.form} id="form">
+
+      {!!localModal && (
+        <Modal setLocalModal={setLocalModal}>
+          <AlertModal message={message}/>
+        </Modal>
+      )}
       <label className={styles.input}>
         From:
         <input
@@ -258,9 +276,9 @@ const FilterBar = () => {
       <button
         className={styles.button}
         onClick={handleClick}
-        disabled={
-          Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
-        }
+        // disabled={
+        //   Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
+        // }
       >
         View available
       </button>
