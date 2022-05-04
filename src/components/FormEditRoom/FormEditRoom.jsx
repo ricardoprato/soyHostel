@@ -183,7 +183,7 @@ const FormEditRoom = (props) => {
 
             <button type="submit">Send</button>
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Form sent successfully!</p>
             )}
           </Form>
         )}

@@ -31,10 +31,10 @@ const ContactUs = () => {
     setModal(false);
   };
 
-  // const handleChange = () => {
-  //   setCaptchaVerify(true);
-  //   console.log('CAPTCHA VERIFY', captchaVerify);
-  // };
+  const handleChange = () => {
+    setCaptchaVerify(true);
+    console.log('CAPTCHA VERIFY', captchaVerify);
+  };
 
   return (
     <div className={styles.container} id="contactUs">
@@ -242,6 +242,7 @@ const ContactUs = () => {
                 )}
               />
             </div>
+<<<<<<< HEAD
             <div className={styles.captcha}>
               <ReCAPTCHA
                 // onChange={handleChange}
@@ -251,10 +252,19 @@ const ContactUs = () => {
               />
             </div>
             <button type="submit" disabled>
+=======
+            <ReCAPTCHA
+              required="true"
+              onChange={handleChange}
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_CAPTCHA}
+            />
+            <button type="submit" disabled={!captchaVerify}>
+>>>>>>> arf
               Send
             </button>
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Form sent successfully</p>
             )}
           </Form>
         )}

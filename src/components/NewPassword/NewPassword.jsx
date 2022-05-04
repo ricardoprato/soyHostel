@@ -23,6 +23,7 @@ const NewPassword = (props) => {
       method: 'POST',
       headers: {
         api: `${api}`,
+
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(paraEnviar),
@@ -133,7 +134,7 @@ const NewPassword = (props) => {
             {send ? '' : <button type="submit">Send</button>}
 
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Form sent successfully!</p>
             )}
           </Form>
         )}
