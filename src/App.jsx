@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useContext } from 'react';
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import { Routes, Route, HashRouter, Navigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home/Home';
 import Prueba from './pages/Prueba/Prueba';
@@ -21,7 +21,7 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -43,7 +43,7 @@ function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
