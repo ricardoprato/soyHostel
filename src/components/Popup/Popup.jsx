@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../Popup/Popup.module.css';
 import { GoogleLogin, useGoogleLogout } from 'react-google-login';
+import swal from 'sweetalert';
 
 const Popup = ({ setModal, setDataProfile }) => {
   const clientId = import.meta.env.VITE_CLIENT_ID;
@@ -25,7 +26,7 @@ const Popup = ({ setModal, setDataProfile }) => {
 
     if (res2.existe) {
       setModal(false);
-      alert('Ya existe un usuario con ese correo');
+      swal('Ya existe un usuario con ese correo');
       // console.log('FUNCION', useGoogleLogout);
       googleFn.signOut();
     } else {

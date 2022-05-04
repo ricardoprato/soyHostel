@@ -5,7 +5,11 @@ import Logo from '../../Images/fondo.png';
 import jwt_decode from 'jwt-decode';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+
 import Loader from '../Loader/Loader';
+
+import swal from 'sweetalert';
+
 
 const InfoUser = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -160,7 +164,7 @@ const InfoUser = () => {
               // resetForm();
               'INFO', valores;
               cambiarFormularioEnviado(true);
-              alert('Form completed successfully');
+              swal('Form completed successfully');
             }}
           >
             {({ errors }) => (
