@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.icon {
+  font-size: 2rem;
+  color: #212529;
+  transition: 03ms ease all;
+}
+
+.icon:hover {
+  color: #000000;
+}
+.buttonicon {
+  top: 5%;
+  left: 5%;
+  position: absolute;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.payment {
+  appearance: none;
+  border: none;
+  display: flex;
+  justify-content: baseline;
+  column-gap: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  min-width: 150px;
+  padding: 1rem;
+  border-radius: 2%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #198754;
+  color: var(--white-color);
+}
+
+.payment:hover {
+  background-color: #0f6f3a;
+}

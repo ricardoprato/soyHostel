@@ -10,6 +10,7 @@ select {
   margin-bottom: 1rem;
 }
 .formulario {
+  position: relative;
   min-width: 360px;
   width: 100%;
   max-width: 720px;
@@ -97,6 +98,9 @@ select {
 }
 .buttonicon {
   display: block;
+  position: absolute;
+  top: 5%;
+  left: 5%;
   appearance: none;
   border: none;
   background-color: transparent;
@@ -118,4 +122,16 @@ select {
 }
 .buttoneye:hover {
   color: black;
+}
+.msg {
+  width: 100%;
+  max-width: 720px;
+  min-width: 360px;
+  height: 70vh;
+  background: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 2%;
 }

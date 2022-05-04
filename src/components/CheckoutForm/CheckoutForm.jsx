@@ -6,8 +6,9 @@ import {
 } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import styles from './CheckoutForm.module.css';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ setPay }) {
   const stripe = useStripe();
   const elements = useElements();
   let navigate = useNavigate();
@@ -125,15 +126,25 @@ export default function CheckoutForm() {
 
   return (
     <>
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <button onClick={setPay} className={styles.buttonicon}>
+        <i className={`${styles.icon} bi bi-arrow-left-square-fill`}></i>
+      </button>
+      <form id="payment-form" onSubmit={handleSubmit} className={styles.form}>
         <PaymentElement onFocus={handleFocus} id="payment-element" />
         {button ? (
-          <button disabled={isLoading || !stripe || !elements} id="submit">
+          <button
+            disabled={isLoading || !stripe || !elements}
+            id="submit"
+            className={styles.payment}
+          >
             <span id="button-text">
               {isLoading ? (
                 <div className="spinner" id="spinner"></div>
               ) : (
-                'Pay and confirm reserve'
+                <>
+                  <i className="bi bi-credit-card-2-front"></i> Pay and confirm
+                  reserve
+                </>
               )}
             </span>
           </button>

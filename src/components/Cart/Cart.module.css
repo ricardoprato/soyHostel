@@ -29,6 +29,13 @@
   max-width: 260px;
   row-gap: 0.5rem;
 }
+.total {
+  min-width: 200px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  border-top: 1px solid #464646;
+}
 .button {
   appearance: none;
   border: none;
@@ -57,3 +64,4 @@
 .empty:hover {
   background-color: #c0392b;
 }
+
