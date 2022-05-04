@@ -1,0 +1,15 @@
+.historyContainer {
+  padding: 2rem;
+  width: 100%;
+  max-width: 720px;
+  min-width: 360px;
+  height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+  border-radius: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1rem;
+}

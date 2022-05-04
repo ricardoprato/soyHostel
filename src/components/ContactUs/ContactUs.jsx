@@ -242,11 +242,14 @@ const ContactUs = () => {
                 )}
               />
             </div>
-            <ReCAPTCHA
-              // onChange={handleChange}
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_CAPTCHA}
-            />
+            <div className={styles.captcha}>
+              <ReCAPTCHA
+                // onChange={handleChange}
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_CAPTCHA}
+                className={styles.recaptcha}
+              />
+            </div>
             <button type="submit" disabled>
               Send
             </button>

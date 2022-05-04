@@ -258,7 +258,7 @@ export default function Cart() {
                   )}
                 </div>
               ))}
-              <p>Total to pay: ${toBack.saldo}</p>
+              <p className={styles.total}>Total to pay: ${toBack.saldo}</p>
               <button
                 className={`${styles.button} ${styles.payment}`}
                 onClick={handleClick}

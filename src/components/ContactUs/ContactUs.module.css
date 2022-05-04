@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  min-height: 100vh;
   background-color: var(--body-bg-color);
   display: flex;
   justify-content: space-around;
@@ -153,4 +152,8 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+.captcha {
+  display: flex;
+  justify-content: center;
 }

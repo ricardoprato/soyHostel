@@ -352,7 +352,7 @@ const Register = () => {
               </div>
               <div>
                 <label htmlFor="genre">Gender</label>
-                <Field name="genre" as="select">
+                <Field name="genre" as="select" className={styles.input}>
                   <option value="" id="AF">
                     Select option
                   </option>

@@ -20,6 +20,7 @@
   position: relative;
   z-index: 10001;
 }
+
 .cancel {
   width: 100%;
   max-width: 100px;
