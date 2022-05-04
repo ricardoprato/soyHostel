@@ -10,7 +10,6 @@ import Loader from '../Loader/Loader';
 
 import swal from 'sweetalert';
 
-
 const InfoUser = () => {
   const [userDetails, setUserDetails] = useState({});
   const [disabled, setDisabled] = useState(true);
@@ -164,7 +163,12 @@ const InfoUser = () => {
               // resetForm();
               'INFO', valores;
               cambiarFormularioEnviado(true);
-              swal('Form completed successfully');
+              swal.fire({
+                title: 'success',
+                text: 'Form completed successfully',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+              });
             }}
           >
             {({ errors }) => (
