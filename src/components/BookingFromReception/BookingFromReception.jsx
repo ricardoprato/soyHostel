@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-// console.log(countries);
+
 
 export function validate(input, toBack) {  /////// VALIDACiONES /////////////////////////////////
   let errores = {};
@@ -60,8 +60,7 @@ export function validate(input, toBack) {  /////// VALIDACiONES ////////////////
   if (!input.checkIn) {
     errores.checkIn = 'Please enter checkIn date';
   } else if (input.checkIn < today.toLocaleDateString('en-CA')) {
-    // console.log(input.checkIn);
-    // console.log(today.toLocaleDateString('en-CA'));
+
     errores.checkIn = 'CheckIn cant be in the past';
   } 
 
@@ -245,8 +244,8 @@ const Booking = () => {
       setToBack({...toBack, habitaciones: [...toBack.habitaciones, input.roomIds], saldo: toBack.saldo + input.price})
       // setInput({...input, roomIds: 0, price: 0})
     }
-    console.log('toback --> ', toBack)
-    console.log('errores --> ', error)
+    // console.log('toback --> ', toBack)
+    // console.log('errores --> ', error)
   }
 
   const handleSubmit = (e) => { // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
@@ -269,7 +268,7 @@ const Booking = () => {
         genero: input.gender,
         saldo: toBack.saldo
       }
-      console.log('POST AL BACK desde submit -->', paraConsologuear)
+      // console.log('POST AL BACK desde submit -->', paraConsologuear)
     let token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservas/recepcion`, {
       method: 'POST',

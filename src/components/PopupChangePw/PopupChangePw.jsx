@@ -17,8 +17,8 @@ const PopupChangePw = ({ handleClick, titleToChangePw }) => {
       },
       body: JSON.stringify(valores),
     });
-    console.log('PAENVIAR??????', valores);
-    console.log('respuesta', res);
+    // console.log('PAENVIAR??????', valores);
+    // console.log('respuesta', res);
   };
 
   return (
@@ -46,7 +46,7 @@ const PopupChangePw = ({ handleClick, titleToChangePw }) => {
       onSubmit={(valores, { resetForm }) => {
         sendData(valores);
         resetForm();
-        console.log('Sent formulary');
+        // console.log('Sent formulary');
         cambiarFormularioEnviado(true);
         setTimeout(
           () => cambiarFormularioEnviado(false),

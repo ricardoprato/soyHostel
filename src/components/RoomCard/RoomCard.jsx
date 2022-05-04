@@ -87,7 +87,7 @@ export default function RoomCard(props) {
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
         let flag = false;
         let cartAux = cart.map((e) => {
-          console.log('props.roomId', props.roomId);
+          // console.log('props.roomId', props.roomId);
           // console.log('e.roomId', e.roomId)
           if (e?.roomId === props.roomId) {
             flag = true;
@@ -121,15 +121,15 @@ export default function RoomCard(props) {
     }
   };
 
-  useEffect(() => {
-    console.log('cart');
-    console.log(cart);
-  }, [cart]);
+  // useEffect(() => {
+  //   console.log('cart');
+  //   console.log(cart);
+  // }, [cart]);
 
-  useEffect(() => {
-    console.log('count');
-    console.log(count);
-  }, [count]);
+  // useEffect(() => {
+  //   console.log('count');
+  //   console.log(count);
+  // }, [count]);
 
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
@@ -137,7 +137,7 @@ export default function RoomCard(props) {
 
   const handleCartRemove = (roomId) => {
     //  funcion para eliminar items del carrito
-    console.log('****ANTES**props.berIds*** ', props.bedIds);
+    // console.log('****ANTES**props.berIds*** ', props.bedIds);
     let aux = cart?.map((e) => {
       if (e.roomId === roomId && e.private === 'shared') {
         props.bedIds.push(...e.beds);
@@ -152,12 +152,12 @@ export default function RoomCard(props) {
       }
     });
     setBedsOnCart(0);
-    console.log('++++++aux++++ ', aux);
+    // console.log('++++++aux++++ ', aux);
     // if(aux[0] === undefined) setCart
     let otroAux = aux.filter((e) => e !== undefined);
-    console.log('++++++otroAux++++ ', otroAux);
+    // console.log('++++++otroAux++++ ', otroAux);
     setCart(otroAux);
-    console.log('****DESPUES**props.berIds*** ', props.bedIds);
+    // console.log('****DESPUES**props.berIds*** ', props.bedIds);
     // console.log("handleCartRemove")
   };
 

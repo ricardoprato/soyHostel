@@ -78,7 +78,7 @@ const NewPassword = (props) => {
           sendData(valores.password2);
           alert('Changed succesfully');
           resetForm();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
           setTimeout(
             () => cambiarFormularioEnviado(false),

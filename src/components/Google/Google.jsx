@@ -26,13 +26,13 @@ function Google() {
       body: JSON.stringify({ googleId }),
     });
     const res2 = await res.json();
-    console.log('res2???>>', res2);
+    // console.log('res2???>>', res2);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };
 
   const onLoginFailure = (googleData) => {
-    console.log('Login Failed:', googleData);
+    ('Login Failed:', googleData);
   };
 
   const onSignoutSuccess = () => {

@@ -25,7 +25,7 @@ const RegisterForAdmin = () => {
     });
     let res2 = await res.json();
 
-    console.log('RESPUESTABACK', res2);
+    // console.log('RESPUESTABACK', res2);
   };
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -67,7 +67,7 @@ const RegisterForAdmin = () => {
         }}
         validate={(valores) => {
           let errores = {};
-          console.log('pararicky', valores);
+          // console.log('pararicky', valores);
           // Validacion nombre
           if (!valores.name || !valores.name.trim()) {
             errores.name = 'Please enter a name';
@@ -181,7 +181,7 @@ const RegisterForAdmin = () => {
         onSubmit={async (valores, { resetForm }) => {
           await sendData(valores);
           resetForm();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
           alert('Register successfully');
           setTimeout(

@@ -24,7 +24,7 @@ function Avatar() {
     setToken(null);
     navigate('/');
   };
-  console.log('tokenenavatar???', token);
+
 
   const handleAvatarClick = () => {
     setToggle(!toggle);

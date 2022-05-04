@@ -17,7 +17,7 @@ const NavBar = () => {
   const [navActive, setNavActive] = useState(false);
   const { token, cart } = useContext(GlobalContext);
   const header = useRef();
-  console.log(header);
+  // console.log(header);
   const lastScrollTop = useRef(0);
 
   const handleClick = (e) => {
