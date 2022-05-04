@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../Popup/Popup.module.css';
-import Logo from '../../Images/fondo.png';
-import { GoogleLogin, GoogleLogout, useGoogleLogout } from 'react-google-login';
+import { GoogleLogin, useGoogleLogout } from 'react-google-login';
 
 const Popup = ({ setModal, setDataProfile }) => {
   const clientId = import.meta.env.VITE_CLIENT_ID;
