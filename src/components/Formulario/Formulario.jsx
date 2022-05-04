@@ -3,6 +3,7 @@ import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
+import swal from 'sweetalert';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -47,7 +48,7 @@ const validate = (input) => {
   return errores;
 };
 
-function Formulario({ props }) {
+function Formulario({ props, modalExterno }) {
   const [error, setError] = useState({});
   const [bookingState, setBookingState] = useState({
     id_reserva: props.id,
@@ -112,6 +113,8 @@ function Formulario({ props }) {
     // setBookingState(bookingInitialState);
   };
   const handleDeleteReservation = (e) => {
+    console.log('eh wachin te borre');
+    console.log(props.id);
     const token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservas/${props.id}`, {
       method: 'DELETE',
@@ -122,6 +125,18 @@ function Formulario({ props }) {
       },
     })
       .then((response) => response.json())
+      .then((data) => {
+
+        swal.fire({
+          title: 'info',
+          text: 'Booking deleted!',
+          icon: 'info',
+          confirmButtonText: 'Ok',
+        });
+
+
+        modalExterno(false);
+      })
       .catch((error) => {
         if (error.response) {
           const { response } = error;

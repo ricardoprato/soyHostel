@@ -139,9 +139,6 @@ const ContactUs = () => {
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
             errores.textarea = 'Please enter a textarea';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,200}$/.test(valores.textarea)) {
-            errores.textarea =
-              'The textarea can only contain letters and spaces';
           }
 
           return errores;
@@ -149,7 +146,12 @@ const ContactUs = () => {
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
           // console.log('valores>>>', valores);
-          swal('Created Succesfully');
+          swal.fire({
+            title: 'success',
+            text: 'Created Successfull',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+          });
           resetForm();
           // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
