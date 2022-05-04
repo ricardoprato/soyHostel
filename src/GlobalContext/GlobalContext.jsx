@@ -7,6 +7,7 @@ export const ContextProvider = (props) => {
     checkIn: '',
     checkOut: '',
   });
+  const [infoHostel, setInfoHostel] = useState([]);
   const [cart, setCart] = useState([]);
   const [dataPayment, setDataPayment] = useState([]);
   const [reservations, setReservations] = useState([]);
@@ -174,10 +175,31 @@ export const ContextProvider = (props) => {
     } //seteo el estado que renderiza las cartas
     // console.log(filteredCopy);
   };
-
-  return ( 
+  const getInfoHostel = () => {
+    fetch(import.meta.env.VITE_APP_URL + '/hostel', {
+      method: 'GET',
+      headers: {
+        api: `${import.meta.env.VITE_API}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setInfoHostel(data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          const { response } = error;
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+        }
+      });
+  };
+  return (
     <GlobalContext.Provider
       value={{
+        infoHostel,
+        getInfoHostel,
         token,
         setToken,
         rol,

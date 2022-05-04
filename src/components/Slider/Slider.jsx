@@ -11,7 +11,7 @@ import './Slider.css';
 // import required modules
 import { Autoplay, FreeMode, Thumbs } from 'swiper';
 
-export default function Slider() {
+export default function Slider({ images }) {
   const form = document.querySelector('#form');
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const handleClick = () => form.scrollIntoView({ behavior: 'smooth' });

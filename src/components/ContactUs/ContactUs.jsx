@@ -244,7 +244,7 @@ const ContactUs = () => {
             </div>
             <div className={styles.captcha}>
               <ReCAPTCHA
-                required="true"
+                required={true}
                 onChange={handleChange}
                 ref={recaptchaRef}
                 sitekey={import.meta.env.VITE_CAPTCHA}

@@ -4,6 +4,7 @@ import styles from './RoomDetails.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { Modal } from '../Modal/Modal';
 import Carousel from '../Carousel/Carousel';
+import Loader from '../Loader/Loader';
 export default function RoomDetails({ roomId }) {
   const { getIdRoom, details, setDetails } = useContext(GlobalContext);
 
@@ -14,7 +15,7 @@ export default function RoomDetails({ roomId }) {
   return (
     <>
       {!details?.id ? (
-        <p> Cargando.......................</p>
+        <Loader />
       ) : (
         <div className={styles.roomDetailsContainer}>
           {details?.Imagens?.length ? (

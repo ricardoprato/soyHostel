@@ -5,6 +5,7 @@ import Logo from '../../Images/fondo.png';
 import jwt_decode from 'jwt-decode';
 import PopupChangePw from '../PopupChangePw/PopupChangePw';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import Loader from '../Loader/Loader';
 
 const InfoUser = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -32,7 +33,7 @@ const InfoUser = () => {
 
     let respuesta2 = await respuesta.json();
     setUserDetails(respuesta2);
-    ('RES GENERAL', respuesta2);
+    'RES GENERAL', respuesta2;
     // error = respuesta2.msg;
     // alert(error);
   }, []);
@@ -50,8 +51,8 @@ const InfoUser = () => {
     let res2 = await respuesta.json();
     // error = res2.msg;
     // alert(error);
-    ('RESPUESTABACK', res2);
-    ('valorescambian???', valores);
+    'RESPUESTABACK', res2;
+    'valorescambian???', valores;
   };
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -88,7 +89,7 @@ const InfoUser = () => {
             }}
             validate={(valores) => {
               let errores = {};
-              ('pararicky', valores);
+              'pararicky', valores;
               // Validacion nombre
               if (!valores.name || !valores.name.trim()) {
                 errores.name = 'Please enter a name';
@@ -157,7 +158,7 @@ const InfoUser = () => {
             onSubmit={async (valores, { resetForm }) => {
               await sendData(valores);
               // resetForm();
-              ('INFO', valores);
+              'INFO', valores;
               cambiarFormularioEnviado(true);
               alert('Form completed successfully');
             }}
@@ -309,7 +310,9 @@ const InfoUser = () => {
             )}
           </Formik>
         </div>
-      ) : null}
+      ) : (
+        <Loader />
+      )}
     </>
   );
 };
