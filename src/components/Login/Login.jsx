@@ -30,7 +30,7 @@ const Login = () => {
     // }
     setToken(token);
     token ? window.localStorage.setItem('tokenProp', token) : null;
-    console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
+    // console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
     {
       token
         ? setMensaje('Session init')

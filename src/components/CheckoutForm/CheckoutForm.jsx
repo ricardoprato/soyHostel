@@ -7,6 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './CheckoutForm.module.css';
+import swal from 'sweetalert';
 
 export default function CheckoutForm({ setPay }) {
   const stripe = useStripe();
@@ -71,7 +72,7 @@ export default function CheckoutForm({ setPay }) {
         return_url: 'http://localhost:3000',
       },
     });
-    console.log('DATANEW', data);
+    // console.log('DATANEW', data);
     let infoPayment = data.paymentIntent;
 
     // setDataPayment(
@@ -87,9 +88,9 @@ export default function CheckoutForm({ setPay }) {
     let url = import.meta.env.VITE_APP_URL;
     let api = import.meta.env.VITE_API;
 
-    console.log('toback', toBack);
+    // console.log('toback', toBack);
     let token = window.localStorage.getItem('tokenProp');
-    console.log('datapayment', dataPayment);
+    // console.log('datapayment', dataPayment);
     fetch(`${url}` + '/reservas', {
       method: 'POST',
       headers: {
@@ -102,14 +103,14 @@ export default function CheckoutForm({ setPay }) {
       .then((res) => res.json())
 
       .catch((error) => console.log('error desde el back', error));
-    console.log('infocheckout>> ', { toBack, infoPayment });
+    // console.log('infocheckout>> ', { toBack, infoPayment });
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (!data.error) {
-      alert('Payment Successfull');
+      swal('Payment Successfull');
       setCart([]);
       return navigate('/');
     }

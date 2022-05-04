@@ -210,3 +210,8 @@ input[type='checkbox']:checked ~ .check::after {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media (max-width: 440px) {
+  .form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

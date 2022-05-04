@@ -113,8 +113,8 @@ export default function Calendar() {
         });
       }
     });
-    console.log(bedStateCopy);
-    console.log(roomStateCopy);
+    // console.log(bedStateCopy);
+    // console.log(roomStateCopy);
 
     setCalendarState([...bedStateCopy, ...roomStateCopy]);
   };
@@ -157,7 +157,7 @@ export default function Calendar() {
     <>
       {!!localModal && (
         <Modal setLocalModal={setLocalModal}>
-          <Formulario props={data} />
+          <Formulario modalExterno={setLocalModal}props={data} />
         </Modal>
       )}
       <div className={styles.calendar}>

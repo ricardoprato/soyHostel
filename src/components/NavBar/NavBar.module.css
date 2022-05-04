@@ -146,7 +146,7 @@
   .navigation.active .nav-items {
     transform: translateY(0);
   }
-  .nav_link {
+  .nav_items .nav_link {
     text-align: left;
     padding: 0.5rem;
     color: var(--dark-color);
@@ -154,7 +154,7 @@
     transition: 0.3s ease;
     width: 100%;
   }
-  .nav_link:hover {
+  .nav_items .nav_link:hover {
     color: var(--navigation-item-hover-color);
   }
   .nav_link > i {

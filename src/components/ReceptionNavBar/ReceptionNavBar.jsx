@@ -8,6 +8,7 @@ import CreateRoom from '../RoomsAdmin/CreateRoom';
 import DeleteEditRoom from '../RoomsAdmin/ListRooms';
 import BookingFromReception from '../BookingFromReception/BookingFromReception';
 import CreateAdminReceptionist from '../RegisterForAdmin/RegisterForAdmin';
+import swal from 'sweetalert';
 
 const ReceptionNavBar = ({ children }) => {
   const [active, setActive] = useState(false);
@@ -41,7 +42,7 @@ const ReceptionNavBar = ({ children }) => {
     e.preventDefault();
     setInput({ name: '' });
     if (!input.name.trim()) {
-      return alert('Need to put a name');
+      return swal('please input a name');
     }
   };
 
@@ -134,7 +135,7 @@ const ReceptionNavBar = ({ children }) => {
       )}
       {!!localModalCreateAdminReceptionist && (
         <Modal setLocalModal={setLocalModalCreateAdminReceptionist}>
-          <CreateAdminReceptionist />
+          <CreateAdminReceptionist modalExterno={setLocalModalCreateAdminReceptionist}/>
         </Modal>
       )}
       {!!localModalDeleteEditRoom && (

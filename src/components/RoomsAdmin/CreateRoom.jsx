@@ -124,7 +124,7 @@ export default function CreateRoom(props) {
     setInput({ ...input, [e.target.name]: e.target.value });
     let objError = validate({ ...input, [e.target.name]: e.target.value });
     setError(objError);
-    console.log(input);
+    // console.log(input);
   };
 
   let oneImage = (e) => {

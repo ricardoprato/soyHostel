@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../ContactUs/ContactUs.module.css';
 import Logo from '../../Images/fondo.png';
 import ReCAPTCHA from 'react-google-recaptcha';
+import swal from 'sweetalert';
 
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -107,7 +108,7 @@ const ContactUs = () => {
         }}
         validate={(valores) => {
           let errores = {};
-          console.log('pararicky', valores);
+          // console.log('pararicky', valores);
           // Validacion nombre
           if (!valores.name || !valores.name.trim()) {
             errores.name = 'Please enter a name';
@@ -147,10 +148,10 @@ const ContactUs = () => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
-          console.log('valores>>>', valores);
-          alert('Created Succesfully');
+          // console.log('valores>>>', valores);
+          swal('Created Succesfully');
           resetForm();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
           setTimeout(
             () => cambiarFormularioEnviado(false),
@@ -244,7 +245,7 @@ const ContactUs = () => {
             </div>
             <div className={styles.captcha}>
               <ReCAPTCHA
-                required="true"
+                required={true}
                 onChange={handleChange}
                 ref={recaptchaRef}
                 sitekey={import.meta.env.VITE_CAPTCHA}

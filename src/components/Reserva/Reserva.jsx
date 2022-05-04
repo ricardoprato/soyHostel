@@ -4,6 +4,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
 import explore1 from '../../Images/explore1.jpg';
+import LoaderDark from '../Loader/LoaderDark';
 
 export default function Reserva() {
   const divImage = useRef();
@@ -27,24 +28,23 @@ export default function Reserva() {
 
   useEffect(() => {
     allRooms.length === 0 && getAllRooms();
-    console.log('allRooms desde reserva');
-    console.log(allRooms);
+    // console.log('allRooms desde reserva');
+    // console.log(allRooms);
   }, [allRooms]);
 
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
 
+  // useEffect(()=>{
+  //   console.log('filteredRooms desde reserva');
+  //   console.log(filteredRooms);
+  // },[filteredRooms])
 
-  useEffect(()=>{
-    console.log('filteredRooms desde reserva');
-    console.log(filteredRooms);
-  },[filteredRooms])
-  
   // console.log("dataForCards")
   // console.log(dataForCards)
-  console.log('allRooms');
-  console.log(allRooms);
+  // console.log('allRooms');
+  // console.log(allRooms);
 
   return (
     <>
@@ -60,9 +60,9 @@ export default function Reserva() {
       <div className={styles.relative}>
         <div className={styles.parallax} ref={divImage}></div>
         <FilterBar />
-        <div className={styles.RoomCardsContainer}>
+        <div className={`${styles.RoomCardsContainer}`}>
           {!dataForCards.length && !filteredRooms.length ? (
-            'Cargando...'
+            <LoaderDark />
           ) : !flag && filteredRooms.length ? (
             filteredRooms?.map((r) => (
               <RoomCard

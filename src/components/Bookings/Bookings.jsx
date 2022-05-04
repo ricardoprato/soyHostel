@@ -14,8 +14,8 @@ export default function Bookings() {
       .then((response) => response.json())
       .then((data) => {
         setAllReservations((prev) => data);
-        console.log('all reservations');
-        console.log(data);
+        // console.log('all reservations');
+        // console.log(data);
       })
       .catch((error) => {
         if (error.response) {
@@ -37,8 +37,8 @@ export default function Bookings() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Reserva Eliminada?: ');
-        console.log(data);
+        // console.log('Reserva Eliminada?: ');
+        // console.log(data);
         getAllReservations();
       })
       .catch((error) => {

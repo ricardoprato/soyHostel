@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styles from '../Google/Google.module.css';
+import swal from 'sweetalert';
 
 const clientId = 'Your-Client-Id';
 
@@ -26,17 +27,17 @@ function Google() {
       body: JSON.stringify({ googleId }),
     });
     const res2 = await res.json();
-    console.log('res2???>>', res2);
+    // console.log('res2???>>', res2);
     setShowloginButton(false);
     setShowlogoutButton(true);
   };
 
   const onLoginFailure = (googleData) => {
-    console.log('Login Failed:', googleData);
+    ('Login Failed:', googleData);
   };
 
   const onSignoutSuccess = () => {
-    alert('You have been logged out successfully');
+    swal('You have been logged out successfully');
     console.clear();
     setShowloginButton(true);
     setShowlogoutButton(false);

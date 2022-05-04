@@ -18,7 +18,7 @@ import BookingHistory from './components/BookingHistory/BookingHistory';
 
 function App() {
   const { rol, setRol } = useContext(GlobalContext);
-  console.log('ROL', rol);
+
 
   return (
     <BrowserRouter>

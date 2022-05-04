@@ -81,8 +81,8 @@ function Formulario({ props }) {
 
   const handleBookingUpdate = (e) => {
     e.preventDefault();
-    console.log(e.target.name);
-    console.log(e.target.value);
+    // console.log(e.target.name);
+    // console.log(e.target.value);
 
     if (e.target.name === 'saldo')
       setBookingState({ ...bookingState, saldo: Number(e.target.value) });
@@ -111,7 +111,7 @@ function Formulario({ props }) {
   };
 
   const SubmitBookingUpdate = async (e) => {
-    console.log(bookingState);
+    // console.log(bookingState);
     await patchState(bookingState); //objeto a enviar al backend
     // setBookingState(bookingInitialState);
   };

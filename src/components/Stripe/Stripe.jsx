@@ -4,6 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../CheckoutForm/CheckoutForm';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './Stripe.module.css';
+import Loader from '../Loader/LoaderDark';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -13,6 +14,7 @@ const stripePromise = loadStripe(
 );
 
 const Stripe = ({ setPay }) => {
+  console.log('setPay ', setPay)
   const { cart } = useContext(GlobalContext);
   const [clientSecret, setClientSecret] = useState('');
   const { dataPayment, setDataPayment } = useContext(GlobalContext);
@@ -54,10 +56,12 @@ const Stripe = ({ setPay }) => {
   return (
     <div className={styles.stripeContainer}>
       {token ? (
-        clientSecret && (
+        clientSecret ? (
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm setPay={handleClick} />
           </Elements>
+        ) : (
+          <Loader />
         )
       ) : (
         <div className={styles.noAuthorize}>

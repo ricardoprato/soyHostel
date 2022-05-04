@@ -3,6 +3,7 @@ import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
+import swal from 'sweetalert';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -47,7 +48,7 @@ const validate = (input) => {
   return errores;
 };
 
-function Formulario({ props }) {
+function Formulario({ props, modalExterno }) {
   const [error, setError] = useState({});
   const [bookingState, setBookingState] = useState({
     id_reserva: props.id,
@@ -77,8 +78,8 @@ function Formulario({ props }) {
 
   const handleBookingUpdate = (e) => {
     e.preventDefault();
-    console.log(e.target.name);
-    console.log(e.target.value);
+    // console.log(e.target.name);
+    // console.log(e.target.value);
 
     if (e.target.name === 'saldo')
       setBookingState({ ...bookingState, saldo: Number(e.target.value) });
@@ -107,7 +108,7 @@ function Formulario({ props }) {
   };
 
   const SubmitBookingUpdate = async (e) => {
-    console.log(bookingState);
+    // console.log(bookingState);
     await patchState(bookingState); //objeto a enviar al backend
     // setBookingState(bookingInitialState);
   };
@@ -122,6 +123,10 @@ function Formulario({ props }) {
       },
     })
       .then((response) => response.json())
+      .then((data)=> {
+        swal('Booking deleted!')
+        modalExterno(false)
+      })
       .catch((error) => {
         if (error.response) {
           const { response } = error;

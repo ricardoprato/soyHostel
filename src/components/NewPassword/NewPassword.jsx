@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../NewPassword/NewPassword.module.css';
 import Logo from '../../Images/fondo.png';
 import { useLocation } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const NewPassword = (props) => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -76,9 +77,9 @@ const NewPassword = (props) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores.password2);
-          alert('Changed succesfully');
+          swal('Changed succesfully');
           resetForm();
-          console.log('INFO', valores);
+          // console.log('INFO', valores);
           cambiarFormularioEnviado(true);
           setTimeout(
             () => cambiarFormularioEnviado(false),

@@ -6,8 +6,10 @@ import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import swal from 'sweetalert';
 
-const RegisterForAdmin = () => {
+const RegisterForAdmin = ({modalExterno}) => {
+  console.log('modalExterno', modalExterno)
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -25,7 +27,7 @@ const RegisterForAdmin = () => {
     });
     let res2 = await res.json();
 
-    console.log('RESPUESTABACK', res2);
+    // console.log('RESPUESTABACK', res2);
   };
 
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -67,7 +69,7 @@ const RegisterForAdmin = () => {
         }}
         validate={(valores) => {
           let errores = {};
-          console.log('pararicky', valores);
+          // console.log('pararicky', valores);
           // Validacion nombre
           if (!valores.name || !valores.name.trim()) {
             errores.name = 'Please enter a name';
@@ -181,9 +183,9 @@ const RegisterForAdmin = () => {
         onSubmit={async (valores, { resetForm }) => {
           await sendData(valores);
           resetForm();
-          console.log('INFO', valores);
           cambiarFormularioEnviado(true);
-          alert('Register successfully');
+          swal('Register successfully');
+          modalExterno((prev)=> !prev)
           setTimeout(
             () => cambiarFormularioEnviado(false),
 
