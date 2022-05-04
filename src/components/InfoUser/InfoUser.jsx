@@ -84,7 +84,7 @@ const InfoUser = () => {
               dni: userDetails?.dni,
               email: userDetails?.email, // puede mostrarlo y no cambiarlo.
               birthdate: userDetails?.fechaNacimiento,
-              rol: userDetails?.rol,
+              role: userDetails?.rol,
             }}
             validate={(valores) => {
               let errores = {};
@@ -171,7 +171,7 @@ const InfoUser = () => {
                     ></i>
                   </button>
                   <img className={styles.img} src={Logo} alt="" />
-                  <button onClick={handleEditClick}>Editar</button>
+                  <button onClick={handleEditClick}>Edit</button>
                   <label htmlFor="name">First Name</label>
                   <Field
                     type="text"
@@ -205,7 +205,7 @@ const InfoUser = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="lastname">Dni</label>
+                  <label htmlFor="lastname">DNI</label>
                   <Field
                     type="text"
                     id="dni"
@@ -256,8 +256,8 @@ const InfoUser = () => {
                   <label htmlFor="rol">Role</label>
                   <Field
                     type="text"
-                    id="rol"
-                    name="rol"
+                    id="role"
+                    name="role"
                     placeholder=""
                     disabled={true}
                   />
@@ -270,7 +270,7 @@ const InfoUser = () => {
                 </div>
 
                 <div className={styles.eye}>
-                  <button onClick={handleChangePw}>Cambiar Password</button>
+                  {/* <button onClick={handleChangePw}>Change password</button> */}
                   {show ? (
                     <PopupChangePw
                       titleToChangePw={'Enter your email to change Password'}
@@ -280,7 +280,7 @@ const InfoUser = () => {
                 </div>
                 {!disabled ? <button type="submit">Save</button> : null}
                 {formularioEnviado && (
-                  <p className={styles.exito}>Formulario enviado con exito!</p>
+                  <p className={styles.exito}>Succesfully completed</p>
                 )}
               </Form>
             )}
