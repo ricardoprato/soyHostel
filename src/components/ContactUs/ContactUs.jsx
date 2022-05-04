@@ -139,9 +139,6 @@ const ContactUs = () => {
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
             errores.textarea = 'Please enter a textarea';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,200}$/.test(valores.textarea)) {
-            errores.textarea =
-              'The textarea can only contain letters and spaces';
           }
 
           return errores;
