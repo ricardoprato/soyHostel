@@ -25,7 +25,6 @@ function Avatar() {
     navigate('/');
   };
 
-
   const handleAvatarClick = () => {
     setToggle(!toggle);
   };
@@ -51,7 +50,7 @@ function Avatar() {
             className={styles.button}
             onClick={() => setInfoModal((prev) => !prev)}
           >
-            <i class="bi bi-pencil-square"></i>Account details
+            <i className="bi bi-pencil-square"></i>Account details
           </button>
           {bookingModal ? (
             <Modal setLocalModal={setBookingModal}>
@@ -62,10 +61,10 @@ function Avatar() {
             className={styles.button}
             onClick={() => setBookingModal((prev) => !prev)}
           >
-            <i class="bi bi-book"></i>Booking History
+            <i className="bi bi-book"></i>Booking History
           </button>
           <button onClick={handleClick} className={styles.button}>
-            <i class="bi bi-box-arrow-right"></i>
+            <i className="bi bi-box-arrow-right"></i>
             Logout
           </button>
         </div>
@@ -73,21 +72,33 @@ function Avatar() {
         <div className={styles.menu}>
           <NavLink to="/admin">
             <button className={styles.button}>
-              <i class="bi bi-command"></i>Go to admin panel
+              <i className="bi bi-command"></i>Go to admin panel
             </button>
           </NavLink>
-          <NavLink to="/reserva">
-            <button className={styles.button}>
-              <i class="bi bi-pencil-square"></i>Account details
-            </button>
-          </NavLink>
-          <NavLink to="/history">
-            <button className={styles.button}>
-              <i class="bi bi-book"></i>Booking History
-            </button>
-          </NavLink>
+          {infoModal ? (
+            <Modal setLocalModal={setInfoModal}>
+              <InfoUser />
+            </Modal>
+          ) : null}
+          <button
+            className={styles.button}
+            onClick={() => setInfoModal((prev) => !prev)}
+          >
+            <i className="bi bi-pencil-square"></i>Account details
+          </button>
+          {bookingModal ? (
+            <Modal setLocalModal={setBookingModal}>
+              <BookingHistory />
+            </Modal>
+          ) : null}
+          <button
+            className={styles.button}
+            onClick={() => setBookingModal((prev) => !prev)}
+          >
+            <i className="bi bi-book"></i>Booking History
+          </button>
           <button onClick={handleClick} className={styles.button}>
-            <i class="bi bi-box-arrow-right"></i>
+            <i className="bi bi-box-arrow-right"></i>
             Logout
           </button>
         </div>

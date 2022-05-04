@@ -103,7 +103,7 @@ export default function CheckoutForm({ setPay }) {
       .then((res) => res.json())
 
       .catch((error) => console.log('error desde el back', error));
-    console.log('infocheckout>> ', { toBack, infoPayment });
+    // console.log('infocheckout>> ', { toBack, infoPayment });
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will

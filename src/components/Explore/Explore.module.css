@@ -89,3 +89,10 @@
     font-size: 1.2rem;
   }
 }
+@media (max-width: 456px) {
+  .divRelative {
+    padding-left: 0rem;
+    padding-right: 0rem;
+    height: 80vh;
+  }
+}

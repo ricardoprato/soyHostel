@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ReservationCards from '../ReservationCards/ReservationCards';
 import styles from './BookingHistory.module.css';
+import Loader from '../Loader/Loader';
 
 function BookingHistory() {
   const [isloading, setIsloading] = useState(true);
@@ -21,7 +22,7 @@ function BookingHistory() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setBookingHistory(data);
         setIsloading(false);
       })
@@ -44,7 +45,7 @@ function BookingHistory() {
   return (
     <>
       {isloading ? (
-        <div>Cargando...</div>
+        <Loader />
       ) : (
         <div className={styles.historyContainer}>
           {bookingHistory.filter((booking) => booking.UsuarioDni == decode.sub)
