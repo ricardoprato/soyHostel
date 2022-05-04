@@ -11,7 +11,7 @@ import './Carousel.css';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
 const Carousel = ({ images }) => {
-  console.log(images);
+  // console.log(images);
   return (
     <div className="div_carousel">
       <Swiper
