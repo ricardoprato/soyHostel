@@ -22,7 +22,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.10",
     "swiper": "^8.1.0"
   },
   "devDependencies": {
