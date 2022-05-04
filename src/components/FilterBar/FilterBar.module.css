@@ -205,3 +205,8 @@ input[type='checkbox']:checked ~ .check::after {
 .button:hover::before {
   width: 100%;
 }
+@media (max-width: 913px) {
+  .form {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

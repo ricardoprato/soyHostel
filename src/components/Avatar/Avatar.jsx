@@ -5,11 +5,12 @@ import { Modal } from '../Modal/Modal';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import BookingHistory from '../BookingHistory/BookingHistory';
-
+import InfoUser from '../InfoUser/InfoUser';
 function Avatar() {
   const { setToken, token, rol, setRol } = useContext(GlobalContext);
   const [toggle, setToggle] = useState(false);
   const [bookingModal, setBookingModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
   const navigate = useNavigate();
   // Aca traigo a avatar el rol, el token y la img
   setRol(localStorage.getItem('nombrerol'));
@@ -41,7 +42,15 @@ function Avatar() {
       </div>
       {toggle && rol === 'cliente' ? (
         <div className={styles.menu}>
-          <button className={styles.button}>
+          {infoModal ? (
+            <Modal setLocalModal={setInfoModal}>
+              <InfoUser />
+            </Modal>
+          ) : null}
+          <button
+            className={styles.button}
+            onClick={() => setInfoModal((prev) => !prev)}
+          >
             <i class="bi bi-pencil-square"></i>Account details
           </button>
           {bookingModal ? (

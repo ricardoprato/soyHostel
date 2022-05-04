@@ -242,25 +242,15 @@ const ContactUs = () => {
                 )}
               />
             </div>
-<<<<<<< HEAD
             <div className={styles.captcha}>
               <ReCAPTCHA
-                // onChange={handleChange}
+                required="true"
+                onChange={handleChange}
                 ref={recaptchaRef}
                 sitekey={import.meta.env.VITE_CAPTCHA}
-                className={styles.recaptcha}
               />
             </div>
-            <button type="submit" disabled>
-=======
-            <ReCAPTCHA
-              required="true"
-              onChange={handleChange}
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_CAPTCHA}
-            />
             <button type="submit" disabled={!captchaVerify}>
->>>>>>> arf
               Send
             </button>
             {formularioEnviado && (

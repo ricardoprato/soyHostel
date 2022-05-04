@@ -46,7 +46,6 @@
   font-size: 1rem;
   max-width: 800px;
   color: var(--dark-color);
-  border-radius: 10px;
 }
 .parallax {
   position: absolute;
@@ -82,5 +81,42 @@
 @media (max-width: 1010px) {
   .container {
     padding: 0 1.5rem;
+  }
+}
+@media (max-width: 945px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  .parrafo {
+    max-width: 500px;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .main {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 720px) {
+  .title {
+    font-size: 1.7rem;
+  }
+  .parrafo {
+    max-width: 380px;
+  }
+}
+@media (max-width: 597px) {
+  .box {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+  .parrafo {
+    min-width: 360px;
+    max-width: 600px;
+  }
+}
+@media (max-width: 560px) {
+  .title {
+    font-size: 1.2rem;
   }
 }

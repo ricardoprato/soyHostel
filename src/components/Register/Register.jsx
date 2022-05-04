@@ -65,9 +65,16 @@ const Register = () => {
     <>
       {modal ? (
         mensaje?.length ? (
-          <div>
+          <div className={styles.msg}>
             {mensaje === 'Register completed' ? null : (
-              <button onClick={() => setMensaje('')}>X</button>
+              <button
+                onClick={() => setMensaje('')}
+                className={styles.buttonicon}
+              >
+                <i
+                  className={`${styles.icon} bi bi-arrow-left-square-fill`}
+                ></i>
+              </button>
             )}
             {mensaje}
           </div>
@@ -392,25 +399,6 @@ const Register = () => {
                     name="password"
                     component={() => (
                       <div className={styles.error}>{errors.password}</div>
-                    )}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="nationality">Nationality</label>
-                  <Field
-                    name="nationality"
-                    as="select"
-                    className={styles.input}
-                  >
-                    <option>Elegir pais</option>
-                    {paises.countries.map((p) => {
-                      return <option key={p}>{p}</option>;
-                    })}
-                  </Field>
-                  <ErrorMessage
-                    name="nationality"
-                    component={() => (
-                      <div className={styles.error}>{errors.nationality}</div>
                     )}
                   />
                 </div>

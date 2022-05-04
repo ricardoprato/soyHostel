@@ -85,3 +85,25 @@
     padding-right: 1.5rem;
   }
 }
+@media (max-width: 945px) {
+  .relative {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 720px) {
+  .title {
+    font-size: 1.7rem;
+  }
+  .text {
+    max-width: 85%;
+  }
+}
+@media (max-width: 560px) {
+  .title {
+    font-size: 1.2rem;
+  }
+}

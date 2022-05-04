@@ -18,7 +18,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div>
-        <h2>
+        <h2 className={styles.logo}>
           Soy{' '}
           <svg
             xmlns="http://www.w3.org/2000/svg"
