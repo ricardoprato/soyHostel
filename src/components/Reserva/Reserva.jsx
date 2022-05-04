@@ -86,10 +86,12 @@ export default function Reserva() {
               />
             ))
           ) : flag ? (
-            <h1 style={{ color: 'black', background: 'red' }}>
+            <p style={{ color: 'black', background: 'red' }}>
               No Available Rooms
-            </h1>
-          ) : null}
+            </p>
+          ) : (
+            <p>No room Availables with those parameteres</p>
+          )}
         </div>
       </div>
     </>
