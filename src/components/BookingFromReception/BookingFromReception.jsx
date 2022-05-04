@@ -1,10 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 // console.log(countries);
 
-export function validate(input, toBack) {
+
+
+export function validate(input) {
+
   /////// VALIDACiONES /////////////////////////////////
   let errores = {};
 
@@ -141,7 +145,9 @@ const Booking = () => {
     price: 0,
   };
   const [input, setInput] = useState(initialState);
-  let initialToBack = {
+
+  const [toBack, setToBack] = useState({
+
     camas: [],
     habitaciones: [],
     saldo: 0,
@@ -155,79 +161,59 @@ const Booking = () => {
     nacionalidad: '',
     email: '',
     genero: '',
-  };
-  const [toBack, setToBack] = useState(initialToBack);
+
+  });
+
   let [error, setError] = useState({}); ////////  Mensajes de error //////////////////////
 
   useEffect(() => {
-    allRooms.length === 0 && getAllRooms(); // trae todas las habitaciones existentes ////////////////////
+    allRooms?.length === 0 && getAllRooms();
   }, [allRooms]);
 
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards(); // HandleClick carga filteredAvailableBeds y genDataForCards arma lista de habitaciones disponibles /////////////
   }, [filteredAvailableBeds]);
 
-  // useEffect(()=>{
-  //   console.log('input --> ', input)
-  // },[input])
 
-  // useEffect(()=>{
-  //   console.log('toBack --> ', toBack)
-  // },[toBack])
 
-  // useEffect(()=>{
-  //   console.log('dataforCards --> ', dataForCards)
-  // },[dataForCards])
+  useEffect(() => {
+    console.log('input --> ', input);
+  }, [input]);
+
+  useEffect(() => {
+    console.log('toBack --> ', toBack);
+  }, [toBack]);
+
+  useEffect(() => {
+    console.log('dataforCards --> ', dataForCards);
+  }, [dataForCards]);
 
   const handleRoomSelect = (e) => {
-    // carga id de habitacion seleccionada y carga en input.totalbeds la cantidad de camas para renderizar en el formulario ///////////////////////
-    if (e.target.value === 'noRoom') {
-      setInput({ ...input, private: true, roomIds: 0, price: 0 });
-      let objError = validate(
-        { ...input, [e.target.name]: e.target.value },
-        toBack
-      );
-      setError(objError);
+    let id = Number(e.target.value);
+    let aux = dataForCards.filter((r) => r.id === id);
+    if (aux[0].privada === true) {
+      setInput({ ...input, private: true, roomIds: id, price: aux[0].precio });
     } else {
-      let id = Number(e.target.value);
-      let aux = dataForCards.filter((r) => r.id === id);
-      if (aux[0].privada === true) {
-        setInput({
-          ...input,
-          private: true,
-          roomIds: id,
-          price: aux[0].precio,
-        });
-        let objError = validate(
-          { ...input, private: true, [e.target.name]: e.target.value },
-          toBack
-        );
-        setError(objError);
-      } else {
-        let aux2 = [];
-        let i = 1;
-        aux[0]?.bedIds.forEach((c) => {
-          aux2.push(i);
-          i++;
-        });
-        setInput({
-          ...input,
-          private: false,
-          roomIds: id,
-          totalBeds: [...aux2],
-          price: aux[0].precio / aux[0].totalBeds,
-        });
-        let objError = validate(
-          { ...input, private: false, [e.target.name]: e.target.value },
-          toBack
-        );
-        setError(objError);
-      }
+      let aux2 = [];
+      let i = 1;
+      aux[0]?.bedIds.forEach((c) => {
+        aux2.push(i);
+        i++;
+      });
+      setInput({
+        ...input,
+        private: false,
+        roomIds: id,
+        totalBeds: [...aux2],
+        price: aux[0].precio / aux[0].totalBeds,
+      });
     }
   };
 
   let handleChange = (e) => {
+
     // valida todos los inputs y carga mensajes de error //////////////////
+
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
     let objError = validate(
@@ -237,17 +223,18 @@ const Booking = () => {
     setError(objError);
   };
 
+
+
   const handleClick = (e) => {
-    // una vez seleccionadas las fechas trae la disponibilidad entre esas fechas ////////////
     e.preventDefault();
     getFilteredBeds(input.checkIn, input.checkOut); //esto nos carga filteredAvailableBeds
   };
 
   const handleAddBed = (e) => {
-    // manda al carrito las habitaciones o camas seleccionadas ///////////////////
+
     e.preventDefault();
     let aux = [];
-    if (input.bedQuantity > 0 && input.private === false) {
+    if (input.bedQuantity > 0) {
       let empty = false;
       let position = undefined;
       let localData = [...dataForCards];
@@ -283,7 +270,9 @@ const Booking = () => {
         ),
         bedQuantity: 0,
       });
-    } else if (input.roomIds > 0 && input.private === true) {
+
+    } else if (input.roomIds > 0) {
+
       let localAux = dataForCards.filter((r) => r.id !== input.roomIds);
       setDataForCards([...localAux]);
       setToBack({
@@ -291,66 +280,30 @@ const Booking = () => {
         habitaciones: [...toBack.habitaciones, input.roomIds],
         saldo: toBack.saldo + input.price,
       });
-      // setInput({...input, roomIds: 0, price: 0})
+
+      setInput({ ...input, roomIds: 0, price: 0 });
     }
-    console.log('toback --> ', toBack);
-    console.log('errores --> ', error);
   };
 
   const handleSubmit = (e) => {
-    // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
+    //FALTA ESTO //////////////////////////////////////////////
     e.preventDefault();
-    if (toBack.camas?.length === 0 && toBack.habitaciones?.length === 0) {
-      alert('Please finish adding selected bed or room');
-    } else {
-      let paraConsologuear = {
-        camas: [...toBack.camas],
-        habitaciones: [...toBack.habitaciones],
-        ingreso: input.checkIn,
-        egreso: input.checkOut,
-        nombre: input.name,
-        apellido: input.lastName,
-        tipoDoc: input.docType,
-        numDoc: input.docNumber,
-        fechaNac: input.birthDate,
-        nacionalidad: input.nationality,
-        email: input.email,
-        genero: input.gender,
-        saldo: toBack.saldo,
-      };
-      console.log('POST AL BACK desde submit -->', paraConsologuear);
-      let token = localStorage.getItem('tokenProp');
-      fetch(`${import.meta.env.VITE_APP_URL}/reservasDesdeRecepcion`, {
-        method: 'POST',
-        headers: {
-          api: `${import.meta.env.VITE_API}`,
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          camas: [...toBack.camas],
-          habitaciones: [...toBack.habitaciones],
-          ingreso: input.checkIn,
-          egreso: input.checkOut,
-          nombre: input.name,
-          apellido: input.lastName,
-          tipoDoc: input.docType,
-          numDoc: input.docNumber,
-          fechaNac: input.birthDate,
-          nacionalidad: input.nationality,
-          email: input.email,
-          genero: input.gender,
-          saldo: toBack.saldo,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error));
-      setInput(initialState);
-      setToBack(initialToBack);
-      e.target.reset();
-    }
+    setToBack({
+      camas: [...toBack.camas],
+      habitaciones: [...toBack.habitaciones],
+      ingreso: input.checkIn,
+      egreso: input.checkOut,
+      nombre: input.name,
+      apellido: input.lastName,
+      tipoDoc: input.docType,
+      numDoc: input.docNumber,
+      fechaNac: input.birthDate,
+      nacionalidad: input.nationality,
+      email: input.email,
+      genero: input.gender,
+    });
   };
+
 
   return (
     <div className={styles.allcss}>
@@ -497,12 +450,9 @@ const Booking = () => {
               onChange={(e) => handleChange(e)}
             />
             {error.checkOut && <p className={styles.error}>{error.checkOut}</p>}
-            <button
-              className={styles.butoncito}
-              onClick={(e) => handleClick(e)}
-            >
-              get available
-            </button>
+
+            <button onClick={(e) => handleClick(e)}>get available</button>
+
           </div>
 
           <div>
@@ -510,7 +460,9 @@ const Booking = () => {
             {/* Select Room: */}
             <label htmlFor="roomIds">Room Name</label>
             <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
-              <option value="noRoom">...Select</option>
+
+              <option value="roomIds">Elegir opción</option>
+
               {dataForCards?.length &&
                 dataForCards?.map((r) => (
                   <option key={r.id} value={r.id}>
@@ -526,6 +478,8 @@ const Booking = () => {
               {/* Select bed */}
               <label htmlFor="bedQuantity">Bed </label>
               <select name="bedQuantity" onChange={(e) => handleChange(e)}>
+
+
                 <option value="bedQuantity">Select bed</option>
                 {input?.totalBeds?.length &&
                   input?.totalBeds.map((r) => (
@@ -540,16 +494,15 @@ const Booking = () => {
             </div>
           ) : null}
 
-          <button className={styles.butoncito} onClick={(e) => handleAddBed(e)}>
-            add to booking
-          </button>
-          <h2>
+
+          <button onClick={(e) => handleAddBed(e)}>add to booking</button>
+          <div>
             Booking: {toBack?.camas?.length} beds and{' '}
             {toBack?.habitaciones?.length} private rooms
-          </h2>
+          </div>
           <h2>Total to pay: $ {toBack?.saldo}</h2>
-          {(!toBack?.camas?.length && !toBack?.habitaciones?.length) ||
-          !input.name ||
+          {(toBack.camas === 0 && toBack.habitaciones === 0) ||
+
           error.name ||
           error.lastName ||
           error.docType ||
@@ -564,9 +517,9 @@ const Booking = () => {
           // error.totalBeds ||
           error.checkOut ||
           error.checkIn ? null : (
-            <button className={styles.butoncito} type="submit">
-              send
-            </button>
+
+            <button type="submit">send</button>
+
           )}
         </form>
       </div>

@@ -4,8 +4,10 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import FilterBar from '../../components/FilterBar/FilterBar';
 import styles from './Reserva.module.css';
 import explore1 from '../../Images/explore1.jpg';
+
 export default function Reserva() {
   const divImage = useRef();
+
   useEffect(() => {
     divImage.current.style.backgroundImage = `url(${explore1})`;
   }, [divImage]);
@@ -30,11 +32,18 @@ export default function Reserva() {
   useEffect(() => {
     filteredAvailableBeds?.length > 0 && genDataForCards();
   }, [filteredAvailableBeds]);
-  console.log(flag);
+
+  console.log('filteredRooms');
+  console.log(filteredRooms);
+  // console.log("dataForCards")
+  // console.log(dataForCards)
+  console.log('allRooms');
+  console.log(allRooms);
+
   return (
     <>
       <div className={styles.header}>
-        <h2 className={styles.title}>Simple, Elegant & Comfortable rooms</h2>
+        <h2 className={styles.title}>Simple, Elegant and Comfortable rooms</h2>
         <p className={styles.text}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla nemo
           veniam rerum facere libero asperiores placeat, accusantium omnis vel

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from '../Popup/Popup.module.css';
-import Logo from '../../Images/fondo.png';
-import { GoogleLogin, GoogleLogout, useGoogleLogout } from 'react-google-login';
+import { GoogleLogin, useGoogleLogout } from 'react-google-login';
 
 const Popup = ({ setModal, setDataProfile }) => {
-  let url = import.meta.env.VITE_APP_URL;
-  let api = import.meta.env.VITE_API;
+  const clientId = import.meta.env.VITE_CLIENT_ID;
+  const url = import.meta.env.VITE_APP_URL;
+  const api = import.meta.env.VITE_API;
   const googleFn = useGoogleLogout({
     clientId: import.meta.env.VITE_CLIENT_ID,
   });
@@ -68,7 +68,7 @@ const Popup = ({ setModal, setDataProfile }) => {
       <label className={styles.input}>
         Continuar con Google
         <GoogleLogin
-          clientId={import.meta.env.VITE_CLIENT_ID}
+          clientId={clientId}
           buttonText="Register"
           onSuccess={onLoginSuccess}
           onFailure={onLoginFailure}

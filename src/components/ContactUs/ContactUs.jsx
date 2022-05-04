@@ -138,7 +138,7 @@ const ContactUs = () => {
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
             errores.textarea = 'Please enter a textarea';
-          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.textarea)) {
+          } else if (!/^[a-zA-ZÀ-ÿ\s]{1,200}$/.test(valores.textarea)) {
             errores.textarea =
               'The textarea can only contain letters and spaces';
           }
@@ -243,15 +243,16 @@ const ContactUs = () => {
               />
             </div>
             <ReCAPTCHA
+              required="true"
               onChange={handleChange}
               ref={recaptchaRef}
               sitekey={import.meta.env.VITE_CAPTCHA}
             />
-            <button type="submit" disabled>
+            <button type="submit" disabled={!captchaVerify}>
               Send
             </button>
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Form sent successfully</p>
             )}
           </Form>
         )}

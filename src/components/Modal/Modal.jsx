@@ -24,7 +24,7 @@ function Modal({ children, setLocalModal }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button className={styles.cancel} onClick={onCancel}>
-          Cancel
+          Close
         </button>
         {children}
       </div>
