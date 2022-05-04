@@ -32,7 +32,9 @@ const Login = () => {
     token ? window.localStorage.setItem('tokenProp', token) : null;
     console.log('TokenenLS', window.localStorage.getItem('tokenProp'));
     {
-      token ? setMensaje('Sesion iniciada') : setMensaje('Datos invalidos');
+      token
+        ? setMensaje('Session init')
+        : setMensaje('Invalid username or password');
     }
   };
 
