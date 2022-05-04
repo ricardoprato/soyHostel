@@ -39,12 +39,10 @@
 .RoomCardsContainer {
   position: relative;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(360px, 1fr));
   color: var(--white-color);
   display: grid;
   place-items: center;
-  column-gap: 2rem;
-  row-gap: 2rem;
+  grid-gap: 2rem;
   background: var(--body-bg-color);
   padding: 2rem;
   border-radius: 15px;
@@ -80,4 +78,32 @@
     var(--section-bg-color) 100%
   );
   z-index: 2;
+}
+@media (max-width: 1010px) {
+  .relative {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (max-width: 945px) {
+  .relative {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 720px) {
+  .title {
+    font-size: 1.7rem;
+  }
+  .text {
+    max-width: 85%;
+  }
+}
+@media (max-width: 560px) {
+  .title {
+    font-size: 1.2rem;
+  }
 }

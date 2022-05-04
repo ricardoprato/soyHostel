@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import ReservationCards from '../ReservationCards/ReservationCards';
+import styles from './BookingHistory.module.css';
 
 function BookingHistory() {
   const [isloading, setIsloading] = useState(true);
@@ -20,8 +21,7 @@ function BookingHistory() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
-
+        console.log(data);
         setBookingHistory(data);
         setIsloading(false);
       })
@@ -37,7 +37,7 @@ function BookingHistory() {
 
   useEffect(() => {
     getReservations();
-  }, []);
+  }, [bookingHistory.length]);
   //  bookingHistory
   //           .filter((booking) => booking.UsuarioDni == decode.sub)
   //           .map((r) => <ReservationCards props={r} />)
@@ -46,9 +46,16 @@ function BookingHistory() {
       {isloading ? (
         <div>Cargando...</div>
       ) : (
-        bookingHistory
-          .filter((booking) => booking.UsuarioDni == decode.sub)
-          .map((r) => <ReservationCards key={r.id} props={r} />)
+        <div className={styles.historyContainer}>
+          {bookingHistory.filter((booking) => booking.UsuarioDni == decode.sub)
+            .length ? (
+            bookingHistory
+              .filter((booking) => booking.UsuarioDni == decode.sub)
+              .map((r) => <ReservationCards key={r.id} props={r} />)
+          ) : (
+            <div>No tienes reservas</div>
+          )}
+        </div>
       )}
     </>
   );

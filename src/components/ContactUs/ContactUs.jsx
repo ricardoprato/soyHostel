@@ -7,7 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
   const [modal, setModal] = useState(false);
-  // const [captchaVerify, setCaptchaVerify] = useState(false);
+  const [captchaVerify, setCaptchaVerify] = useState(false);
   const recaptchaRef = React.createRef();
 
   let api = import.meta.env.VITE_API;
@@ -31,10 +31,10 @@ const ContactUs = () => {
     setModal(false);
   };
 
-  // const handleChange = () => {
-  //   setCaptchaVerify(true);
-  //   console.log('CAPTCHA VERIFY', captchaVerify);
-  // };
+  const handleChange = () => {
+    setCaptchaVerify(true);
+    console.log('CAPTCHA VERIFY', captchaVerify);
+  };
 
   return (
     <div className={styles.container} id="contactUs">
@@ -242,14 +242,19 @@ const ContactUs = () => {
                 )}
               />
             </div>
-            <ReCAPTCHA
-              /// onChange={handleChange}
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_CAPTCHA}
-            />
-            <button type="submit">Send</button>
+            <div className={styles.captcha}>
+              <ReCAPTCHA
+                required="true"
+                onChange={handleChange}
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_CAPTCHA}
+              />
+            </div>
+            <button type="submit" disabled={!captchaVerify}>
+              Send
+            </button>
             {formularioEnviado && (
-              <p className={styles.exito}>Formulario enviado con exito!</p>
+              <p className={styles.exito}>Form sent successfully</p>
             )}
           </Form>
         )}

@@ -41,9 +41,7 @@ export default function RoomCard(props) {
     dataForCards?.length && setBedsOnCart(0);
   }, [dataForCards]);
 
-
-  // cart?.length === 0 && setBedsOnCart(0); 
-  
+  // cart?.length === 0 && setBedsOnCart(0);
 
   // cart?.length === 0 && setBedsOnCart(0);
 
@@ -77,32 +75,33 @@ export default function RoomCard(props) {
             checkOut: filterDates.checkOut,
             price: props.bedPrice,
             roomName: props.roomName,
+            totalBeds: props.totalBeds,
           },
         ]);
         setBedsOnCart(props.totalBeds);
         setCount(0);
       } else if (toCart.numberOfBeds > 0) {
-
         // console.log("props")
         // console.log(props)
 
         let aux = props.bedIds.splice(0, toCart.numberOfBeds);
         let flag = false;
-        let cartAux = cart.map((e)=>{
-          console.log('props.roomId',props.roomId)
+        let cartAux = cart.map((e) => {
+          console.log('props.roomId', props.roomId);
           // console.log('e.roomId', e.roomId)
-          if(e?.roomId === props.roomId){
+          if (e?.roomId === props.roomId) {
             flag = true;
             return {
               ...e,
-              beds: [...e.beds, ...aux]
-            }
-          }else {
-            return {...e}
+              beds: [...e.beds, ...aux],
+            };
+          } else {
+            return { ...e };
           }
-        })
-        if(flag) {setCart([...cartAux])
-        }else{
+        });
+        if (flag) {
+          setCart([...cartAux]);
+        } else {
           setCart([
             ...cart,
             {
@@ -122,47 +121,45 @@ export default function RoomCard(props) {
     }
   };
 
-  useEffect(()=>{
-    console.log("cart");
+  useEffect(() => {
+    console.log('cart');
     console.log(cart);
-  }, [cart])
+  }, [cart]);
 
-  useEffect(()=>{
-    console.log("count");
+  useEffect(() => {
+    console.log('count');
     console.log(count);
-  }, [count])
-
- 
+  }, [count]);
 
   const onCLickImage = function () {
     setLocalModal((prevState) => !prevState);
   };
 
-
   const handleCartRemove = (roomId) => {
     //  funcion para eliminar items del carrito
-    console.log('****ANTES**props.berIds*** ', props.bedIds)
+    console.log('****ANTES**props.berIds*** ', props.bedIds);
     let aux = cart?.map((e) => {
-      if(e.roomId === roomId){
-        props.bedIds.push(...e.beds)
+      if (e.roomId === roomId && e.private === 'shared') {
+        props.bedIds.push(...e.beds);
         // let countAux = count + e.beds.length
-        setCount((prev)=> prev + e.beds.length)
-        return undefined
-      }else{
-        return {...e}
+        setCount((prev) => prev + e.beds.length);
+        return undefined;
+      } else if (e.roomId === roomId && e.private === 'private') {
+        setCount(e.totalBeds);
+        return undefined;
+      } else {
+        return { ...e };
       }
     });
-    setBedsOnCart(0)
-    console.log('++++++aux++++ ', aux)
+    setBedsOnCart(0);
+    console.log('++++++aux++++ ', aux);
     // if(aux[0] === undefined) setCart
-    let otroAux = aux.filter((e)=> e !== undefined )
-    console.log('++++++otroAux++++ ', otroAux)
+    let otroAux = aux.filter((e) => e !== undefined);
+    console.log('++++++otroAux++++ ', otroAux);
     setCart(otroAux);
-    console.log('****DESPUES**props.berIds*** ', props.bedIds)
+    console.log('****DESPUES**props.berIds*** ', props.bedIds);
     // console.log("handleCartRemove")
   };
-
-
 
   return (
     <div className={styles.RoomCardContainer}>
@@ -185,30 +182,33 @@ export default function RoomCard(props) {
           {props?.filtradas ? (
             <div className={styles.RoomCardFlex}>
               <p className={styles.text}>
-
-                <button onClick={()=> handleCartRemove(props.roomId)}>remove</button>
-       
-         
-               
-
                 {bedsOnCart}{' '}
                 {bedsOnCart ? (
-                  <i className="bi bi-bag-fill"></i>
+                  <>
+                    <i className="bi bi-bag-fill"></i>
+                    <i
+                      onClick={() => handleCartRemove(props.roomId)}
+                      className={`bi bi-x-circle-fill ${styles.delete}`}
+                    ></i>
+                  </>
                 ) : (
                   <i className="bi bi-bag"></i>
                 )}
-
               </p>
               {props?.private ? null : (
                 <>
-                  <p className={styles.textDash}>
-                    {toCart.numberOfBeds}
-                    <i className="bi bi-person-dash-fill"></i>
-                  </p>
-                  <p className={styles.textPlus}>
-                    <i className="bi bi-person-plus-fill"></i>
-                    {count}
-                  </p>
+                  {toCart?.numberOfBeds ? (
+                    <p className={styles.textDash}>
+                      {toCart.numberOfBeds}
+                      <i className="bi bi-person-dash-fill"></i>
+                    </p>
+                  ) : null}
+                  {count ? (
+                    <p className={styles.textPlus}>
+                      <i className="bi bi-person-plus-fill"></i>
+                      {count}
+                    </p>
+                  ) : null}
                 </>
               )}
             </div>

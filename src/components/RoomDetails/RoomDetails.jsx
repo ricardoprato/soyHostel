@@ -36,7 +36,7 @@ export default function RoomDetails({ roomId }) {
               <p>With shared bathroom</p>
             )}
             <div>Description: {details?.descripcion}</div>
-            <div>Comodities: {details?.comodidades}</div>
+            <div>Amenities: {details?.comodidades}</div>
           </div>
         </div>
       )}

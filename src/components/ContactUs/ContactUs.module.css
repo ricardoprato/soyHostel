@@ -1,9 +1,9 @@
 .container {
   width: 100%;
-  min-height: 100vh;
   background-color: var(--body-bg-color);
   display: flex;
   justify-content: space-around;
+  position: relative;
 }
 .contact_link {
   cursor: pointer;
@@ -53,7 +53,8 @@
   color: var(--dark-color);
 }
 .formulario {
-  min-width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin-top: 50px;
   background: rgb(255, 255, 255);
   padding: 20px;
@@ -111,24 +112,24 @@
   transition: 0.3s ease all;
 }
 
-/* .formulario button[type='submit']:disabled {
+.formulario button[type='submit']:disabled {
   display: block;
-  background: #ff0303;
+  background: #5f5555;
   font-weight: 600;
   font-family: 'Open Sans', sans-serif;
   border: none;
-  cursor: pointer;
+  cursor: no-drop;
   width: 100%;
   padding: 10px;
   border-radius: 5px;
   color: #fff;
   font-size: 16px;
   transition: 0.3s ease all;
-} */
-
-.formulario button[type='submit']:hover {
-  background: #0051ff;
 }
+
+/* .formulario button[type='submit']:hover {
+  background: #0051ff;
+} */
 
 .formulario .exito {
   text-align: center;
@@ -153,4 +154,30 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+.captcha {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 945px) {
+  .title {
+    font-size: 1.4rem;
+  }
+  .info {
+    justify-content: space-evenly;
+  }
+}
+@media (max-width: 600px) {
+  .info {
+    display: none;
+  }
+  .formulario::before {
+    content: 'Hi, contact with us';
+    font-size: 1.2rem;
+    position: absolute;
+    font-weight: bold;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

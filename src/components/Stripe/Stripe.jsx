@@ -53,13 +53,10 @@ const Stripe = ({ setPay }) => {
   };
   return (
     <div className={styles.stripeContainer}>
-      <button onClick={handleClick} className={styles.buttonicon}>
-        <i className={`${styles.icon} bi bi-arrow-left-square-fill`}></i>
-      </button>
       {token ? (
         clientSecret && (
-          <Elements stripe={stripePromise}>
-            <CheckoutForm options={options} />
+          <Elements stripe={stripePromise} options={options}>
+            <CheckoutForm setPay={handleClick} />
           </Elements>
         )
       ) : (

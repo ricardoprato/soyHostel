@@ -57,8 +57,27 @@
 .footer_link i {
   display: none;
 }
+@media (max-width: 945px) {
+  .logo {
+    font-size: 2.2rem;
+  }
+  .nav_logo {
+    width: 2.4rem;
+  }
+}
 @media screen and (max-width: 785px) {
   .link {
-    font-size: 1.5em;
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 721px) {
+  .contact {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+@media (max-width: 568px) {
+  .nav_footer {
+    width: 100%;
   }
 }
