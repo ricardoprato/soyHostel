@@ -1,4 +1,9 @@
 .stripeContainer {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   min-width: 360px;
   width: 100%;
   max-width: 720px;
@@ -6,20 +11,4 @@
   border-radius: 2%;
   background-color: var(--white-color);
   padding: 2rem;
-}
-.icon {
-  font-size: 2rem;
-  color: #212529;
-  transition: 03ms ease all;
-}
-
-.icon:hover {
-  color: #000000;
-}
-.buttonicon {
-  display: block;
-  appearance: none;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
 }

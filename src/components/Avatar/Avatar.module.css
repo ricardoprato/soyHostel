@@ -48,3 +48,9 @@
 .button:hover {
   opacity: 1;
 }
+@media (max-width: 785px) {
+  .profile {
+    height: 40px;
+    width: 40px;
+  }
+}

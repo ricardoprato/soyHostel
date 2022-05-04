@@ -17,6 +17,14 @@
     backdrop-filter: blur(10px);
   }
 }
+.text {
+  display: flex;
+  column-gap: 0.5rem;
+}
+.delete {
+  color: #bb2d3b;
+  cursor: pointer;
+}
 .title {
   font-size: 1.2rem;
 }
@@ -29,7 +37,7 @@
   color: #188451;
 }
 .textDash {
-  color: #bb2d3b;
+  color: #f7c64b;
 }
 .RoomCardText {
   padding: 0.5rem 2rem;

@@ -88,6 +88,9 @@
   .nav {
     padding: 25px 20px;
   }
+  .bag {
+    font-size: 1.5rem;
+  }
   .nav-menu-btn {
     display: block;
     color: var(--white-color);
@@ -127,11 +130,14 @@
   .nav_items {
     position: relative;
     background: var(--white-color);
-    width: 400px;
+    min-width: 360px;
+    width: 100%;
     max-width: 400px;
-    display: grid;
-    place-content: center;
     padding: 40px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    row-gap: 1rem;
     border-radius: 20px;
     box-shadow: var(--box-shadow);
     transform: translateY(-200px);
@@ -141,9 +147,12 @@
     transform: translateY(0);
   }
   .nav_link {
+    text-align: left;
+    padding: 0.5rem;
     color: var(--dark-color);
     font-size: 1em;
     transition: 0.3s ease;
+    width: 100%;
   }
   .nav_link:hover {
     color: var(--navigation-item-hover-color);
@@ -151,6 +160,6 @@
   .nav_link > i {
     display: inline-block;
     font-size: 1.3em;
-    font-weight: bold;
+    margin-right: 1rem;
   }
 }

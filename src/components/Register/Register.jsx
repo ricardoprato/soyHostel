@@ -65,9 +65,16 @@ const Register = () => {
     <>
       {modal ? (
         mensaje?.length ? (
-          <div>
+          <div className={styles.msg}>
             {mensaje === 'Register completed' ? null : (
-              <button onClick={() => setMensaje('')}>X</button>
+              <button
+                onClick={() => setMensaje('')}
+                className={styles.buttonicon}
+              >
+                <i
+                  className={`${styles.icon} bi bi-arrow-left-square-fill`}
+                ></i>
+              </button>
             )}
             {mensaje}
           </div>
@@ -389,15 +396,15 @@ const Register = () => {
                     })}
                   </Field>
                   <ErrorMessage
-                    name="nationality"
+                    name="password"
                     component={() => (
-                      <div className={styles.error}>{errors.nationality}</div>
+                      <div className={styles.error}>{errors.password}</div>
                     )}
                   />
                 </div>
                 <div>
                   <label htmlFor="genre">Gender</label>
-                  <Field name="genre" as="select">
+                  <Field name="genre" as="select" className={styles.input}>
                     <option value="" id="AF">
                       Select option
                     </option>

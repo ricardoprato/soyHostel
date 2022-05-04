@@ -1,0 +1,8 @@
+.ReservationCards {
+  border: 1px solid black;
+  min-width: 360px;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  border-radius: 2%;
+}

@@ -242,12 +242,14 @@ const ContactUs = () => {
                 )}
               />
             </div>
-            <ReCAPTCHA
-              required="true"
-              onChange={handleChange}
-              ref={recaptchaRef}
-              sitekey={import.meta.env.VITE_CAPTCHA}
-            />
+            <div className={styles.captcha}>
+              <ReCAPTCHA
+                required="true"
+                onChange={handleChange}
+                ref={recaptchaRef}
+                sitekey={import.meta.env.VITE_CAPTCHA}
+              />
+            </div>
             <button type="submit" disabled={!captchaVerify}>
               Send
             </button>
