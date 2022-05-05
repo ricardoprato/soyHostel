@@ -112,7 +112,7 @@ const NavBar = () => {
         <div className={styles.nav_flex}>
           {modalCart ? (
             <Modal setLocalModal={setModalCart}>
-              <Cart />
+              <Cart setLocalModal={setModalCart} />
             </Modal>
           ) : null}
           {cart.length ? (

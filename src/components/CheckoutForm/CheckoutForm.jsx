@@ -9,7 +9,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './CheckoutForm.module.css';
 import swal from 'sweetalert';
 
-export default function CheckoutForm({ setPay }) {
+export default function CheckoutForm({ setPay, setLocalModal }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -80,7 +80,20 @@ export default function CheckoutForm({ setPay }) {
       body: JSON.stringify({ toBack, infoPayment }),
     })
       .then((res) => res.json())
-
+      .then((data) => {
+        console.log('data', data);
+        if (data?.id && data?.estado === 'Booked') {
+          setIsLoading(false);
+          swal('¡Thank you, for booking with us!', '', 'success');
+          setCart([]);
+          setToBack([]);
+          setDataPayment(null);
+          setLocalModal((prev) => !prev);
+        } else {
+          setIsLoading(false);
+          swal('¡Error!', '', 'error');
+        }
+      })
       .catch((error) => console.log('error desde el back', error));
     // console.log('infocheckout>> ', { toBack, infoPayment });
     // This point will only be reached if there is an immediate error when
@@ -88,20 +101,21 @@ export default function CheckoutForm({ setPay }) {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    if (!data.error) {
-      setCart([]);
 
-      swal('Payment Successfull');
-    }
+    // if (!data?.error) {
+    //   setCart([]);
+    //   swal('Payment Successfull');
+    //   setPay();
+    // }
 
-    if (
-      data.error.type === 'card_error' ||
-      data.error.type === 'validation_error'
-    ) {
-      setMessage(data.error.message);
-    } else {
-      setMessage('An unexpected error occured.');
-    }
+    // if (
+    //   data.error.type === 'card_error' ||
+    //   data.error.type === 'validation_error'
+    // ) {
+    //   setMessage(data.error.message);
+    // } else {
+    //   setMessage('An unexpected error occured.');
+    // }
     setIsLoading(false);
   };
 

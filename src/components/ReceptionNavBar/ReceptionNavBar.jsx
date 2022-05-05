@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import styles from './ReceptionNavBar.module.css';
 import Avatar from '../Avatar/Avatar';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
@@ -8,7 +8,6 @@ import CreateRoom from '../RoomsAdmin/CreateRoom';
 import DeleteEditRoom from '../RoomsAdmin/ListRooms';
 import BookingFromReception from '../BookingFromReception/BookingFromReception';
 import CreateAdminReceptionist from '../RegisterForAdmin/RegisterForAdmin';
-import swal from 'sweetalert';
 
 const ReceptionNavBar = ({ children }) => {
   const [active, setActive] = useState(false);
@@ -25,32 +24,19 @@ const ReceptionNavBar = ({ children }) => {
     setLocalModalCreateAdminReceptionist,
   ] = useState(false);
   const [localModalCreateBooking, setLocalModalCreateBooking] = useState(false);
-
+  const header = useRef();
+  const lastScrollTop = useRef(0);
   const handleScroll = () => {
-    if (window.scrollY > 0) {
+    const scrollTop = window.scrollY;
+    if (scrollTop === 0) {
+      setActive(false);
+    } else if (scrollTop > lastScrollTop.current) {
+      header.current.style.top = '-100%';
       setActive(true);
     } else {
-      setActive(false);
+      header.current.style.top = '0';
     }
-  };
-
-  const [input, setInput] = useState({
-    name: '',
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setInput({ name: '' });
-    if (!input.name.trim()) {
-      return swal('please input a name');
-    }
-  };
-
-  const handleChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
+    lastScrollTop.current = scrollTop;
   };
 
   useEffect(() => {
@@ -67,7 +53,10 @@ const ReceptionNavBar = ({ children }) => {
 
   return (
     <>
-      <header className={`${styles.header} ${active}`}>
+      <header
+        className={`${styles.header} ${active && styles.sticky}`}
+        ref={header}
+      >
         <nav className={styles.nav}>
           <NavLink to="/">
             <svg
