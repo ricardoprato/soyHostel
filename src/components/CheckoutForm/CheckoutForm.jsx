@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './CheckoutForm.module.css';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 export default function CheckoutForm({ setPay }) {
   const stripe = useStripe();

@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../NewPassword/NewPassword.module.css';
 import Logo from '../../Images/fondo.png';
 import { useLocation } from 'react-router-dom';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 
 const NewPassword = (props) => {

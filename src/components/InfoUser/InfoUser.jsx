@@ -8,7 +8,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 import Loader from '../Loader/Loader';
 
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const InfoUser = () => {
   const [userDetails, setUserDetails] = useState({});

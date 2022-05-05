@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../Popup/Popup.module.css';
 import { GoogleLogin, useGoogleLogout } from 'react-google-login';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const Popup = ({ setModal, setDataProfile }) => {
   const clientId = import.meta.env.VITE_CLIENT_ID;

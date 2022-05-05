@@ -6,7 +6,7 @@ import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const RegisterForAdmin = ({ modalExterno }) => {
   console.log('modalExterno', modalExterno);

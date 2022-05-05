@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../ContactUs/ContactUs.module.css';
 import Logo from '../../Images/fondo.png';
 import ReCAPTCHA from 'react-google-recaptcha';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);

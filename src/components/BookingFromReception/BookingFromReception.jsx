@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './BookingFromReception.module.css';
 import countries from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 export function validate(input, toBack) {
   /////// VALIDACiONES /////////////////////////////////

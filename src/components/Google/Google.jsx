@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styles from '../Google/Google.module.css';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 const clientId = 'Your-Client-Id';
 
