@@ -146,12 +146,7 @@ const ContactUs = () => {
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
           // console.log('valores>>>', valores);
-          swal.fire({
-            title: 'success',
-            text: 'Created Successfull',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Created Successfull');
           resetForm();
           // console.log('INFO', valores);
           cambiarFormularioEnviado(true);

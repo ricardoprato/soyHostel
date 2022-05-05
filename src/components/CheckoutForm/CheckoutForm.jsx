@@ -110,12 +110,7 @@ export default function CheckoutForm({ setPay }) {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (!data.error) {
-      swal.fire({
-        title: 'success',
-        text: 'Payment Successfull',
-        icon: 'success',
-        confirmButtonText: 'Ok',
-      });
+      swal('Payment Successfull');
 
       setCart([]);
       return navigate('/');

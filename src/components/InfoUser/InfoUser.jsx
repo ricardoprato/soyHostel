@@ -163,12 +163,7 @@ const InfoUser = () => {
               // resetForm();
               'INFO', valores;
               cambiarFormularioEnviado(true);
-              swal.fire({
-                title: 'success',
-                text: 'Form completed successfully',
-                icon: 'success',
-                confirmButtonText: 'Ok',
-              });
+              swal('Form completed successfully');
             }}
           >
             {({ errors }) => (

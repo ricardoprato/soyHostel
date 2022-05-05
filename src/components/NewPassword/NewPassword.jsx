@@ -78,12 +78,7 @@ const NewPassword = (props) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores.password2);
-          swal.fire({
-            title: 'success',
-            text: 'Changed succesfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Changed succesfully');
 
           resetForm();
           // navigate('/', { replace: true }),
