@@ -73,7 +73,7 @@ export default function Cart() {
   const handleEmprtyCart = () => {
     setCart([]);
     getFilteredBeds(filterDates.checkIn, filterDates.checkOut);
-  }
+  };
 
   // console.log('CARRITO????', cart);
   return (
@@ -116,7 +116,8 @@ export default function Cart() {
               </button>
               <button
                 className={`${styles.button} ${styles.empty}`}
-                onClick={() => handleEmprtyCart()}>
+                onClick={() => handleEmprtyCart()}
+              >
                 <i className="bi bi-bag"></i> Empty cart
               </button>
               {/* AUN NO ESTA LA FUNCIONALIDAD DE PAGO */}
