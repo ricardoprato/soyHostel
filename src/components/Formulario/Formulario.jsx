@@ -4,6 +4,7 @@ import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
 import swal from 'sweetalert';
+import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -49,6 +50,8 @@ const validate = (input) => {
 };
 
 function Formulario({ props, modalExterno }) {
+  const { getReservations, filterDates, setFilterdates } =
+    useContext(GlobalContext);
   const [error, setError] = useState({});
   const [bookingState, setBookingState] = useState({
     id_reserva: props.id,
@@ -113,6 +116,8 @@ function Formulario({ props, modalExterno }) {
     // setBookingState(bookingInitialState);
   };
   const handleDeleteReservation = (e) => {
+    console.log('eh wachin te borre');
+    console.log(props.id);
     const token = localStorage.getItem('tokenProp');
     fetch(`${import.meta.env.VITE_APP_URL}/reservas/${props.id}`, {
       method: 'DELETE',
@@ -136,6 +141,7 @@ function Formulario({ props, modalExterno }) {
           console.log(response.headers);
         }
       });
+    getReservations(filterDates.checkIn, filterDates.checkOut);
   };
 
   return (

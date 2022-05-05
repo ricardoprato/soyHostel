@@ -1,11 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import styles from '../AboutUs/AboutUs.module.css';
-import aboutus from '../../Images/aboutus.jpg';
+import aboutus from '../../Images/slashes2.png';
 
 const AboutUs = () => {
   const divImage = useRef();
   useEffect(() => {
     divImage.current.style.backgroundImage = `url(${aboutus})`;
+    divImage.current.style.backgroundPosition = scrollY * 0.5 + 'px';
   }, [divImage]);
 
   return (
