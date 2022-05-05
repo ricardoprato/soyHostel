@@ -13,7 +13,7 @@ const stripePromise = loadStripe(
   'pk_test_51KspgPGBaeIIP5yaLo9bmqTFkfFUljdASOfg04AYy3P9TKa2TGm4g5XcMGnjwfwZv1fJev9a9uEXPcfBUmF959GC00hIwLgLEi'
 );
 
-const Stripe = ({ setPay }) => {
+const Stripe = ({ setPay, setLocalModal }) => {
   const { cart } = useContext(GlobalContext);
   const [clientSecret, setClientSecret] = useState('');
   const { dataPayment, setDataPayment } = useContext(GlobalContext);
@@ -57,7 +57,7 @@ const Stripe = ({ setPay }) => {
       {token ? (
         clientSecret ? (
           <Elements stripe={stripePromise} options={options}>
-            <CheckoutForm setPay={handleClick} />
+            <CheckoutForm setPay={handleClick} setLocalModal={setLocalModal} />
           </Elements>
         ) : (
           <Loader />

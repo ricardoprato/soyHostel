@@ -3,7 +3,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
 import styles from './Cart.module.css';
 import Stripe from '../../components/Stripe/Stripe';
-export default function Cart() {
+export default function Cart({ setLocalModal }) {
   const [pay, setPay] = useState(false);
   const {
     cart,
@@ -79,7 +79,7 @@ export default function Cart() {
   return (
     <>
       {pay ? (
-        <Stripe setPay={setPay} />
+        <Stripe setPay={setPay} setLocalModal={setLocalModal} />
       ) : (
         <div className={styles.cartContainer}>
           {cart?.length ? (

@@ -1,13 +1,8 @@
 .container {
-  margin-left: 5%;
-  margin-right: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* row-gap: 2rem; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
   padding: 2rem;
-  width: 35%;
-
   color: var(--dark-color);
 }
 .calendar {
@@ -22,7 +17,7 @@
 .input {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 100%;
   font-size: larger;
   font-weight: bold;
 }
