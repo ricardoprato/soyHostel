@@ -38,7 +38,7 @@ const PopupChangePw = ({ handleClick, titleToChangePw }) => {
           )
         ) {
           errores.email =
-            'Email can only contain letters, numbers, points, script and underscores';
+            'The entered value must be in the format name@example.com';
         }
 
         return errores;

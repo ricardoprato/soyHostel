@@ -133,12 +133,12 @@ const ContactUs = () => {
             )
           ) {
             errores.email =
-              'Email can only contain letters, numbers, points, script and underscores';
+              'The entered value must be in the format name@example.com';
           }
 
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
-            errores.textarea = 'Please enter a textarea';
+            errores.textarea = 'Please enter a message';
           }
 
           return errores;

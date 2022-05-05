@@ -40,8 +40,7 @@ export function validate(input, toBack) {
   } else if (
     !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)
   ) {
-    errores.email =
-      'Email can only contain letters, numbers, points, script and underscores';
+    errores.email = 'The entered value must be in the format name@example.com';
   }
 
   // Validacion documento tipo
