@@ -158,8 +158,8 @@ export default function Calendar() {
   };
 
   useEffect(() => {
-    getInitialState();
     loadCalendar();
+    return getInitialState();
   }, [reservations]);
 
   return (
