@@ -124,7 +124,7 @@ const InfoUser = () => {
                 )
               ) {
                 errores.email =
-                  'Email can only contain letters, numbers, points, script and underscores';
+                  'The entered value must be in the format name@example.com';
               }
 
               // Validacion birthdate
@@ -163,12 +163,7 @@ const InfoUser = () => {
               // resetForm();
               'INFO', valores;
               cambiarFormularioEnviado(true);
-              swal.fire({
-                title: 'success',
-                text: 'Form completed successfully',
-                icon: 'success',
-                confirmButtonText: 'Ok',
-              });
+              swal('Form completed successfully');
             }}
           >
             {({ errors }) => (

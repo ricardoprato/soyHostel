@@ -9,7 +9,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import swal from 'sweetalert';
 
 const RegisterForAdmin = ({ modalExterno }) => {
-  console.log('modalExterno', modalExterno);
+  // console.log('modalExterno', modalExterno);
   let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
@@ -116,7 +116,7 @@ const RegisterForAdmin = ({ modalExterno }) => {
             )
           ) {
             errores.email =
-              'Email can only contain letters, numbers, points, script and underscores';
+              'The entered value must be in the format name@example.com';
           }
 
           // Validacion password
@@ -184,13 +184,7 @@ const RegisterForAdmin = ({ modalExterno }) => {
           await sendData(valores);
           resetForm();
           cambiarFormularioEnviado(true);
-          swal.fire({
-            title: 'success',
-            text: 'Register successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
-
+          swal('Register successfully');
           modalExterno((prev) => !prev);
           setTimeout(
             () => cambiarFormularioEnviado(false),

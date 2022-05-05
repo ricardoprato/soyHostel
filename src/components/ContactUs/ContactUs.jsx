@@ -34,7 +34,7 @@ const ContactUs = () => {
 
   const handleChange = () => {
     setCaptchaVerify(true);
-    console.log('CAPTCHA VERIFY', captchaVerify);
+    // console.log('CAPTCHA VERIFY', captchaVerify);
   };
 
   return (
@@ -133,12 +133,12 @@ const ContactUs = () => {
             )
           ) {
             errores.email =
-              'Email can only contain letters, numbers, points, script and underscores';
+              'The entered value must be in the format name@example.com';
           }
 
           // Validacion textarea
           if (!valores.textarea || !valores.textarea.trim()) {
-            errores.textarea = 'Please enter a textarea';
+            errores.textarea = 'Please enter a message';
           }
 
           return errores;
@@ -146,12 +146,7 @@ const ContactUs = () => {
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
           // console.log('valores>>>', valores);
-          swal.fire({
-            title: 'success',
-            text: 'Created Successfull',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Created Successfull');
           resetForm();
           // console.log('INFO', valores);
           cambiarFormularioEnviado(true);

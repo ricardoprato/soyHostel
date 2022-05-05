@@ -4,6 +4,7 @@ import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
 import swal from 'sweetalert';
+import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -49,6 +50,8 @@ const validate = (input) => {
 };
 
 function Formulario({ props, modalExterno }) {
+  const { getReservations, filterDates, setFilterdates } =
+    useContext(GlobalContext);
   const [error, setError] = useState({});
   const [bookingState, setBookingState] = useState({
     id_reserva: props.id,
@@ -126,14 +129,7 @@ function Formulario({ props, modalExterno }) {
     })
       .then((response) => response.json())
       .then((data) => {
-
-        swal.fire({
-          title: 'info',
-          text: 'Booking deleted!',
-          icon: 'info',
-          confirmButtonText: 'Ok',
-        });
-
+        swal('Booking deleted!');
 
         modalExterno(false);
       })
@@ -145,6 +141,7 @@ function Formulario({ props, modalExterno }) {
           console.log(response.headers);
         }
       });
+    getReservations(filterDates.checkIn, filterDates.checkOut);
   };
 
   return (

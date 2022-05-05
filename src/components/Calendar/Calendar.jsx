@@ -14,6 +14,8 @@ export default function Calendar() {
     reservations,
     setReservations,
     getReservations,
+    filterDates,
+    setFilterdates,
   } = useContext(GlobalContext);
 
   const today = new Date();
@@ -146,6 +148,7 @@ export default function Calendar() {
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
     setLocaldate({ start: from, end: to });
+    setFilterdates({ checkIn: from, checkOut: to });
 
     if (from !== '' && to !== '') {
       if (Date.parse(from) <= Date.parse(to)) {
@@ -155,8 +158,8 @@ export default function Calendar() {
   };
 
   useEffect(() => {
-    getInitialState();
-    return loadCalendar();
+    loadCalendar();
+    return getInitialState();
   }, [reservations]);
 
   return (

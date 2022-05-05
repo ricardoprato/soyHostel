@@ -40,8 +40,7 @@ export function validate(input, toBack) {
   } else if (
     !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)
   ) {
-    errores.email =
-      'Email can only contain letters, numbers, points, script and underscores';
+    errores.email = 'The entered value must be in the format name@example.com';
   }
 
   // Validacion documento tipo
@@ -299,12 +298,7 @@ const Booking = () => {
     // manda al back la data completa de la reserva  y resetea al estado inicial los inputs y el carrito ///////////
     e.preventDefault();
     if (toBack.camas?.length === 0 && toBack.habitaciones?.length === 0) {
-      swal.fire({
-        title: 'info',
-        text: 'Please finish adding selected bed or room',
-        icon: 'info',
-        confirmButtonText: 'Ok',
-      });
+      swal('Please finish adding selected bed or room');
     } else {
       let paraConsologuear = {
         camas: [...toBack.camas],
