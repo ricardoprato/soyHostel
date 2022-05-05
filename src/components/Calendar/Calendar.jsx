@@ -130,14 +130,6 @@ export default function Calendar() {
     }
   };
 
-  useEffect(() => {
-    getAllRooms();
-  }, []);
-
-  useLayoutEffect(() => {
-    getInitialState();
-  }, [allRooms]);
-
   const [data, setData] = useState({});
   const taskClick = (e) => {
     setData(e.dataSet);
@@ -156,10 +148,17 @@ export default function Calendar() {
       }
     }
   };
+  useLayoutEffect(() => {
+    getAllRooms();
+    allRooms.length && getInitialState();
+  }, []);
+
+  // useLayoutEffect(() => {
+  //   getInitialState();
+  // }, [allRooms]);
 
   useEffect(() => {
     loadCalendar();
-    return getInitialState();
   }, [reservations]);
 
   return (
