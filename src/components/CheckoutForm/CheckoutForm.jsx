@@ -4,7 +4,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { useNavigate } from 'react-router-dom';
+
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import styles from './CheckoutForm.module.css';
 import swal from 'sweetalert';
@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 export default function CheckoutForm({ setPay }) {
   const stripe = useStripe();
   const elements = useElements();
-  let navigate = useNavigate();
+
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [button, setButton] = useState(false);
@@ -21,27 +21,6 @@ export default function CheckoutForm({ setPay }) {
   const handleFocus = (e) => {
     setButton(true);
   };
-
-  // useEffect(() => {
-  //   if (!stripe) {
-  //     return;
-  //   }
-
-  //   const clientSecret = new URLSearchParams(window.location.search).get(
-  //     'payment_intent_client_secret'
-  //   );
-
-  //   if (!clientSecret) {
-  //     return;
-  //   }
-
-  //   stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-  //     setTimeout(() => {
-  //       console.log('status????', paymentIntent);
-  //     }, 4000);
-  //     paymentIntent.receipt_email = 'luciano.leyria96@gmail.com';
-  //   });
-  // }, [stripe]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -110,11 +89,11 @@ export default function CheckoutForm({ setPay }) {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (!data.error) {
-      swal('Payment Successfull');
-
       setCart([]);
-      return navigate('/');
+
+      swal('Payment Successfull');
     }
+
     if (
       data.error.type === 'card_error' ||
       data.error.type === 'validation_error'
