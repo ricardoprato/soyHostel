@@ -126,14 +126,7 @@ function Formulario({ props, modalExterno }) {
     })
       .then((response) => response.json())
       .then((data) => {
-
-        swal.fire({
-          title: 'info',
-          text: 'Booking deleted!',
-          icon: 'info',
-          confirmButtonText: 'Ok',
-        });
-
+        swal('Booking deleted!');
 
         modalExterno(false);
       })

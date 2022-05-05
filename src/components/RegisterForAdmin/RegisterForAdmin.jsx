@@ -184,12 +184,7 @@ const RegisterForAdmin = ({ modalExterno }) => {
           await sendData(valores);
           resetForm();
           cambiarFormularioEnviado(true);
-          swal.fire({
-            title: 'success',
-            text: 'Register successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Register successfully');
 
           modalExterno((prev) => !prev);
           setTimeout(

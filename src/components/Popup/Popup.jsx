@@ -26,12 +26,7 @@ const Popup = ({ setModal, setDataProfile }) => {
 
     if (res2.existe) {
       setModal(false);
-      swal.fire({
-        title: 'info',
-        text: 'An user already exists with this mail address ',
-        icon: 'info',
-        confirmButtonText: 'Ok',
-      });
+      swal('An user already exists with this mail address ');
 
       // console.log('FUNCION', useGoogleLogout);
       googleFn.signOut();

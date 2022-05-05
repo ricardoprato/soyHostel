@@ -156,7 +156,7 @@ export default function Calendar() {
 
   useEffect(() => {
     getInitialState();
-    return loadCalendar();
+    loadCalendar();
   }, [reservations]);
 
   return (
