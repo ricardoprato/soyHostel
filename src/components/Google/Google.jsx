@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import styles from '../Google/Google.module.css';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const clientId = 'Your-Client-Id';
 
@@ -37,12 +37,7 @@ function Google() {
   };
 
   const onSignoutSuccess = () => {
-    swal.fire({
-      title: 'info',
-      text: 'You have been logged out successfully',
-      icon: 'info',
-      confirmButtonText: 'Ok',
-    });
+    swal('You have been logged out successfully');
 
     console.clear();
     setShowloginButton(true);

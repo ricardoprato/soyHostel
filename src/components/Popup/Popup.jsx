@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../Popup/Popup.module.css';
 import { GoogleLogin, useGoogleLogout } from 'react-google-login';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const Popup = ({ setModal, setDataProfile }) => {
   const clientId = import.meta.env.VITE_CLIENT_ID;
@@ -26,12 +26,7 @@ const Popup = ({ setModal, setDataProfile }) => {
 
     if (res2.existe) {
       setModal(false);
-      swal.fire({
-        title: 'info',
-        text: 'An user already exists with this mail address ',
-        icon: 'info',
-        confirmButtonText: 'Ok',
-      });
+      swal('An user already exists with this mail address ');
 
       // console.log('FUNCION', useGoogleLogout);
       googleFn.signOut();

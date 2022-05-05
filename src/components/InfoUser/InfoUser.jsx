@@ -8,7 +8,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 import Loader from '../Loader/Loader';
 
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const InfoUser = () => {
   const [userDetails, setUserDetails] = useState({});
@@ -163,12 +163,7 @@ const InfoUser = () => {
               // resetForm();
               'INFO', valores;
               cambiarFormularioEnviado(true);
-              swal.fire({
-                title: 'success',
-                text: 'Form completed successfully',
-                icon: 'success',
-                confirmButtonText: 'Ok',
-              });
+              swal('Form completed successfully');
             }}
           >
             {({ errors }) => (

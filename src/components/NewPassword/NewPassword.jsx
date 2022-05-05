@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../NewPassword/NewPassword.module.css';
 import Logo from '../../Images/fondo.png';
 import { useLocation } from 'react-router-dom';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 import { useNavigate } from 'react-router';
 
 const NewPassword = (props) => {
@@ -78,12 +78,7 @@ const NewPassword = (props) => {
         }}
         onSubmit={(valores, { resetForm }) => {
           sendData(valores.password2);
-          swal.fire({
-            title: 'success',
-            text: 'Changed succesfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Changed succesfully');
 
           resetForm();
           // navigate('/', { replace: true }),

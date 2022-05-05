@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import styles from '../ContactUs/ContactUs.module.css';
 import Logo from '../../Images/fondo.png';
 import ReCAPTCHA from 'react-google-recaptcha';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const ContactUs = () => {
   const [formularioEnviado, cambiarFormularioEnviado] = useState(false);
@@ -146,12 +146,7 @@ const ContactUs = () => {
         onSubmit={(valores, { resetForm }) => {
           sendData(valores);
           // console.log('valores>>>', valores);
-          swal.fire({
-            title: 'success',
-            text: 'Created Successfull',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Created Successfull');
           resetForm();
           // console.log('INFO', valores);
           cambiarFormularioEnviado(true);

@@ -6,7 +6,7 @@ import Logo from '../../Images/fondo.png';
 import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const RegisterForAdmin = ({ modalExterno }) => {
   console.log('modalExterno', modalExterno);
@@ -184,12 +184,7 @@ const RegisterForAdmin = ({ modalExterno }) => {
           await sendData(valores);
           resetForm();
           cambiarFormularioEnviado(true);
-          swal.fire({
-            title: 'success',
-            text: 'Register successfully',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-          });
+          swal('Register successfully');
 
           modalExterno((prev) => !prev);
           setTimeout(

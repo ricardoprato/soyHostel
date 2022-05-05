@@ -3,7 +3,7 @@ import Button from '../../components/Button/Button';
 import styles from './Formulario.module.css';
 import countries from '../../data/countries.json';
 import ConfirmDelete from './ConfirmDelete';
-import swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 const validate = (input) => {
   /////// VALIDACiONES /////////////////////////////////
@@ -126,12 +126,7 @@ function Formulario({ props, modalExterno }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        swal.fire({
-          title: 'info',
-          text: 'Booking deleted!',
-          icon: 'info',
-          confirmButtonText: 'Ok',
-        });
+        swal('Booking deleted!');
 
         modalExterno(false);
       })
