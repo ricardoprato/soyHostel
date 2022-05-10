@@ -48,6 +48,11 @@
   border-radius: 15px;
   z-index: 3;
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .parallax {
   position: absolute;
   background-attachment: fixed;

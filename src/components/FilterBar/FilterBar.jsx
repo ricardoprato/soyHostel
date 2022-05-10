@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react';
-import { useContext, useState, useRef } from 'react';
+import React from 'react';
+import { useContext, useState } from 'react';
 import styles from './FilterBar.module.css';
 import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
-// ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
 import AlertModal from './AlertModal';
 import { Modal } from '../Modal/Modal';
 
 const FilterBar = () => {
   const {
-    // filterDates,
     setFilterdates,
-    // filteredAvailableBeds,
-    // setFilteredAvailableBeds,
     getFilteredBeds,
     allRooms,
     setAllRooms,
     filteredRooms,
     setFileteredRooms,
-    filteredAvailableBeds,
     dataForCards,
-    setDataForCards,
     dataForCardsCopy,
-    setDataForCardsCopy,
     cart,
   } = useContext(GlobalContext);
 
@@ -33,7 +26,6 @@ const FilterBar = () => {
     checkIn: today.toLocaleDateString('en-CA'),
     checkOut: tomorrow.toLocaleDateString('en-CA'),
   });
-  // ACA ESTUVE MANOSEANDO TU BEBE //////////////////////////////////////////////////////////
   const [localModal, setLocalModal] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -165,8 +157,6 @@ const FilterBar = () => {
     } else {
       let checkBathroomBox = document.getElementById('privateBathrooms');
       let selected = document.getElementById('roomTypes');
-      // let price = document.getElementById('price');
-
       if (selected.value === 'All') {
         if (checkBathroomBox.checked == true) {
           setFileteredRooms(
@@ -250,14 +240,7 @@ const FilterBar = () => {
           <option value="Shared">Shared</option>
         </select>
       </label>
-
-      <button
-        className={styles.button}
-        onClick={handleClick}
-        // disabled={
-        //   Date.parse(localDate.checkIn) >= Date.parse(localDate.checkOut)
-        // }
-      >
+      <button className={styles.button} onClick={handleClick}>
         View available
       </button>
     </div>

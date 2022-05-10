@@ -5,16 +5,14 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext.jsx';
 import { Modal } from '../Modal/Modal';
 import { Formulario } from '../Formulario/Formulario';
 import styles from './Calendar.module.css';
-
+import Loader from '../../components/Loader/LoaderDark';
 export default function Calendar() {
   const [localModal, setLocalModal] = useState(false);
   const {
     allRooms,
     getAllRooms,
     reservations,
-    setReservations,
     getReservations,
-    filterDates,
     setFilterdates,
   } = useContext(GlobalContext);
 
@@ -136,7 +134,7 @@ export default function Calendar() {
     setLocalModal((prevState) => !prevState);
   };
 
-  const showReservations = (event) => {
+  const showReservations = () => {
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
     setLocaldate({ start: from, end: to });
@@ -175,9 +173,7 @@ export default function Calendar() {
             <input
               type="date"
               name="checkIn"
-              // onChange={handleFilters}
               className={styles.data}
-              // defaultValue={start.toLocaleDateString('en-CA')}
               id="from"
             />
           </label>
@@ -186,13 +182,10 @@ export default function Calendar() {
             <input
               type="date"
               name="checkOut"
-              // onChange={handleFilters}
               className={styles.data}
-              // defaultValue={end.toLocaleDateString('en-CA')}
               id="to"
             />
           </label>
-
           <button
             className={styles.butoncito}
             onClick={showReservations}
@@ -203,7 +196,7 @@ export default function Calendar() {
         </div>
       </div>
       {!calendarState.length && !allRooms.length ? (
-        <p>...cargando</p>
+        <Loader />
       ) : (
         calendarState.length && (
           <Gantt

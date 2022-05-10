@@ -16,7 +16,8 @@ const stripePromise = loadStripe(
 const Stripe = ({ setPay, setLocalModal }) => {
   const { cart } = useContext(GlobalContext);
   const [clientSecret, setClientSecret] = useState('');
-  const { dataPayment, setDataPayment } = useContext(GlobalContext);
+  const { dataPayment, setDataPayment, getAllRooms } =
+    useContext(GlobalContext);
   let token = window.localStorage.getItem('tokenProp');
 
   let url = import.meta.env.VITE_APP_URL;

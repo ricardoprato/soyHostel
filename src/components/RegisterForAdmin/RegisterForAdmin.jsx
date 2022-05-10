@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import styles from './RegisterForAdmin.module.css';
-import Logo from '../../Images/fondo.png';
-import Popup from '../Popup/Popup';
 import data from '../../data/countries.json';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import swal from 'sweetalert';
 
 const RegisterForAdmin = ({ modalExterno }) => {
-  // console.log('modalExterno', modalExterno);
-  let error;
   let url = import.meta.env.VITE_APP_URL;
   let api = import.meta.env.VITE_API;
   let token = localStorage.getItem('tokenProp');
@@ -44,7 +40,7 @@ const RegisterForAdmin = ({ modalExterno }) => {
 
   const [typePw, setTypePw] = useState('password');
 
-  const revealPassword = (e) => {
+  const revealPassword = () => {
     if (typePw === 'password') {
       setTypePw('text');
     } else {
@@ -195,8 +191,8 @@ const RegisterForAdmin = ({ modalExterno }) => {
       >
         {({ errors }) => (
           <Form className={styles.formulario}>
+            <h2>Register new Admin/Receptionist</h2>
             <div>
-              <h1>Register new Admin/Receptionist</h1>
               <label htmlFor="name">First Name</label>
               <Field
                 className={styles.input}
@@ -298,8 +294,8 @@ const RegisterForAdmin = ({ modalExterno }) => {
                 )}
               />
             </div>
-            <div className={styles.eye}>
-              <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password</label>
+            <div className={styles.containerInput}>
               <Field
                 className={styles.input}
                 type={typePw}
@@ -315,13 +311,13 @@ const RegisterForAdmin = ({ modalExterno }) => {
               >
                 <i className="bi bi-eye-fill"></i>
               </button>
-              <ErrorMessage
-                name="password"
-                component={() => (
-                  <div className={styles.error}>{errors.password}</div>
-                )}
-              />
             </div>
+            <ErrorMessage
+              name="password"
+              component={() => (
+                <div className={styles.error}>{errors.password}</div>
+              )}
+            />
             <div>
               <label htmlFor="nationality">Nationality</label>
               <Field className={styles.input} name="nationality" as="select">

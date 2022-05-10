@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import Room from './Room';
 import styles from '../RoomsAdmin/ListRooms.module.css';
+import Loader from '../Loader/LoaderDark';
 
 export default function ListRooms() {
   const { allRooms, getAllRooms, reservations, getReservations } =
@@ -26,8 +27,12 @@ export default function ListRooms() {
   // allRooms?.length && console.log(allRooms)
   return (
     <div className={styles.container}>
-      <h3>List of Room:</h3>
-      {allRooms?.length && allRooms.map((r) => <Room key={r.id} props={r} />)}
+      <h2>List of Room:</h2>
+      {allRooms?.length ? (
+        allRooms.map((r) => <Room key={r.id} props={r} />)
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }
