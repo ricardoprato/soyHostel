@@ -9,11 +9,11 @@ export default function Room({ props }) {
   const [localModal, setLocalModal] = useState(false);
   const [localModal2, setLocalModal2] = useState(false);
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     setLocalModal((prevState) => !prevState);
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = () => {
     setLocalModal2((prevState) => !prevState);
   };
 

@@ -31,8 +31,8 @@ const ReceptionNavBar = ({ children }) => {
     if (scrollTop === 0) {
       setActive(false);
     } else if (scrollTop > lastScrollTop.current) {
-      header.current.style.top = '-100%';
       setActive(true);
+      header.current.style.top = '-100%';
     } else {
       header.current.style.top = '0';
     }
@@ -81,14 +81,12 @@ const ReceptionNavBar = ({ children }) => {
                 className={styles.nav_link}
                 onClick={() => setLocalModalCreateRoom((prev) => !prev)}
               >
-                <i className="bi bi-envelope"></i>
                 Create Room
               </button>
               <button
                 className={styles.nav_link}
                 onClick={() => setLocalModalDeleteEditRoom((prev) => !prev)}
               >
-                <i className="bi bi-info-circle"></i>
                 Delete/Edit Room
               </button>
               <button
@@ -97,7 +95,6 @@ const ReceptionNavBar = ({ children }) => {
                   setLocalModalCreateAdminReceptionist((prev) => !prev)
                 }
               >
-                <i className="bi bi-envelope"></i>
                 Create Admin/Receptionist
               </button>
             </>
@@ -106,7 +103,6 @@ const ReceptionNavBar = ({ children }) => {
             className={styles.nav_link}
             onClick={() => setLocalModalCreateBooking(!localModalCreateBooking)}
           >
-            <i className="bi bi-compass"></i>
             Create booking
           </button>
 

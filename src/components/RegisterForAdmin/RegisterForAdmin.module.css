@@ -10,7 +10,6 @@ select {
   margin-bottom: 1rem;
 }
 .formulario {
-
   min-width: 360px;
   width: 100%;
   max-width: 720px;
@@ -24,7 +23,6 @@ select {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   overflow-y: auto;
   overflow-x: hidden;
-
 }
 
 .formulario label {
@@ -42,7 +40,6 @@ select {
   border: 2px solid #e2e2e2;
   font-size: 18px;
   padding: 10px;
-  margin-bottom: 5px;
   color: #1f1f1f;
 }
 
@@ -110,17 +107,16 @@ select {
 }
 
 .buttoneye {
+  appearance: none;
+  border: none;
+  background-color: transparent;
   font-size: 20px;
-
-  margin-left: 15px;
-
-  position: relative;
-
+  position: absolute;
   color: var(--dark-color);
   cursor: pointer;
-  right: 2%;
   top: 50%;
   transform: translateY(-50%);
+  right: 2%;
 }
 .buttoneye:hover {
   color: black;

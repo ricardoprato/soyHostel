@@ -81,3 +81,8 @@
     width: 100%;
   }
 }
+@media (max-width: 360px) {
+  .footer_link {
+    font-size: 0.8rem;
+  }
+}

@@ -352,11 +352,9 @@ const Booking = () => {
   return (
     <div className={styles.allcss}>
       <div className={styles.formulario}>
-        <h1>Booking</h1>
+        <h2>Booking</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-            {' '}
-            {/* First Name */}
             <label>First Name: </label>
             <input
               type="text"
@@ -364,13 +362,12 @@ const Booking = () => {
               name="name"
               onChange={(e) => handleChange(e)}
               placeholder="first name..."
+              className={styles.input}
             />
             {error.name && <p className={styles.error}>{error.name}</p>}
           </div>
 
           <div>
-            {' '}
-            {/* Last Name */}
             <label>Last Name: </label>
             <input
               type="text"
@@ -378,16 +375,18 @@ const Booking = () => {
               name="lastName"
               onChange={(e) => handleChange(e)}
               placeholder="last name..."
+              className={styles.input}
             />
             {error.lastName && <p className={styles.error}>{error.lastName}</p>}
           </div>
-
           <div>
-            {' '}
-            {/* Gender */}
             <label>Gender: </label>
-            <select name="gender" onChange={(e) => handleChange(e)}>
-              <option value="">...Select</option>
+            <select
+              name="gender"
+              onChange={(e) => handleChange(e)}
+              className={styles.input}
+            >
+              <option value="">select</option>
               <option value="Male">male</option>
               <option value="Female">female</option>
               <option value="Other">other</option>
@@ -396,10 +395,12 @@ const Booking = () => {
           </div>
 
           <div>
-            {' '}
-            {/* Document type */}
             <label>Document type: </label>
-            <select name="docType" onChange={(e) => handleChange(e)}>
+            <select
+              name="docType"
+              onChange={(e) => handleChange(e)}
+              className={styles.input}
+            >
               <option value="docType">Elegir opción</option>
               <option value="DNI">DNI</option>
               <option value="Passport">Passport</option>
@@ -407,10 +408,7 @@ const Booking = () => {
             </select>
             {error.docType && <p className={styles.error}>{error.docType}</p>}
           </div>
-
           <div>
-            {' '}
-            {/* document number */}
             <label>Document Number: </label>
             <input
               type="text"
@@ -418,6 +416,7 @@ const Booking = () => {
               name="docNumber"
               onChange={(e) => handleChange(e)}
               placeholder="document number..."
+              className={styles.input}
             />
             {error.docNumber && (
               <p className={styles.error}>{error.docNumber}</p>
@@ -425,14 +424,13 @@ const Booking = () => {
           </div>
 
           <div>
-            {' '}
-            {/* Birth date */}
             <label htmlFor="birthDate">Birth date</label>
             <input
               type="date"
               id="birthDate"
               name="birthDate"
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
             {error.birthDate && (
               <p className={styles.error}>{error.birthDate}</p>
@@ -440,8 +438,6 @@ const Booking = () => {
           </div>
 
           <div>
-            {' '}
-            {/* Email */}
             <label htmlFor="email">Email </label>
             <input
               type="text"
@@ -449,20 +445,20 @@ const Booking = () => {
               name="email"
               onChange={(e) => handleChange(e)}
               placeholder="email@mail.com..."
+              className={styles.input}
             />
             {error.email && <p className={styles.error}>{error.email}</p>}
           </div>
 
           <div>
-            {' '}
-            {/* Nationality */}
             <label htmlFor="nationality">Nationality</label>
             <select
               name="nationality"
               as="select"
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             >
-              <option value="">...select country</option>
+              <option value="">select country...</option>
               {countries?.countries &&
                 countries?.countries.map((c) => (
                   <option key={c} value={c} id={c}>
@@ -476,14 +472,13 @@ const Booking = () => {
           </div>
 
           <div>
-            {' '}
-            {/* Check-In / Out ---> al ingresar las 2 fechas deberia buscar disponibilidad entre esas fechas y luego al seleccionar habitacion y cama solo dar las opciones que estan disponibles*/}
             <label htmlFor="checkIn">Check-In</label>
             <input
               type="date"
               id="checkIn"
               name="checkIn"
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
             {error.checkIn && <p className={styles.error}>{error.checkIn}</p>}
             <label htmlFor="checkOut">Check-Out</label>
@@ -492,52 +487,72 @@ const Booking = () => {
               id="checkOut"
               name="checkOut"
               onChange={(e) => handleChange(e)}
+              className={styles.input}
             />
             {error.checkOut && <p className={styles.error}>{error.checkOut}</p>}
-            <button onClick={(e) => handleClick(e)}>get available</button>
+            <button
+              className={styles.butoncito}
+              onClick={(e) => handleClick(e)}
+            >
+              Get available
+            </button>
           </div>
 
           <div>
-            {' '}
-            {/* Select Room: */}
-            <label htmlFor="roomIds">Room Name</label>
-            <select name="roomIds" onChange={(e) => handleRoomSelect(e)}>
-              <option value="noRoom">...Select</option>
-              {dataForCards?.length &&
-                dataForCards?.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.nombre}
-                  </option>
-                ))}
-            </select>
-            {error.roomIds && <p className={styles.error}>{error.roomIds}</p>}
-          </div>
-          {input?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
-            <div>
-              {' '}
-              {/* Select bed */}
-              <label htmlFor="bedQuantity">Bed </label>
-              <select name="bedQuantity" onChange={(e) => handleChange(e)}>
-                <option value="bedQuantity">Select bed</option>
-                {input?.totalBeds?.length &&
-                  input?.totalBeds.map((r) => (
-                    <option key={r} value={r}>
-                      {r}
-                    </option>
-                  ))}
-              </select>
-              {error.bedQuantity && (
-                <p className={styles.error}>{error.bedQuantity}</p>
-              )}
-            </div>
-          ) : null}
+            {dataForCards?.length ? (
+              <>
+                <label htmlFor="roomIds">Room Name</label>
+                <select
+                  name="roomIds"
+                  onChange={(e) => handleRoomSelect(e)}
+                  className={styles.input}
+                >
+                  <option value="noRoom">select</option>
+                  {dataForCards?.length &&
+                    dataForCards?.map((r) => (
+                      <option key={r.id} value={r.id}>
+                        {r.nombre}
+                      </option>
+                    ))}
+                </select>
+                {error.roomIds && (
+                  <p className={styles.error}>{error.roomIds}</p>
+                )}
+                {input?.private === false ? ( // si la habitacion elegida es compartida mostrar este input y con la cantidad de camas correcta
+                  <div>
+                    <label htmlFor="bedQuantity">Bed </label>
+                    <select
+                      name="bedQuantity"
+                      onChange={(e) => handleChange(e)}
+                    >
+                      <option value="bedQuantity">Select bed</option>
+                      {input?.totalBeds?.length &&
+                        input?.totalBeds.map((r) => (
+                          <option key={r} value={r}>
+                            {r}
+                          </option>
+                        ))}
+                    </select>
+                    {error.bedQuantity && (
+                      <p className={styles.error}>{error.bedQuantity}</p>
+                    )}
+                  </div>
+                ) : null}
 
-          <button onClick={(e) => handleAddBed(e)}>add to booking</button>
-          <h2>
+                <button
+                  className={styles.butoncito}
+                  onClick={(e) => handleAddBed(e)}
+                >
+                  Add to booking
+                </button>
+              </>
+            ) : null}
+          </div>
+          <p>
             Booking: {toBack?.camas?.length} beds and{' '}
             {toBack?.habitaciones?.length} private rooms
-          </h2>
-          <h2>Total to pay: $ {toBack?.saldo}</h2>
+          </p>
+          <p>Total to pay: $ {toBack?.saldo}</p>
           {(!toBack?.camas?.length && !toBack?.habitaciones?.length) ||
           !input.name ||
           error.name ||

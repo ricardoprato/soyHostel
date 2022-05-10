@@ -76,7 +76,7 @@ export function validate(input, image) {
 
 /////////////       SOLO FALTA CORREGIR BUG INPUT IMAGENES
 
-export default function CreateRoom(props) {
+export default function CreateRoom() {
   // if(props?.id){
   //   aqui deberia precargar los imputs con la info de una habitacion ya existente para editarla
   //   y al mismo tiempo crear un flag de que en lugar del post habitacion se genere un patch(update) de la habitacion
@@ -187,174 +187,171 @@ export default function CreateRoom(props) {
   };
 
   return (
-    <div className={styles.allcss}>
-      <div className={styles.formulario}>
-        <h1>Create New Room</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
+    <div className={styles.formulario}>
+      <h2>Create New Room</h2>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <div>
+          <label>Room name: </label>
+          <input
+            type={'text'}
+            name={'nombre'}
+            onChange={(e) => handleChange(e)}
+            placeholder="first name..."
+            className={styles.input}
+          />
+          {error.nombre && <p className={styles.error}>{error.nombre}</p>}
+        </div>
+        <div>
+          <label>Room type: </label>
+          <select
+            name="privada"
+            onChange={(e) => handlePrivateRoom(e)}
+            className={styles.input}
+          >
+            <option value="null">Select...</option>
+            <option value="false">Shared</option>
+            <option value="true">Private</option>
+          </select>
+          {error.privada && <p className={styles.error}>{error.privada}</p>}
+        </div>
+        <div>
+          <label>Private bathroom: </label>
+          <select
+            name="banoPrivado"
+            onChange={(e) => handlePrivateBathroom(e)}
+            className={styles.input}
+          >
+            <option value="null">Select...</option>
+            <option value="false">Shared</option>
+            <option value="true">Private</option>
+          </select>
+          {error.banoPrivado && (
+            <p className={styles.error}>{error.banoPrivado}</p>
+          )}
+        </div>
+        <div>
+          <label>Amenities: </label>
+          <input
+            type={'text'}
+            name={'comodidades'}
+            onChange={(e) => handleChange(e)}
+            placeholder="amenities..."
+            className={styles.input}
+          />
+          {error.comodidades && (
+            <p className={styles.error}>{error.comodidades}</p>
+          )}
+        </div>
+        <div>
+          <label>Number of beds: </label>
+          <input
+            type="number"
+            name="cantCamas"
+            onChange={(e) => handleChange(e)}
+            placeholder="number of beds..."
+            className={styles.input}
+          />
+          {error.cantCamas && <p className={styles.error}>{error.cantCamas}</p>}
+        </div>
+        <div>
+          <label>Room description: </label>
+          <input
+            type={'text'}
+            name={'descripcion'}
+            onChange={(e) => handleChange(e)}
+            placeholder="Type a description..."
+            className={styles.input}
+          />
+          {error.descripcion && (
+            <p className={styles.error}>{error.descripcion}</p>
+          )}
+        </div>
+        {input.privada === true && (
           <div>
-            {/* nombre */}
-
-            <label>Room name: </label>
+            {/* precioHabitacion */}
+            <label>Room price: </label>
             <input
-              type={'text'}
-              name={'nombre'}
+              type={'number'}
+              name={'precioHabitacion'}
               onChange={(e) => handleChange(e)}
-              placeholder="first name..."
+              placeholder="Room price..."
+              className={styles.input}
             />
-            {error.nombre && <p className={styles.error}>{error.nombre}</p>}
+            {error.precioHabitacion && (
+              <p className={styles.error}>{error.precioHabitacion}</p>
+            )}
           </div>
+        )}
+        {input.privada === false && (
           <div>
             {' '}
-            {/* privada */}
-            <label>Room type: </label>
-            <select name="privada" onChange={(e) => handlePrivateRoom(e)}>
-              <option value="null">Select...</option>
-              <option value="false">Shared</option>
-              <option value="true">Private</option>
-            </select>
-            {error.privada && <p className={styles.error}>{error.privada}</p>}
-          </div>
-          <div>
-            {/* banoPrivado */}
-            <label>Private bathroom: </label>
-            <select
-              name="banoPrivado"
-              onChange={(e) => handlePrivateBathroom(e)}
-            >
-              <option value="null">Select...</option>
-              <option value="false">Shared</option>
-              <option value="true">Private</option>
-            </select>
-            {error.banoPrivado && (
-              <p className={styles.error}>{error.banoPrivado}</p>
-            )}
-          </div>
-          <div>
-            {/* comodidades */}
-            <label>Amenities: </label>
+            {/* preciosCamas */}
+            <label>Bed price: </label>
             <input
-              type={'text'}
-              name={'comodidades'}
-              onChange={(e) => handleChange(e)}
-              placeholder="amenities..."
+              type={'number'}
+              name={'preciosCamas'}
+              onChange={(e) => setBedPrice(e.target.value)}
+              placeholder="Bed price..."
+              className={styles.input}
             />
-            {error.comodidades && (
-              <p className={styles.error}>{error.comodidades}</p>
-            )}
-          </div>
-          <div>
-            {/* cantCamas */}
-            <label>Number of beds: </label>
-            <input
-              type="number"
-              name="cantCamas"
-              onChange={(e) => handleChange(e)}
-              placeholder="number of beds..."
-            />
-            {error.cantCamas && (
-              <p className={styles.error}>{error.cantCamas}</p>
-            )}
-          </div>
-          <div>
-            {' '}
-            {/* descripcion */}
-            <label>Room description: </label>
-            <input
-              type={'text'}
-              name={'descripcion'}
-              onChange={(e) => handleChange(e)}
-              placeholder="Type a description..."
-            />
-            {error.descripcion && (
-              <p className={styles.error}>{error.descripcion}</p>
-            )}
-          </div>
-          {input.privada === true && (
-            <div>
-              {/* precioHabitacion */}
-              <label>Room price: </label>
-              <input
-                type={'number'}
-                name={'precioHabitacion'}
-                onChange={(e) => handleChange(e)}
-                placeholder="Room price..."
-              />
-              {error.precioHabitacion && (
-                <p className={styles.error}>{error.precioHabitacion}</p>
-              )}
-            </div>
-          )}
-          {input.privada === false && (
-            <div>
-              {' '}
-              {/* preciosCamas */}
-              <label>Bed price: </label>
-              <input
-                type={'number'}
-                name={'preciosCamas'}
-                onChange={(e) => setBedPrice(e.target.value)}
-                placeholder="Bed price..."
-              />
-              {bedPrice > 0 && (
-                <div className={styles.oneLine}>
-                  <button
-                    onClick={handleBedPriceLoad}
-                    className={styles.butoncito}
-                  >
-                    set
-                  </button>{' '}
-                  <div> Price seted to: {input?.preciosCamas[0]} </div>
-                </div>
-              )}
-              {error.preciosCamas && (
-                <p className={styles.error}>{error.preciosCamas}</p>
-              )}
-            </div>
-          )}
-          <div>
-            {/* imagenes */}
-            <label>Add 3 images: </label>
-            <input
-              type="text"
-              id="imagenes"
-              name="imagenes"
-              onChange={(e) => oneImage(e)}
-              placeholder="paste image url..."
-              value={image}
-            />
-            {input?.imagenes?.length < 3 && (
+            {bedPrice > 0 && (
               <div className={styles.oneLine}>
-                <button onClick={handleImageLoad} className={styles.butoncito}>
-                  load
+                <button
+                  onClick={handleBedPriceLoad}
+                  className={styles.butoncito}
+                >
+                  set
                 </button>{' '}
-                <div> {input?.imagenes?.length} images added</div>
+                <div> Price seted to: {input?.preciosCamas[0]} </div>
               </div>
             )}
-            {error.image && input?.imagenes?.length < 3 && (
-              <p className={styles.error}>{error.image}</p>
+            {error.preciosCamas && (
+              <p className={styles.error}>{error.preciosCamas}</p>
             )}
-            {error.imagenes && <p className={styles.error}>{error.imagenes}</p>}
           </div>
-          <div>
-            {' '}
-            {/* errores */}
-            {!input.cantCamas ||
-            error.name ||
-            error.privada ||
-            error.banoPrivado ||
-            error.comodidades ||
-            error.cantCamas ||
-            error.descripcion ||
-            error.precioHabitacion ||
-            error.preciosCamas ||
-            error.imagenes ? null : (
-              <button className={styles.butoncito} type="submit">
-                Create
+        )}
+        <div>
+          {/* imagenes */}
+          <label>Add 3 images: </label>
+          <input
+            type="text"
+            id="imagenes"
+            name="imagenes"
+            onChange={(e) => oneImage(e)}
+            placeholder="paste image url..."
+            className={styles.input}
+            value={image}
+          />
+          <div> {input?.imagenes?.length} images added</div>
+          {input?.imagenes?.length < 3 && (
+            <div className={styles.oneLine}>
+              <button onClick={handleImageLoad} className={styles.butoncito}>
+                load
               </button>
-            )}
-          </div>
-        </form>
-      </div>
+            </div>
+          )}
+          {error.image && input?.imagenes?.length < 3 && (
+            <p className={styles.error}>{error.image}</p>
+          )}
+          {error.imagenes && <p className={styles.error}>{error.imagenes}</p>}
+        </div>
+        <div>
+          {!input.cantCamas ||
+          error.name ||
+          error.privada ||
+          error.banoPrivado ||
+          error.comodidades ||
+          error.cantCamas ||
+          error.descripcion ||
+          error.precioHabitacion ||
+          error.preciosCamas ||
+          error.imagenes ? null : (
+            <button className={styles.butoncito} type="submit">
+              Create
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 }
