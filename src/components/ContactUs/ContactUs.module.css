@@ -173,6 +173,8 @@
   }
   .formulario::before {
     content: 'Hi, contact with us';
+    width: 100%;
+    text-align: center;
     font-size: 1.2rem;
     position: absolute;
     font-weight: bold;

@@ -61,7 +61,11 @@ export default function Reserva() {
       <div className={styles.relative}>
         <div className={styles.parallax} ref={divImage}></div>
         <FilterBar />
-        <div className={`${styles.RoomCardsContainer}`}>
+        <div
+          className={`${styles.RoomCardsContainer} ${
+            !filteredRooms.length ? styles.loader : ''
+          }`}
+        >
           {!dataForCards.length && !filteredRooms.length ? (
             <LoaderDark />
           ) : !flag && filteredRooms.length ? (
